@@ -32,5 +32,12 @@
    * [K Sum](Knapsack Problem/K Sum.md)
 
 * String and Sequence Extremum
-   * [Longest Common Subsequence](String Sequence Extremum/Longest Common Subsequence.md)
-   * [Longest Common Substring](String Sequence Extremum/Longest Common Substring.md)
+   * [Minimum Edit Distance](String and Sequence Extremum/Minimum Edit Distance.md)
+   * [Longest Common Subsequence](String and Sequence Extremum/Longest Common Subsequence.md)
+   * [Longest Common Substring](String and Sequence Extremum/Longest Common Substring.md)
+   * [Longest Palindromic Subsequence](String and Sequence Extremum/Longest Palindromic Subsequence.md)
+   * [Longest Palindromic Substring](String and Sequence Extremum/Longest Palindromic Substring.md)
+   * [Longest Increasing Subsequence](String and Sequence Extremum/Longest Increasing Subsequence.md)
+   * [Longest Increasing Substring](String and Sequence Extremum/Longest Increasing Substring.md)
+   * [Longest Increasing Continuous Subsequence in 2D Matrix](String and Sequence Extremum/Longest Increasing Continuous Subsequence in 2D Matrix.md)
+   * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
