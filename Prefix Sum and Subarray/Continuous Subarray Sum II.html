@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Maximum Submatrix · GitBook</title>
+        <title>Continuous Subarray Sum II · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Continuous Subarray Sum.html" />
     
-    
-    <link rel="prev" href="Maximum Subarray.html" />
+    <link rel="prev" href="Continuous Subarray Sum.html" />
     
 
     </head>
@@ -207,7 +205,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.8" data-path="Maximum Submatrix.html">
+        <li class="chapter " data-level="1.2.8" data-path="Maximum Submatrix.html">
             
                 <a href="Maximum Submatrix.html">
             
@@ -233,7 +231,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.10" data-path="Continuous Subarray Sum II.html">
+        <li class="chapter active" data-level="1.2.10" data-path="Continuous Subarray Sum II.html">
             
                 <a href="Continuous Subarray Sum II.html">
             
@@ -526,7 +524,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Maximum Submatrix</a>
+        <a href=".." >Continuous Subarray Sum II</a>
     </h1>
 </div>
 
@@ -542,87 +540,137 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-944-maximum-submatrix">LintCode 944. Maximum Submatrix</h3>
-<p><a href="https://www.lintcode.com/problem/maximum-submatrix/description" target="_blank">https://www.lintcode.com/problem/maximum-submatrix/description</a></p>
+<h3 id="lintcode-403-continuous-subarray-sum-ii">LintCode 403. Continuous Subarray Sum II</h3>
+<p><a href="https://www.lintcode.com/problem/continuous-subarray-sum-ii/description?_from=ladder&amp;&amp;fromId=4" target="_blank">https://www.lintcode.com/problem/continuous-subarray-sum-ii/description?_from=ladder&amp;&amp;fromId=4</a></p>
 <h1 id="solution">Solution</h1>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<pre><code class="lang-c++"><span class="hljs-keyword">struct</span> Record {
+    <span class="hljs-keyword">int</span> bgn, end, sum;
+
+    Record(<span class="hljs-keyword">int</span> bgn, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span> sum)
+      : bgn(bgn), end(end), sum(sum)
+    { }
+};
+
+
+<span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param matrix: the given matrix
-     * @return: the largest possible sum
+    <span class="hljs-comment">/*
+     * @param A: An integer array
+     * @return: A list of integers includes the index of the first number and the index of the last number
      */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxSubmatrix</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; &amp;matrix)</span> </span>{
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; continuousSubarraySumII(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;A) {
         <span class="hljs-comment">// write your code here</span>
 
         <span class="hljs-comment">/**
+         *  Denote the maximum subarray as S(i, j).
+         *  Then, we need to handle 2 scenarios.
          *
-         *  i        j
-         *  a1  b1  c1  d1      s1 (a1 + b1 + c1)
-         *  a2  b2  c2  d2      s2
-         *  a3  b3  c3  d3      s3                    s2    a2 b2 c2
-         *  .   .   .   .    =&gt; .                 =&gt;  .  =&gt; .  .  .
-         *  .   .   .   .       .                     sk    ak bk ck
-         *  an  bn  cn  dn      sn
+         *  1. i &lt; j, implying that the subarray locates in a normal range, or
+         *     non-cyclic range.
+         *
+         *  2. i &gt; j, implying that the subarray exceeds the boundary of the
+         *     input array, thus spanning a cyclic range. However, this also
+         *     implies that the minimum subarray locates in a normal range.
+         *     Thus, to get the maximum subarray, we can subract the total
+         *     sum of the input array with the minimum subarray.
+         *
+         *  Finally, compare the results generated in the aforementioned 2
+         *  scenarios to get the real maximum subarray.
+         *
+         *  e.g:
+         *
+         *       S0
+         *
+         * Sn-1       S1     =&gt; S1 -&gt; Si (i &lt;= n - 1) Normal range
+         *                   =&gt; Sj -&gt; S2 (j &lt;= n - 1) Cyclic range
+         *     S3   S2
          *
          */</span>
 
-        <span class="hljs-keyword">int</span> num_r = matrix.size();
-        <span class="hljs-keyword">if</span> (num_r == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        }
-        <span class="hljs-keyword">int</span> num_c = matrix[<span class="hljs-number">0</span>].size();
-        <span class="hljs-keyword">if</span> (num_c == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> n = A.size();
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> {<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>};
         }
 
-        <span class="hljs-keyword">int</span> ans = <span class="hljs-built_in">std</span>::numeric_limits&lt;<span class="hljs-keyword">int</span>&gt;::min();
-
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; num_c ; ++i) {
-
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; syn(num_r, <span class="hljs-number">0</span>);
-
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i ; j &lt; num_c ; ++j) {
-
-                <span class="hljs-comment">// Initialize a new synthetic column.</span>
-                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span> ; k &lt; num_r ; ++k) {
-                    syn[k] += matrix[k][j];
-                }
-
-                <span class="hljs-keyword">int</span> local = maxSubarray(syn);
-                ans = <span class="hljs-built_in">std</span>::max(ans, local);
-            }
+        <span class="hljs-keyword">int</span> total = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : A) {
+            total += num;
         }
 
-        <span class="hljs-keyword">return</span> ans;
+        <span class="hljs-keyword">auto</span> max = findMax(A, n);
+        <span class="hljs-keyword">auto</span> min = findMin(A, n);
+
+        <span class="hljs-keyword">if</span> (max.sum &gt; total - min.sum) {
+            <span class="hljs-keyword">return</span> {max.bgn, max.end};
+        }
+
+        <span class="hljs-comment">// All the array numbers are negative.</span>
+        <span class="hljs-keyword">if</span> (min.bgn == <span class="hljs-number">0</span> &amp;&amp; min.end == n - <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> {max.bgn, max.end};
+        }
+
+        <span class="hljs-keyword">int</span> bgn = min.end + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (bgn == n) {
+            bgn = <span class="hljs-number">0</span>;
+        }
+
+        <span class="hljs-keyword">int</span> end = min.bgn - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (end == <span class="hljs-number">-1</span>) {
+            end = n - <span class="hljs-number">1</span>;
+        }
+
+        <span class="hljs-keyword">return</span> {bgn, end};
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxSubarray</span><span class="hljs-params">(
-            <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; <span class="hljs-built_in">array</span>)</span> </span>{
+    <span class="hljs-function">Record <span class="hljs-title">findMax</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> n)</span> </span>{
 
-        <span class="hljs-comment">/**
-         *   A, B
-         *
-         *   A &gt; 0, B &gt; 0           ,  A + B &gt; A
-         *   A &gt; 0, B &lt; 0 &amp;&amp; |B| &gt; A,  A + B &lt; 0
-         */</span>
+        <span class="hljs-keyword">int</span> max = nums[<span class="hljs-number">0</span>], max_bgn = <span class="hljs-number">0</span>, max_end = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>, bgn = <span class="hljs-number">0</span>, end = <span class="hljs-number">0</span>;
 
-        <span class="hljs-keyword">int</span> size = <span class="hljs-built_in">array</span>.size();
+        <span class="hljs-keyword">while</span> (end &lt; n) {
+            sum += nums[end];
 
-        <span class="hljs-keyword">int</span> ans = <span class="hljs-built_in">array</span>[<span class="hljs-number">0</span>];
-        <span class="hljs-keyword">int</span> local = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">if</span> (sum &gt; max) {
+                max = sum;
+                max_bgn = bgn;
+                max_end = end;
+            }
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : <span class="hljs-built_in">array</span>) {
-            local += num;
+            ++end;
 
-            ans = <span class="hljs-built_in">std</span>::max(ans, local);
-
-            <span class="hljs-keyword">if</span> (local &lt; <span class="hljs-number">0</span>) {
-                local = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">if</span> (sum &lt; <span class="hljs-number">0</span>) {
+                sum = <span class="hljs-number">0</span>;
+                bgn = end;
             }
         }
 
-        <span class="hljs-keyword">return</span> ans;
+        <span class="hljs-keyword">return</span> Record(max_bgn, max_end, max);
+    }
+
+    <span class="hljs-function">Record <span class="hljs-title">findMin</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> n)</span> </span>{
+
+        <span class="hljs-keyword">int</span> min = nums[<span class="hljs-number">0</span>], min_bgn = <span class="hljs-number">0</span>, min_end = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>, bgn = <span class="hljs-number">0</span>, end = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">while</span> (end &lt; n) {
+            sum += nums[end];
+
+            <span class="hljs-keyword">if</span> (sum &lt; min) {
+                min = sum;
+                min_bgn = bgn;
+                min_end = end;
+            }
+
+            ++end;
+
+            <span class="hljs-keyword">if</span> (sum &gt; <span class="hljs-number">0</span>) {
+                sum = <span class="hljs-number">0</span>;
+                bgn = end;
+            }
+        }
+
+        <span class="hljs-keyword">return</span> Record(min_bgn, min_end, min);
     }
 };
 </code></pre>
@@ -653,14 +701,10 @@
 
             
                 
-                <a href="Maximum Subarray.html" class="navigation navigation-prev " aria-label="Previous page: Maximum Subarray">
+                <a href="Continuous Subarray Sum.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Continuous Subarray Sum">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="Continuous Subarray Sum.html" class="navigation navigation-next " aria-label="Next page: Continuous Subarray Sum">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -669,7 +713,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Maximum Submatrix","level":"1.2.8","depth":2,"next":{"title":"Continuous Subarray Sum","level":"1.2.9","depth":2,"path":"Prefix Sum and Subarray/Continuous Subarray Sum.md","ref":"Prefix Sum and Subarray/Continuous Subarray Sum.md","articles":[]},"previous":{"title":"Maximum Subarray","level":"1.2.7","depth":2,"path":"Prefix Sum and Subarray/Maximum Subarray.md","ref":"Prefix Sum and Subarray/Maximum Subarray.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Maximum Submatrix.md","mtime":"2019-07-04T13:37:50.889Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-05T03:15:39.302Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Continuous Subarray Sum II","level":"1.2.10","depth":2,"next":{"title":"Iterator","level":"1.3","depth":1,"ref":"","articles":[{"title":"Binary Tree Iterative Preorder Traversal","level":"1.3.1","depth":2,"path":"Iterator/Binary Tree Iterative Preorder Traversal.md","ref":"Iterator/Binary Tree Iterative Preorder Traversal.md","articles":[]},{"title":"Binary Tree Iterative Postorder Traversal","level":"1.3.2","depth":2,"path":"Iterator/Binary Tree Iterative Postorder Traversal.md","ref":"Iterator/Binary Tree Iterative Postorder Traversal.md","articles":[]}]},"previous":{"title":"Continuous Subarray Sum","level":"1.2.9","depth":2,"path":"Prefix Sum and Subarray/Continuous Subarray Sum.md","ref":"Prefix Sum and Subarray/Continuous Subarray Sum.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Continuous Subarray Sum II.md","mtime":"2019-07-04T13:44:12.164Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-05T03:15:39.302Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
