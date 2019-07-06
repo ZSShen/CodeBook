@@ -14,10 +14,6 @@
    * [Continuous Subarray Sum](Prefix Sum and Subarray/Continuous Subarray Sum.md)
    * [Continuous Subarray Sum II](Prefix Sum and Subarray/Continuous Subarray Sum II.md)
 
-* Iterator
-   * [Binary Tree Iterative Preorder Traversal](Iterator/Binary Tree Iterative Preorder Traversal.md)
-   * [Binary Tree Iterative Postorder Traversal](Iterator/Binary Tree Iterative Postorder Traversal.md)
-
 * Best Time to Buy and Sell Stocks
    * [Best Time to Buy and Sell Stocks](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md)
    * [Best Time to Buy and Sell Stocks II](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks II.md)
@@ -41,3 +37,21 @@
    * [Longest Increasing Substring](String and Sequence Extremum/Longest Increasing Substring.md)
    * [Longest Increasing Continuous Subsequence in 2D Matrix](String and Sequence Extremum/Longest Increasing Continuous Subsequence in 2D Matrix.md)
    * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
+
+* Game Theory
+   * [Coins in a Line](Game Theory/Coins in a Line.md)
+   * [Coins in a Line II](Game Theory/Coins in a Line II.md)
+   * [Coins in a Line III](Game Theory/Coins in a Line III.md)
+
+* Iterator
+   * [Binary Tree Iterative Preorder Traversal](Iterator/Binary Tree Iterative Preorder Traversal.md)
+   * [Binary Tree Iterative Postorder Traversal](Iterator/Binary Tree Iterative Postorder Traversal.md)
+
+* Binary Tree
+   * [Valid Binary Search Tree](Binary Tree/Valid Binary Search Tree.md)
+   * [Balanced Binary Tree](Binary Tree/Balanced Binary Tree.md)
+   * [Complete Binary Tree](Binary Tree/Complete Binary Tree.md)
+   * [Maximum Width of Binary Tree](Binary Tree/Maximum Width of Binary Tree.md)
+   * [Diameter of Binary Tree](Binary Tree/Diameter of Binary Tree.md)
+   * [Minimum Depth of Binary Tree](Binary Tree/Minimum Depth of Binary Tree.md)
+   * [Maximum Depth of Binary Tree](Binary Tree/Maximum Depth of Binary Tree.md)
