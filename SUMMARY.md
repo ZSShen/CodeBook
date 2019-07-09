@@ -63,6 +63,15 @@
    * [Lowest Common Ancestor of a Binary Tree III](Binary Tree/Lowest Common Ancestor of a Binary Tree III.md)
    * [Recover Binary Search Tree](Binary Tree/Recover Binary Search Tree.md)
 
+* Binary Approximation
+   * [Sqrt(x)](Binary Approximation/Sqrt.md)
+   * [Sqrt(x) II](Binary Approximation/Sqrt II.md)
+   * [Wood Cut](Binary Approximation/Wood Cut.md)
+   * [Copy Books](Binary Approximation/Copy Books.md)
+   * [Copy Books II](Binary Approximation/Copy Books II.md)
+
 * Sweep Line
    * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)
    * [Time Intersection](Sweep Line/Time Intersection.md)
+   * [Meeting Rooms](Sweep Line/Meeting Rooms.md)
+   * [Meeting Rooms II](Sweep Line/Meeting Rooms II.md)
