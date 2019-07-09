@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Best Time to Buy and Sell Stocks II · GitBook</title>
+        <title>Meeting Rooms II · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -58,7 +58,7 @@
 
     
     
-    <link rel="prev" href="Best Time to Buy and Sell Stocks.html" />
+    <link rel="prev" href="Meeting Rooms.html" />
     
 
     </head>
@@ -263,9 +263,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="Best Time to Buy and Sell Stocks.html">
+        <li class="chapter " data-level="1.3.1" data-path="../Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.html">
             
-                <a href="Best Time to Buy and Sell Stocks.html">
+                <a href="../Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.html">
             
                     
                     Best Time to Buy and Sell Stocks
@@ -276,9 +276,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.2" data-path="Best Time to Buy and Sell Stocks II.html">
+        <li class="chapter " data-level="1.3.2" data-path="../Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks II.html">
             
-                <a href="Best Time to Buy and Sell Stocks II.html">
+                <a href="../Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks II.html">
             
                     
                     Best Time to Buy and Sell Stocks II
@@ -942,9 +942,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../Sweep Line/Number of Airplanes in the Sky.html">
+        <li class="chapter " data-level="1.10.1" data-path="Number of Airplanes in the Sky.html">
             
-                <a href="../Sweep Line/Number of Airplanes in the Sky.html">
+                <a href="Number of Airplanes in the Sky.html">
             
                     
                     Number of Airplanes in the Sky
@@ -955,9 +955,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../Sweep Line/Time Intersection.html">
+        <li class="chapter " data-level="1.10.2" data-path="Time Intersection.html">
             
-                <a href="../Sweep Line/Time Intersection.html">
+                <a href="Time Intersection.html">
             
                     
                     Time Intersection
@@ -968,9 +968,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="../Sweep Line/Meeting Rooms.html">
+        <li class="chapter " data-level="1.10.3" data-path="Meeting Rooms.html">
             
-                <a href="../Sweep Line/Meeting Rooms.html">
+                <a href="Meeting Rooms.html">
             
                     
                     Meeting Rooms
@@ -981,9 +981,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.4" data-path="../Sweep Line/Meeting Rooms II.html">
+        <li class="chapter active" data-level="1.10.4" data-path="Meeting Rooms II.html">
             
-                <a href="../Sweep Line/Meeting Rooms II.html">
+                <a href="Meeting Rooms II.html">
             
                     
                     Meeting Rooms II
@@ -1029,7 +1029,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Best Time to Buy and Sell Stocks II</a>
+        <a href=".." >Meeting Rooms II</a>
     </h1>
 </div>
 
@@ -1045,57 +1045,84 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-150-best-time-to-buy-and-sell-stock-ii">LintCode 150. Best Time to Buy and Sell Stock II</h3>
-<p><a href="https://www.lintcode.com/problem/best-time-to-buy-and-sell-stock-ii/description" target="_blank">https://www.lintcode.com/problem/best-time-to-buy-and-sell-stock-ii/description</a></p>
+<h3 id="lintcode-919-meeting-rooms-ii">LintCode 919. Meeting Rooms II</h3>
+<p><a href="https://www.lintcode.com/problem/meeting-rooms-ii/description" target="_blank">https://www.lintcode.com/problem/meeting-rooms-ii/description</a></p>
 <h1 id="solution">Solution</h1>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<pre><code class="lang-c++"><span class="hljs-comment">/**
+ * Definition of Interval:
+ * classs Interval {
+ *     int start, end;
+ *     Interval(int start, int end) {
+ *         this-&gt;start = start;
+ *         this-&gt;end = end;
+ *     }
+ * }
+ */</span>
+
+<span class="hljs-keyword">struct</span> Record {
+    <span class="hljs-keyword">int</span> time;
+    <span class="hljs-keyword">char</span> type;
+
+    Record(<span class="hljs-keyword">int</span> time, <span class="hljs-keyword">char</span> type)
+      : time(time), type(type)
+    { }
+};
+
+
+<span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     <span class="hljs-comment">/**
-     * @param prices: Given an integer array
-     * @return: Maximum profit
+     * @param intervals: an array of meeting time intervals
+     * @return: the minimum number of conference rooms required
      */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;prices)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minMeetingRooms</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;Interval&gt; &amp;intervals)</span> </span>{
+        <span class="hljs-comment">// Write your code here</span>
 
         <span class="hljs-comment">/**
-         * 1 7 2 4 5 6 1
          *
-         *   *
-         *   *       *
-         *   *     * *
-         *   *   * * *
-         *   *   * * *
-         *   * * * * *
-         * * * * * * * *
-         * _____________
+         *    ****  ****
          *
-         * Objective: Aggregate all the ascending segments.
+         *  ******************
          *
-         *      Segments: (0, 1), (2, 6)
-         *      Value   : 6     , 4
+         *  0 5 10 15 20 25 30
+         *
          */</span>
 
-        <span class="hljs-keyword">int</span> n = prices.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Record&gt; recs;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; interval : intervals) {
+            recs.push_back(Record(interval.start, Event::BGN));
+            recs.push_back(Record(interval.end, Event::END));
         }
 
-        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> bgn = <span class="hljs-number">0</span>, end = <span class="hljs-number">1</span>;
-
-        <span class="hljs-keyword">while</span> (end &lt; n) {
-
-            <span class="hljs-comment">// Find the ending position of the current ascending segment.</span>
-            <span class="hljs-keyword">if</span> (prices[end] &lt; prices[end - <span class="hljs-number">1</span>]) {
-                ans += prices[end - <span class="hljs-number">1</span>] - prices[bgn];
-                bgn = end;
+        <span class="hljs-built_in">std</span>::sort(recs.begin(), recs.end(),
+            [] (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; lhs, <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; rhs) {
+                <span class="hljs-keyword">if</span> (lhs.time == rhs.time) {
+                    <span class="hljs-keyword">return</span> lhs.type &lt; rhs.type;
+                }
+                <span class="hljs-keyword">return</span> lhs.time &lt; rhs.time;
             }
-            ++end;
+        );
+
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; rec : recs) {
+            <span class="hljs-keyword">if</span> (rec.type == Event::BGN) {
+                ++count;
+                ans = <span class="hljs-built_in">std</span>::max(ans, count);
+            } <span class="hljs-keyword">else</span> {
+                --count;
+            }
         }
-        ans += prices[end - <span class="hljs-number">1</span>] - prices[bgn];
 
         <span class="hljs-keyword">return</span> ans;
     }
+
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">enum</span> Event {
+        END,
+        BGN
+    };
 };
 </code></pre>
 
@@ -1125,7 +1152,7 @@
 
             
                 
-                <a href="Best Time to Buy and Sell Stocks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Best Time to Buy and Sell Stocks">
+                <a href="Meeting Rooms.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Meeting Rooms">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -1137,7 +1164,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Best Time to Buy and Sell Stocks II","level":"1.3.2","depth":2,"next":{"title":"Knapsack Problem","level":"1.4","depth":1,"ref":"","articles":[{"title":"Backpack I","level":"1.4.1","depth":2,"path":"Knapsack Problem/Backpack I.md","ref":"Knapsack Problem/Backpack I.md","articles":[]},{"title":"Backpack II","level":"1.4.2","depth":2,"path":"Knapsack Problem/Backpack II.md","ref":"Knapsack Problem/Backpack II.md","articles":[]},{"title":"Backpack III","level":"1.4.3","depth":2,"path":"Knapsack Problem/Backpack III.md","ref":"Knapsack Problem/Backpack III.md","articles":[]},{"title":"Backpack IV","level":"1.4.4","depth":2,"path":"Knapsack Problem/Backpack IV.md","ref":"Knapsack Problem/Backpack IV.md","articles":[]},{"title":"Backpack V","level":"1.4.5","depth":2,"path":"Knapsack Problem/Backpack V.md","ref":"Knapsack Problem/Backpack V.md","articles":[]},{"title":"Backpack VI","level":"1.4.6","depth":2,"path":"Knapsack Problem/Backpack VI.md","ref":"Knapsack Problem/Backpack VI.md","articles":[]},{"title":"K Sum","level":"1.4.7","depth":2,"path":"Knapsack Problem/K Sum.md","ref":"Knapsack Problem/K Sum.md","articles":[]}]},"previous":{"title":"Best Time to Buy and Sell Stocks","level":"1.3.1","depth":2,"path":"Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md","ref":"Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks II.md","mtime":"2019-07-08T02:44:52.531Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-09T10:00:27.922Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Meeting Rooms II","level":"1.10.4","depth":2,"previous":{"title":"Meeting Rooms","level":"1.10.3","depth":2,"path":"Sweep Line/Meeting Rooms.md","ref":"Sweep Line/Meeting Rooms.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sweep Line/Meeting Rooms II.md","mtime":"2019-07-08T13:21:27.624Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-09T10:00:27.922Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
