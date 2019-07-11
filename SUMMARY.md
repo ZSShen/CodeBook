@@ -38,6 +38,11 @@
    * [Longest Increasing Continuous Subsequence in 2D Matrix](String and Sequence Extremum/Longest Increasing Continuous Subsequence in 2D Matrix.md)
    * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
 
+* String Scramble
+   * [Distinct Subsequences](String Scramble/Distinct Subsequences.md)
+   * [Interleaving String](String Scramble/Interleaving String.md)
+   * [Scramble String](String Scramble/Scramble String.md)
+
 * Game Theory
    * [Coins in a Line](Game Theory/Coins in a Line.md)
    * [Coins in a Line II](Game Theory/Coins in a Line II.md)
@@ -69,9 +74,15 @@
    * [Wood Cut](Binary Approximation/Wood Cut.md)
    * [Copy Books](Binary Approximation/Copy Books.md)
    * [Copy Books II](Binary Approximation/Copy Books II.md)
+   * [Find the Duplicate Number](Binary Approximation/Find the Duplicate Number.md)
 
 * Sweep Line
    * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)
    * [Time Intersection](Sweep Line/Time Intersection.md)
    * [Meeting Rooms](Sweep Line/Meeting Rooms.md)
    * [Meeting Rooms II](Sweep Line/Meeting Rooms II.md)
+
+* Data Structure Design
+   * [Trie](Data Structure Design/Trie.md)
+   * [Insert Delete GetRandom O(1)](Data Structure Design/Insert Delete GetRandom.md)
+   * [LRU Cache](Data Structure Design/LRU Cache.md)
