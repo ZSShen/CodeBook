@@ -27,6 +27,15 @@
    * [Backpack VI](Knapsack Problem/Backpack VI.md)
    * [K Sum](Knapsack Problem/K Sum.md)
 
+* Matrix Chain Multiplication
+   * [Stone Game](Matrix Chain Multiplication/Stone Game.md)
+   * [Stone Game II](Matrix Chain Multiplication/Stone Game II.md)
+   * [Burst Balloons](Matrix Chain Multiplication/Burst Balloons.md)
+
+* Fibonacci Sequence
+   * [Decode Ways](Fibonacci Sequence/Decode Ways.md)
+   * [Decode Ways II](Fibonacci Sequence/Decode Ways II.md)
+
 * String and Sequence Extremum
    * [Minimum Edit Distance](String and Sequence Extremum/Minimum Edit Distance.md)
    * [Longest Common Subsequence](String and Sequence Extremum/Longest Common Subsequence.md)
@@ -75,6 +84,7 @@
    * [Copy Books](Binary Approximation/Copy Books.md)
    * [Copy Books II](Binary Approximation/Copy Books II.md)
    * [Find the Duplicate Number](Binary Approximation/Find the Duplicate Number.md)
+   * [Maximum Average Subarray II](Binary Approximation/Maximum Average Subarray II.md)
 
 * Sweep Line
    * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)
