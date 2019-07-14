@@ -17,6 +17,8 @@
 * Best Time to Buy and Sell Stocks
    * [Best Time to Buy and Sell Stocks](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md)
    * [Best Time to Buy and Sell Stocks II](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks II.md)
+   * [Best Time to Buy and Sell Stocks III](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks III.md)
+   * [Best Time to Buy and Sell Stocks IV](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks IV.md)
 
 * Knapsack Problem
    * [Backpack I](Knapsack Problem/Backpack I.md)
@@ -35,6 +37,9 @@
 * Fibonacci Sequence
    * [Decode Ways](Fibonacci Sequence/Decode Ways.md)
    * [Decode Ways II](Fibonacci Sequence/Decode Ways II.md)
+   * [House Robber](Fibonacci Sequence/House Robber.md)
+   * [House Robber II](Fibonacci Sequence/House Robber II.md)
+   * [House Robber III](Fibonacci Sequence/House Robber III.md)
 
 * String and Sequence Extremum
    * [Minimum Edit Distance](String and Sequence Extremum/Minimum Edit Distance.md)
@@ -62,6 +67,8 @@
    * [Binary Tree Iterative Inorder Traversal](Iterator/Binary Tree Iterative Inorder Traversal.md)
    * [Binary Tree Iterative Postorder Traversal](Iterator/Binary Tree Iterative Postorder Traversal.md)
    * [Inorder Sucessor in BST](Iterator/Inorder Successor in BST.md)
+   * [Flatten Binary Tree to Linked List](Iterator/Flatten Binary Tree to Linked List.md)
+   * [Flatten Nested List](Iterator/Flatten Nested List.md)
 
 * Binary Tree
    * [Valid Binary Search Tree](Binary Tree/Valid Binary Search Tree.md)

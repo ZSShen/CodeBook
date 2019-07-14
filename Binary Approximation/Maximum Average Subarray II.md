@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 437. Copy Books
-https://www.lintcode.com/problem/copy-books/description
+### LintCode 617. Maximum Average Subarray II
+https://www.lintcode.com/problem/maximum-average-subarray-ii/description
 
 # Solution
 ```c++

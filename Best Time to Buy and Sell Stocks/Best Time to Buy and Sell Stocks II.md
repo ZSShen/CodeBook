@@ -1,6 +1,6 @@
 
 # Problem
-### LintCode 150. Best Time to Buy and Sell Stock II
+### LintCode 150. Best Time to Buy and Sell Stocks II
 https://www.lintcode.com/problem/best-time-to-buy-and-sell-stock-ii/description
 
 # Solution
