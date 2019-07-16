@@ -69,6 +69,12 @@
    * [Inorder Sucessor in BST](Iterator/Inorder Successor in BST.md)
    * [Flatten Binary Tree to Linked List](Iterator/Flatten Binary Tree to Linked List.md)
    * [Flatten Nested List](Iterator/Flatten Nested List.md)
+   * [Flatten Nested List Iterator](Iterator/Flatten Nested List Iterator.md)
+   * [Flatten 2D Vector](Iterator/Flatten 2D Vector.md)
+   * [ZigZag Iterator](Iterator/ZigZag Iterator.md)
+   * [ZigZag Iterator II](Iterator/ZigZag Iterator II.md)
+   * [Nested List Weight Sum](Iterator/Nested List Weight Sum.md)
+   * [Nested List Weight Sum II](Iterator/Nested List Weight Sum II.md)
 
 * Binary Tree
    * [Valid Binary Search Tree](Binary Tree/Valid Binary Search Tree.md)
@@ -83,6 +89,9 @@
    * [Lowest Common Ancestor of a Binary Tree II](Binary Tree/Lowest Common Ancestor of a Binary Tree II.md)
    * [Lowest Common Ancestor of a Binary Tree III](Binary Tree/Lowest Common Ancestor of a Binary Tree III.md)
    * [Recover Binary Search Tree](Binary Tree/Recover Binary Search Tree.md)
+
+* Expression Parsing
+   * [Evaluate Reverse Polish Notation](Expression Parsing/Evaluate Reverse Polish Notation.md)
 
 * Binary Approximation
    * [Sqrt(x)](Binary Approximation/Sqrt.md)
