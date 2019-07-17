@@ -91,7 +91,16 @@
    * [Recover Binary Search Tree](Binary Tree/Recover Binary Search Tree.md)
 
 * Expression Parsing
-   * [Evaluate Reverse Polish Notation](Expression Parsing/Evaluate Reverse Polish Notation.md)
+   * [Convert Infix Expression to Postfix Expression](Expression Parsing/Convert Infix Expression to Postfix Expression.md)
+   * [Convert Infix Expression to Prefix Expression](Expression Parsing/Convert Infix Expression to Prefix Expression.md)
+   * [Evaluate Postfix Expression](Expression Parsing/Evaluate Postfix Expression.md)
+   * [Evaluate Infix Expression](Expression Parsing/Evaluate Infix Expression.md)
+   * [Expression Tree Construction](Expression Parsing/Expression Tree Construction.md)
+
+* Word Puzzle
+   * [Word Break](Word Puzzle/Word Break.md)
+   * [Word Break II](Word Puzzle/Word Break II.md)
+   * [Word Break III](Word Puzzle/Word Break III.md)
 
 * Binary Approximation
    * [Sqrt(x)](Binary Approximation/Sqrt.md)
