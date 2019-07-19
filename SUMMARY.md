@@ -101,6 +101,14 @@
    * [Word Break](Word Puzzle/Word Break.md)
    * [Word Break II](Word Puzzle/Word Break II.md)
    * [Word Break III](Word Puzzle/Word Break III.md)
+   * [Word Ladder](Word Puzzle/Word Ladder.md)
+   * [Word Ladder II](Word Puzzle/Word Ladder II.md)
+   * [Word Search](Word Puzzle/Word Search.md)
+   * [Word Search II](Word Puzzle/Word Search II.md)
+   * [Word Pattern](Word Puzzle/Word Pattern.md)
+   * [Word Pattern II](Word Puzzle/Word Pattern II.md)
+   * [Word Squares](Word Puzzle/Word Squares.md)
+   * [Valid Word Square](Word Puzzle/Valid Word Square.md)
 
 * Binary Approximation
    * [Sqrt(x)](Binary Approximation/Sqrt.md)
