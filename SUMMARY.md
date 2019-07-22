@@ -17,6 +17,7 @@
 * Sliding Window
    * [Window Sum](Sliding Window/Window Sum.md)
    * [Sliding Window Median](Sliding Window/Sliding Window Median.md)
+   * [Sliding Window Maximum](Sliding Window/Sliding Window Maximum.md)
    * [Longest Substring without Repeating Characters](Sliding Window/Longest Substring without Repeating Characters.md)
    * [Longest Substring with at Most K Distinct Characters](Sliding Window/Longest Substring with at Most K Distinct Characters.md)
    * [Minimum Window Substring](Sliding Window/Minimum Window Substring.md)
@@ -25,7 +26,14 @@
 
 * Monotonous Stack
    * [Min Stack](Monotonous Stack/Min Stack.md)
+   * [Next Greater Element I](Monotonous Stack/Next Greater Element I.md)
    * [Next Greater Element II](Monotonous Stack/Next Greater Element II.md)
+   * [Largest Rectangle in Histogram](Monotonous Stack/Largest Rectangle in Histogram.md)
+   * [Maximal Rectangle](Monotonous Stack/Maximal Rectangle.md)
+   * [Maximum Binary Tree](Monotonous Stack/Maximum Binary Tree.md)
+
+* Priority Queue
+   * [Kth Smallest Number in Sorted Matrix](Priority Queue/Kth Smallest Number in Sorted Matrix.md)
 
 * Best Time to Buy and Sell Stocks
    * [Best Time to Buy and Sell Stocks](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md)
@@ -46,6 +54,7 @@
    * [Stone Game](Matrix Chain Multiplication/Stone Game.md)
    * [Stone Game II](Matrix Chain Multiplication/Stone Game II.md)
    * [Burst Balloons](Matrix Chain Multiplication/Burst Balloons.md)
+   * [Unique Binary Search Trees](Matrix Chain Multiplication/Unique Binary Search Trees.md)
 
 * Fibonacci Sequence
    * [Decode Ways](Fibonacci Sequence/Decode Ways.md)
