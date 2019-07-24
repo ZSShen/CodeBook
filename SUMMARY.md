@@ -34,6 +34,16 @@
 
 * Priority Queue
    * [Kth Smallest Number in Sorted Matrix](Priority Queue/Kth Smallest Number in Sorted Matrix.md)
+   * [Kth Smallest Sum in Two Sorted Arrays](Priority Queue/Kth Smallest Sum in Two Sorted Arrays.md)
+   * [Kth Largest in N Arrays](Priority Queue/Kth Largest in N Arrays.md)
+   * [Ugly Number II](Priority Queue/Ugly Number II.md)
+   * [Super Ugly Number](Priority Queue/Super Ugly Number.md)
+   * [K Closest Points](Priority Queue/K Closest Points.md)
+
+* Flood and Fill
+   * [Number of Islands](Flood and Fill/Number of Islands.md)
+   * [Number of Islands II](Flood and Fill/Number of Islands II.md)
+   * [Surrounded Regions](Flood and Fill/Surrounded Regions.md)
 
 * Best Time to Buy and Sell Stocks
    * [Best Time to Buy and Sell Stocks](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md)
