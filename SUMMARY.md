@@ -121,6 +121,26 @@
    * [Lowest Common Ancestor of a Binary Tree II](Binary Tree/Lowest Common Ancestor of a Binary Tree II.md)
    * [Lowest Common Ancestor of a Binary Tree III](Binary Tree/Lowest Common Ancestor of a Binary Tree III.md)
    * [Recover Binary Search Tree](Binary Tree/Recover Binary Search Tree.md)
+   * [Binary Tree Maximum Path Sum](Binary Tree/Binary Tree Maximum Path Sum.md)
+   * [Binary Tree Maximum Path Sum II](Binary Tree/Binary Tree Maximum Path Sum II.md)
+   * [Binary Tree Path Sum](Binary Tree/Binary Tree Path Sum.md)
+   * [Binary Tree Path Sum II](Binary Tree/Binary Tree Path Sum II.md)
+   * [Binary Tree Path Sum IV](Binary Tree/Binary Tree Path Sum IV.md)
+
+* Binary Search
+   * [First Bad Version](Binary Search/First Bad Version.md)
+   * [Search a 2D Matrix](Binary Search/Search a 2D Matrix.md)
+   * [Search a 2D Matrix II](Binary Search/Search a 2D Matrix II.md)
+   * [Search for a Range](Binary Search/Search for a Range.md)
+
+* Binary Approximation
+   * [Sqrt(x)](Binary Approximation/Sqrt.md)
+   * [Sqrt(x) II](Binary Approximation/Sqrt II.md)
+   * [Wood Cut](Binary Approximation/Wood Cut.md)
+   * [Copy Books](Binary Approximation/Copy Books.md)
+   * [Copy Books II](Binary Approximation/Copy Books II.md)
+   * [Find the Duplicate Number](Binary Approximation/Find the Duplicate Number.md)
+   * [Maximum Average Subarray II](Binary Approximation/Maximum Average Subarray II.md)
 
 * Expression Parsing
    * [Convert Infix Expression to Postfix Expression](Expression Parsing/Convert Infix Expression to Postfix Expression.md)
@@ -142,20 +162,15 @@
    * [Word Squares](Word Puzzle/Word Squares.md)
    * [Valid Word Square](Word Puzzle/Valid Word Square.md)
 
-* Binary Approximation
-   * [Sqrt(x)](Binary Approximation/Sqrt.md)
-   * [Sqrt(x) II](Binary Approximation/Sqrt II.md)
-   * [Wood Cut](Binary Approximation/Wood Cut.md)
-   * [Copy Books](Binary Approximation/Copy Books.md)
-   * [Copy Books II](Binary Approximation/Copy Books II.md)
-   * [Find the Duplicate Number](Binary Approximation/Find the Duplicate Number.md)
-   * [Maximum Average Subarray II](Binary Approximation/Maximum Average Subarray II.md)
-
 * Sweep Line
    * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)
    * [Time Intersection](Sweep Line/Time Intersection.md)
    * [Meeting Rooms](Sweep Line/Meeting Rooms.md)
    * [Meeting Rooms II](Sweep Line/Meeting Rooms II.md)
+
+* Graph Theory Basics
+   * [Graph Valid Tree](Graph Theory Basics/Graph Valid Tree.md)
+   * [Minimum Spanning Tree](Graph Theory Basics/Minimum Spanning Tree.md)
 
 * Data Structure Design
    * [Trie](Data Structure Design/Trie.md)
