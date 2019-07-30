@@ -44,6 +44,8 @@
    * [Number of Islands](Flood and Fill/Number of Islands.md)
    * [Number of Islands II](Flood and Fill/Number of Islands II.md)
    * [Surrounded Regions](Flood and Fill/Surrounded Regions.md)
+   * [Walls and Gates](Flood and Fill/Walls and Gates.md)
+   * [Pacific Atlantic Water Flow](Flood and Fill/Pacific Atlantic Water Flow.md)
 
 * Best Time to Buy and Sell Stocks
    * [Best Time to Buy and Sell Stocks](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md)
@@ -83,6 +85,7 @@
    * [Longest Increasing Substring](String and Sequence Extremum/Longest Increasing Substring.md)
    * [Longest Increasing Continuous Subsequence in 2D Matrix](String and Sequence Extremum/Longest Increasing Continuous Subsequence in 2D Matrix.md)
    * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
+   * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
 
 * String Scramble
    * [Distinct Subsequences](String Scramble/Distinct Subsequences.md)
@@ -126,6 +129,11 @@
    * [Binary Tree Path Sum](Binary Tree/Binary Tree Path Sum.md)
    * [Binary Tree Path Sum II](Binary Tree/Binary Tree Path Sum II.md)
    * [Binary Tree Path Sum IV](Binary Tree/Binary Tree Path Sum IV.md)
+   * [Convert BST to Greater Tree](Binary Tree/Convert BST to Greater Tree.md)
+   * [Find Leaves of Binary Tree](Binary Tree/Find Leaves of Binary Tree.md)
+   * [Binary Tree Upside Down](Binary Tree/Binary Tree Upside Down.md)
+   * [Binary Tree Vertical Order Traversal](Binary Tree/Binary Tree Vertical Order Traversal.md)
+   * [Binary Tree Zig Zag Level Order Traversal](Binary Tree/Binary Tree Zig Zag Level Order Traversal.md)
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)
@@ -167,6 +175,10 @@
    * [Time Intersection](Sweep Line/Time Intersection.md)
    * [Meeting Rooms](Sweep Line/Meeting Rooms.md)
    * [Meeting Rooms II](Sweep Line/Meeting Rooms II.md)
+
+* Topological Sort
+   * [Course Schedule](Topological Sort/Course Schedule.md)
+   * [Sequence Reconstruction](Topological Sort/Sequence Reconstruction.md)
 
 * Graph Theory Basics
    * [Graph Valid Tree](Graph Theory Basics/Graph Valid Tree.md)
