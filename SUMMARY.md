@@ -134,6 +134,10 @@
    * [Binary Tree Upside Down](Binary Tree/Binary Tree Upside Down.md)
    * [Binary Tree Vertical Order Traversal](Binary Tree/Binary Tree Vertical Order Traversal.md)
    * [Binary Tree Zig Zag Level Order Traversal](Binary Tree/Binary Tree Zig Zag Level Order Traversal.md)
+   * [Serialize and Deserialize Binary Tree](Binary Tree/Serialize and Deserialize Binary Tree.md)
+   * [Construct Binary Tree from Preorder and Inorder Traversal](Binary Tree/Construct Binary Tree from Preorder and Inorder Traversal.md)
+   * [Construct Binary Tree from Postorder and Inorder Traversal](Binary Tree/Construct Binary Tree from Postorder and Inorder Traversal.md)
+   * [Construct Binary Tree from Preorder and Postorder Traversal](Binary Tree/Construct Binary Tree from Preorder and Postorder Traversal.md)
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)
@@ -169,6 +173,11 @@
    * [Word Pattern II](Word Puzzle/Word Pattern II.md)
    * [Word Squares](Word Puzzle/Word Squares.md)
    * [Valid Word Square](Word Puzzle/Valid Word Square.md)
+   * [Valid Anagram](Word Puzzle/Valid Anagram.md)
+
+* General DFS
+   * [N Queens](General DFS/N Queens.md)
+   * [Letter Combination of a Phone Number](General DFS/Letter Combinations of a Phone Number.md)
 
 * Sweep Line
    * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)

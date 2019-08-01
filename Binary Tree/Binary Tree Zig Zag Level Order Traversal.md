@@ -5,7 +5,7 @@
 https://www.lintcode.com/problem/binary-tree-zigzag-level-order-traversal/description
 
 # Solution
-```
+```c++
 /**
  * Definition of TreeNode:
  * class TreeNode {
