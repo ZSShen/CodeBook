@@ -144,6 +144,7 @@
    * [Search a 2D Matrix](Binary Search/Search a 2D Matrix.md)
    * [Search a 2D Matrix II](Binary Search/Search a 2D Matrix II.md)
    * [Search for a Range](Binary Search/Search for a Range.md)
+   * [Pow (x,n)](Binary Search/Pow x n.md)
 
 * Binary Approximation
    * [Sqrt(x)](Binary Approximation/Sqrt.md)
@@ -174,6 +175,10 @@
    * [Word Squares](Word Puzzle/Word Squares.md)
    * [Valid Word Square](Word Puzzle/Valid Word Square.md)
    * [Valid Anagram](Word Puzzle/Valid Anagram.md)
+   * [Group Anagrams](Word Puzzle/Group Anagrams.md)
+   * [Find All Anagrams in a String](Word Puzzle/Find All Anagrams in a String.md)
+   * [Word Abbreviation](Word Puzzle/Word Abbreviation.md)
+   * [Unique Word Abbreviation](Word Puzzle/Unique Word Abbreviation.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)
@@ -192,6 +197,12 @@
 * Graph Theory Basics
    * [Graph Valid Tree](Graph Theory Basics/Graph Valid Tree.md)
    * [Minimum Spanning Tree](Graph Theory Basics/Minimum Spanning Tree.md)
+
+* Simulation Puzzle
+   * [Missing Ranges](Simulation Puzzle/Missing Ranges.md)
+   * [Integer to Roman](Simulation Puzzle/Integer to Roman.md)
+   * [Roman to Integer](Simulation Puzzle/Roman to Integer.md)
+   * [Find the Celebrity](Simulation Puzzle/Find the Celebrity.md)
 
 * Data Structure Design
    * [Trie](Data Structure Design/Trie.md)
