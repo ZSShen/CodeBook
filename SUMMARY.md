@@ -162,6 +162,14 @@
    * [Evaluate Infix Expression](Expression Parsing/Evaluate Infix Expression.md)
    * [Expression Tree Construction](Expression Parsing/Expression Tree Construction.md)
 
+* Number Parsing
+   * [Valid Number](Number Parsing/Valid Number.md)
+   * [String to Integer (atoi)](Number Parsing/String to Integer.md)
+   * [Binary Representation](Number Parsing/Binary Representation.md)
+   * [Palindrome Number](Number Parsing/Palindrome Number.md)
+   * [Add Digits](Number Parsing/Add Digits.md)
+   * [Happy Number](Number Parsing/Happy Number.md)
+
 * Word Puzzle
    * [Word Break](Word Puzzle/Word Break.md)
    * [Word Break II](Word Puzzle/Word Break II.md)
@@ -183,6 +191,10 @@
 * General DFS
    * [N Queens](General DFS/N Queens.md)
    * [Letter Combination of a Phone Number](General DFS/Letter Combinations of a Phone Number.md)
+
+* Interval Query
+   * [Merge Intervals](Interval Query/Merge Intervals.md)
+   * [Insert Interval](Interval Query/Insert Interval.md)
 
 * Sweep Line
    * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)
