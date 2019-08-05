@@ -18,6 +18,7 @@
    * [Window Sum](Sliding Window/Window Sum.md)
    * [Sliding Window Median](Sliding Window/Sliding Window Median.md)
    * [Sliding Window Maximum](Sliding Window/Sliding Window Maximum.md)
+   * [Subarray Product Less than K](Sliding Window/Subarray Product Less than K.md)
    * [Longest Substring without Repeating Characters](Sliding Window/Longest Substring without Repeating Characters.md)
    * [Longest Substring with at Most K Distinct Characters](Sliding Window/Longest Substring with at Most K Distinct Characters.md)
    * [Minimum Window Substring](Sliding Window/Minimum Window Substring.md)
@@ -39,6 +40,7 @@
    * [Ugly Number II](Priority Queue/Ugly Number II.md)
    * [Super Ugly Number](Priority Queue/Super Ugly Number.md)
    * [K Closest Points](Priority Queue/K Closest Points.md)
+   * [High Five](Priority Queue/High Five.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -86,6 +88,9 @@
    * [Longest Increasing Continuous Subsequence in 2D Matrix](String and Sequence Extremum/Longest Increasing Continuous Subsequence in 2D Matrix.md)
    * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
+   * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
+   * [Longest Palindrome](String and Sequence Extremum/Longest Palindrome.md)
+   * [Decrease to be Palindrome](String and Sequence Extremum/Decrease to be Palindrome.md)
 
 * String Scramble
    * [Distinct Subsequences](String Scramble/Distinct Subsequences.md)
@@ -138,6 +143,8 @@
    * [Construct Binary Tree from Preorder and Inorder Traversal](Binary Tree/Construct Binary Tree from Preorder and Inorder Traversal.md)
    * [Construct Binary Tree from Postorder and Inorder Traversal](Binary Tree/Construct Binary Tree from Postorder and Inorder Traversal.md)
    * [Construct Binary Tree from Preorder and Postorder Traversal](Binary Tree/Construct Binary Tree from Preorder and Postorder Traversal.md)
+   * [Maximum Subtree](Binary Tree/Maximum Subtree.md)
+   * [Subtree with Maximum Average](Binary Tree/Subtree with Maximum Average.md)
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)
@@ -185,6 +192,7 @@
    * [Valid Anagram](Word Puzzle/Valid Anagram.md)
    * [Group Anagrams](Word Puzzle/Group Anagrams.md)
    * [Find All Anagrams in a String](Word Puzzle/Find All Anagrams in a String.md)
+   * [Valid Word Abbreviation](Word Puzzle/Valid Word Abbreviation.md)
    * [Word Abbreviation](Word Puzzle/Word Abbreviation.md)
    * [Unique Word Abbreviation](Word Puzzle/Unique Word Abbreviation.md)
 
