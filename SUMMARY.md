@@ -25,6 +25,8 @@
    * [Moving Average from Data Stream](Sliding Window/Moving Average from Data Stream.md)
    * [Find Median from Data Stream](Sliding Window/Find Median from Data Stream.md)
 
+* Two Sum
+
 * Monotonous Stack
    * [Min Stack](Monotonous Stack/Min Stack.md)
    * [Next Greater Element I](Monotonous Stack/Next Greater Element I.md)
@@ -48,6 +50,11 @@
    * [Surrounded Regions](Flood and Fill/Surrounded Regions.md)
    * [Walls and Gates](Flood and Fill/Walls and Gates.md)
    * [Pacific Atlantic Water Flow](Flood and Fill/Pacific Atlantic Water Flow.md)
+   * [Set Matrix Zeros](Flood and Fill/Set Matrix Zeros.md)
+
+* Post Office
+   * [Build Post Office II](Post Office/Build Post Office II.md)
+   * [Post Office Problem](Post Office/Post Office Problem.md)
 
 * Best Time to Buy and Sell Stocks
    * [Best Time to Buy and Sell Stocks](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks.md)
@@ -79,6 +86,7 @@
 
 * String and Sequence Extremum
    * [Minimum Edit Distance](String and Sequence Extremum/Minimum Edit Distance.md)
+   * [One Edit Distance](String and Sequence Extremum/One Edit Distance.md)
    * [Longest Common Subsequence](String and Sequence Extremum/Longest Common Subsequence.md)
    * [Longest Common Substring](String and Sequence Extremum/Longest Common Substring.md)
    * [Longest Palindromic Subsequence](String and Sequence Extremum/Longest Palindromic Subsequence.md)
@@ -196,6 +204,10 @@
    * [Word Abbreviation](Word Puzzle/Word Abbreviation.md)
    * [Unique Word Abbreviation](Word Puzzle/Unique Word Abbreviation.md)
 
+* Linked List
+   * [Delete Node in a Linked List](Linked List/Delete Node in a Linked List.md)
+   * [Copy List with Random Pointer](Linked List/Copy List with Random Pointer.md)
+
 * General DFS
    * [N Queens](General DFS/N Queens.md)
    * [Letter Combination of a Phone Number](General DFS/Letter Combinations of a Phone Number.md)
@@ -223,6 +235,8 @@
    * [Integer to Roman](Simulation Puzzle/Integer to Roman.md)
    * [Roman to Integer](Simulation Puzzle/Roman to Integer.md)
    * [Find the Celebrity](Simulation Puzzle/Find the Celebrity.md)
+   * [Largest Number](Simulation Puzzle/Largest Number.md)
+   * [Strobogrammatic Number](Simulation Puzzle/Strobogrammatic Number.md)
 
 * Data Structure Design
    * [Trie](Data Structure Design/Trie.md)
