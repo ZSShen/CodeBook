@@ -26,6 +26,15 @@
    * [Find Median from Data Stream](Sliding Window/Find Median from Data Stream.md)
 
 * Two Sum
+   * [3Sum](Two Sum/3Sum.md)
+   * [4Sum](Two Sum/4Sum.md)
+   * [3Sum Closest](Two Sum/3Sum Closest.md)
+
+* Element Partition
+   * [Move Zeros](Element Partition/Move Zeros.md)
+   * [Partition Array](Element Partition/Partition Array.md)
+   * [Sort Colors](Element Partition/Sort Colors.md)
+   * [Kth Smallest Number in Unsorted Array](Element Partition/Kth Smallest Number in Unsorted Array.md)
 
 * Monotonous Stack
    * [Min Stack](Monotonous Stack/Min Stack.md)
@@ -207,6 +216,8 @@
 * Linked List
    * [Delete Node in a Linked List](Linked List/Delete Node in a Linked List.md)
    * [Copy List with Random Pointer](Linked List/Copy List with Random Pointer.md)
+   * [Insert into a Cyclic Sorted List](Linked List/Insert into a Cyclic Sorted List.md)
+   * [Reverse Linked List II](Linked List/Reverse Linked List II.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)
