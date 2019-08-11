@@ -218,10 +218,20 @@
    * [Copy List with Random Pointer](Linked List/Copy List with Random Pointer.md)
    * [Insert into a Cyclic Sorted List](Linked List/Insert into a Cyclic Sorted List.md)
    * [Reverse Linked List II](Linked List/Reverse Linked List II.md)
+   * [Partition List](Linked List/Partition List.md)
+   * [Sort List](Linked List/Sort List.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)
    * [Letter Combination of a Phone Number](General DFS/Letter Combinations of a Phone Number.md)
+   * [Sudoku Solver](General DFS/Sudoku Solver.md)
+   * [Palindrome Partitioning](General DFS/Palindrome Partitioning.md)
+
+* Combination DFS
+   * [Combination Sum](Combination DFS/Combination Sum.md)
+   * [Combination Sum II](Combination DFS/Combination Sum II.md)
+   * [K Sum II](Combination DFS/K Sum II.md)
+   * [Split String](Combination DFS/Split String.md)
 
 * Interval Query
    * [Merge Intervals](Interval Query/Merge Intervals.md)
