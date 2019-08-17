@@ -169,6 +169,11 @@
    * [Search a 2D Matrix II](Binary Search/Search a 2D Matrix II.md)
    * [Search for a Range](Binary Search/Search for a Range.md)
    * [Pow (x,n)](Binary Search/Pow x n.md)
+   * [Find K Closest Elements](Binary Search/Find K Closest Elements.md)
+   * [Find Minimum in Rotated Sorted Array](Binary Search/Find Minimum in Rotated Sorted Array.md)
+   * [Maximum Number in Mountain Sequence](Binary Search/Maximum Number in Mountain Sequence.md)
+   * [Search in Rotated Sorted Array](Binary Search/Search in Rotated Sorted Array.md)
+   * [Divide Two Integers](Binary Search/Divide Two Integers.md)
 
 * Binary Approximation
    * [Sqrt(x)](Binary Approximation/Sqrt.md)
@@ -228,10 +233,17 @@
    * [Palindrome Partitioning](General DFS/Palindrome Partitioning.md)
 
 * Combination DFS
+   * [Subsets](Combination DFS/Subsets.md)
+   * [Subsets II](Combination DFS/Subsets II.md)
    * [Combination Sum](Combination DFS/Combination Sum.md)
    * [Combination Sum II](Combination DFS/Combination Sum II.md)
    * [K Sum II](Combination DFS/K Sum II.md)
    * [Split String](Combination DFS/Split String.md)
+
+* Permutation DFS
+   * [Permutations](Permutation DFS/Permutations.md)
+   * [Permutations II](Permutation DFS/Permutations II.md)
+   * [Next Permutation](Permutation DFS/Next Permutation.md)
 
 * Interval Query
    * [Merge Intervals](Interval Query/Merge Intervals.md)
