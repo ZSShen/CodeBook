@@ -29,12 +29,14 @@
    * [3Sum](Two Sum/3Sum.md)
    * [4Sum](Two Sum/4Sum.md)
    * [3Sum Closest](Two Sum/3Sum Closest.md)
+   * [2Sum III Data Structure Design](Two Sum/2Sum III Data Structure Design.md)
 
 * Element Partition
    * [Move Zeros](Element Partition/Move Zeros.md)
    * [Partition Array](Element Partition/Partition Array.md)
    * [Sort Colors](Element Partition/Sort Colors.md)
    * [Kth Smallest Number in Unsorted Array](Element Partition/Kth Smallest Number in Unsorted Array.md)
+   * [Remove Duplicates from Sorted Array](Element Partition/Remove Duplicates from Sorted Array.md)
 
 * Monotonous Stack
    * [Min Stack](Monotonous Stack/Min Stack.md)
@@ -225,6 +227,10 @@
    * [Reverse Linked List II](Linked List/Reverse Linked List II.md)
    * [Partition List](Linked List/Partition List.md)
    * [Sort List](Linked List/Sort List.md)
+   * [Convert Binary Tree to Linked List by Depth](Linked List/Convert Binary Tree to Linked List by Depth.md)
+
+* General BFS
+   * [Clone Graph](General BFS/Clone Graph.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)
