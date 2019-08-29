@@ -8,11 +8,11 @@ https://www.lintcode.com/problem/combination-sum-ii/description
 class Solution {
 public:
     /**
-     * @param candidates: A list of integers
-     * @param target: An integer
-     * @return: A list of lists of integers
+     * @param num: Given the candidate numbers
+     * @param target: Given the target number
+     * @return: All the combinations that sum to target
      */
-    vector<vector<int>> combinationSum(vector<int> &cands, int target) {
+    vector<vector<int>> combinationSum2(vector<int> &cands, int target) {
         // write your code here
 
         int n = cands.size();
@@ -24,7 +24,7 @@ public:
 
         std::vector<int> collect;
         std::vector<std::vector<int>> ans;
-        runBackTracking(cands, 0, 0, n, target, collect, ans);
+        runBackTracking(cands, 0, n, target, collect, ans);
 
         return ans;
     }
@@ -32,7 +32,7 @@ public:
 private:
     void runBackTracking(
             const std::vector<int>& cands,
-            int index, int depth, int bound,
+            int index, int bound,
             int target,
             std::vector<int>& collect,
             std::vector<std::vector<int>>& ans) {
@@ -43,7 +43,6 @@ private:
         }
 
         for (int i = index ; i < bound ; ++i) {
-
             if (i > index && cands[i] == cands[i - 1]) {
                 continue;
             }
@@ -54,7 +53,7 @@ private:
 
             collect.push_back(cands[i]);
             runBackTracking(
-                cands, i, depth + 1, bound, target - cands[i], collect, ans);
+                cands, i + 1, bound, target - cands[i], collect, ans);
             collect.pop_back();
         }
     }

@@ -37,6 +37,7 @@
    * [Sort Colors](Element Partition/Sort Colors.md)
    * [Kth Smallest Number in Unsorted Array](Element Partition/Kth Smallest Number in Unsorted Array.md)
    * [Remove Duplicates from Sorted Array](Element Partition/Remove Duplicates from Sorted Array.md)
+   * [Intersection of Two Arrays II](Element Partition/Intersection of Two Arrays II.md)
 
 * Monotonous Stack
    * [Min Stack](Monotonous Stack/Min Stack.md)
@@ -115,6 +116,8 @@
    * [Distinct Subsequences](String Scramble/Distinct Subsequences.md)
    * [Interleaving String](String Scramble/Interleaving String.md)
    * [Scramble String](String Scramble/Scramble String.md)
+   * [Wildcard Matching](String Scramble/Wildcard Matching.md)
+   * [Regular Expression Matching](String Scramble/Regular Expression Matching.md)
 
 * Game Theory
    * [Coins in a Line](Game Theory/Coins in a Line.md)
@@ -164,6 +167,10 @@
    * [Construct Binary Tree from Preorder and Postorder Traversal](Binary Tree/Construct Binary Tree from Preorder and Postorder Traversal.md)
    * [Maximum Subtree](Binary Tree/Maximum Subtree.md)
    * [Subtree with Maximum Average](Binary Tree/Subtree with Maximum Average.md)
+   * [Closest Binary Search Tree Value](Binary Tree/Closest Binary Search Tree Value.md)
+   * [Closest Binary Search Tree Value II](Binary Tree/Closest Binary Search Tree Value II.md)
+   * [Insert Node in Binary Search Tree](Binary Tree/Insert Node in Binary Search Tree.md)
+   * [Remove Node in Binary Search Tree](Binary Tree/Remove Node in Binary Search Tree.md)
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)
@@ -250,6 +257,7 @@
    * [Permutations](Permutation DFS/Permutations.md)
    * [Permutations II](Permutation DFS/Permutations II.md)
    * [Next Permutation](Permutation DFS/Next Permutation.md)
+   * [Next Closest Time](Permutation DFS/Next Closest Time.md)
 
 * Interval Query
    * [Merge Intervals](Interval Query/Merge Intervals.md)
@@ -276,6 +284,7 @@
    * [Find the Celebrity](Simulation Puzzle/Find the Celebrity.md)
    * [Largest Number](Simulation Puzzle/Largest Number.md)
    * [Strobogrammatic Number](Simulation Puzzle/Strobogrammatic Number.md)
+   * [Sparse Matrix Multiplication](Simulation Puzzle/Sparse Matrix Multiplication.md)
 
 * Data Structure Design
    * [Trie](Data Structure Design/Trie.md)
