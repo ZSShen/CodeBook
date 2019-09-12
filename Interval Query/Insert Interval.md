@@ -41,6 +41,7 @@ public:
             }
         }
 
+        // Compare the beginning timestamp.
         auto iter = intervals.begin();
         if (newInterval.start < intervals[l].start) {
             intervals.insert(iter + l, newInterval);

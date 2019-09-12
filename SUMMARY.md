@@ -55,6 +55,7 @@
    * [Super Ugly Number](Priority Queue/Super Ugly Number.md)
    * [K Closest Points](Priority Queue/K Closest Points.md)
    * [High Five](Priority Queue/High Five.md)
+   * [Merge K Sorted Interval Lists](Priority Queue/Merge K Sorted Interval Lists.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -238,12 +239,16 @@
 
 * General BFS
    * [Clone Graph](General BFS/Clone Graph.md)
+   * [The Maze](General BFS/The Maze.md)
+   * [Open the Lock](General BFS/Open the Lock.md)
+   * [Sliding Puzzle II](General BFS/Sliding Puzzle II.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)
    * [Letter Combination of a Phone Number](General DFS/Letter Combinations of a Phone Number.md)
    * [Sudoku Solver](General DFS/Sudoku Solver.md)
    * [Palindrome Partitioning](General DFS/Palindrome Partitioning.md)
+   * [Remove Invalid Parentheses](General DFS/Remove Invalid Parentheses.md)
 
 * Combination DFS
    * [Subsets](Combination DFS/Subsets.md)
@@ -272,6 +277,7 @@
 * Topological Sort
    * [Course Schedule](Topological Sort/Course Schedule.md)
    * [Sequence Reconstruction](Topological Sort/Sequence Reconstruction.md)
+   * [Alien Dictionary](Topological Sort/Alien Dictionary.md)
 
 * Graph Theory Basics
    * [Graph Valid Tree](Graph Theory Basics/Graph Valid Tree.md)
@@ -285,6 +291,7 @@
    * [Largest Number](Simulation Puzzle/Largest Number.md)
    * [Strobogrammatic Number](Simulation Puzzle/Strobogrammatic Number.md)
    * [Sparse Matrix Multiplication](Simulation Puzzle/Sparse Matrix Multiplication.md)
+   * [Simplify Path](Simulation Puzzle/Simplify Path.md)
 
 * Data Structure Design
    * [Trie](Data Structure Design/Trie.md)
