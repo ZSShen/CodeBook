@@ -1,8 +1,8 @@
 # Problem
 
-### LintCode 71. Binary Tree Zig Zag Level Order Traversal
+### 901. Closest Binary Search Tree Value II
 
-https://www.lintcode.com/problem/binary-tree-zigzag-level-order-traversal/description
+https://www.lintcode.com/problem/closest-binary-search-tree-value-ii/description
 
 # Solution
 ```c++

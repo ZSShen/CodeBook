@@ -29,24 +29,66 @@ public:
     int closestValue(TreeNode * root, double target) {
         // write your code here
 
-        int ans;
-        double min_diff = INT_MAX;
+        /**
+         * lower_bound: the max value which is less than target.
+         * upper_bound: the min value which is greater than or equal to target.
+         */
 
-        while (root) {
-            double diff = std::abs(target - static_cast<double>(root->val));
-            if (diff < min_diff) {
-                min_diff = diff;
-                ans = root->val;
-            }
+        auto lower = findLowerBound(root, target);
+        auto upper = findUpperBound(root, target);
 
-            if (root->val <= target) {
-                root = root->right;
-            } else {
-                root = root->left;
-            }
+        if (!lower) {
+            return upper->val;
+        }
+        if (!upper) {
+            return lower->val;
         }
 
-        return ans;
+        if ((target - static_cast<double>(lower->val)) <
+            (static_cast<double>(upper->val) - target)) {
+            return lower->val;
+        }
+
+        return upper->val;
+    }
+
+private:
+    TreeNode* findLowerBound(TreeNode* root, double target) {
+
+        if (!root) {
+            return nullptr;
+        }
+
+        if (target <= root->val) {
+            return findLowerBound(root->left, target);
+        }
+
+        // target > root->val
+        auto lower = findLowerBound(root->right, target);
+        if (lower) {
+            return lower;
+        }
+
+        return root;
+    }
+
+    TreeNode* findUpperBound(TreeNode* root, double target) {
+
+        if (!root) {
+            return nullptr;
+        }
+
+        if (root->val < target) {
+            return findUpperBound(root->right, target);
+        }
+
+        // target <= root->val
+        auto upper = findUpperBound(root->left, target);
+        if (upper) {
+            return upper;
+        }
+
+        return root;
     }
 };
 ```

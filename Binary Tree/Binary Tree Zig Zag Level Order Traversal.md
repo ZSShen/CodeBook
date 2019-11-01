@@ -1,11 +1,12 @@
 # Problem
 
-### LintCode 901. Closest Binary Search Tree Value II
+### 71. Binary Tree Zigzag Level Order Traversal
 
-https://www.lintcode.com/problem/closest-binary-search-tree-value-ii/description
+https://www.lintcode.com/problem/binary-tree-zigzag-level-order-traversal/description
 
 # Solution
 ```c++
+
 /**
  * Definition of TreeNode:
  * class TreeNode {
@@ -44,6 +45,15 @@ public:
          *
          * Upon finishing consuming the nodes collected in the first stack,
          * we override the first stack with the content of the second stack.
+         *
+         *      Visualization:
+         *
+         *      ------>-----> level 0  L -> R
+         *                  |
+         *      <-----<-----| level 1  R -> L
+         *      |
+         *      |----->-----> level 2  L -> R
+         *
          */
 
         if (!root) {
