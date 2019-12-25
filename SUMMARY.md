@@ -38,6 +38,7 @@
    * [Kth Smallest Number in Unsorted Array](Element Partition/Kth Smallest Number in Unsorted Array.md)
    * [Remove Duplicates from Sorted Array](Element Partition/Remove Duplicates from Sorted Array.md)
    * [Intersection of Two Arrays II](Element Partition/Intersection of Two Arrays II.md)
+   * [Rotate String](Element Partition/Rotate String.md)
 
 * Monotonous Stack
    * [Min Stack](Monotonous Stack/Min Stack.md)
@@ -83,6 +84,7 @@
    * [Backpack V](Knapsack Problem/Backpack V.md)
    * [Backpack VI](Knapsack Problem/Backpack VI.md)
    * [K Sum](Knapsack Problem/K Sum.md)
+   * [Coin Change](Knapsack Problem/Coin Change.md)
 
 * Matrix Chain Multiplication
    * [Stone Game](Matrix Chain Multiplication/Stone Game.md)
@@ -185,6 +187,7 @@
    * [Find Minimum in Rotated Sorted Array](Binary Search/Find Minimum in Rotated Sorted Array.md)
    * [Maximum Number in Mountain Sequence](Binary Search/Maximum Number in Mountain Sequence.md)
    * [Search in Rotated Sorted Array](Binary Search/Search in Rotated Sorted Array.md)
+   * [Search in Rotated Sorted Array II](Binary Search/Search in Rotated Sorted Array II.md)
    * [Divide Two Integers](Binary Search/Divide Two Integers.md)
 
 * Binary Approximation
