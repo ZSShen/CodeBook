@@ -20,40 +20,33 @@ public:
             return 0;
         }
 
-        std::vector<int> bag(256, 0);
-        int l = 0, r = 0;
+        std::vector<int> freq(256, 0);
         int count = 0;
-        int ans = 0;
 
-        while (r < n) {
+        int max = 0;
 
+        int l = 0;
+        for (int r = 0 ; r < n ; ++r) {
             char ch = s[r];
-            ++bag[ch];
 
-            if (bag[ch] == 1) {
+            ++freq[ch];
+            if (freq[ch] == 1) {
                 ++count;
             }
 
-            if (count <= k) {
-                // Update the window size here.
-                ans = std::max(ans, r - l + 1);
-            } else {
-                while (count > k) {
-                    ch = s[l];
+            while (l <= r && count > k) {
+                ch = s[l++];
 
-                    --bag[ch];
-                    if (bag[ch] == 0) {
-                        --count;
-                    }
-
-                    ++l;
+                --freq[ch];
+                if (freq[ch] == 0) {
+                    --count;
                 }
             }
 
-            ++r;
+            max = std::max(max, r - l + 1);
         }
 
-        return ans;
+        return max;
     }
 };
 ```

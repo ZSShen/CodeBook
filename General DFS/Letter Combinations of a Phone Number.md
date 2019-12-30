@@ -1,39 +1,62 @@
 
 # Problem
-### LintCode 158. Valid Anagram
-https://www.lintcode.com/problem/valid-anagram/description
+### LintCode 425. Letter Combinations of a Phone Number
+https://www.lintcode.com/problem/letter-combinations-of-a-phone-number/description
 
 # Solution
 ```c++
 class Solution {
 public:
+    Solution()
+      : map({
+          {'2', {'a', 'b', 'c'}},
+          {'3', {'d', 'e', 'f'}},
+          {'4', {'g', 'h', 'i'}},
+          {'5', {'j', 'k', 'l'}},
+          {'6', {'m', 'n', 'o'}},
+          {'7', {'p', 'q', 'r', 's'}},
+          {'8', {'t', 'u', 'v'}},
+          {'9', {'w', 'x', 'y', 'z'}},
+      })
+    { }
+
     /**
-     * @param s: The first string
-     * @param t: The second string
-     * @return: true or false
+     * @param digits: A digital string
+     * @return: all posible letter combinations
      */
-    bool anagram(string &s, string &t) {
+    vector<string> letterCombinations(string &digits) {
         // write your code here
 
-        std::vector<int> freq_s(256, 0);
-        std::vector<int> freq_t(256, 0);
-
-        for (char ch : s) {
-            ++freq_s[ch];
-        }
-        for (char ch : t) {
-            ++freq_t[ch];
+        std::vector<std::string> ans;
+        if (digits.empty()) {
+            return ans;
         }
 
-        bool check = true;
-        for (int i = 0 ; i < 256 ; ++i) {
-            if (freq_s[i] != freq_t[i]) {
-                check = false;
-                break;
-            }
-        }
-
-        return check;
+        std::string config;
+        runBackTracking(0, digits.length(), digits, config, ans);
+        return ans;
     }
+
+private:
+    void runBackTracking(
+            int index, int bound,
+            const std::string& digits,
+            std::string& config,
+            std::vector<std::string>& ans) {
+
+        if (index == bound) {
+            ans.push_back(config);
+            return;
+        }
+
+        char digit = digits[index];
+        for (char ch : map[digit]) {
+            config.push_back(ch);
+            runBackTracking(index + 1, bound, digits, config, ans);
+            config.pop_back();
+        }
+    }
+
+    std::unordered_map<char, std::vector<char>> map;
 };
 ```

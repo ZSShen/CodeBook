@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 425. Letter Combinations of a Phone Number
-https://www.lintcode.com/problem/letter-combinations-of-a-phone-number/description
+### LintCode 802. Sudoku Solver
+https://www.lintcode.com/problem/sudoku-solver/description
 
 # Solution
 ```c++

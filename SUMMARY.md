@@ -7,12 +7,14 @@
    * [Subarray Sum II](Prefix Sum and Subarray/Subarray Sum II.md)
    * [Submatrix Sum](Prefix Sum and Subarray/Submatrix Sum.md)
    * [Subarray Sum Closest](Prefix Sum and Subarray/Subarray Sum Closest.md)
+   * [Subarray Sum Equals K](Prefix Sum and Subarray/Subarray Sum Equals K.md)
    * [Minimum Size Subarray Sum](Prefix Sum and Subarray/Minimum Size Subarray Sum.md)
    * [Maximum Size Subarray Sum Equals K](Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md)
    * [Maximum Subarray](Prefix Sum and Subarray/Maximum Subarray.md)
    * [Maximum Submatrix](Prefix Sum and Subarray/Maximum Submatrix.md)
    * [Continuous Subarray Sum](Prefix Sum and Subarray/Continuous Subarray Sum.md)
    * [Continuous Subarray Sum II](Prefix Sum and Subarray/Continuous Subarray Sum II.md)
+   * [Max Consecutive Ones III](Prefix Sum and Subarray/Max Consecutive Ones III.md)
 
 * Sliding Window
    * [Window Sum](Sliding Window/Window Sum.md)
@@ -21,6 +23,7 @@
    * [Subarray Product Less than K](Sliding Window/Subarray Product Less than K.md)
    * [Longest Substring without Repeating Characters](Sliding Window/Longest Substring without Repeating Characters.md)
    * [Longest Substring with at Most K Distinct Characters](Sliding Window/Longest Substring with at Most K Distinct Characters.md)
+   * [Find All Anagrams in a String](Sliding Window/Find All Anagrams in a String.md)
    * [Minimum Window Substring](Sliding Window/Minimum Window Substring.md)
    * [Moving Average from Data Stream](Sliding Window/Moving Average from Data Stream.md)
    * [Find Median from Data Stream](Sliding Window/Find Median from Data Stream.md)
@@ -65,6 +68,7 @@
    * [Walls and Gates](Flood and Fill/Walls and Gates.md)
    * [Pacific Atlantic Water Flow](Flood and Fill/Pacific Atlantic Water Flow.md)
    * [Set Matrix Zeros](Flood and Fill/Set Matrix Zeros.md)
+   * [Island Perimeter](Flood and Fill/Island Perimeter.md)
 
 * Post Office
    * [Build Post Office II](Post Office/Build Post Office II.md)
@@ -255,6 +259,7 @@
    * [Sudoku Solver](General DFS/Sudoku Solver.md)
    * [Palindrome Partitioning](General DFS/Palindrome Partitioning.md)
    * [Remove Invalid Parentheses](General DFS/Remove Invalid Parentheses.md)
+   * [Reconstruct Itinerary](General DFS/Reconstruct Itinerary.md)
 
 * Combination DFS
    * [Subsets](Combination DFS/Subsets.md)
