@@ -103,6 +103,7 @@
    * [House Robber II](Fibonacci Sequence/House Robber II.md)
    * [House Robber III](Fibonacci Sequence/House Robber III.md)
    * [4 Keys Keyboard](Fibonacci Sequence/4 Keys Keyboard.md)
+   * [Minimum Cost for Tickets](Fibonacci Sequence/Minimum Cost for Tickets.md)
 
 * String and Sequence Extremum
    * [Minimum Edit Distance](String and Sequence Extremum/Minimum Edit Distance.md)
