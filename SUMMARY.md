@@ -49,7 +49,7 @@
    * [Next Greater Element II](Monotonous Stack/Next Greater Element II.md)
    * [Largest Rectangle in Histogram](Monotonous Stack/Largest Rectangle in Histogram.md)
    * [Maximal Rectangle](Monotonous Stack/Maximal Rectangle.md)
-   * [Maximum Binary Tree](Monotonous Stack/Maximum Binary Tree.md)
+   * [Max Tree](Monotonous Stack/Max Tree.md)
 
 * Priority Queue
    * [Kth Smallest Number in Sorted Matrix](Priority Queue/Kth Smallest Number in Sorted Matrix.md)
@@ -60,6 +60,9 @@
    * [K Closest Points](Priority Queue/K Closest Points.md)
    * [High Five](Priority Queue/High Five.md)
    * [Merge K Sorted Interval Lists](Priority Queue/Merge K Sorted Interval Lists.md)
+
+* Greedy
+   * [Reorganize String](Priority Queue/Reorganize String.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -89,6 +92,8 @@
    * [Backpack VI](Knapsack Problem/Backpack VI.md)
    * [K Sum](Knapsack Problem/K Sum.md)
    * [Coin Change](Knapsack Problem/Coin Change.md)
+   * [Number of Dice Rolls with Target Sum](Knapsack Problem/Number of Dice Rolls with Target Sum.md)
+   * [Target Sum](Knapsack Problem/Target Sum.md)
 
 * Matrix Chain Multiplication
    * [Stone Game](Matrix Chain Multiplication/Stone Game.md)
@@ -109,6 +114,7 @@
    * [Minimum Edit Distance](String and Sequence Extremum/Minimum Edit Distance.md)
    * [One Edit Distance](String and Sequence Extremum/One Edit Distance.md)
    * [Longest Common Subsequence](String and Sequence Extremum/Longest Common Subsequence.md)
+   * [Shortest Common Supersequence](String and Sequence Extremum/Shortest Common Supersequence.md)
    * [Longest Common Substring](String and Sequence Extremum/Longest Common Substring.md)
    * [Longest Palindromic Subsequence](String and Sequence Extremum/Longest Palindromic Subsequence.md)
    * [Longest Palindromic Substring](String and Sequence Extremum/Longest Palindromic Substring.md)
@@ -120,6 +126,7 @@
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
    * [Longest Palindrome](String and Sequence Extremum/Longest Palindrome.md)
    * [Decrease to be Palindrome](String and Sequence Extremum/Decrease to be Palindrome.md)
+   * [Minimum Insertion Steps to Make a String Palindrome](String and Sequence Extremum/Minimum Insertion Steps to Make a String Palindrome.md)
 
 * String Scramble
    * [Distinct Subsequences](String Scramble/Distinct Subsequences.md)
@@ -181,6 +188,7 @@
    * [Closest Binary Search Tree Value II](Binary Tree/Closest Binary Search Tree Value II.md)
    * [Insert Node in Binary Search Tree](Binary Tree/Insert Node in Binary Search Tree.md)
    * [Remove Node in Binary Search Tree](Binary Tree/Remove Node in Binary Search Tree.md)
+   * [All Nodes Distance K in Binary Tree](Binary Tree/All Nodes Distance K in Binary Tree.md)
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)
