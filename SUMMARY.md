@@ -10,6 +10,7 @@
    * [Subarray Sum Equals K](Prefix Sum and Subarray/Subarray Sum Equals K.md)
    * [Minimum Size Subarray Sum](Prefix Sum and Subarray/Minimum Size Subarray Sum.md)
    * [Maximum Size Subarray Sum Equals K](Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md)
+   * [Contiguous Array](Prefix Sum and Subarray/Contiguous Array.md)
    * [Maximum Subarray](Prefix Sum and Subarray/Maximum Subarray.md)
    * [Maximum Submatrix](Prefix Sum and Subarray/Maximum Submatrix.md)
    * [Continuous Subarray Sum](Prefix Sum and Subarray/Continuous Subarray Sum.md)
@@ -40,6 +41,7 @@
    * [Sort Colors](Element Partition/Sort Colors.md)
    * [Kth Smallest Number in Unsorted Array](Element Partition/Kth Smallest Number in Unsorted Array.md)
    * [Remove Duplicates from Sorted Array](Element Partition/Remove Duplicates from Sorted Array.md)
+   * [Remove Duplicates from Sorted Array II](Element Partition/Remove Duplicates from Sorted Array II.md)
    * [Intersection of Two Arrays II](Element Partition/Intersection of Two Arrays II.md)
    * [Rotate String](Element Partition/Rotate String.md)
 
@@ -63,6 +65,7 @@
 
 * Greedy
    * [Reorganize String](Priority Queue/Reorganize String.md)
+   * [Task Scheduler](Priority Queue/Task Scheduler.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -92,6 +95,7 @@
    * [Backpack VI](Knapsack Problem/Backpack VI.md)
    * [K Sum](Knapsack Problem/K Sum.md)
    * [Coin Change](Knapsack Problem/Coin Change.md)
+   * [Coin Change II](Knapsack Problem/Coin Change II.md)
    * [Number of Dice Rolls with Target Sum](Knapsack Problem/Number of Dice Rolls with Target Sum.md)
    * [Target Sum](Knapsack Problem/Target Sum.md)
 
