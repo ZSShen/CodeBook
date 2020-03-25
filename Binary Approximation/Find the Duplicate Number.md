@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 183. Wood Cut
-https://www.lintcode.com/problem/wood-cut/description
+### LintCode 633. Find the Duplicate Number
+https://www.lintcode.com/problem/find-the-duplicate-number/description
 
 # Solution
 ```c++

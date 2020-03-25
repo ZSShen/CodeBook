@@ -8,6 +8,7 @@
    * [Submatrix Sum](Prefix Sum and Subarray/Submatrix Sum.md)
    * [Subarray Sum Closest](Prefix Sum and Subarray/Subarray Sum Closest.md)
    * [Subarray Sum Equals K](Prefix Sum and Subarray/Subarray Sum Equals K.md)
+   * [Subarray Sum Divisible by K](Prefix Sum and Subarray/Subarray Sum Divisible by K.md)
    * [Minimum Size Subarray Sum](Prefix Sum and Subarray/Minimum Size Subarray Sum.md)
    * [Maximum Size Subarray Sum Equals K](Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md)
    * [Contiguous Array](Prefix Sum and Subarray/Contiguous Array.md)
@@ -131,6 +132,9 @@
    * [Longest Palindrome](String and Sequence Extremum/Longest Palindrome.md)
    * [Decrease to be Palindrome](String and Sequence Extremum/Decrease to be Palindrome.md)
    * [Minimum Insertion Steps to Make a String Palindrome](String and Sequence Extremum/Minimum Insertion Steps to Make a String Palindrome.md)
+
+* String and Sequence Properties
+   * [Is Subsequences](String and Sequence Properties/Is Subsequences.md)
 
 * String Scramble
    * [Distinct Subsequences](String Scramble/Distinct Subsequences.md)
@@ -259,10 +263,12 @@
    * [Partition List](Linked List/Partition List.md)
    * [Sort List](Linked List/Sort List.md)
    * [Convert Binary Tree to Linked List by Depth](Linked List/Convert Binary Tree to Linked List by Depth.md)
+   * [Linked List Cycle II](Linked List/Linked List Cycle II.md)
 
 * General BFS
    * [Clone Graph](General BFS/Clone Graph.md)
    * [The Maze](General BFS/The Maze.md)
+   * [The Maze II](General BFS/The Maze II.md)
    * [Open the Lock](General BFS/Open the Lock.md)
    * [Sliding Puzzle II](General BFS/Sliding Puzzle II.md)
 

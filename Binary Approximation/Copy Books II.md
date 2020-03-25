@@ -1,6 +1,6 @@
 
 # Problem
-### LintCode 438. Copy Books
+### LintCode 438. Copy Books II
 https://www.lintcode.com/problem/copy-books-ii/description
 
 # Solution

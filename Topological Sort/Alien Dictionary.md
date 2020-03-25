@@ -7,91 +7,69 @@ https://www.lintcode.com/problem/alien-dictionary/description
 ```c++
 class Solution {
 public:
-    /**
-     * @param words: a list of words
-     * @return: a string which is correct order
-     */
-    string alienOrder(vector<string> &words) {
-        // Write your code here
+    string alienOrder(vector<string>& words) {
 
-        int num = words.size();
-        if (num == 0) {
-            return "";
-        }
-        if (num == 1 && words[0].length() == 1) {
-            return words[0];
-        }
+        unordered_map<char, unordered_set<char>> graph;
+        unordered_map<char, int> indeg;
 
-        std::unordered_map<char, std::unordered_set<char>> graph;
-        std::unordered_map<char, int> indeg;
+        int n = words.size();
+        for (int i = 1 ; i <= n ; ++i) {
+            const auto& src = words[i - 1];
+            const auto& dst = (i < n) ? words[i] : "";
 
-        for (int i = 1 ; i < num ; ++i) {
-            int j = i - 1;
-            const auto& src = words[j];
-            const auto& dst = words[i];
+            int ls = src.length();
+            int ld = dst.length();
 
-            int len_src = src.length();
-            int len_dst = dst.length();
+            int is = 0, id = 0;
+            bool found_diff = false;
+            while (is < ls || id < ld) {
+                char cs = (is < ls) ? src[is++] : 0;
+                char cd = (id < ld) ? dst[id++] : 0;
 
-            int k = 0, h = 0;
-            while (k < len_src && h < len_dst) {
-
-                char ch_src = src[k++];
-                char ch_dst = dst[h++];
-
-                if (graph.count(ch_src) == 0) {
-                    graph[ch_src] = std::unordered_set<char>();
+                if (cs && indeg.count(cs) == 0) {
+                    indeg[cs] = 0;
                 }
-                if (graph.count(ch_dst) == 0) {
-                    graph[ch_dst] = std::unordered_set<char>();
+                if (cd && indeg.count(cd) == 0) {
+                    indeg[cd] = 0;
                 }
 
-                if (ch_src != ch_dst) {
-                    graph[ch_src].insert(ch_dst);
-                    ++indeg[ch_dst];
-                    break;
+                if (!cs || !cd) {
+                    continue;
                 }
-            }
 
-            while (k < len_src) {
-                char ch = src[k++];
-                if (graph.count(ch) == 0) {
-                    graph[ch] = std::unordered_set<char>();
-                }
-            }
-            while (h < len_dst) {
-                char ch = dst[h++];
-                if (graph.count(ch) == 0) {
-                    graph[ch] = std::unordered_set<char>();
+                if (!found_diff && cs != cd) {
+                    if (graph[cs].count(cd) == 0) {
+                        graph[cs].emplace(cd);
+                        ++indeg[cd];
+                    }
+                    found_diff = true;
                 }
             }
         }
 
-        std::priority_queue<char, std::vector<char>, std::greater<char>> queue;
-        for (const auto& pair : graph) {
-            char ch = pair.first;
-            if (indeg[ch] == 0) {
-                queue.push(ch);
+        queue<char> queue;
+        for (const auto& pair: indeg) {
+            if (pair.second == 0) {
+                queue.emplace(pair.first);
             }
         }
 
-        std::string order;
-
+        string order;
         while (!queue.empty()) {
-            char src = queue.top();
-            queue.pop();
+            char src = queue.front();
 
+            queue.pop();
             order.push_back(src);
 
             for (char dst : graph[src]) {
                 --indeg[dst];
                 if (indeg[dst] == 0) {
-                    queue.push(dst);
+                    queue.emplace(dst);
                 }
             }
         }
 
-        return order.length() == graph.size() ? order : "";
+        return order.length() == indeg.size() ? order : "";
     }
 };
 ```

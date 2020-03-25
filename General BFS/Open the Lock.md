@@ -35,7 +35,7 @@ public:
         visit.emplace("0000");
 
         std::queue<std::string> queue;
-        queue.push("0000");
+        queue.emplace("0000");
 
         int step = 0;
         while (!queue.empty()) {
@@ -52,26 +52,25 @@ public:
                     char back = dst[j];
 
                     // Move the wheel clock-wise.
-                    dst[j] = ((dst[j] - '0' + 1) % 10) + '0';
+                    dst[j] = ((back - '0' + 1) % 10) + '0';
                     if (dst == target) {
                         return step;
                     }
 
                     if (deadlocks.count(dst) == 0 && visit.count(dst) == 0) {
-                        queue.push(dst);
-                        visit.insert(dst);
+                        queue.emplace(dst);
+                        visit.emplace(dst);
                     }
 
                     // Move the whell counter clock-wise.
-                    dst[j] = back;
-                    dst[j] = ((dst[j] - '0' + 9) % 10) + '0';
+                    dst[j] = ((back - '0' + 9) % 10) + '0';
                     if (dst == target) {
                         return step;
                     }
 
                     if (deadlocks.count(dst) == 0 && visit.count(dst) == 0) {
-                        queue.push(dst);
-                        visit.insert(dst);
+                        queue.emplace(dst);
+                        visit.emplace(dst);
                     }
 
                     dst[j] = back;

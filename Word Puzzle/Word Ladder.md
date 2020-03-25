@@ -36,41 +36,40 @@ public:
          *              lot -- log
          */
 
-        dict.insert(end);
+        dict.emplace(end);
 
-        std::queue<Record> queue;
-        queue.push(Record(start, 1));
+        queue<string> queue;
+        queue.emplace(start);
+
+        int step = 0;
 
         while (!queue.empty()) {
-
+            ++step;
             int n = queue.size();
+
             for (int i = 0 ; i < n ; ++i) {
-
-                auto front = queue.front();
+                auto str = queue.front();
                 queue.pop();
-                auto& word = front.word;
-                int level = front.level;
 
-                if (word == end) {
-                    return level;
-                }
-
-                int len = word.length();
-                for (int j = 0 ; j < len ; ++j) {
-
-                    char backup = word[j];
+                int l = str.length();
+                for (int j = 0 ; j < l ; ++j) {
                     for (char ch = 'a' ; ch <= 'z' ; ++ch) {
-                        word[j] = ch;
+                        char back = str[j];
+                        str[j] = ch;
 
-                        if(dict.count(word) == 0) {
+                        if (dict.count(str) == 0) {
+                            str[j] = back;
                             continue;
                         }
 
-                        queue.push(Record(word, level + 1));
-                        dict.erase(word);
-                    }
+                        if (str == end) {
+                            return step + 1;
+                        }
 
-                    word[j] = backup;
+                        queue.emplace(str);
+                        dict.erase(str);
+                        str[j] = back;
+                    }
                 }
             }
         }
