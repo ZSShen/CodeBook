@@ -65,8 +65,8 @@
    * [Merge K Sorted Interval Lists](Priority Queue/Merge K Sorted Interval Lists.md)
 
 * Greedy
-   * [Reorganize String](Priority Queue/Reorganize String.md)
-   * [Task Scheduler](Priority Queue/Task Scheduler.md)
+   * [Reorganize String](Greedy/Reorganize String.md)
+   * [Task Scheduler](Greedy/Task Scheduler.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -132,9 +132,10 @@
    * [Longest Palindrome](String and Sequence Extremum/Longest Palindrome.md)
    * [Decrease to be Palindrome](String and Sequence Extremum/Decrease to be Palindrome.md)
    * [Minimum Insertion Steps to Make a String Palindrome](String and Sequence Extremum/Minimum Insertion Steps to Make a String Palindrome.md)
+   * [Uncrossed Lines](String and Sequence Extremum/Uncrossed Lines.md)
 
 * String and Sequence Properties
-   * [Is Subsequences](String and Sequence Properties/Is Subsequences.md)
+   * [Is Subsequences](String and Sequence Properties/Is Subsequence.md)
 
 * String Scramble
    * [Distinct Subsequences](String Scramble/Distinct Subsequences.md)
@@ -147,6 +148,7 @@
    * [Coins in a Line](Game Theory/Coins in a Line.md)
    * [Coins in a Line II](Game Theory/Coins in a Line II.md)
    * [Coins in a Line III](Game Theory/Coins in a Line III.md)
+   * [Stones in a Line](Game Theory/Stones in a Line.md)
 
 * Iterator
    * [Binary Tree Iterative Preorder Traversal](Iterator/Binary Tree Iterative Preorder Traversal.md)
@@ -279,6 +281,7 @@
    * [Palindrome Partitioning](General DFS/Palindrome Partitioning.md)
    * [Remove Invalid Parentheses](General DFS/Remove Invalid Parentheses.md)
    * [Reconstruct Itinerary](General DFS/Reconstruct Itinerary.md)
+   * [Android Unlock Patterns](General DFS/Android Unlock Patterns.md)
 
 * Combination DFS
    * [Subsets](Combination DFS/Subsets.md)
@@ -327,3 +330,6 @@
    * [Trie](Data Structure Design/Trie.md)
    * [Insert Delete GetRandom O(1)](Data Structure Design/Insert Delete GetRandom.md)
    * [LRU Cache](Data Structure Design/LRU Cache.md)
+
+* Math
+   * [Number of Ways to Paint N × 3 Grid](Math/Number of Ways to Paint N × 3 Grid.md)
