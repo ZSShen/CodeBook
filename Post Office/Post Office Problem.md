@@ -1,68 +1,56 @@
 
 # Problem
-### LintCode 435. Post Office Problem
-https://www.lintcode.com/problem/post-office-problem/description
+### LeetCode 1478. Allocate Mailboxes
+https://leetcode.com/problems/allocate-mailboxes/
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param A: an integer array
-     * @param k: An integer
-     * @return: an integer
-     */
-    int postOffice(vector<int> &A, int k) {
-        // write your code here
+    int minDistance(vector<int>& houses, int k) {
 
         /**
-         * dp[i][j]: The minimum cost to build i post offices to serve the first
-         *           j houses -- the first house to the jth house.
+         * dp[i][j]: The minimum cost to build i mailboxes to serve the first
+         *           j houses.
          *
-         * cost[i][j]: The minimum cost to build a post office to serve the
-         *             ith house to the jth house.
+         * cost[i][j]: The minimum cost to build a mailbox to serve the
+         *             houses within the range i and j.
          *
          * dp[i][j] =     MIN   {dp[i - 1][k] + cost[k + 1][j]}
          *            (i-1)<=k<j
          */
 
-        int n = A.size();
-        if (n == 0 || k == 0) {
-            return 0;
-        }
+        int n = houses.size();
 
-        // We need to scan the office and house indices in ascending order.
-        std::sort(A.begin(), A.end());
+        sort(houses.begin(), houses.end());
 
-        std::vector<std::vector<int>> cost(n, std::vector<int>(n, 0));
-
-        // An optimal way to build an office to serve the houses within a given
-        // range is to put that office at the middle point of the range.
-        for (int i = 0 ; i < n - 1 ; ++i) {
-            for (int j = i + 1 ; j < n ; ++j) {
-                int mid = (i + j) / 2;
-                int sum = 0;
-                for (int h = i ; h <= j ; ++h) {
-                    sum += std::abs(A[h] - A[mid]);
+        vector<vector<int>> cost(n, vector<int>(n, 0));
+        for (int i = 0 ; i < n ; ++i) {
+            for (int j = i ; j < n ; ++j) {
+                int m = houses[(i + j) / 2];
+                int c = 0;
+                for (int k = i ; k <= j ; ++k) {
+                    c += abs(m - houses[k]);
                 }
-                cost[i][j] = sum;
+                cost[i][j] = c;
             }
         }
 
-        std::vector<std::vector<int>> dp(k, std::vector<int>(n, 0));
-
-        // Build an office to serve the first i houses.
+        vector<vector<int>> dp(k, vector<int>(n, INT_MAX));
         for (int i = 0 ; i < n ; ++i) {
             dp[0][i] = cost[0][i];
         }
 
         for (int i = 1 ; i < k ; ++i) {
             for (int j = i ; j < n ; ++j) {
-                int min = INT_MAX;
-                for (int h = i - 1 ; h < j ; ++h) {
-                    min = std::min(min, dp[i - 1][h] + cost[h + 1][j]);
+                for (int h = 0 ; h < j ; ++h) {
+                    if (h < i - 1) {
+                        continue;
+                    }
+                    dp[i][j] = min(
+                        dp[i][j],
+                        dp[i - 1][h] + cost[h + 1][j]);
                 }
-                dp[i][j] = min;
             }
         }
 

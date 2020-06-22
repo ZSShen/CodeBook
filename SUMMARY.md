@@ -67,6 +67,9 @@
 * Greedy
    * [Reorganize String](Greedy/Reorganize String.md)
    * [Task Scheduler](Greedy/Task Scheduler.md)
+   * [Candy](Greedy/Candy.md)
+   * [Maximize Sum Of Array After K Negations](Greedy/Maximize Sum Of Array After K Negations.md)
+   * [Partition Labels](Greedy/Partition Labels.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -105,6 +108,10 @@
    * [Stone Game II](Matrix Chain Multiplication/Stone Game II.md)
    * [Burst Balloons](Matrix Chain Multiplication/Burst Balloons.md)
    * [Unique Binary Search Trees](Matrix Chain Multiplication/Unique Binary Search Trees.md)
+   * [Palindrome Partitioning III](Matrix Chain Multiplication/Palindrome Partitioning III.md)
+
+* Memoization and Top Down Dynamic Programming
+   * [Cherry Pickup](Memoization and Top Down Dynamic Programming/Cherry Pickup.md)
 
 * Fibonacci Sequence
    * [Decode Ways](Fibonacci Sequence/Decode Ways.md)
@@ -222,6 +229,10 @@
    * [Find the Duplicate Number](Binary Approximation/Find the Duplicate Number.md)
    * [Maximum Average Subarray II](Binary Approximation/Maximum Average Subarray II.md)
 
+* Binary Search with STL or Map
+   * [Odd Even Jump](Binary Search with STL or Map/Odd Even Jump.md)
+   * [Random Pick with Weight](Binary Search with STL or Map/Random Pick with Weight.md)
+
 * Expression Parsing
    * [Convert Infix Expression to Postfix Expression](Expression Parsing/Convert Infix Expression to Postfix Expression.md)
    * [Convert Infix Expression to Prefix Expression](Expression Parsing/Convert Infix Expression to Prefix Expression.md)
@@ -273,6 +284,8 @@
    * [The Maze II](General BFS/The Maze II.md)
    * [Open the Lock](General BFS/Open the Lock.md)
    * [Sliding Puzzle II](General BFS/Sliding Puzzle II.md)
+   * [Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](General BFS/Minimum Number of Flips to Convert Binary Matrix to Zero Matrix.md)
+   * [Shortest Path in a Grid with Obstacles Elimination](General BFS/Shortest Path in a Grid with Obstacles Elimination.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)
@@ -295,6 +308,7 @@
    * [Permutations](Permutation DFS/Permutations.md)
    * [Permutations II](Permutation DFS/Permutations II.md)
    * [Next Permutation](Permutation DFS/Next Permutation.md)
+   * [Previous Permutation With One Swap](Permutation DFS/Previous Permutation With One Swap.md)
    * [Next Closest Time](Permutation DFS/Next Closest Time.md)
 
 * Interval Query
