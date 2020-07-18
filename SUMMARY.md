@@ -70,6 +70,7 @@
    * [Candy](Greedy/Candy.md)
    * [Maximize Sum Of Array After K Negations](Greedy/Maximize Sum Of Array After K Negations.md)
    * [Partition Labels](Greedy/Partition Labels.md)
+   * [Minimum Number of Arrows to Burst Balloons](Greedy/Minimum Number of Arrows to Burst Balloons.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -79,6 +80,7 @@
    * [Pacific Atlantic Water Flow](Flood and Fill/Pacific Atlantic Water Flow.md)
    * [Set Matrix Zeros](Flood and Fill/Set Matrix Zeros.md)
    * [Island Perimeter](Flood and Fill/Island Perimeter.md)
+   * [Making a Large Island](Flood and Fill/Making a Large Island.md)
 
 * Post Office
    * [Build Post Office II](Post Office/Build Post Office II.md)
@@ -112,6 +114,8 @@
 
 * Memoization and Top Down Dynamic Programming
    * [Cherry Pickup](Memoization and Top Down Dynamic Programming/Cherry Pickup.md)
+   * [Number of Ways to Stay in the Same Place After Some Steps](Memoization and Top Down Dynamic Programming/Number of Ways to Stay in the Same Place After Some Steps.md)
+   * [Longest Increasing Path in a Matrix](Memoization and Top Down Dynamic Programming/Longest Increasing Path in a Matrix.md)
 
 * Fibonacci Sequence
    * [Decode Ways](Fibonacci Sequence/Decode Ways.md)
@@ -132,7 +136,6 @@
    * [Longest Palindromic Substring](String and Sequence Extremum/Longest Palindromic Substring.md)
    * [Longest Increasing Subsequence](String and Sequence Extremum/Longest Increasing Subsequence.md)
    * [Longest Increasing Substring](String and Sequence Extremum/Longest Increasing Substring.md)
-   * [Longest Increasing Continuous Subsequence in 2D Matrix](String and Sequence Extremum/Longest Increasing Continuous Subsequence in 2D Matrix.md)
    * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
@@ -206,6 +209,7 @@
    * [Insert Node in Binary Search Tree](Binary Tree/Insert Node in Binary Search Tree.md)
    * [Remove Node in Binary Search Tree](Binary Tree/Remove Node in Binary Search Tree.md)
    * [All Nodes Distance K in Binary Tree](Binary Tree/All Nodes Distance K in Binary Tree.md)
+   * [Lowest Common Ancestor of Deepest Leaves](Binary Tree/Lowest Common Ancestor of Deepest Leaves.md)
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)
@@ -219,6 +223,7 @@
    * [Search in Rotated Sorted Array](Binary Search/Search in Rotated Sorted Array.md)
    * [Search in Rotated Sorted Array II](Binary Search/Search in Rotated Sorted Array II.md)
    * [Divide Two Integers](Binary Search/Divide Two Integers.md)
+   * [Missing Element in Sorted Array](Binary Search/Missing Element in Sorted Array.md)
 
 * Binary Approximation
    * [Sqrt(x)](Binary Approximation/Sqrt.md)
@@ -286,6 +291,7 @@
    * [Sliding Puzzle II](General BFS/Sliding Puzzle II.md)
    * [Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](General BFS/Minimum Number of Flips to Convert Binary Matrix to Zero Matrix.md)
    * [Shortest Path in a Grid with Obstacles Elimination](General BFS/Shortest Path in a Grid with Obstacles Elimination.md)
+   * [Minimum Knight Moves](General BFS/Minimum Knight Moves.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)

@@ -1,95 +1,70 @@
 
 # Problem
-### LintCode 663. Walls and Gates
-https://www.lintcode.com/problem/walls-and-gates/description
+### LeetCode 286. Walls and Gates
+https://leetcode.com/problems/walls-and-gates/
 
 # Solution
 ```c++
-
-struct Record {
-    int r, c;
-
-    Record(int r, int c)
-      : r(r), c(c)
-    { }
-};
-
-
 class Solution {
 public:
     Solution()
-      : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
+        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
     { }
 
-    /**
-     * @param rooms: m x n 2D grid
-     * @return: nothing
-     */
-    void wallsAndGates(vector<vector<int>> &rooms) {
-        // write your code here
+    void wallsAndGates(vector<vector<int>>& rooms) {
 
-        int num_r = rooms.size();
-        if (num_r == 0) {
+        int m = rooms.size();
+        if (m == 0) {
             return;
         }
 
-        int num_c = rooms[0].size();
-        if (num_c == 0) {
+        int n = rooms[0].size();
+        if (n == 0) {
             return;
         }
 
-        std::vector<std::vector<bool>>
-            visit(num_r, std::vector<bool>(num_c, false));
-        std::queue<Record> queue;
-
-        for (int r = 0 ; r < num_r ; ++r) {
-            for (int c = 0 ; c < num_c ; ++c) {
-                if (rooms[r][c] != 0) {
-                    continue;
+        queue<pair<int, int>> queue;
+        for (int r = 0 ; r < m ; ++r) {
+            for (int c = 0 ; c < n ; ++c) {
+                if (rooms[r][c] == 0) {
+                    queue.emplace(r, c);
                 }
-                visit[r][c] = true;
-                queue.push(Record(r, c));
             }
         }
 
-        int level = 0;
-
+        int dist = 0;
         while (!queue.empty()) {
-            ++level;
-            int n = queue.size();
+            ++dist;
+            int size = queue.size();
 
-            for (int i = 0 ; i < n ; ++i) {
+            for (int i = 0 ; i < size ; ++i) {
                 auto rec = queue.front();
                 queue.pop();
 
-                int r = rec.r;
-                int c = rec.c;
+                int r = rec.first;
+                int c = rec.second;
 
                 for (const auto& direct : directs) {
                     int nr = r + direct[0];
                     int nc = c + direct[1];
 
-                    if (!(nr >= 0 && nc >= 0 && nr < num_r && nc < num_c) ||
-                        visit[nr][nc] ||
-                        rooms[nr][nc] == -1 ||
-                        rooms[nr][nc] == 0) {
+                    if (!(nr >= 0 && nc >= 0 && nr < m && nc < n) ||
+                       rooms[nr][nc] != INF ||
+                       rooms[nr][nc] == -1 ||
+                       rooms[nr][nc] == 0) {
                         continue;
                     }
 
-                    if (rooms[nr][nc] == INT_MAX) {
-                        rooms[nr][nc] = level;
-                    } else {
-                        rooms[nr][nc] = std::min(rooms[nr][nc], level);
-                    }
-
-                    visit[nr][nc] = true;
-                    queue.push(Record(nr, nc));
+                    rooms[nr][nc] = min(rooms[nr][nc], dist);
+                    queue.emplace(nr, nc);
                 }
             }
         }
     }
 
 private:
-    std::vector<std::vector<int>> directs;
+    vector<vector<int>> directs;
+
+    static const int INF = 2147483647;
 };
 ```
