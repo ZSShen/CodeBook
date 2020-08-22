@@ -114,6 +114,9 @@
 
 * Memoization and Top Down Dynamic Programming
    * [Cherry Pickup](Memoization and Top Down Dynamic Programming/Cherry Pickup.md)
+   * [Cherry Pickup II](Memoization and Top Down Dynamic Programming/Cherry Pickup II.md)
+   * [Frog Jump](Memoization and Top Down Dynamic Programming/Frog Jump.md)
+   * [Jump Game V](Memoization and Top Down Dynamic Programming/Jump Game v.md)
    * [Number of Ways to Stay in the Same Place After Some Steps](Memoization and Top Down Dynamic Programming/Number of Ways to Stay in the Same Place After Some Steps.md)
    * [Longest Increasing Path in a Matrix](Memoization and Top Down Dynamic Programming/Longest Increasing Path in a Matrix.md)
 
@@ -125,6 +128,7 @@
    * [House Robber III](Fibonacci Sequence/House Robber III.md)
    * [4 Keys Keyboard](Fibonacci Sequence/4 Keys Keyboard.md)
    * [Minimum Cost for Tickets](Fibonacci Sequence/Minimum Cost for Tickets.md)
+   * [Paint Fence](Fibonacci Sequence/Paint Fence.md)
 
 * String and Sequence Extremum
    * [Minimum Edit Distance](String and Sequence Extremum/Minimum Edit Distance.md)
@@ -137,6 +141,7 @@
    * [Longest Increasing Subsequence](String and Sequence Extremum/Longest Increasing Subsequence.md)
    * [Longest Increasing Substring](String and Sequence Extremum/Longest Increasing Substring.md)
    * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
+   * [Longest Repeating Substring](String and Sequence Extremum/Longest Repeating Substring.md)
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
    * [Longest Palindrome](String and Sequence Extremum/Longest Palindrome.md)
@@ -320,12 +325,14 @@
 * Interval Query
    * [Merge Intervals](Interval Query/Merge Intervals.md)
    * [Insert Interval](Interval Query/Insert Interval.md)
+   * [My Calendar II](Interval Query/My Calendar II.md)
 
 * Sweep Line
    * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)
    * [Time Intersection](Sweep Line/Time Intersection.md)
    * [Meeting Rooms](Sweep Line/Meeting Rooms.md)
    * [Meeting Rooms II](Sweep Line/Meeting Rooms II.md)
+   * [My Calendar III](Sweep Line/My Calendar III.md)
 
 * Topological Sort
    * [Course Schedule](Topological Sort/Course Schedule.md)

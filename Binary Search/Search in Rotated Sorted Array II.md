@@ -1,57 +1,56 @@
 
 # Problem
-### LintCode 63. Search in Rotated Sorted Array II
-https://www.lintcode.com/problem/search-in-rotated-sorted-array-ii/description
+### LeetCode 81. Search in Rotated Sorted Array II
+https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param A: an integer ratated sorted array and duplicates are allowed
-     * @param target: An integer
-     * @return: a boolean
-     */
-    bool search(vector<int> &A, int target) {
-        // write your code here
+    bool search(vector<int>& nums, int target) {
 
-        int n = A.size();
+        int n = nums.size();
         if (n == 0) {
             return false;
         }
 
-        int l = 0, r = n - 1;
+        int l = 0;
+        int r = n - 1;
 
         while (l + 1 < r) {
             int m = l + (r - l) / 2;
 
-            if (A[m] == target) {
+            if (nums[m] == target) {
                 return true;
             }
 
             // The right portion is sorted.
-            if (A[m] < A[r]) {
-                if (A[m] < target && target < A[r]) {
+            if (nums[m] < nums[r]) {
+                if (nums[m] <= target && target <= nums[r]) {
                     l = m;
                 } else {
                     r = m;
                 }
+                continue;
             }
-            // The left portion is sorted;
-            else if (A[m] > A[r]) {
-                if (A[l] < target && target < A[m]) {
+
+            // The left portion is sorted.
+            if (nums[m] > nums[r]) {
+                if (nums[l] <= target && target <= nums[m]) {
                     r = m;
                 } else {
                     l = m;
                 }
+                continue;
             }
-            // Implies A[m] == A[r] != target, and thus we can prune A[r].
-            else {
-                --r;
-            }
+
+            // A[m] == A[r] != target.
+            --r;
         }
 
-        return A[l] == target || A[r] == target;
+
+
+        return nums[l] == target || nums[r] == target;
     }
 };
 ```
