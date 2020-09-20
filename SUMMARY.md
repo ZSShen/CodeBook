@@ -14,6 +14,7 @@
    * [Contiguous Array](Prefix Sum and Subarray/Contiguous Array.md)
    * [Maximum Subarray](Prefix Sum and Subarray/Maximum Subarray.md)
    * [Maximum Submatrix](Prefix Sum and Subarray/Maximum Submatrix.md)
+   * [Maximum Product Subarray](Prefix Sum and Subarray/Maximum Product Subarray.md)
    * [Continuous Subarray Sum](Prefix Sum and Subarray/Continuous Subarray Sum.md)
    * [Continuous Subarray Sum II](Prefix Sum and Subarray/Continuous Subarray Sum II.md)
    * [Max Consecutive Ones III](Prefix Sum and Subarray/Max Consecutive Ones III.md)
@@ -306,6 +307,7 @@
    * [Remove Invalid Parentheses](General DFS/Remove Invalid Parentheses.md)
    * [Reconstruct Itinerary](General DFS/Reconstruct Itinerary.md)
    * [Android Unlock Patterns](General DFS/Android Unlock Patterns.md)
+   * [Unique Path III](General DFS/Unique Path III.md)
 
 * Combination DFS
    * [Subsets](Combination DFS/Subsets.md)
