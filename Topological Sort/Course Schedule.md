@@ -1,49 +1,49 @@
 
 # Problem
-### LintCode 615. Course Schedule
-https://www.lintcode.com/problem/course-schedule/description
+### LeetCode 207. Course Schedule
+https://leetcode.com/problems/course-schedule
 
 # Solution
 ```c++
 class Solution {
 public:
-    /*
-     * @param numCourses: a total of n courses
-     * @param prerequisites: a list of prerequisite pairs
-     * @return: true if can finish all courses or false
-     */
-    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
-        // write your code here
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
 
-        std::unordered_map<int, std::vector<int>> graph;
-        std::unordered_map<int, int> indegree;
+        /**
+         * TC: O(V + E), where
+         *      V is the number of nodes
+         *      E is the number of edges
+         *
+         * SC: O(V + E)
+         */
 
-        for (const auto& pair : prerequisites) {
-            int src = pair.first;
-            int dst = pair.second;
+        unordered_map<int, unordered_set<int>> graph;
+        unordered_map<int, int> indeg;
 
-            graph[src].push_back(dst);
-            ++indegree[dst];
+        for (const auto& p : prerequisites) {
+            int s = p[0], t = p[1];
+            ++indeg[t];
+            graph[s].emplace(t);
         }
 
-        std::queue<int> queue;
+        queue<int> q;
         for (int i = 0 ; i < numCourses ; ++i) {
-            if (indegree.count(i) == 0) {
-                queue.push(i);
+            if (indeg[i] == 0) {
+                q.emplace(i);
             }
         }
 
-        std::vector<int> order;
-        while (!queue.empty()) {
-            int src = queue.front();
-            queue.pop();
+        vector<int> order;
 
-            order.push_back(src);
+        while (!q.empty()) {
+            int s = q.front();
+            q.pop();
+            order.emplace_back(s);
 
-            for (int dst : graph[src]) {
-                --indegree[dst];
-                if (indegree[dst] == 0) {
-                    queue.push(dst);
+            for (int d : graph[s]) {
+                --indeg[d];
+                if (indeg[d] == 0) {
+                    q.emplace(d);
                 }
             }
         }

@@ -9,6 +9,16 @@ class Solution {
 public:
     string alienOrder(vector<string>& words) {
 
+        /**
+         * TC: O(n * W), where
+         *      n is the number of words
+         *      W is the average length of a word
+         *
+         * SC: O(V + E), where
+         *      V is the number of nodes
+         *      E is the number of edges
+         */
+
         int n = words.size();
         unordered_map<char, unordered_set<char>> graph;
         unordered_map<char, int> indeg;

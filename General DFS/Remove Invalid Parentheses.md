@@ -1,25 +1,26 @@
 
 # Problem
-### LintCode 780. Remove Invalid Parentheses
-https://www.lintcode.com/problem/remove-invalid-parentheses/description
+### LeetCode 301. Remove Invalid Parentheses
+https://leetcode.com/problems/remove-invalid-parentheses
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param s: The input string
-     * @return: Return all possible results
-     */
-    vector<string> removeInvalidParentheses(string &str) {
-        // Write your code here
+    vector<string> removeInvalidParentheses(string s) {
+
+        /**
+         * TC: O(2^N), where
+         *      N is the length of the string
+         *
+         * SC: O(N)
+         */
 
         int l = 0, r = 0;
-        for (char ch : str) {
+        for (char ch : s) {
             if (ch == '(') {
                 ++l;
-            }
-            if (ch == ')') {
+            } else if (ch == ')') {
                 if (l > 0) {
                     --l;
                 } else {
@@ -28,60 +29,59 @@ public:
             }
         }
 
-        std::vector<std::string> ans;
-        runBackTracking(str, 0, str.length(), l, r, ans);
+        vector<string> ans;
+        helper(s, 0, s.length(), l, r, ans);
         return ans;
     }
 
 private:
-    bool isValid(const auto& str) {
+    bool isValid(const string& s) {
 
-        int count = 0;
-        for (char ch : str) {
+        int l = 0, r = 0;
+        for (char ch : s) {
             if (ch == '(') {
-                ++count;
-            }
-            if (ch == ')') {
-                --count;
-            }
-
-            if (count < 0) {
-                return false;
+                ++l;
+            } else if (ch == ')') {
+                if (l > 0) {
+                    --l;
+                } else {
+                    ++r;
+                }
             }
         }
-
-        return count == 0;
+        return l == 0 && r == 0;
     }
 
-    void runBackTracking(
-            const auto& str, int bgn, int end, int l, int r, auto& ans) {
+    void helper(
+            const string& s,
+            int bgn, int end,
+            int l, int r,
+            vector<string>& ans) {
 
         if (l == 0 && r == 0) {
-            if (isValid(str)) {
-                ans.push_back(str);
+            if (isValid(s)) {
+                ans.push_back(s);
             }
             return;
         }
 
         for (int i = bgn ; i < end ; ++i) {
 
-            if (!(str[i] == '(' || str[i] == ')')) {
-                continue;
-            }
-            if (i > bgn && str[i] == str[i - 1]) {
+            // We should consider a case that may generate duplicates, like
+            // "(()" => "()" "()"
+            if (i > bgn && s[i] == s[i - 1]) {
                 continue;
             }
 
-            if (r > 0 && str[i] == ')') {
-                auto copy(str);
+            if (s[i] == '(' && l > 0) {
+                auto copy(s);
                 copy.erase(i, 1);
-                runBackTracking(copy, i, end - 1, l, r - 1, ans);
+                helper(copy, i, end - 1, l - 1, r, ans);
             }
-
-            if (l > 0 && str[i] == '(') {
-                auto copy(str);
+            if (s[i] == ')' && r > 0) {
+                auto copy(s);
                 copy.erase(i, 1);
-                runBackTracking(copy, i, end - 1, l - 1, r, ans);
+                helper(copy, i, end - 1, l, r - 1, ans);
             }
         }
     }

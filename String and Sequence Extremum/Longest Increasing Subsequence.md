@@ -1,65 +1,62 @@
 
 # Problem
-### LintCode 77. Longest Increasing Subsequence
-https://www.lintcode.com/problem/longest-increasing-subsequence/description
+### LeetCode 300. Longest Increasing Subsequence
+https://leetcode.com/problems/longest-increasing-subsequence
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: An integer array
-     * @return: The length of LIS (longest increasing subsequence)
-     */
-    int longestIncreasingSubsequence(vector<int> &nums) {
-        // write your code here
+    int lengthOfLIS(vector<int>& nums) {
 
         /**
-         *   4 2 4 5 3 7
+         *  TC: O(NlogN), where
+         *      N is the number of elements.
          *
-         *  dp[0] [1] [2] [3]
-         *     4
-         *     2
-         *     2   4
-         *     2   4   5
-         *     2   3   5
-         *     2   3   5   7
+         *  SC: O(N)
+         *
+         *  L[i]: The length of the LIS ending at index i such that nums[i] is
+         *        the last element of the LIS.
+         *
+         *  L[i] = | 1 + MAX{ L[j] }, where 0 < j < i and arr[j] < arr[i]
+         *         | 1              , if no such j exists.
          *
          *
-         *   O(nlogn)
+         *  example:
+         *       4 2 4 5 3 7
+         *
+         *  lis [0] [1] [2] [3]
+         *       4
+         *       2   4
+         *       2   4   5
+         *       2   3   5
+         *       2   3   5   7
          */
 
+        vector<int> lis;
+        lis.emplace_back(nums[0]);
+
         int n = nums.size();
-        if (n == 0) {
-            return 0;
-        }
-
-        std::vector<int> lis;
-        lis.push_back(nums[0]);
-
         for (int i = 1 ; i < n ; ++i) {
-
             if (nums[i] > lis.back()) {
-                lis.push_back(nums[i]);
+                lis.emplace_back(nums[i]);
                 continue;
             }
 
-            int cand = nums[i];
-
             int l = 0, r = lis.size() - 1;
             while (l + 1 < r) {
-                int m = (l + r) / 2;
-                if (cand >= lis[m]) {
-                    l = m;
-                } else {
+                int m = l + (r - l) / 2;
+                if (nums[i] <= lis[m]) {
                     r = m;
+                } else {
+                    l = m;
                 }
             }
 
-            if (cand > lis[l]) {
-                lis[r] = cand;
+            if (nums[i] <= lis[l]) {
+                lis[l] = nums[i];
             } else {
-                lis[l] = cand;
+                lis[r] = nums[i];
             }
         }
 

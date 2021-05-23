@@ -1,49 +1,48 @@
 
 # Problem
-### LintCode 124. Longest Consecutive Sequence
-https://www.lintcode.com/problem/longest-consecutive-sequence/description
+### LeetCode 128. Longest Consecutive Sequence
+https://leetcode.com/problems/longest-consecutive-sequence
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param num: A list of integers
-     * @return: An integer
-     */
-    int longestConsecutive(vector<int> &nums) {
-        // write your code here
+    int longestConsecutive(vector<int>& nums) {
 
-        std::unordered_set<int> set;
-        for (int num : nums) {
-            set.insert(num);
-        }
+        /**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         */
 
-        int max = 0;
+        unordered_set<int> set(nums.begin(), nums.end());
+
+        int ans = 0;
         while (!set.empty()) {
+            auto it = set.begin();
+            int num = *it;
+            int local = 1;
+            set.erase(it);
 
-            int len = 1;
-            int seed = *set.begin();
-            set.erase(seed);
-
-            int forward = seed + 1;
-            while (set.count(forward) == 1) {
-                set.erase(forward);
-                ++len;
-                ++forward;
+            int next = num + 1;
+            while (set.count(next) == 1) {
+                set.erase(next);
+                ++local;
+                ++next;
             }
 
-            int backward = seed - 1;
-            while (set.count(backward) == 1) {
-                set.erase(backward);
-                ++len;
-                --backward;
+            next = num - 1;
+            while (set.count(next) == 1) {
+                set.erase(next);
+                ++local;
+                --next;
             }
 
-            max = std::max(max, len);
+            ans = max(ans, local);
         }
 
-        return max;
+        return ans;
     }
 };
 ```
