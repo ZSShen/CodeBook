@@ -4575,48 +4575,47 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-124-longest-consecutive-sequence">LintCode 124. Longest Consecutive Sequence</h3>
-<p><a href="https://www.lintcode.com/problem/longest-consecutive-sequence/description" target="_blank">https://www.lintcode.com/problem/longest-consecutive-sequence/description</a></p>
+<h3 id="leetcode-128-longest-consecutive-sequence">LeetCode 128. Longest Consecutive Sequence</h3>
+<p><a href="https://leetcode.com/problems/longest-consecutive-sequence" target="_blank">https://leetcode.com/problems/longest-consecutive-sequence</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param num: A list of integers
-     * @return: An integer
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestConsecutive</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestConsecutive</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>{
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">set</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) {
-            <span class="hljs-built_in">set</span>.insert(num);
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         */</span>
 
-        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">set</span>(nums.begin(), nums.end());
+
+        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">while</span> (!<span class="hljs-built_in">set</span>.empty()) {
+            <span class="hljs-keyword">auto</span> it = <span class="hljs-built_in">set</span>.begin();
+            <span class="hljs-keyword">int</span> num = *it;
+            <span class="hljs-keyword">int</span> local = <span class="hljs-number">1</span>;
+            <span class="hljs-built_in">set</span>.erase(it);
 
-            <span class="hljs-keyword">int</span> len = <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">int</span> seed = *<span class="hljs-built_in">set</span>.begin();
-            <span class="hljs-built_in">set</span>.erase(seed);
-
-            <span class="hljs-keyword">int</span> forward = seed + <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">while</span> (<span class="hljs-built_in">set</span>.count(forward) == <span class="hljs-number">1</span>) {
-                <span class="hljs-built_in">set</span>.erase(forward);
-                ++len;
-                ++forward;
+            <span class="hljs-keyword">int</span> next = num + <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">while</span> (<span class="hljs-built_in">set</span>.count(next) == <span class="hljs-number">1</span>) {
+                <span class="hljs-built_in">set</span>.erase(next);
+                ++local;
+                ++next;
             }
 
-            <span class="hljs-keyword">int</span> backward = seed - <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">while</span> (<span class="hljs-built_in">set</span>.count(backward) == <span class="hljs-number">1</span>) {
-                <span class="hljs-built_in">set</span>.erase(backward);
-                ++len;
-                --backward;
+            next = num - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">while</span> (<span class="hljs-built_in">set</span>.count(next) == <span class="hljs-number">1</span>) {
+                <span class="hljs-built_in">set</span>.erase(next);
+                ++local;
+                --next;
             }
 
-            max = <span class="hljs-built_in">std</span>::max(max, len);
+            ans = max(ans, local);
         }
 
-        <span class="hljs-keyword">return</span> max;
+        <span class="hljs-keyword">return</span> ans;
     }
 };
 </code></pre>
@@ -4663,7 +4662,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Longest Consecutive Sequence","level":"1.16.12","depth":2,"next":{"title":"Longest Consecutive Sequence","level":"1.16.13","depth":2,"path":"String and Sequence Extremum/Longest Consecutive Sequence.md","ref":"String and Sequence Extremum/Longest Consecutive Sequence.md","articles":[]},"previous":{"title":"Longest Repeating Substring","level":"1.16.11","depth":2,"path":"String and Sequence Extremum/Longest Repeating Substring.md","ref":"String and Sequence Extremum/Longest Repeating Substring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Consecutive Sequence.md","mtime":"2020-09-20T17:11:19.910Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-20T17:50:11.026Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Longest Consecutive Sequence","level":"1.16.12","depth":2,"next":{"title":"Longest Consecutive Sequence","level":"1.16.13","depth":2,"path":"String and Sequence Extremum/Longest Consecutive Sequence.md","ref":"String and Sequence Extremum/Longest Consecutive Sequence.md","articles":[]},"previous":{"title":"Longest Repeating Substring","level":"1.16.11","depth":2,"path":"String and Sequence Extremum/Longest Repeating Substring.md","ref":"String and Sequence Extremum/Longest Repeating Substring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Consecutive Sequence.md","mtime":"2021-05-23T05:58:38.233Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-23T18:54:20.541Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

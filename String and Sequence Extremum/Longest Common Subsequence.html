@@ -4575,42 +4575,43 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-77-longest-common-subsequence">LintCode 77. Longest Common Subsequence</h3>
-<p><a href="https://www.lintcode.com/problem/longest-common-subsequence/description" target="_blank">https://www.lintcode.com/problem/longest-common-subsequence/description</a></p>
+<h3 id="leetcode-1143-longest-common-subsequence">LeetCode 1143. Longest Common Subsequence</h3>
+<p><a href="https://leetcode.com/problems/longest-common-subsequence" target="_blank">https://leetcode.com/problems/longest-common-subsequence</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param A: A string
-     * @param B: A string
-     * @return: The length of longest common subsequence of A and B
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;A, <span class="hljs-built_in">string</span> &amp;B)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> text1, <span class="hljs-built_in">string</span> text2)</span> </span>{
 
         <span class="hljs-comment">/**
+         *  TC: O(M * N), where
+         *      M is the length of the first string
+         *      N is the length of the second string
+         *
+         *  SC: O(M * N)
+         *
+         *
          *  dp[i][j]: The LCS of the prefixes A(0, i) and B(0, j).
          *
          *  dp[i][j] = | if A[i] == B[j], dp[i - 1][j - 1] + 1
          *             | Otherwise      , MAX(dp[i - 1][j], dp[i][j - 1])
          */</span>
 
-        <span class="hljs-keyword">int</span> na = A.size();
-        <span class="hljs-keyword">int</span> nb = B.size();
+        <span class="hljs-keyword">int</span> n1 = text1.length();
+        <span class="hljs-keyword">int</span> n2 = text2.length();
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(na + <span class="hljs-number">1</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(nb + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(n1 + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(n2 + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= na ; ++i) {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span> ; j &lt;= nb ; ++j) {
-                <span class="hljs-keyword">if</span> (A[i - <span class="hljs-number">1</span>] == B[j - <span class="hljs-number">1</span>]) {
-                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= n1 ; ++i) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span> ; j &lt;= n2 ; ++j) {
+                <span class="hljs-keyword">if</span> (text1[i - <span class="hljs-number">1</span>] == text2[j - <span class="hljs-number">1</span>]) {
+                    dp[i][j] = <span class="hljs-number">1</span> + dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
                 } <span class="hljs-keyword">else</span> {
-                    dp[i][j] = <span class="hljs-built_in">std</span>::max(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]);
+                    dp[i][j] = <span class="hljs-built_in">std</span>::max(dp[i][j - <span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][j]);
                 }
             }
         }
 
-        <span class="hljs-keyword">return</span> dp[na][nb];
+        <span class="hljs-keyword">return</span> dp[n1][n2];
     }
 };
 </code></pre>
@@ -4657,7 +4658,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Longest Common Subsequence","level":"1.16.3","depth":2,"next":{"title":"Shortest Common Supersequence","level":"1.16.4","depth":2,"path":"String and Sequence Extremum/Shortest Common Supersequence.md","ref":"String and Sequence Extremum/Shortest Common Supersequence.md","articles":[]},"previous":{"title":"One Edit Distance","level":"1.16.2","depth":2,"path":"String and Sequence Extremum/One Edit Distance.md","ref":"String and Sequence Extremum/One Edit Distance.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Common Subsequence.md","mtime":"2019-07-09T10:01:13.838Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-20T17:50:11.026Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Longest Common Subsequence","level":"1.16.3","depth":2,"next":{"title":"Shortest Common Supersequence","level":"1.16.4","depth":2,"path":"String and Sequence Extremum/Shortest Common Supersequence.md","ref":"String and Sequence Extremum/Shortest Common Supersequence.md","articles":[]},"previous":{"title":"One Edit Distance","level":"1.16.2","depth":2,"path":"String and Sequence Extremum/One Edit Distance.md","ref":"String and Sequence Extremum/One Edit Distance.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Common Subsequence.md","mtime":"2021-05-23T05:42:25.093Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-23T18:54:20.541Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

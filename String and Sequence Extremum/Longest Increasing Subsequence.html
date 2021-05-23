@@ -4575,64 +4575,61 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-77-longest-increasing-subsequence">LintCode 77. Longest Increasing Subsequence</h3>
-<p><a href="https://www.lintcode.com/problem/longest-increasing-subsequence/description" target="_blank">https://www.lintcode.com/problem/longest-increasing-subsequence/description</a></p>
+<h3 id="leetcode-300-longest-increasing-subsequence">LeetCode 300. Longest Increasing Subsequence</h3>
+<p><a href="https://leetcode.com/problems/longest-increasing-subsequence" target="_blank">https://leetcode.com/problems/longest-increasing-subsequence</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: An integer array
-     * @return: The length of LIS (longest increasing subsequence)
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestIncreasingSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>{
 
         <span class="hljs-comment">/**
-         *   4 2 4 5 3 7
+         *  TC: O(NlogN), where
+         *      N is the number of elements.
          *
-         *  dp[0] [1] [2] [3]
-         *     4
-         *     2
-         *     2   4
-         *     2   4   5
-         *     2   3   5
-         *     2   3   5   7
+         *  SC: O(N)
+         *
+         *  L[i]: The length of the LIS ending at index i such that nums[i] is
+         *        the last element of the LIS.
+         *
+         *  L[i] = | 1 + MAX{ L[j] }, where 0 &lt; j &lt; i and arr[j] &lt; arr[i]
+         *         | 1              , if no such j exists.
          *
          *
-         *   O(nlogn)
+         *  example:
+         *       4 2 4 5 3 7
+         *
+         *  lis [0] [1] [2] [3]
+         *       4
+         *       2   4
+         *       2   4   5
+         *       2   3   5
+         *       2   3   5   7
          */</span>
 
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; lis;
+        lis.emplace_back(nums[<span class="hljs-number">0</span>]);
+
         <span class="hljs-keyword">int</span> n = nums.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        }
-
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; lis;
-        lis.push_back(nums[<span class="hljs-number">0</span>]);
-
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt; n ; ++i) {
-
             <span class="hljs-keyword">if</span> (nums[i] &gt; lis.back()) {
-                lis.push_back(nums[i]);
+                lis.emplace_back(nums[i]);
                 <span class="hljs-keyword">continue</span>;
             }
 
-            <span class="hljs-keyword">int</span> cand = nums[i];
-
             <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = lis.size() - <span class="hljs-number">1</span>;
             <span class="hljs-keyword">while</span> (l + <span class="hljs-number">1</span> &lt; r) {
-                <span class="hljs-keyword">int</span> m = (l + r) / <span class="hljs-number">2</span>;
-                <span class="hljs-keyword">if</span> (cand &gt;= lis[m]) {
-                    l = m;
-                } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">int</span> m = l + (r - l) / <span class="hljs-number">2</span>;
+                <span class="hljs-keyword">if</span> (nums[i] &lt;= lis[m]) {
                     r = m;
+                } <span class="hljs-keyword">else</span> {
+                    l = m;
                 }
             }
 
-            <span class="hljs-keyword">if</span> (cand &gt; lis[l]) {
-                lis[r] = cand;
+            <span class="hljs-keyword">if</span> (nums[i] &lt;= lis[l]) {
+                lis[l] = nums[i];
             } <span class="hljs-keyword">else</span> {
-                lis[l] = cand;
+                lis[r] = nums[i];
             }
         }
 
@@ -4683,7 +4680,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Longest Increasing Subsequence","level":"1.16.8","depth":2,"next":{"title":"Longest Increasing Substring","level":"1.16.9","depth":2,"path":"String and Sequence Extremum/Longest Increasing Substring.md","ref":"String and Sequence Extremum/Longest Increasing Substring.md","articles":[]},"previous":{"title":"Longest Palindromic Substring","level":"1.16.7","depth":2,"path":"String and Sequence Extremum/Longest Palindromic Substring.md","ref":"String and Sequence Extremum/Longest Palindromic Substring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Increasing Subsequence.md","mtime":"2020-09-20T17:11:19.910Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-20T17:50:11.026Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Longest Increasing Subsequence","level":"1.16.8","depth":2,"next":{"title":"Longest Increasing Substring","level":"1.16.9","depth":2,"path":"String and Sequence Extremum/Longest Increasing Substring.md","ref":"String and Sequence Extremum/Longest Increasing Substring.md","articles":[]},"previous":{"title":"Longest Palindromic Substring","level":"1.16.7","depth":2,"path":"String and Sequence Extremum/Longest Palindromic Substring.md","ref":"String and Sequence Extremum/Longest Palindromic Substring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Increasing Subsequence.md","mtime":"2021-05-23T06:47:35.966Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-23T18:54:20.541Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

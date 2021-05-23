@@ -4575,24 +4575,25 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-780-remove-invalid-parentheses">LintCode 780. Remove Invalid Parentheses</h3>
-<p><a href="https://www.lintcode.com/problem/remove-invalid-parentheses/description" target="_blank">https://www.lintcode.com/problem/remove-invalid-parentheses/description</a></p>
+<h3 id="leetcode-301-remove-invalid-parentheses">LeetCode 301. Remove Invalid Parentheses</h3>
+<p><a href="https://leetcode.com/problems/remove-invalid-parentheses" target="_blank">https://leetcode.com/problems/remove-invalid-parentheses</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param s: The input string
-     * @return: Return all possible results
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; removeInvalidParentheses(<span class="hljs-built_in">string</span> &amp;str) {
-        <span class="hljs-comment">// Write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; removeInvalidParentheses(<span class="hljs-built_in">string</span> s) {
+
+        <span class="hljs-comment">/**
+         * TC: O(2^N), where
+         *      N is the length of the string
+         *
+         * SC: O(N)
+         */</span>
 
         <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : str) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : s) {
             <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&apos;(&apos;</span>) {
                 ++l;
-            }
-            <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&apos;)&apos;</span>) {
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&apos;)&apos;</span>) {
                 <span class="hljs-keyword">if</span> (l &gt; <span class="hljs-number">0</span>) {
                     --l;
                 } <span class="hljs-keyword">else</span> {
@@ -4601,60 +4602,59 @@
             }
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; ans;
-        runBackTracking(str, <span class="hljs-number">0</span>, str.length(), l, r, ans);
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; ans;
+        helper(s, <span class="hljs-number">0</span>, s.length(), l, r, ans);
         <span class="hljs-keyword">return</span> ans;
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isValid</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; str)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isValid</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; s)</span> </span>{
 
-        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : str) {
+        <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : s) {
             <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&apos;(&apos;</span>) {
-                ++count;
-            }
-            <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&apos;)&apos;</span>) {
-                --count;
-            }
-
-            <span class="hljs-keyword">if</span> (count &lt; <span class="hljs-number">0</span>) {
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                ++l;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&apos;)&apos;</span>) {
+                <span class="hljs-keyword">if</span> (l &gt; <span class="hljs-number">0</span>) {
+                    --l;
+                } <span class="hljs-keyword">else</span> {
+                    ++r;
+                }
             }
         }
-
-        <span class="hljs-keyword">return</span> count == <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> l == <span class="hljs-number">0</span> &amp;&amp; r == <span class="hljs-number">0</span>;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">runBackTracking</span><span class="hljs-params">(
-            <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; str, <span class="hljs-keyword">int</span> bgn, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">auto</span>&amp; ans)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">helper</span><span class="hljs-params">(
+            <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; s,
+            <span class="hljs-keyword">int</span> bgn, <span class="hljs-keyword">int</span> end,
+            <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; ans)</span> </span>{
 
         <span class="hljs-keyword">if</span> (l == <span class="hljs-number">0</span> &amp;&amp; r == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">if</span> (isValid(str)) {
-                ans.push_back(str);
+            <span class="hljs-keyword">if</span> (isValid(s)) {
+                ans.push_back(s);
             }
             <span class="hljs-keyword">return</span>;
         }
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = bgn ; i &lt; end ; ++i) {
 
-            <span class="hljs-keyword">if</span> (!(str[i] == <span class="hljs-string">&apos;(&apos;</span> || str[i] == <span class="hljs-string">&apos;)&apos;</span>)) {
-                <span class="hljs-keyword">continue</span>;
-            }
-            <span class="hljs-keyword">if</span> (i &gt; bgn &amp;&amp; str[i] == str[i - <span class="hljs-number">1</span>]) {
+            <span class="hljs-comment">// We should consider a case that may generate duplicates, like</span>
+            <span class="hljs-comment">// &quot;(()&quot; =&gt; &quot;()&quot; &quot;()&quot;</span>
+            <span class="hljs-keyword">if</span> (i &gt; bgn &amp;&amp; s[i] == s[i - <span class="hljs-number">1</span>]) {
                 <span class="hljs-keyword">continue</span>;
             }
 
-            <span class="hljs-keyword">if</span> (r &gt; <span class="hljs-number">0</span> &amp;&amp; str[i] == <span class="hljs-string">&apos;)&apos;</span>) {
-                <span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">copy</span><span class="hljs-params">(str)</span></span>;
+            <span class="hljs-keyword">if</span> (s[i] == <span class="hljs-string">&apos;(&apos;</span> &amp;&amp; l &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">copy</span><span class="hljs-params">(s)</span></span>;
                 copy.erase(i, <span class="hljs-number">1</span>);
-                runBackTracking(copy, i, end - <span class="hljs-number">1</span>, l, r - <span class="hljs-number">1</span>, ans);
+                helper(copy, i, end - <span class="hljs-number">1</span>, l - <span class="hljs-number">1</span>, r, ans);
             }
-
-            <span class="hljs-keyword">if</span> (l &gt; <span class="hljs-number">0</span> &amp;&amp; str[i] == <span class="hljs-string">&apos;(&apos;</span>) {
-                <span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">copy</span><span class="hljs-params">(str)</span></span>;
+            <span class="hljs-keyword">if</span> (s[i] == <span class="hljs-string">&apos;)&apos;</span> &amp;&amp; r &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">copy</span><span class="hljs-params">(s)</span></span>;
                 copy.erase(i, <span class="hljs-number">1</span>);
-                runBackTracking(copy, i, end - <span class="hljs-number">1</span>, l - <span class="hljs-number">1</span>, r, ans);
+                helper(copy, i, end - <span class="hljs-number">1</span>, l, r - <span class="hljs-number">1</span>, ans);
             }
         }
     }
@@ -4703,7 +4703,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Remove Invalid Parentheses","level":"1.30.5","depth":2,"next":{"title":"Reconstruct Itinerary","level":"1.30.6","depth":2,"path":"General DFS/Reconstruct Itinerary.md","ref":"General DFS/Reconstruct Itinerary.md","articles":[]},"previous":{"title":"Palindrome Partitioning","level":"1.30.4","depth":2,"path":"General DFS/Palindrome Partitioning.md","ref":"General DFS/Palindrome Partitioning.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Remove Invalid Parentheses.md","mtime":"2020-09-20T17:11:19.891Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-09-20T17:50:11.026Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Remove Invalid Parentheses","level":"1.30.5","depth":2,"next":{"title":"Reconstruct Itinerary","level":"1.30.6","depth":2,"path":"General DFS/Reconstruct Itinerary.md","ref":"General DFS/Reconstruct Itinerary.md","articles":[]},"previous":{"title":"Palindrome Partitioning","level":"1.30.4","depth":2,"path":"General DFS/Palindrome Partitioning.md","ref":"General DFS/Palindrome Partitioning.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Remove Invalid Parentheses.md","mtime":"2021-05-23T00:22:18.467Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-23T18:54:20.541Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
