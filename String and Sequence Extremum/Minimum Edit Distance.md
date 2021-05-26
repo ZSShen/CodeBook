@@ -10,7 +10,13 @@ public:
     int minDistance(string s, string t) {
 
         /**
-         * dp[i][j]: The minimum costs to transform the prefix of A ending at
+         *  TC: O(M * N), where
+         *      M is the length of string s
+         *      N is the length of string t
+         *
+         *  SC: O(M * N)
+         *
+         *  dp[i][j]: The minimum costs to transform the prefix of A ending at
          *           the index i to the prefix of B ending at the index j.
          *
          *  dp[i][j] = | if A[i] == B[j], dp[i - 1][j - 1]

@@ -82,9 +82,9 @@
    * [Set Matrix Zeros](Flood and Fill/Set Matrix Zeros.md)
    * [Island Perimeter](Flood and Fill/Island Perimeter.md)
    * [Making a Large Island](Flood and Fill/Making a Large Island.md)
+   * [Shortest Distance from All Buildings](Post Office/Shortest Distance from All Buildings.md)
 
 * Post Office
-   * [Build Post Office II](Post Office/Build Post Office II.md)
    * [Post Office Problem](Post Office/Post Office Problem.md)
 
 * Best Time to Buy and Sell Stocks
@@ -143,7 +143,6 @@
    * [Longest Increasing Substring](String and Sequence Extremum/Longest Increasing Substring.md)
    * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
    * [Longest Repeating Substring](String and Sequence Extremum/Longest Repeating Substring.md)
-   * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
    * [Longest Palindrome](String and Sequence Extremum/Longest Palindrome.md)
    * [Decrease to be Palindrome](String and Sequence Extremum/Decrease to be Palindrome.md)
@@ -252,6 +251,7 @@
    * [Expression Tree Construction](Expression Parsing/Expression Tree Construction.md)
 
 * Number Parsing
+   * [Reverse Integer](Number Parsing/Reverse Integer.md)
    * [Valid Number](Number Parsing/Valid Number.md)
    * [String to Integer (atoi)](Number Parsing/String to Integer.md)
    * [Binary Representation](Number Parsing/Binary Representation.md)
@@ -354,6 +354,9 @@
    * [Strobogrammatic Number](Simulation Puzzle/Strobogrammatic Number.md)
    * [Sparse Matrix Multiplication](Simulation Puzzle/Sparse Matrix Multiplication.md)
    * [Simplify Path](Simulation Puzzle/Simplify Path.md)
+
+* Structure Conversion
+   * [Convert Binary Search Tree to Sorted Doubly Linked List](Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.md)
 
 * Data Structure Design
    * [Trie](Data Structure Design/Trie.md)

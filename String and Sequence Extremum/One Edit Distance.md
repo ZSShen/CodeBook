@@ -1,20 +1,21 @@
 
 # Problem
-### LintCode 640. One Edit Distance
-https://www.lintcode.com/problem/one-edit-distance/description
+### LeetCode 161. One Edit Distance
+https://leetcode.com/problems/one-edit-distance
 
 # Solution
 ```c++
-
 class Solution {
 public:
-    /**
-     * @param s: a string
-     * @param t: a string
-     * @return: true if they are both one edit distance apart or false
-     */
     bool isOneEditDistance(string &s, string &t) {
-        // write your code here
+
+        /**
+         *  TC: O(M * N), where
+         *      M is the length of string s
+         *      N is the length of string t
+         *
+         *  SC: O(M * N)
+         */
 
         int len_s = s.length();
         int len_t = t.length();
@@ -33,7 +34,8 @@ public:
     }
 
 private:
-    bool checkStringsWithSameLength(const auto& s, const auto& t, int len) {
+    bool checkStringsWithSameLength(
+        const string& s, const string& t, int len) {
 
         int count = 0;
 
@@ -50,7 +52,7 @@ private:
     }
 
     bool checkStringsWithDifferentLength(
-        const auto& s, const auto& t, int len_s, int len_t) {
+        const string& s, const string& t, int len_s, int len_t) {
 
         int i = 0, j = 0;
         int count = 0;
