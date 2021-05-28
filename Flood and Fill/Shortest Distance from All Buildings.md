@@ -7,9 +7,12 @@ https://leetcode.com/problems/shortest-distance-from-all-buildings
 ```c++
 class Solution {
 public:
-    Solution()
-        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
-    { }
+    Solution() {
+        directs.push_back({1, 0});
+        directs.push_back({-1, 0});
+        directs.push_back({0, 1});
+        directs.push_back({0, -1});
+    }
 
     int shortestDistance(vector<vector<int>>& grid) {
 

@@ -4607,48 +4607,73 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-414-divide-two-integers">LintCode 414. Divide Two Integers</h3>
-<p><a href="https://www.lintcode.com/problem/divide-two-integers/description" target="_blank">https://www.lintcode.com/problem/divide-two-integers/description</a></p>
+<h3 id="leetcode-29-divide-two-integers">LeetCode 29. Divide Two Integers</h3>
+<p><a href="https://leetcode.com/problems/divide-two-integers" target="_blank">https://leetcode.com/problems/divide-two-integers</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param dividend: the dividend
-     * @param divisor: the divisor
-     * @return: the result
-     */</span>
     <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">divide</span><span class="hljs-params">(<span class="hljs-keyword">int</span> dividend, <span class="hljs-keyword">int</span> divisor)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
 
-        <span class="hljs-keyword">long</span> divd = <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">long</span>&gt;(dividend);
-        <span class="hljs-keyword">long</span> divr = <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">long</span>&gt;(divisor);
+        <span class="hljs-comment">/**
+         *  TC: O(logN), where
+         *      N is the dividend
+         *
+         *  SC: O(1)
+         *
+            dividend = 29, divisor = 4
 
-        <span class="hljs-keyword">if</span> (divd &lt; <span class="hljs-number">0</span>) {
-            divd = -divd;
-        }
-        <span class="hljs-keyword">if</span> (divr &lt; <span class="hljs-number">0</span>) {
-            divr = -divr;
-        }
+            Round 1:
+                divd = 29
+                divr = 4
+
+                step = 2
+                =&gt; quot = 1 &lt;&lt; 2 = 4
+
+            Round 2:
+                divd = 29 - 16 = 13
+                divr = 4
+
+                step = 1
+                =&gt; quot = 1 &lt;&lt; 1 = 2
+
+            Round 3:
+                divd = 13 - 8 = 5
+                divr = 4
+
+                step = 0
+                =&gt; quot = 1 &lt;&lt; 0 = 1
+
+            Round 4:
+                divd = 5 - 4 = 1
+                divr = 4
+
+            final quot = 7
+        */</span>
+
+        <span class="hljs-keyword">long</span> divd = <span class="hljs-built_in">abs</span>(<span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">long</span>&gt;(dividend));
+        <span class="hljs-keyword">long</span> divr = <span class="hljs-built_in">abs</span>(<span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">long</span>&gt;(divisor));
 
         <span class="hljs-keyword">long</span> quot = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">while</span> (divd &gt;= divr) {
-            <span class="hljs-keyword">long</span> temp = divr;
-            <span class="hljs-keyword">long</span> count = <span class="hljs-number">1</span>;
 
-            <span class="hljs-keyword">while</span> (divd &gt;= (temp &lt;&lt; <span class="hljs-number">1</span>)) {
+        <span class="hljs-keyword">while</span> (divd &gt;= divr) {
+            <span class="hljs-keyword">long</span> step = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">long</span> temp = divr;
+
+            <span class="hljs-keyword">while</span> (temp &lt;&lt; <span class="hljs-number">1</span> &lt;= divd) {
+                ++step;
                 temp &lt;&lt;= <span class="hljs-number">1</span>;
-                count &lt;&lt;= <span class="hljs-number">1</span>;
             }
 
-            quot += count;
+            quot += <span class="hljs-number">1L</span> &lt;&lt; step;
             divd -= temp;
         }
 
-        <span class="hljs-keyword">if</span> ((dividend &gt; <span class="hljs-number">0</span>) ^ (divisor &gt; <span class="hljs-number">0</span>) &gt; <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">if</span> ((dividend &lt; <span class="hljs-number">0</span> &amp;&amp; divisor &gt; <span class="hljs-number">0</span>) ||
+            (dividend &gt; <span class="hljs-number">0</span> &amp;&amp; divisor &lt; <span class="hljs-number">0</span>)) {
             quot = -quot;
         }
 
-        <span class="hljs-keyword">return</span> (quot &gt; INT_MAX) ? INT_MAX : quot;
+        <span class="hljs-keyword">return</span> quot &gt; INT_MAX ? INT_MAX : quot;
     }
 };
 </code></pre>
@@ -4695,7 +4720,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Divide Two Integers","level":"1.22.11","depth":2,"next":{"title":"Missing Element in Sorted Array","level":"1.22.12","depth":2,"path":"Binary Search/Missing Element in Sorted Array.md","ref":"Binary Search/Missing Element in Sorted Array.md","articles":[]},"previous":{"title":"Search in Rotated Sorted Array II","level":"1.22.10","depth":2,"path":"Binary Search/Search in Rotated Sorted Array II.md","ref":"Binary Search/Search in Rotated Sorted Array II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Search/Divide Two Integers.md","mtime":"2021-05-23T19:00:46.751Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-26T06:15:28.135Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Divide Two Integers","level":"1.22.11","depth":2,"next":{"title":"Missing Element in Sorted Array","level":"1.22.12","depth":2,"path":"Binary Search/Missing Element in Sorted Array.md","ref":"Binary Search/Missing Element in Sorted Array.md","articles":[]},"previous":{"title":"Search in Rotated Sorted Array II","level":"1.22.10","depth":2,"path":"Binary Search/Search in Rotated Sorted Array II.md","ref":"Binary Search/Search in Rotated Sorted Array II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Search/Divide Two Integers.md","mtime":"2021-05-28T06:13:21.274Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-28T06:13:56.517Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
