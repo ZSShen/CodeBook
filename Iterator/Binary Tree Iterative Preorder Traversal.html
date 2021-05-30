@@ -2282,12 +2282,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.21.1" data-path="../Binary Tree/Valid Binary Search Tree.html">
+        <li class="chapter " data-level="1.21.1" data-path="../Binary Tree/Validate Binary Search Tree.html">
             
-                <a href="../Binary Tree/Valid Binary Search Tree.html">
+                <a href="../Binary Tree/Validate Binary Search Tree.html">
             
                     
-                    Valid Binary Search Tree
+                    Validate Binary Search Tree
             
                 </a>
             
@@ -2308,12 +2308,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21.3" data-path="../Binary Tree/Complete Binary Tree.html">
+        <li class="chapter " data-level="1.21.3" data-path="../Binary Tree/Check Completeness of a Binary Tree.html">
             
-                <a href="../Binary Tree/Complete Binary Tree.html">
+                <a href="../Binary Tree/Check Completeness of a Binary Tree.html">
             
                     
-                    Complete Binary Tree
+                    Check Completeness of a Binary Tree
             
                 </a>
             
@@ -4605,51 +4605,51 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-66-binary-tree-preorder-traversal">LintCode 66. Binary Tree Preorder Traversal</h3>
-<p><a href="https://www.lintcode.com/problem/binary-tree-preorder-traversal/description" target="_blank">https://www.lintcode.com/problem/binary-tree-preorder-traversal/description</a></p>
+<h3 id="leetcode-144-binary-tree-preorder-traversal">LeetCode 144. Binary Tree Preorder Traversal</h3>
+<p><a href="https://leetcode.com/problems/binary-tree-preorder-traversal" target="_blank">https://leetcode.com/problems/binary-tree-preorder-traversal</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-comment">/**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this-&gt;val = val;
- *         this-&gt;left = this-&gt;right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */</span>
-
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param root: A Tree
-     * @return: Preorder in ArrayList which contains node values.
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; preorderTraversal(TreeNode * root) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; preorderTraversal(TreeNode* root) {
+
+        <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of tree nodes.
+         *
+         *  SC: O(N)
+         */</span>
 
         <span class="hljs-keyword">if</span> (!root) {
             <span class="hljs-keyword">return</span> {};
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
-        stk.push(root);
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
+
+        <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
+        stk.emplace(root);
 
         <span class="hljs-keyword">while</span> (!stk.empty()) {
-
-            <span class="hljs-keyword">auto</span> curr = stk.top();
+            <span class="hljs-keyword">auto</span> node = stk.top();
             stk.pop();
 
-            ans.push_back(curr-&gt;val);
+            ans.emplace_back(node-&gt;val);
 
-            <span class="hljs-keyword">if</span> (curr-&gt;right) {
-                stk.push(curr-&gt;right);
+            <span class="hljs-keyword">if</span> (node-&gt;right) {
+                stk.emplace(node-&gt;right);
             }
-            <span class="hljs-keyword">if</span> (curr-&gt;left) {
-                stk.push(curr-&gt;left);
+            <span class="hljs-keyword">if</span> (node-&gt;left) {
+                stk.emplace(node-&gt;left);
             }
         }
 
@@ -4696,7 +4696,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Binary Tree Iterative Preorder Traversal","level":"1.20.1","depth":2,"next":{"title":"Binary Tree Iterative Inorder Traversal","level":"1.20.2","depth":2,"path":"Iterator/Binary Tree Iterative Inorder Traversal.md","ref":"Iterator/Binary Tree Iterative Inorder Traversal.md","articles":[]},"previous":{"title":"Iterator","level":"1.20","depth":1,"ref":"","articles":[{"title":"Binary Tree Iterative Preorder Traversal","level":"1.20.1","depth":2,"path":"Iterator/Binary Tree Iterative Preorder Traversal.md","ref":"Iterator/Binary Tree Iterative Preorder Traversal.md","articles":[]},{"title":"Binary Tree Iterative Inorder Traversal","level":"1.20.2","depth":2,"path":"Iterator/Binary Tree Iterative Inorder Traversal.md","ref":"Iterator/Binary Tree Iterative Inorder Traversal.md","articles":[]},{"title":"Binary Tree Iterative Postorder Traversal","level":"1.20.3","depth":2,"path":"Iterator/Binary Tree Iterative Postorder Traversal.md","ref":"Iterator/Binary Tree Iterative Postorder Traversal.md","articles":[]},{"title":"Inorder Sucessor in BST","level":"1.20.4","depth":2,"path":"Iterator/Inorder Successor in BST.md","ref":"Iterator/Inorder Successor in BST.md","articles":[]},{"title":"Flatten Binary Tree to Linked List","level":"1.20.5","depth":2,"path":"Iterator/Flatten Binary Tree to Linked List.md","ref":"Iterator/Flatten Binary Tree to Linked List.md","articles":[]},{"title":"Flatten Nested List","level":"1.20.6","depth":2,"path":"Iterator/Flatten Nested List.md","ref":"Iterator/Flatten Nested List.md","articles":[]},{"title":"Flatten Nested List Iterator","level":"1.20.7","depth":2,"path":"Iterator/Flatten Nested List Iterator.md","ref":"Iterator/Flatten Nested List Iterator.md","articles":[]},{"title":"Flatten 2D Vector","level":"1.20.8","depth":2,"path":"Iterator/Flatten 2D Vector.md","ref":"Iterator/Flatten 2D Vector.md","articles":[]},{"title":"ZigZag Iterator","level":"1.20.9","depth":2,"path":"Iterator/ZigZag Iterator.md","ref":"Iterator/ZigZag Iterator.md","articles":[]},{"title":"ZigZag Iterator II","level":"1.20.10","depth":2,"path":"Iterator/ZigZag Iterator II.md","ref":"Iterator/ZigZag Iterator II.md","articles":[]},{"title":"Nested List Weight Sum","level":"1.20.11","depth":2,"path":"Iterator/Nested List Weight Sum.md","ref":"Iterator/Nested List Weight Sum.md","articles":[]},{"title":"Nested List Weight Sum II","level":"1.20.12","depth":2,"path":"Iterator/Nested List Weight Sum II.md","ref":"Iterator/Nested List Weight Sum II.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Iterator/Binary Tree Iterative Preorder Traversal.md","mtime":"2021-05-26T06:29:15.073Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-28T06:13:56.517Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Binary Tree Iterative Preorder Traversal","level":"1.20.1","depth":2,"next":{"title":"Binary Tree Iterative Inorder Traversal","level":"1.20.2","depth":2,"path":"Iterator/Binary Tree Iterative Inorder Traversal.md","ref":"Iterator/Binary Tree Iterative Inorder Traversal.md","articles":[]},"previous":{"title":"Iterator","level":"1.20","depth":1,"ref":"","articles":[{"title":"Binary Tree Iterative Preorder Traversal","level":"1.20.1","depth":2,"path":"Iterator/Binary Tree Iterative Preorder Traversal.md","ref":"Iterator/Binary Tree Iterative Preorder Traversal.md","articles":[]},{"title":"Binary Tree Iterative Inorder Traversal","level":"1.20.2","depth":2,"path":"Iterator/Binary Tree Iterative Inorder Traversal.md","ref":"Iterator/Binary Tree Iterative Inorder Traversal.md","articles":[]},{"title":"Binary Tree Iterative Postorder Traversal","level":"1.20.3","depth":2,"path":"Iterator/Binary Tree Iterative Postorder Traversal.md","ref":"Iterator/Binary Tree Iterative Postorder Traversal.md","articles":[]},{"title":"Inorder Sucessor in BST","level":"1.20.4","depth":2,"path":"Iterator/Inorder Successor in BST.md","ref":"Iterator/Inorder Successor in BST.md","articles":[]},{"title":"Flatten Binary Tree to Linked List","level":"1.20.5","depth":2,"path":"Iterator/Flatten Binary Tree to Linked List.md","ref":"Iterator/Flatten Binary Tree to Linked List.md","articles":[]},{"title":"Flatten Nested List","level":"1.20.6","depth":2,"path":"Iterator/Flatten Nested List.md","ref":"Iterator/Flatten Nested List.md","articles":[]},{"title":"Flatten Nested List Iterator","level":"1.20.7","depth":2,"path":"Iterator/Flatten Nested List Iterator.md","ref":"Iterator/Flatten Nested List Iterator.md","articles":[]},{"title":"Flatten 2D Vector","level":"1.20.8","depth":2,"path":"Iterator/Flatten 2D Vector.md","ref":"Iterator/Flatten 2D Vector.md","articles":[]},{"title":"ZigZag Iterator","level":"1.20.9","depth":2,"path":"Iterator/ZigZag Iterator.md","ref":"Iterator/ZigZag Iterator.md","articles":[]},{"title":"ZigZag Iterator II","level":"1.20.10","depth":2,"path":"Iterator/ZigZag Iterator II.md","ref":"Iterator/ZigZag Iterator II.md","articles":[]},{"title":"Nested List Weight Sum","level":"1.20.11","depth":2,"path":"Iterator/Nested List Weight Sum.md","ref":"Iterator/Nested List Weight Sum.md","articles":[]},{"title":"Nested List Weight Sum II","level":"1.20.12","depth":2,"path":"Iterator/Nested List Weight Sum II.md","ref":"Iterator/Nested List Weight Sum II.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Iterator/Binary Tree Iterative Preorder Traversal.md","mtime":"2021-05-30T01:59:54.639Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-30T19:10:24.279Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

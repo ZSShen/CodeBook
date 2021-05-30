@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Complete Binary Tree.html" />
+    <link rel="next" href="Check Completeness of a Binary Tree.html" />
     
     
-    <link rel="prev" href="Valid Binary Search Tree.html" />
+    <link rel="prev" href="Validate Binary Search Tree.html" />
     
 
     </head>
@@ -2284,12 +2284,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.21.1" data-path="Valid Binary Search Tree.html">
+        <li class="chapter " data-level="1.21.1" data-path="Validate Binary Search Tree.html">
             
-                <a href="Valid Binary Search Tree.html">
+                <a href="Validate Binary Search Tree.html">
             
                     
-                    Valid Binary Search Tree
+                    Validate Binary Search Tree
             
                 </a>
             
@@ -2310,12 +2310,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21.3" data-path="Complete Binary Tree.html">
+        <li class="chapter " data-level="1.21.3" data-path="Check Completeness of a Binary Tree.html">
             
-                <a href="Complete Binary Tree.html">
+                <a href="Check Completeness of a Binary Tree.html">
             
                     
-                    Complete Binary Tree
+                    Check Completeness of a Binary Tree
             
                 </a>
             
@@ -4607,69 +4607,59 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-95-balanced-binary-tree">LintCode 95. Balanced Binary Tree</h3>
-<p><a href="https://www.lintcode.com/problem/balanced-binary-tree/description" target="_blank">https://www.lintcode.com/problem/balanced-binary-tree/description</a></p>
+<h3 id="leetcode-110-balanced-binary-tree">LeetCode 110. Balanced Binary Tree</h3>
+<p><a href="https://leetcode.com/problems/balanced-binary-tree" target="_blank">https://leetcode.com/problems/balanced-binary-tree</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-comment">/**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this-&gt;val = val;
- *         this-&gt;left = this-&gt;right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */</span>
-
-<span class="hljs-keyword">struct</span> Record {
-    <span class="hljs-keyword">bool</span> balanced;
-    <span class="hljs-keyword">int</span> height;
-
-    Record(<span class="hljs-keyword">bool</span> balanced, <span class="hljs-keyword">int</span> height)
-      : balanced(balanced), height(height)
-    { }
-};
-
-
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param root: The root of binary tree.
-     * @return: True if this Binary tree is Balanced, or false.
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode * root)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+
+        <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
+         */</span>
 
         <span class="hljs-keyword">auto</span> res = runPostOrder(root);
-        <span class="hljs-keyword">return</span> res.balanced;
+        <span class="hljs-keyword">return</span> res.first;
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function">Record <span class="hljs-title">runPostOrder</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+    pair&lt;<span class="hljs-keyword">bool</span>, <span class="hljs-keyword">int</span>&gt; runPostOrder(TreeNode* root) {
 
         <span class="hljs-keyword">if</span> (!root) {
-            <span class="hljs-keyword">return</span> Record(<span class="hljs-literal">true</span>, <span class="hljs-number">0</span>);
-        }
-
-        <span class="hljs-keyword">if</span> (!root-&gt;left &amp;&amp; !root-&gt;right) {
-            <span class="hljs-keyword">return</span> Record(<span class="hljs-literal">true</span>, <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">return</span> {<span class="hljs-literal">true</span>, <span class="hljs-number">0</span>};
         }
 
         <span class="hljs-keyword">auto</span> l = runPostOrder(root-&gt;left);
+        <span class="hljs-keyword">if</span> (!l.first) {
+            <span class="hljs-keyword">return</span> {<span class="hljs-literal">false</span>, <span class="hljs-number">-1</span>};
+        }
+
         <span class="hljs-keyword">auto</span> r = runPostOrder(root-&gt;right);
-
-        <span class="hljs-keyword">if</span> (!l.balanced || !r.balanced) {
-            <span class="hljs-keyword">return</span> Record(<span class="hljs-literal">false</span>, <span class="hljs-number">-1</span>);
+        <span class="hljs-keyword">if</span> (!r.first) {
+            <span class="hljs-keyword">return</span> {<span class="hljs-literal">false</span>, <span class="hljs-number">-1</span>};
         }
 
-        <span class="hljs-keyword">int</span> diff = <span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(l.height - r.height);
+        <span class="hljs-keyword">int</span> diff = <span class="hljs-built_in">abs</span>(l.second - r.second);
         <span class="hljs-keyword">if</span> (diff &gt; <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">return</span> Record(<span class="hljs-literal">false</span>, <span class="hljs-number">-1</span>);
+            <span class="hljs-keyword">return</span> {<span class="hljs-literal">false</span>, <span class="hljs-number">-1</span>};
         }
 
-        <span class="hljs-keyword">return</span> Record(<span class="hljs-literal">true</span>, <span class="hljs-built_in">std</span>::max(l.height, r.height) + <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">return</span> {<span class="hljs-literal">true</span>, max(l.second, r.second) + <span class="hljs-number">1</span>};
     }
 };
 </code></pre>
@@ -4700,12 +4690,12 @@
 
             
                 
-                <a href="Valid Binary Search Tree.html" class="navigation navigation-prev " aria-label="Previous page: Valid Binary Search Tree">
+                <a href="Validate Binary Search Tree.html" class="navigation navigation-prev " aria-label="Previous page: Validate Binary Search Tree">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Complete Binary Tree.html" class="navigation navigation-next " aria-label="Next page: Complete Binary Tree">
+                <a href="Check Completeness of a Binary Tree.html" class="navigation navigation-next " aria-label="Next page: Check Completeness of a Binary Tree">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -4716,7 +4706,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Balanced Binary Tree","level":"1.21.2","depth":2,"next":{"title":"Complete Binary Tree","level":"1.21.3","depth":2,"path":"Binary Tree/Complete Binary Tree.md","ref":"Binary Tree/Complete Binary Tree.md","articles":[]},"previous":{"title":"Valid Binary Search Tree","level":"1.21.1","depth":2,"path":"Binary Tree/Valid Binary Search Tree.md","ref":"Binary Tree/Valid Binary Search Tree.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Tree/Balanced Binary Tree.md","mtime":"2021-05-26T06:29:15.050Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-28T06:13:56.517Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Balanced Binary Tree","level":"1.21.2","depth":2,"next":{"title":"Check Completeness of a Binary Tree","level":"1.21.3","depth":2,"path":"Binary Tree/Check Completeness of a Binary Tree.md","ref":"Binary Tree/Check Completeness of a Binary Tree.md","articles":[]},"previous":{"title":"Validate Binary Search Tree","level":"1.21.1","depth":2,"path":"Binary Tree/Validate Binary Search Tree.md","ref":"Binary Tree/Validate Binary Search Tree.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Tree/Balanced Binary Tree.md","mtime":"2021-05-30T19:01:41.722Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-30T19:10:24.279Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
