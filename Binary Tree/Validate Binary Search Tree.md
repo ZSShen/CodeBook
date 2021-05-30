@@ -1,7 +1,7 @@
 
 # Problem
-### LeetCode 110. Balanced Binary Tree
-https://leetcode.com/problems/balanced-binary-tree
+### LeetCode 98. Validate Binary Search Tree
+https://leetcode.com/problems/validate-binary-search-tree
 
 # Solution
 ```c++
@@ -18,9 +18,11 @@ https://leetcode.com/problems/balanced-binary-tree
  */
 class Solution {
 public:
-    bool isBalanced(TreeNode* root) {
+    bool isValidBST(TreeNode* root) {
 
         /**
+         *  Use Pre-Order traversal.
+         *
          *  TC: O(N), where
          *      N is the number of nodes
          *
@@ -28,33 +30,27 @@ public:
          *      H is the height of the tree
          */
 
-        auto res = runPostOrder(root);
-        return res.first;
+        return runPreOrder(root, nullptr, nullptr);
     }
 
 private:
-    pair<bool, int> runPostOrder(TreeNode* root) {
+    bool runPreOrder(TreeNode* root, TreeNode* lo, TreeNode* hi) {
 
         if (!root) {
-            return {true, 0};
+            return true;
         }
 
-        auto l = runPostOrder(root->left);
-        if (!l.first) {
-            return {false, -1};
+        if (lo && root->val <= lo->val) {
+            return false;
+        }
+        if (hi && root->val >= hi->val) {
+            return false;
         }
 
-        auto r = runPostOrder(root->right);
-        if (!r.first) {
-            return {false, -1};
+        if (!runPreOrder(root->left, lo, root)) {
+            return false;
         }
-
-        int diff = abs(l.second - r.second);
-        if (diff > 1) {
-            return {false, -1};
-        }
-
-        return {true, max(l.second, r.second) + 1};
+        return runPreOrder(root->right, root, hi);
     }
 };
 ```

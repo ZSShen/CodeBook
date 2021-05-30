@@ -1,58 +1,56 @@
-
 # Problem
-### LintCode 66. Binary Tree Preorder Traversal
 
-https://www.lintcode.com/problem/binary-tree-preorder-traversal/description
+### LeetCode 144. Binary Tree Preorder Traversal
+https://leetcode.com/problems/binary-tree-preorder-traversal
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: A Tree
-     * @return: Preorder in ArrayList which contains node values.
-     */
-    vector<int> preorderTraversal(TreeNode * root) {
-        // write your code here
+    vector<int> preorderTraversal(TreeNode* root) {
+
+        /**
+         *  TC: O(N), where
+         *      N is the number of tree nodes.
+         *
+         *  SC: O(N)
+         */
 
         if (!root) {
             return {};
         }
 
-        std::vector<int> ans;
-        std::stack<TreeNode*> stk;
-        stk.push(root);
+        vector<int> ans;
+
+        stack<TreeNode*> stk;
+        stk.emplace(root);
 
         while (!stk.empty()) {
-
-            auto curr = stk.top();
+            auto node = stk.top();
             stk.pop();
 
-            ans.push_back(curr->val);
+            ans.emplace_back(node->val);
 
-            if (curr->right) {
-                stk.push(curr->right);
+            if (node->right) {
+                stk.emplace(node->right);
             }
-            if (curr->left) {
-                stk.push(curr->left);
+            if (node->left) {
+                stk.emplace(node->left);
             }
         }
 
         return ans;
     }
 };
-
 ```

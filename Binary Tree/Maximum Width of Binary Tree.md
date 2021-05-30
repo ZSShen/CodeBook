@@ -1,82 +1,68 @@
 
 # Problem
-### LintCode 1101. Maximum Width of Binary Tree
-https://www.lintcode.com/problem/maximum-width-of-binary-tree/description
+### LeetCode 662. Maximum Width of Binary Tree
+https://leetcode.com/problems/maximum-width-of-binary-tree
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
-
-struct Record {
-    TreeNode* node;
-    int label;
-
-    Record(TreeNode* node, int label)
-      : node(node), label(label)
-    { }
-};
-
-
 class Solution {
 public:
-    /**
-     * @param root: the root
-     * @return: the maximum width of the given tree
-     */
-    int widthOfBinaryTree(TreeNode * root) {
-        // Write your code here
+    int widthOfBinaryTree(TreeNode* root) {
 
-        // Level Order Traversal + Tree Label
+        /**
+         *  Use level order BFS. When labeling tree nodes, make sure to
+         *  normalize labels with regard to the minimum label of a level.
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)
+         */
 
-        if (!root) {
-            return 0;
-        }
+        queue<pair<TreeNode*, int>> q;
+        q.push({root, 1});
 
-        int width = 0;
+        int ans = 1;
 
-        std::queue<Record> queue;
-        queue.push(Record(root, 1));
+        while (!q.empty()) {
+            int n = q.size();
 
-        while (!queue.empty()) {
+            int left = INT_MAX;
+            int right = INT_MIN;
+            int base = q.front().second;
+            z
+            for (int i = 0 ; i < n ; ++i) {
+                auto record = q.front();
+                q.pop();
 
-            int max = INT_MIN;
-            int min = INT_MAX;
-            int size = queue.size();
+                int id = record.second - base;
+                left = min(left, id);
+                right = max(right, id);
 
-            for (int i = 0 ; i < size ; ++i) {
-                auto rec = queue.front();
-                queue.pop();
-
-                auto node = rec.node;
-                int label = rec.label;
-
-                max = std::max(max, label);
-                min = std::min(min, label);
-
+                auto node = record.first;
                 if (node->left) {
-                    queue.push(Record(node->left, label * 2));
+                    q.push({node->left, id << 1});
                 }
                 if (node->right) {
-                    queue.push(Record(node->right, label * 2 + 1));
+                    q.push({node->right, (id << 1) + 1});
                 }
             }
 
-            width = std::max(width, max - min + 1);
+            ans = max(ans, right - left + 1);
         }
 
-        return width;
+        return ans;
     }
 };
 ```

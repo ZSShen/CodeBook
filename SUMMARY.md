@@ -180,9 +180,9 @@
    * [Nested List Weight Sum II](Iterator/Nested List Weight Sum II.md)
 
 * Binary Tree
-   * [Valid Binary Search Tree](Binary Tree/Valid Binary Search Tree.md)
+   * [Validate Binary Search Tree](Binary Tree/Validate Binary Search Tree.md)
    * [Balanced Binary Tree](Binary Tree/Balanced Binary Tree.md)
-   * [Complete Binary Tree](Binary Tree/Complete Binary Tree.md)
+   * [Check Completeness of a Binary Tree](Binary Tree/Check Completeness of a Binary Tree.md)
    * [Maximum Width of Binary Tree](Binary Tree/Maximum Width of Binary Tree.md)
    * [Diameter of Binary Tree](Binary Tree/Diameter of Binary Tree.md)
    * [Minimum Depth of Binary Tree](Binary Tree/Minimum Depth of Binary Tree.md)

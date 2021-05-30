@@ -6,29 +6,22 @@ https://www.lintcode.com/problem/diameter-of-binary-tree/description
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: a root of binary tree
-     * @return: return a integer
-     */
-    int diameterOfBinaryTree(TreeNode * root) {
-        // write your code here
+    int diameterOfBinaryTree(TreeNode* root) {
 
         /**
-         *  Postorder Traversal + Divide and Conquer
+         *  Use post-order traversal.
          *
          *  To get the diameter of the subtree rooted by a node R, we can divide
          *  the diamter into 2 segments, each of which can be calculated from
@@ -37,30 +30,30 @@ public:
          *  is essentially the maximum depth of a tree. Therefore, we collect
          *  the maximum depths from both branches and combine them to form
          *  a diameter path.
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
          */
 
-        int ans = std::numeric_limits<int>::min();
-        runPostOrder(root, ans);
-
-        return ans;
+        int opt = 0;
+        runPostOrder(root, opt);
+        return opt;
     }
 
 private:
-    int runPostOrder(TreeNode* root, int& ans) {
+    int runPostOrder(TreeNode* root, int& opt) {
 
         if (!root) {
             return 0;
         }
-        if (!root->left && !root->right) {
-            return 1;
-        }
 
-        int l = runPostOrder(root->left, ans);
-        int r = runPostOrder(root->right, ans);
-
-        ans = std::max(ans, r + l);
-
-        return std::max(l, r) + 1;
+        int l = runPostOrder(root->left, opt);
+        int r = runPostOrder(root->right, opt);
+        opt = max(opt, l + r);
+        return max(l, r) + 1;
     }
 };
 ```
