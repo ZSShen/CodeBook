@@ -1,58 +1,55 @@
 
 # Problem
-### LintCode 155. Minimum Depth of Binary Tree
-https://www.lintcode.com/problem/minimum-depth-of-binary-tree/description
+### LeetCode 111. Minimum Depth of Binary Tree
+https://leetcode.com/problems/minimum-depth-of-binary-tree
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: The root of binary tree
-     * @return: An integer
-     */
-    int minDepth(TreeNode * root) {
-        // write your code here
+    int minDepth(TreeNode* root) {
 
-        // Preorder Traversal + Height Comparison
+        /**
+         *  Use pre-order traversal.
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
+         */
 
-        if (!root) {
-            return 0;
-        }
-
-        int ans = std::numeric_limits<int>::max();
-        runPreOrder(root, 1, ans);
-
-        return ans;
+        int ans = INT_MAX;
+        runPreOrder(root, 0, ans);
+        return ans < INT_MAX ? ans : 0;
     }
 
 private:
-    void runPreOrder(TreeNode* root, int h, int& ans) {
+    void runPreOrder(TreeNode* root, int depth, int& ans) {
 
-        if (!root->left && !root->right) {
-            ans = std::min(h, ans);
+        if (!root) {
             return;
         }
 
-        if (root->left) {
-            runPreOrder(root->left, h + 1, ans);
+        ++depth;
+
+        if (!root->left && !root->right) {
+            ans = min(ans, depth);
         }
-        if (root->right) {
-            runPreOrder(root->right, h + 1, ans);
-        }
+
+        runPreOrder(root->left, depth, ans);
+        runPreOrder(root->right, depth, ans);
     }
 };
 ```

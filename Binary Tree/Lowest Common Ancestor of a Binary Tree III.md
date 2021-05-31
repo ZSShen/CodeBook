@@ -1,89 +1,46 @@
 
 # Problem
-### LintCode 578. Lowest Common Ancestor of a Binary Tree III
-https://www.lintcode.com/problem/lowest-common-ancestor-iii/description
+### LeetCode 1650. Lowest Common Ancestor of a Binary Tree III
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii
 
 # Solution
 ```c++
-/**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
- *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
- */
-
-
-struct Record {
-    bool found_a;
-    bool found_b;
-    TreeNode* lca;
-
-    Record()
-      : found_a(false), found_b(false), lca(nullptr)
-    { }
-
-    Record(bool found_a, bool found_b, TreeNode* lca)
-      : found_a(found_a), found_b(found_b), lca(lca)
-    { }
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* parent;
 };
-
+*/
 
 class Solution {
 public:
-    /*
-     * @param root: The root of the binary search tree.
-     * @param A: A TreeNode in a Binary.
-     * @param B: A TreeNode in a Binary.
-     * @return: Return the least common ancestor(LCA) of the two nodes.
-     */
-    TreeNode * lowestCommonAncestor(TreeNode * root, TreeNode * A, TreeNode * B) {
-        // write your code here
+    Node* lowestCommonAncestor(Node* p, Node * q) {
 
-        auto res = runPostOrder(root, A, B);
-        return res.lca;
-    }
+        /**
+         *  TC: O(H), where
+         *      H is the height of the tree
+         *
+         *  SC: O(H)
+         */
 
-private:
-    Record runPostOrder(TreeNode* root, TreeNode* A, TreeNode* B) {
-
-        if (!root) {
-            return Record();
+        unordered_set<Node*> set;
+        while (p) {
+            set.emplace(p);
+            p = p->parent;
         }
 
-        Record curr;
-        if (root == A) {
-            curr.found_a = true;
-        }
-        if (root == B) {
-            curr.found_b = true;
-        }
-
-        auto l = runPostOrder(root->left, A, B);
-        if (l.lca) {
-            return l;
+        while (q) {
+            if (set.count(q) == 1) {
+                return q;
+            }
+            q = q->parent;
         }
 
-        auto r = runPostOrder(root->right, A, B);
-        if (r.lca) {
-            return r;
-        }
-
-        curr.found_a = curr.found_a || l.found_a || r.found_a;
-        curr.found_b = curr.found_b || l.found_b || r.found_b;
-
-        if (curr.found_a && curr.found_b) {
-            curr.lca = root;
-            return curr;
-        }
-
-        return curr;
+        return nullptr;
     }
 };
-
 ```

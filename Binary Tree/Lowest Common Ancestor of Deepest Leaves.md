@@ -19,46 +19,38 @@ https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
 class Solution {
 public:
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        unordered_map<TreeNode*, int> memo;
-        return runPostOrder(root, memo);
+
+        /**
+         *  Use post-order traversal.
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
+         */
+
+        auto res = runPostOrder(root);
+        return res.first;
     }
 
 private:
-    TreeNode* runPostOrder(
-        TreeNode* root, unordered_map<TreeNode*, int>& memo) {
-
+    pair<TreeNode*, int> runPostOrder(TreeNode* root) {
         if (!root) {
-            return nullptr;
+            return {nullptr, -1};
         }
 
-        auto l = getHeight(root->left, memo);
-        auto r = getHeight(root->right, memo);
-        if (l == r) {
-            return root;
+        auto l = runPostOrder(root->left);
+        auto r = runPostOrder(root->right);
+
+        if (l.second == r.second) {
+            return {root, l.second + 1};
         }
 
-        if (l > r) {
-            return runPostOrder(root->left, memo);
+        if (l.second > r.second) {
+            return {l.first, l.second + 1};
         }
-        return runPostOrder(root->right, memo);
-    }
-
-    int getHeight(TreeNode* root, unordered_map<TreeNode*, int>& memo) {
-
-        if (!root) {
-            return 0;
-        }
-
-        if (memo.count(root)) {
-            return memo[root];
-        }
-
-        auto l = getHeight(root->left, memo);
-        auto r = getHeight(root->right, memo);
-
-        int h = max(l, r) + 1;
-        memo[root] = h;
-        return h;
+        return {r.first, r.second + 1};
     }
 };
 ```

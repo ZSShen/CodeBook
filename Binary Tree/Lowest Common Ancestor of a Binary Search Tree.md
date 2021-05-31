@@ -6,34 +6,34 @@ https://www.lintcode.com/problem/lowest-common-ancestor-of-a-binary-search-tree/
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
  */
 
 class Solution {
 public:
-    /**
-     * @param root: root of the tree
-     * @param p: the node p
-     * @param q: the node q
-     * @return: find the LCA of p and q
-     */
-    TreeNode * lowestCommonAncestor(TreeNode * root, TreeNode * p, TreeNode * q) {
-        // write your code here
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
-        if (root->val > p->val && root->val > q->val) {
-            return lowestCommonAncestor(root->left, p, q);
-        }
-        if (root->val < p->val && root->val < q->val) {
-            return lowestCommonAncestor(root->right, p, q);
+        /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *  SC: O(H), where
+         *      H is the height of the tree
+         */
+
+        while (root) {
+            if (root->val < p->val && root->val < q->val) {
+                root = root->right;
+            } else if (root->val > p->val && root->val > q->val) {
+                root = root->left;
+            } else {
+                break;
+            }
         }
 
         return root;

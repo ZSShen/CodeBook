@@ -6,36 +6,34 @@ https://www.lintcode.com/problem/lowest-common-ancestor-of-a-binary-tree/descrip
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
  */
-
-
 class Solution {
 public:
-    /*
-     * @param root: The root of the binary search tree.
-     * @param A: A TreeNode in a Binary.
-     * @param B: A TreeNode in a Binary.
-     * @return: Return the least common ancestor(LCA) of the two nodes.
-     */
-    TreeNode * lowestCommonAncestor(TreeNode * root, TreeNode * A, TreeNode * B) {
-        // write your code here
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
-        if (!root || root == A || root == B) {
+        /**
+         *  Use post-order traversal.
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
+         */
+
+        if (!root || root == p || root == q) {
             return root;
         }
 
-        auto l = lowestCommonAncestor(root->left, A, B);
-        auto r = lowestCommonAncestor(root->right, A, B);
+        auto l = lowestCommonAncestor(root->left, p, q);
+        auto r = lowestCommonAncestor(root->right, p, q);
 
         if (l && r) {
             return root;
@@ -44,12 +42,7 @@ public:
         if (l) {
             return l;
         }
-
-        if (r) {
-            return r;
-        }
-
-        return nullptr;
+        return r;
     }
 };
 ```

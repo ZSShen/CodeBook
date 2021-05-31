@@ -41,7 +41,7 @@ public:
             int left = INT_MAX;
             int right = INT_MIN;
             int base = q.front().second;
-            z
+
             for (int i = 0 ; i < n ; ++i) {
                 auto record = q.front();
                 q.pop();

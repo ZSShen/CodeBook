@@ -1,37 +1,29 @@
 
 # Problem
-### LintCode 94. Binary Tree Maximum Path Sum
-https://www.lintcode.com/problem/binary-tree-maximum-path-sum/description
+### LeetCode 124. Binary Tree Maximum Path Sum
+https://leetcode.com/problems/binary-tree-maximum-path-sum
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
-
 class Solution {
 public:
-    /**
-     * @param root: The root of binary tree.
-     * @return: An integer
-     */
-    int maxPathSum(TreeNode * root) {
-        // write your code here
+    int maxPathSum(TreeNode* root) {
 
         /**
-         * Consider the following tree rooted by T. If we want to generate
-         * a maximum path sum which passes T, we need to check thw following
-         * cases.
+         *  Consider the following tree rooted by T. If we want to generate
+         *  a maximum path sum which passes T, we need to check thw following
+         *  cases.
          *
          *      T       Let L denote the maximum path sum returned from the
          *     / \      left branch of T.
@@ -43,40 +35,38 @@ public:
          *              MAX { T, T + L, T + R, T + L + R }
          *
          *              And the path sum that we need to return to the parent
-         *              level of T is:
+         *              level is:
          *              MAX { T, T + L, T + R }
+         *
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
          */
 
-        if (!root) {
-            return 0;
-        }
-
-        int opt = root->val;
-        runPostOrder(root, opt);
-
+        int opt = INT_MIN;
+        findPath(root, opt);
         return opt;
     }
 
-
 private:
-    int runPostOrder(TreeNode* root, int& opt) {
+    int findPath(TreeNode* root, int& opt) {
 
         if (!root) {
             return 0;
         }
 
-        int l = runPostOrder(root->left, opt);
-        int r = runPostOrder(root->right, opt);
+        int l = findPath(root->left, opt);
+        int r = findPath(root->right, opt);
 
-        int tl = root->val + l;
-        int tr = root->val + r;
-        int tlr = root->val + l + r;
+        opt = max(opt, root->val);
+        opt = max(opt, root->val + r);
+        opt = max(opt, root->val + l);
+        opt = max(opt, root->val + r + l);
 
-        int ret = std::max(std::max(tl, tr), root->val);
-        int full = std::max(ret, tlr);
-
-        opt = std::max(opt, full);
-        return ret;
+        return max(root->val, max(root->val + l, root->val + r));
     }
 };
 ```
