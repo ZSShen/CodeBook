@@ -272,20 +272,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.13" data-path="Continuous Subarray Sum II.html">
-            
-                <a href="Continuous Subarray Sum II.html">
-            
-                    
-                    Continuous Subarray Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2.14" data-path="Max Consecutive Ones III.html">
+        <li class="chapter " data-level="1.2.13" data-path="Max Consecutive Ones III.html">
             
                 <a href="Max Consecutive Ones III.html">
             
@@ -4619,46 +4606,49 @@
         <span class="hljs-comment">// write your code here</span>
 
         <span class="hljs-comment">/**
-         * Sort the prefix sums and find the pair of the neighboring prefix
-         * sums that has the minimum gap.
+         *  TC: O(NlogN), where
+         *      N is the number of elements
          *
-         * s[0] = 0
-         * s[1] = nums[0]
-         * s[2] = nums[1] + s[1]
-         *  .
-         *  .
-         *  .
-         * s[n] = nums[n - 1] + s[n - 1]
+         *  SC: O(N)
          *
-         * s[1], s[2], s[0], s[n - 1], ..., s[3]
+         *  Sort the prefix sums and find the pair of the neighboring prefix
+         *  sums that has the minimum gap.
+         *
+         *  s[0] = 0
+         *  s[1] = nums[0]
+         *  s[2] = nums[1] + s[1]
+         *   .
+         *   .
+         *   .
+         *  s[n] = nums[n - 1] + s[n - 1]
+         *
+         *  s[1], s[2], s[0], s[n - 1], ..., s[3]
          */</span>
 
-        <span class="hljs-keyword">int</span> n = nums.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> {<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>};
+        <span class="hljs-comment">// &lt;key, value&gt;</span>
+        <span class="hljs-comment">// key   -&gt; the prefix sum</span>
+        <span class="hljs-comment">// value -&gt; the ending index of the prefix sum</span>
+        <span class="hljs-built_in">vector</span>&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt; sums;
+        sums.push_back({<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>});
+
+        <span class="hljs-keyword">int</span> n = nums.size(), prefix = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
+            prefix += nums[i];
+            sums.push_back({prefix, i});
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;Record&gt; prefix(n + <span class="hljs-number">1</span>, Record(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>));
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= n ; ++i) {
-            prefix[i].sum = prefix[i - <span class="hljs-number">1</span>].sum + nums[i - <span class="hljs-number">1</span>];
-            prefix[i].index = i - <span class="hljs-number">1</span>;
-        }
-
-        <span class="hljs-built_in">std</span>::sort(prefix.begin(), prefix.end(),
-            [](<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; lhs, <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; rhs) {
-                <span class="hljs-keyword">return</span> lhs.sum &lt; rhs.sum;
-            });
+        sort(sums.begin(), sums.end());
 
         <span class="hljs-keyword">int</span> max_gap = INT_MAX;
         <span class="hljs-keyword">int</span> bgn = <span class="hljs-number">0</span>, end = <span class="hljs-number">0</span>;
-
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= n ; ++i) {
-            <span class="hljs-keyword">int</span> gap = prefix[i].sum - prefix[i - <span class="hljs-number">1</span>].sum;
-            <span class="hljs-keyword">if</span> (gap &lt; max_gap) {
-                max_gap = gap;
-                bgn = <span class="hljs-built_in">std</span>::min(prefix[i].index, prefix[i - <span class="hljs-number">1</span>].index) + <span class="hljs-number">1</span>;
-                end = <span class="hljs-built_in">std</span>::max(prefix[i].index, prefix[i - <span class="hljs-number">1</span>].index);
+            <span class="hljs-keyword">int</span> gap = sums[i].first - sums[i - <span class="hljs-number">1</span>].first;
+            <span class="hljs-keyword">if</span> (gap &gt;= max_gap) {
+                <span class="hljs-keyword">continue</span>;
             }
+            max_gap = gap;
+            bgn = min(sums[i].second, sums[i - <span class="hljs-number">1</span>].second) + <span class="hljs-number">1</span>;
+            end = max(sums[i].second, sums[i - <span class="hljs-number">1</span>].second);
         }
 
         <span class="hljs-keyword">return</span> {bgn, end};
@@ -4708,7 +4698,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Subarray Sum Closest","level":"1.2.3","depth":2,"next":{"title":"Subarray Sum Equals K","level":"1.2.4","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Equals K.md","ref":"Prefix Sum and Subarray/Subarray Sum Equals K.md","articles":[]},"previous":{"title":"Submatrix Sum","level":"1.2.2","depth":2,"path":"Prefix Sum and Subarray/Submatrix Sum.md","ref":"Prefix Sum and Subarray/Submatrix Sum.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Subarray Sum Closest.md","mtime":"2021-05-31T00:51:46.587Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T06:35:11.054Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Subarray Sum Closest","level":"1.2.3","depth":2,"next":{"title":"Subarray Sum Equals K","level":"1.2.4","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Equals K.md","ref":"Prefix Sum and Subarray/Subarray Sum Equals K.md","articles":[]},"previous":{"title":"Submatrix Sum","level":"1.2.2","depth":2,"path":"Prefix Sum and Subarray/Submatrix Sum.md","ref":"Prefix Sum and Subarray/Submatrix Sum.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Subarray Sum Closest.md","mtime":"2021-05-31T20:44:23.424Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

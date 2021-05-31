@@ -58,7 +58,7 @@
 
     
     
-    <link rel="prev" href="Continuous Subarray Sum II.html" />
+    <link rel="prev" href="Continuous Subarray Sum.html" />
     
 
     </head>
@@ -270,20 +270,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.13" data-path="Continuous Subarray Sum II.html">
-            
-                <a href="Continuous Subarray Sum II.html">
-            
-                    
-                    Continuous Subarray Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter active" data-level="1.2.14" data-path="Max Consecutive Ones III.html">
+        <li class="chapter active" data-level="1.2.13" data-path="Max Consecutive Ones III.html">
             
                 <a href="Max Consecutive Ones III.html">
             
@@ -4602,37 +4589,34 @@
         <span class="hljs-comment">/**
          * Since all the elements in the array are either 1s or 0s,
          * we can transform the problem into finding the longest subarray
-         * that fulfills the following formula:
+         * that fits the following equation:
          *
          * (j - i + 1) - SUM(i, j) &lt;= K
+         *
          * Given a subarray starting from i and ending at j.
          * SUM(i, j) means the sum of consecutive elements from the ith to the jth.
          * (j - i + 1) means the size of the subarray.
          *
          * We can use 2 pointers to maintain a sliding window and scan through
-         * the array to check all the subarrays fulfilling the above formula.
+         * the array to check all the subarrays fulfilling the above equation.
          * Among all the subarrays, we pick the longest one.
          */</span>
 
         <span class="hljs-keyword">int</span> n = A.size();
+        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>, sum = <span class="hljs-number">0</span>, l = <span class="hljs-number">0</span>;
 
-        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
-
-        <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>;
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span> ; r &lt; n ; ++r) {
             sum += A[r];
 
-            <span class="hljs-comment">// We have more than K 0s in the window.</span>
+            <span class="hljs-comment">// We have more than K 0s in the window, adjusting the window.</span>
             <span class="hljs-keyword">while</span> (l &lt;= r &amp;&amp; (r - l + <span class="hljs-number">1</span>) - sum &gt; K) {
-                sum -= A[l];
-                ++l;
+                sum -= A[l++];
             }
 
-            max = <span class="hljs-built_in">std</span>::max(max, r - l + <span class="hljs-number">1</span>);
+            ans = max(ans, r - l + <span class="hljs-number">1</span>);
         }
 
-        <span class="hljs-keyword">return</span> max;
+        <span class="hljs-keyword">return</span> ans;
     }
 };
 </code></pre>
@@ -4663,7 +4647,7 @@
 
             
                 
-                <a href="Continuous Subarray Sum II.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Continuous Subarray Sum II">
+                <a href="Continuous Subarray Sum.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Continuous Subarray Sum">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -4675,7 +4659,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Max Consecutive Ones III","level":"1.2.14","depth":2,"next":{"title":"Sliding Window","level":"1.3","depth":1,"ref":"","articles":[{"title":"Window Sum","level":"1.3.1","depth":2,"path":"Sliding Window/Window Sum.md","ref":"Sliding Window/Window Sum.md","articles":[]},{"title":"Sliding Window Median","level":"1.3.2","depth":2,"path":"Sliding Window/Sliding Window Median.md","ref":"Sliding Window/Sliding Window Median.md","articles":[]},{"title":"Sliding Window Maximum","level":"1.3.3","depth":2,"path":"Sliding Window/Sliding Window Maximum.md","ref":"Sliding Window/Sliding Window Maximum.md","articles":[]},{"title":"Subarray Product Less than K","level":"1.3.4","depth":2,"path":"Sliding Window/Subarray Product Less than K.md","ref":"Sliding Window/Subarray Product Less than K.md","articles":[]},{"title":"Longest Substring without Repeating Characters","level":"1.3.5","depth":2,"path":"Sliding Window/Longest Substring without Repeating Characters.md","ref":"Sliding Window/Longest Substring without Repeating Characters.md","articles":[]},{"title":"Longest Substring with at Most K Distinct Characters","level":"1.3.6","depth":2,"path":"Sliding Window/Longest Substring with at Most K Distinct Characters.md","ref":"Sliding Window/Longest Substring with at Most K Distinct Characters.md","articles":[]},{"title":"Find All Anagrams in a String","level":"1.3.7","depth":2,"path":"Sliding Window/Find All Anagrams in a String.md","ref":"Sliding Window/Find All Anagrams in a String.md","articles":[]},{"title":"Minimum Window Substring","level":"1.3.8","depth":2,"path":"Sliding Window/Minimum Window Substring.md","ref":"Sliding Window/Minimum Window Substring.md","articles":[]},{"title":"Moving Average from Data Stream","level":"1.3.9","depth":2,"path":"Sliding Window/Moving Average from Data Stream.md","ref":"Sliding Window/Moving Average from Data Stream.md","articles":[]},{"title":"Find Median from Data Stream","level":"1.3.10","depth":2,"path":"Sliding Window/Find Median from Data Stream.md","ref":"Sliding Window/Find Median from Data Stream.md","articles":[]}]},"previous":{"title":"Continuous Subarray Sum II","level":"1.2.13","depth":2,"path":"Prefix Sum and Subarray/Continuous Subarray Sum II.md","ref":"Prefix Sum and Subarray/Continuous Subarray Sum II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Max Consecutive Ones III.md","mtime":"2021-05-31T00:51:46.586Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T06:35:11.054Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Max Consecutive Ones III","level":"1.2.13","depth":2,"next":{"title":"Sliding Window","level":"1.3","depth":1,"ref":"","articles":[{"title":"Window Sum","level":"1.3.1","depth":2,"path":"Sliding Window/Window Sum.md","ref":"Sliding Window/Window Sum.md","articles":[]},{"title":"Sliding Window Median","level":"1.3.2","depth":2,"path":"Sliding Window/Sliding Window Median.md","ref":"Sliding Window/Sliding Window Median.md","articles":[]},{"title":"Sliding Window Maximum","level":"1.3.3","depth":2,"path":"Sliding Window/Sliding Window Maximum.md","ref":"Sliding Window/Sliding Window Maximum.md","articles":[]},{"title":"Subarray Product Less than K","level":"1.3.4","depth":2,"path":"Sliding Window/Subarray Product Less than K.md","ref":"Sliding Window/Subarray Product Less than K.md","articles":[]},{"title":"Longest Substring without Repeating Characters","level":"1.3.5","depth":2,"path":"Sliding Window/Longest Substring without Repeating Characters.md","ref":"Sliding Window/Longest Substring without Repeating Characters.md","articles":[]},{"title":"Longest Substring with at Most K Distinct Characters","level":"1.3.6","depth":2,"path":"Sliding Window/Longest Substring with at Most K Distinct Characters.md","ref":"Sliding Window/Longest Substring with at Most K Distinct Characters.md","articles":[]},{"title":"Find All Anagrams in a String","level":"1.3.7","depth":2,"path":"Sliding Window/Find All Anagrams in a String.md","ref":"Sliding Window/Find All Anagrams in a String.md","articles":[]},{"title":"Minimum Window Substring","level":"1.3.8","depth":2,"path":"Sliding Window/Minimum Window Substring.md","ref":"Sliding Window/Minimum Window Substring.md","articles":[]},{"title":"Moving Average from Data Stream","level":"1.3.9","depth":2,"path":"Sliding Window/Moving Average from Data Stream.md","ref":"Sliding Window/Moving Average from Data Stream.md","articles":[]},{"title":"Find Median from Data Stream","level":"1.3.10","depth":2,"path":"Sliding Window/Find Median from Data Stream.md","ref":"Sliding Window/Find Median from Data Stream.md","articles":[]}]},"previous":{"title":"Continuous Subarray Sum","level":"1.2.12","depth":2,"path":"Prefix Sum and Subarray/Continuous Subarray Sum.md","ref":"Prefix Sum and Subarray/Continuous Subarray Sum.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Max Consecutive Ones III.md","mtime":"2021-05-31T23:00:33.182Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

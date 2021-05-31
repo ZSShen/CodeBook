@@ -272,20 +272,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.13" data-path="Continuous Subarray Sum II.html">
-            
-                <a href="Continuous Subarray Sum II.html">
-            
-                    
-                    Continuous Subarray Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2.14" data-path="Max Consecutive Ones III.html">
+        <li class="chapter " data-level="1.2.13" data-path="Max Consecutive Ones III.html">
             
                 <a href="Max Consecutive Ones III.html">
             
@@ -4601,16 +4588,30 @@
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProduct</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>{
 
-        <span class="hljs-keyword">int</span> min_sofar = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">int</span> max_sofar = <span class="hljs-number">1</span>;
+        <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         *
+         *       nums:    2, 3, -2,  4
+         *
+         *  min_sofar: 1  2  3 -12 -48
+         *  max_sofar: 1  2  6  -2   4
+         *
+         *
+         *       nums:    2, 3, -1,  4, -4
+         *
+         *  min_sofar: 1  2  3  -6 -24 -16
+         *  max_sofar: 1  2  6  -1   4  96
+         */</span>
 
+        <span class="hljs-keyword">int</span> min_sofar = <span class="hljs-number">1</span>, max_sofar = <span class="hljs-number">1</span>;
         <span class="hljs-keyword">int</span> ans = nums[<span class="hljs-number">0</span>];
-        <span class="hljs-keyword">int</span> n = nums.size();
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
-            <span class="hljs-keyword">int</span> e = nums[i];
-            <span class="hljs-keyword">int</span> max_curr = max(max(min_sofar * e, max_sofar * e), e);
-            <span class="hljs-keyword">int</span> min_curr = min(min(min_sofar * e, max_sofar * e), e);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) {
+            <span class="hljs-keyword">int</span> min_curr = min(min(num, min_sofar * num), max_sofar * num);
+            <span class="hljs-keyword">int</span> max_curr = max(max(num, min_sofar * num), max_sofar * num);
 
             ans = max(ans, max_curr);
             min_sofar = min_curr;
@@ -4664,7 +4665,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Maximum Product Subarray","level":"1.2.11","depth":2,"next":{"title":"Continuous Subarray Sum","level":"1.2.12","depth":2,"path":"Prefix Sum and Subarray/Continuous Subarray Sum.md","ref":"Prefix Sum and Subarray/Continuous Subarray Sum.md","articles":[]},"previous":{"title":"Maximum Submatrix","level":"1.2.10","depth":2,"path":"Prefix Sum and Subarray/Maximum Submatrix.md","ref":"Prefix Sum and Subarray/Maximum Submatrix.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Maximum Product Subarray.md","mtime":"2021-05-31T00:51:46.586Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T06:35:11.054Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Maximum Product Subarray","level":"1.2.11","depth":2,"next":{"title":"Continuous Subarray Sum","level":"1.2.12","depth":2,"path":"Prefix Sum and Subarray/Continuous Subarray Sum.md","ref":"Prefix Sum and Subarray/Continuous Subarray Sum.md","articles":[]},"previous":{"title":"Maximum Submatrix","level":"1.2.10","depth":2,"path":"Prefix Sum and Subarray/Maximum Submatrix.md","ref":"Prefix Sum and Subarray/Maximum Submatrix.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Maximum Product Subarray.md","mtime":"2021-05-31T22:45:24.585Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

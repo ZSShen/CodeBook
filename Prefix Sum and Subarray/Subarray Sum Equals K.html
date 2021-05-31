@@ -272,20 +272,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.13" data-path="Continuous Subarray Sum II.html">
-            
-                <a href="Continuous Subarray Sum II.html">
-            
-                    
-                    Continuous Subarray Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2.14" data-path="Max Consecutive Ones III.html">
+        <li class="chapter " data-level="1.2.13" data-path="Max Consecutive Ones III.html">
             
                 <a href="Max Consecutive Ones III.html">
             
@@ -4594,36 +4581,39 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-838-subarray-sum-equals-k">LintCode 838. Subarray Sum Equals K</h3>
-<p><a href="https://www.lintcode.com/problem/subarray-sum-equals-k/description" target="_blank">https://www.lintcode.com/problem/subarray-sum-equals-k/description</a></p>
+<h3 id="leetcode-560-subarray-sum-equals-k">LeetCode 560. Subarray Sum Equals K</h3>
+<p><a href="https://leetcode.com/problems/subarray-sum-equals-k" target="_blank">https://leetcode.com/problems/subarray-sum-equals-k</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: a list of integer
-     * @param k: an integer
-     * @return: return an integer, denote the number of continuous subarrays whose sum equals to k
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">subarraySumEqualsK</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> k)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k)</span> </span>{
 
         <span class="hljs-comment">/**
-         *  sum(i, j) = prefix(j) -  prefix(i - 1) = k
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         *
+         *  sum(i, j) = prefix(j) - prefix(i - 1)
+         *  =&gt; prefix(i - 1) = prefix(j) - sum(i, j)
          *  =&gt; prefix(i - 1) = prefix(j) - k
          */</span>
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">map</span>;
+        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">map</span>;
+
+        <span class="hljs-comment">// Set for the case that we have a prefix array sums up to k.</span>
+        <span class="hljs-comment">// sum(0, i) = k</span>
         <span class="hljs-built_in">map</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
 
-        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>, prefix = <span class="hljs-number">0</span>;
+
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) {
-            sum += num;
-            count += <span class="hljs-built_in">map</span>[sum - k];
-            ++<span class="hljs-built_in">map</span>[sum];
+            prefix += num;
+            ans += <span class="hljs-built_in">map</span>[sum - k];
+            ++<span class="hljs-built_in">map</span>[prefix];
         }
 
-        <span class="hljs-keyword">return</span> count;
+        <span class="hljs-keyword">return</span> ans;
     }
 };
 </code></pre>
@@ -4670,7 +4660,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Subarray Sum Equals K","level":"1.2.4","depth":2,"next":{"title":"Subarray Sum Divisible by K","level":"1.2.5","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","ref":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","articles":[]},"previous":{"title":"Subarray Sum Closest","level":"1.2.3","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Closest.md","ref":"Prefix Sum and Subarray/Subarray Sum Closest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Subarray Sum Equals K.md","mtime":"2021-05-31T00:51:46.587Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T06:35:11.054Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Subarray Sum Equals K","level":"1.2.4","depth":2,"next":{"title":"Subarray Sum Divisible by K","level":"1.2.5","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","ref":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","articles":[]},"previous":{"title":"Subarray Sum Closest","level":"1.2.3","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Closest.md","ref":"Prefix Sum and Subarray/Subarray Sum Closest.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Subarray Sum Equals K.md","mtime":"2021-05-31T19:43:05.974Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -272,20 +272,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.13" data-path="Continuous Subarray Sum II.html">
-            
-                <a href="Continuous Subarray Sum II.html">
-            
-                    
-                    Continuous Subarray Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2.14" data-path="Max Consecutive Ones III.html">
+        <li class="chapter " data-level="1.2.13" data-path="Max Consecutive Ones III.html">
             
                 <a href="Max Consecutive Ones III.html">
             
@@ -4599,44 +4586,43 @@
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: an array
-     * @param k: a target value
-     * @return: the maximum length of a subarray that sums to k
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxSubArrayLen</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> k)</span> </span>{
-        <span class="hljs-comment">// Write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxSubArrayLen</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k)</span> </span>{
 
         <span class="hljs-comment">/**
-         *   1  -1  5  -2  3
-         *   1   0  5   3  6
+         *  TC: O(N), where
+         *      N is the number of elements
          *
-         *  -2  -1  2   1
-         *  -2  -3  -1  0
+         *  SC: O(N)
          *
-         *  HashTable(Key = Prefix Sum) = (Value = Index)
+         *  sum(i, j) = prefix(j) - prefix(i - 1) = k
+         *  =&gt; prefix(i - 1) = prefix(j) - k
+         *
+         *  Since we concern the longest subarray, we only record a prefix
+         *  sum for its first occurrance. This makes sure that whenever
+         *  we query `map[prefix - k]`, we always get the minimal index, which
+         *  helps enlarge the current subarray ending at index i.
          */</span>
 
-        <span class="hljs-keyword">int</span> n = nums.size();
-        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> ans = INT_MIN;
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">map</span>;
+        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">map</span>;
+
+        <span class="hljs-comment">// Set up for the case that we have a prefix array sums up to k.</span>
+        <span class="hljs-comment">// sum(0, i) = k.</span>
+        <span class="hljs-built_in">map</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">-1</span>;
+
+        <span class="hljs-keyword">int</span> prefix = <span class="hljs-number">0</span>, ans = <span class="hljs-number">0</span>, n = nums.size();
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
+            prefix += nums[i];
 
-            sum += nums[i];
-            <span class="hljs-keyword">if</span> (sum == k) {
-                ans = i + <span class="hljs-number">1</span>;
-            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>.count(sum - k) == <span class="hljs-number">1</span>) {
-                ans = <span class="hljs-built_in">std</span>::max(ans, i - <span class="hljs-built_in">map</span>[sum - k]);
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>.count(prefix - k) == <span class="hljs-number">1</span>) {
+                ans = max(ans, i - <span class="hljs-built_in">map</span>[prefix - k]);
             }
-
-            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>.count(sum) == <span class="hljs-number">0</span>) {
-                <span class="hljs-built_in">map</span>[sum] = i;
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>.count(prefix) == <span class="hljs-number">0</span>) {
+                <span class="hljs-built_in">map</span>[prefix] = i;
             }
         }
 
-        <span class="hljs-keyword">return</span> (ans != INT_MIN) ? ans : <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> ans;
     }
 };
 </code></pre>
@@ -4683,7 +4669,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Maximum Size Subarray Sum Equals K","level":"1.2.7","depth":2,"next":{"title":"Contiguous Array","level":"1.2.8","depth":2,"path":"Prefix Sum and Subarray/Contiguous Array.md","ref":"Prefix Sum and Subarray/Contiguous Array.md","articles":[]},"previous":{"title":"Minimum Size Subarray Sum","level":"1.2.6","depth":2,"path":"Prefix Sum and Subarray/Minimum Size Subarray Sum.md","ref":"Prefix Sum and Subarray/Minimum Size Subarray Sum.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","mtime":"2021-05-31T00:51:46.586Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T06:35:11.054Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Maximum Size Subarray Sum Equals K","level":"1.2.7","depth":2,"next":{"title":"Contiguous Array","level":"1.2.8","depth":2,"path":"Prefix Sum and Subarray/Contiguous Array.md","ref":"Prefix Sum and Subarray/Contiguous Array.md","articles":[]},"previous":{"title":"Minimum Size Subarray Sum","level":"1.2.6","depth":2,"path":"Prefix Sum and Subarray/Minimum Size Subarray Sum.md","ref":"Prefix Sum and Subarray/Minimum Size Subarray Sum.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","mtime":"2021-05-31T20:35:26.821Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

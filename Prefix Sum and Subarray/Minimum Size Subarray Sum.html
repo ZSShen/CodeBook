@@ -272,20 +272,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.13" data-path="Continuous Subarray Sum II.html">
-            
-                <a href="Continuous Subarray Sum II.html">
-            
-                    
-                    Continuous Subarray Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2.14" data-path="Max Consecutive Ones III.html">
+        <li class="chapter " data-level="1.2.13" data-path="Max Consecutive Ones III.html">
             
                 <a href="Max Consecutive Ones III.html">
             
@@ -4594,24 +4581,23 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-406-minimum-size-subarray-sum">LintCode 406. Minimum Size Subarray Sum</h3>
-<p><a href="https://www.lintcode.com/problem/minimum-size-subarray-sum/description" target="_blank">https://www.lintcode.com/problem/minimum-size-subarray-sum/description</a></p>
+<h3 id="leetcode-209-minimum-size-subarray-sum">LeetCode 209. Minimum Size Subarray Sum</h3>
+<p><a href="https://leetcode.com/problems/minimum-size-subarray-sum" target="_blank">https://leetcode.com/problems/minimum-size-subarray-sum</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: an array of integers
-     * @param s: An integer
-     * @return: an integer representing the minimum size of subarray
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minimumSize</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> s)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">minSubArrayLen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>{
 
         <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         *
          *  Use 2 pointers, r and l, to scan the prefix sum array. In the
          *  procedure, r is the main pointer which controls the movement of
-         *  our sliding window. Each time, when the subarray sum bounded by
-         *  r and l, namely prefix[r] - prefix[l], is less than or eqaul to
+         *  our sliding window. In each iteration, when the subarray sum bounded
+         *  by r and l, namely prefix[r] - prefix[l], is less than or eqaul to
          *  s, we try to adjust l so that we are able to get a smaller window
          *  that also fulfills the problem descpretion.
          *
@@ -4625,23 +4611,18 @@
          */</span>
 
         <span class="hljs-keyword">int</span> n = nums.size();
-        <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> min = INT_MAX;
-        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> prefix = <span class="hljs-number">0</span>, l = <span class="hljs-number">0</span>, ans = INT_MAX;
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span> ; r &lt; n ; ++r) {
-            sum += nums[r];
+            prefix += nums[r];
 
-            <span class="hljs-keyword">while</span> (sum &gt;= s &amp;&amp; l &lt;= r) {
-                <span class="hljs-keyword">int</span> size = r - l + <span class="hljs-number">1</span>;
-                min = <span class="hljs-built_in">std</span>::min(min, size);
-
-                sum -= nums[l];
-                ++l;
+            <span class="hljs-keyword">while</span> (prefix &gt;= target &amp;&amp; l &lt;= r) {
+                ans = min(ans, r - l + <span class="hljs-number">1</span>);
+                prefix -= nums[l++];
             }
         }
 
-        <span class="hljs-keyword">return</span> (min != INT_MAX) ? min : <span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">return</span> ans &lt; INT_MAX ? ans : <span class="hljs-number">0</span>;
     }
 };
 </code></pre>
@@ -4688,7 +4669,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Minimum Size Subarray Sum","level":"1.2.6","depth":2,"next":{"title":"Maximum Size Subarray Sum Equals K","level":"1.2.7","depth":2,"path":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","ref":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","articles":[]},"previous":{"title":"Subarray Sum Divisible by K","level":"1.2.5","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","ref":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Minimum Size Subarray Sum.md","mtime":"2021-05-31T00:51:46.586Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T06:35:11.054Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Minimum Size Subarray Sum","level":"1.2.6","depth":2,"next":{"title":"Maximum Size Subarray Sum Equals K","level":"1.2.7","depth":2,"path":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","ref":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","articles":[]},"previous":{"title":"Subarray Sum Divisible by K","level":"1.2.5","depth":2,"path":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","ref":"Prefix Sum and Subarray/Subarray Sum Divisible by K.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Minimum Size Subarray Sum.md","mtime":"2021-05-31T20:21:13.287Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

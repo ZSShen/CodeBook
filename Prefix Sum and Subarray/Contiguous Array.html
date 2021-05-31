@@ -272,20 +272,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.13" data-path="Continuous Subarray Sum II.html">
-            
-                <a href="Continuous Subarray Sum II.html">
-            
-                    
-                    Continuous Subarray Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2.14" data-path="Max Consecutive Ones III.html">
+        <li class="chapter " data-level="1.2.13" data-path="Max Consecutive Ones III.html">
             
                 <a href="Max Consecutive Ones III.html">
             
@@ -4599,36 +4586,42 @@
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: a binary array
-     * @return: the maximum length of a contiguous subarray
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findMaxLength</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums)</span> </span>{
-        <span class="hljs-comment">// Write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findMaxLength</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>{
 
-        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">map</span>{{<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>}};
-        <span class="hljs-keyword">int</span> prefix = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> n = nums.size();
+        <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         *
+         *  By converting 0 to -1, we transform the problem into finding
+         *  the maximum size subarray that sums up to 0.
+         */</span>
+
+        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">map</span>;
+
+        <span class="hljs-comment">// Set up for the case that we have a prefix array sums up to 0.</span>
+        <span class="hljs-comment">// sum(0, i) = 0.</span>
+        <span class="hljs-built_in">map</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">-1</span>;
+
+        <span class="hljs-keyword">int</span> prefix = <span class="hljs-number">0</span>, ans = <span class="hljs-number">0</span>, n = nums.size();
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
             <span class="hljs-keyword">int</span> num = nums[i];
-
             <span class="hljs-keyword">if</span> (num == <span class="hljs-number">1</span>) {
                 ++prefix;
             } <span class="hljs-keyword">else</span> {
                 --prefix;
             }
 
-            <span class="hljs-keyword">auto</span> iter = <span class="hljs-built_in">map</span>.find(prefix);
-            <span class="hljs-keyword">if</span> (iter != <span class="hljs-built_in">map</span>.end()) {
-                max = <span class="hljs-built_in">std</span>::max(max, i - iter-&gt;second);
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>.count(prefix) == <span class="hljs-number">1</span>) {
+                ans = max(ans, i - <span class="hljs-built_in">map</span>[prefix]);
             } <span class="hljs-keyword">else</span> {
                 <span class="hljs-built_in">map</span>[prefix] = i;
             }
         }
 
-        <span class="hljs-keyword">return</span> max;
+        <span class="hljs-keyword">return</span> ans;
     }
 };
 </code></pre>
@@ -4675,7 +4668,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Contiguous Array","level":"1.2.8","depth":2,"next":{"title":"Maximum Subarray","level":"1.2.9","depth":2,"path":"Prefix Sum and Subarray/Maximum Subarray.md","ref":"Prefix Sum and Subarray/Maximum Subarray.md","articles":[]},"previous":{"title":"Maximum Size Subarray Sum Equals K","level":"1.2.7","depth":2,"path":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","ref":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Contiguous Array.md","mtime":"2021-05-31T00:51:46.585Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T06:35:11.054Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Contiguous Array","level":"1.2.8","depth":2,"next":{"title":"Maximum Subarray","level":"1.2.9","depth":2,"path":"Prefix Sum and Subarray/Maximum Subarray.md","ref":"Prefix Sum and Subarray/Maximum Subarray.md","articles":[]},"previous":{"title":"Maximum Size Subarray Sum Equals K","level":"1.2.7","depth":2,"path":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","ref":"Prefix Sum and Subarray/Maximum Size Subarray Sum Equals K.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Prefix Sum and Subarray/Contiguous Array.md","mtime":"2021-05-31T20:51:09.609Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
