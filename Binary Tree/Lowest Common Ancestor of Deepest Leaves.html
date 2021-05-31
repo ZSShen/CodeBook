@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="Recover Binary Search Tree.html" />
     
-    <link rel="prev" href="All Nodes Distance K in Binary Tree.html" />
+    
+    <link rel="prev" href="Lowest Common Ancestor of a Binary Tree III.html" />
     
 
     </head>
@@ -2425,7 +2427,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21.12" data-path="Recover Binary Search Tree.html">
+        <li class="chapter active" data-level="1.21.12" data-path="Lowest Common Ancestor of Deepest Leaves.html">
+            
+                <a href="Lowest Common Ancestor of Deepest Leaves.html">
+            
+                    
+                    Lowest Common Ancestor of Deepest Leaves
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21.13" data-path="Recover Binary Search Tree.html">
             
                 <a href="Recover Binary Search Tree.html">
             
@@ -2438,7 +2453,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21.13" data-path="Binary Tree Maximum Path Sum.html">
+        <li class="chapter " data-level="1.21.14" data-path="Binary Tree Maximum Path Sum.html">
             
                 <a href="Binary Tree Maximum Path Sum.html">
             
@@ -2451,12 +2466,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21.14" data-path="Binary Tree Maximum Path Sum II.html">
+        <li class="chapter " data-level="1.21.15" data-path="Path Sum.html">
             
-                <a href="Binary Tree Maximum Path Sum II.html">
+                <a href="Path Sum.html">
             
                     
-                    Binary Tree Maximum Path Sum II
+                    Path Sum
             
                 </a>
             
@@ -2464,12 +2479,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21.15" data-path="Binary Tree Path Sum.html">
+        <li class="chapter " data-level="1.21.16" data-path="Path Sum II.html">
             
-                <a href="Binary Tree Path Sum.html">
+                <a href="Path Sum II.html">
             
                     
-                    Binary Tree Path Sum
+                    Path Sum II
             
                 </a>
             
@@ -2477,25 +2492,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21.16" data-path="Binary Tree Path Sum II.html">
+        <li class="chapter " data-level="1.21.17" data-path="Path Sum III.html">
             
-                <a href="Binary Tree Path Sum II.html">
-            
-                    
-                    Binary Tree Path Sum II
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.21.17" data-path="Binary Tree Path Sum IV.html">
-            
-                <a href="Binary Tree Path Sum IV.html">
+                <a href="Path Sum III.html">
             
                     
-                    Binary Tree Path Sum IV
+                    Path Sum III
             
                 </a>
             
@@ -4622,46 +4624,38 @@
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function">TreeNode* <span class="hljs-title">lcaDeepestLeaves</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-        <span class="hljs-built_in">unordered_map</span>&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt; memo;
-        <span class="hljs-keyword">return</span> runPostOrder(root, memo);
+
+        <span class="hljs-comment">/**
+         *  Use post-order traversal.
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
+         */</span>
+
+        <span class="hljs-keyword">auto</span> res = runPostOrder(root);
+        <span class="hljs-keyword">return</span> res.first;
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function">TreeNode* <span class="hljs-title">runPostOrder</span><span class="hljs-params">(
-        TreeNode* root, <span class="hljs-built_in">unordered_map</span>&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&amp; memo)</span> </span>{
-
+    pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt; runPostOrder(TreeNode* root) {
         <span class="hljs-keyword">if</span> (!root) {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+            <span class="hljs-keyword">return</span> {<span class="hljs-literal">nullptr</span>, <span class="hljs-number">-1</span>};
         }
 
-        <span class="hljs-keyword">auto</span> l = getHeight(root-&gt;left, memo);
-        <span class="hljs-keyword">auto</span> r = getHeight(root-&gt;right, memo);
-        <span class="hljs-keyword">if</span> (l == r) {
-            <span class="hljs-keyword">return</span> root;
+        <span class="hljs-keyword">auto</span> l = runPostOrder(root-&gt;left);
+        <span class="hljs-keyword">auto</span> r = runPostOrder(root-&gt;right);
+
+        <span class="hljs-keyword">if</span> (l.second == r.second) {
+            <span class="hljs-keyword">return</span> {root, l.second + <span class="hljs-number">1</span>};
         }
 
-        <span class="hljs-keyword">if</span> (l &gt; r) {
-            <span class="hljs-keyword">return</span> runPostOrder(root-&gt;left, memo);
+        <span class="hljs-keyword">if</span> (l.second &gt; r.second) {
+            <span class="hljs-keyword">return</span> {l.first, l.second + <span class="hljs-number">1</span>};
         }
-        <span class="hljs-keyword">return</span> runPostOrder(root-&gt;right, memo);
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getHeight</span><span class="hljs-params">(TreeNode* root, <span class="hljs-built_in">unordered_map</span>&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&amp; memo)</span> </span>{
-
-        <span class="hljs-keyword">if</span> (!root) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        }
-
-        <span class="hljs-keyword">if</span> (memo.count(root)) {
-            <span class="hljs-keyword">return</span> memo[root];
-        }
-
-        <span class="hljs-keyword">auto</span> l = getHeight(root-&gt;left, memo);
-        <span class="hljs-keyword">auto</span> r = getHeight(root-&gt;right, memo);
-
-        <span class="hljs-keyword">int</span> h = max(l, r) + <span class="hljs-number">1</span>;
-        memo[root] = h;
-        <span class="hljs-keyword">return</span> h;
+        <span class="hljs-keyword">return</span> {r.first, r.second + <span class="hljs-number">1</span>};
     }
 };
 </code></pre>
@@ -4692,10 +4686,14 @@
 
             
                 
-                <a href="All Nodes Distance K in Binary Tree.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: All Nodes Distance K in Binary Tree">
+                <a href="Lowest Common Ancestor of a Binary Tree III.html" class="navigation navigation-prev " aria-label="Previous page: Lowest Common Ancestor of a Binary Tree III">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="Recover Binary Search Tree.html" class="navigation navigation-next " aria-label="Next page: Recover Binary Search Tree">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -4704,7 +4702,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Lowest Common Ancestor of Deepest Leaves","level":"1.21.35","depth":2,"next":{"title":"Binary Search","level":"1.22","depth":1,"ref":"","articles":[{"title":"First Bad Version","level":"1.22.1","depth":2,"path":"Binary Search/First Bad Version.md","ref":"Binary Search/First Bad Version.md","articles":[]},{"title":"Search a 2D Matrix","level":"1.22.2","depth":2,"path":"Binary Search/Search a 2D Matrix.md","ref":"Binary Search/Search a 2D Matrix.md","articles":[]},{"title":"Search a 2D Matrix II","level":"1.22.3","depth":2,"path":"Binary Search/Search a 2D Matrix II.md","ref":"Binary Search/Search a 2D Matrix II.md","articles":[]},{"title":"Search for a Range","level":"1.22.4","depth":2,"path":"Binary Search/Search for a Range.md","ref":"Binary Search/Search for a Range.md","articles":[]},{"title":"Pow (x,n)","level":"1.22.5","depth":2,"path":"Binary Search/Pow x n.md","ref":"Binary Search/Pow x n.md","articles":[]},{"title":"Find K Closest Elements","level":"1.22.6","depth":2,"path":"Binary Search/Find K Closest Elements.md","ref":"Binary Search/Find K Closest Elements.md","articles":[]},{"title":"Find Minimum in Rotated Sorted Array","level":"1.22.7","depth":2,"path":"Binary Search/Find Minimum in Rotated Sorted Array.md","ref":"Binary Search/Find Minimum in Rotated Sorted Array.md","articles":[]},{"title":"Maximum Number in Mountain Sequence","level":"1.22.8","depth":2,"path":"Binary Search/Maximum Number in Mountain Sequence.md","ref":"Binary Search/Maximum Number in Mountain Sequence.md","articles":[]},{"title":"Search in Rotated Sorted Array","level":"1.22.9","depth":2,"path":"Binary Search/Search in Rotated Sorted Array.md","ref":"Binary Search/Search in Rotated Sorted Array.md","articles":[]},{"title":"Search in Rotated Sorted Array II","level":"1.22.10","depth":2,"path":"Binary Search/Search in Rotated Sorted Array II.md","ref":"Binary Search/Search in Rotated Sorted Array II.md","articles":[]},{"title":"Divide Two Integers","level":"1.22.11","depth":2,"path":"Binary Search/Divide Two Integers.md","ref":"Binary Search/Divide Two Integers.md","articles":[]},{"title":"Missing Element in Sorted Array","level":"1.22.12","depth":2,"path":"Binary Search/Missing Element in Sorted Array.md","ref":"Binary Search/Missing Element in Sorted Array.md","articles":[]}]},"previous":{"title":"All Nodes Distance K in Binary Tree","level":"1.21.34","depth":2,"path":"Binary Tree/All Nodes Distance K in Binary Tree.md","ref":"Binary Tree/All Nodes Distance K in Binary Tree.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Tree/Lowest Common Ancestor of Deepest Leaves.md","mtime":"2021-05-30T01:39:53.453Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-30T19:10:24.279Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Lowest Common Ancestor of Deepest Leaves","level":"1.21.12","depth":2,"next":{"title":"Recover Binary Search Tree","level":"1.21.13","depth":2,"path":"Binary Tree/Recover Binary Search Tree.md","ref":"Binary Tree/Recover Binary Search Tree.md","articles":[]},"previous":{"title":"Lowest Common Ancestor of a Binary Tree III","level":"1.21.11","depth":2,"path":"Binary Tree/Lowest Common Ancestor of a Binary Tree III.md","ref":"Binary Tree/Lowest Common Ancestor of a Binary Tree III.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Tree/Lowest Common Ancestor of Deepest Leaves.md","mtime":"2021-05-30T21:56:39.844Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T00:40:54.395Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
