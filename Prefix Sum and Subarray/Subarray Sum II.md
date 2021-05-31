@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 138. Subarray Sum
-https://www.lintcode.com/problem/subarray-sum/description
+### LintCode 404. Subarray Sum II
+https://www.lintcode.com/problem/404
 
 # Solution
 ```c++

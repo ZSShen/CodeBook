@@ -1,48 +1,43 @@
 
 # Problem
-### LintCode 661. Convert BST to Greater Tree
-https://www.lintcode.com/problem/convert-bst-to-greater-tree/description
+### LeetCode 538. Convert BST to Greater Tree
+https://leetcode.com/problems/convert-bst-to-greater-tree
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: the root of binary tree
-     * @return: the new root
-     */
-    TreeNode * convertBST(TreeNode * root) {
-        // write your code here
+    TreeNode* convertBST(TreeNode* root) {
+
+        if (!root) {
+            return root;
+        }
 
         int sum = 0;
-        runReversedInOrder(root, sum);
+        runReverseInOrder(root, sum);
         return root;
     }
 
 private:
-    void runReversedInOrder(TreeNode* root, int& sum) {
+    void runReverseInOrder(TreeNode* root, int& sum) {
 
         if (!root) {
             return;
         }
 
-        runReversedInOrder(root->right, sum);
+        runReverseInOrder(root->right, sum);
         sum += root->val;
         root->val = sum;
-        runReversedInOrder(root->left, sum);
+        runReverseInOrder(root->left, sum);
     }
 };
 ```

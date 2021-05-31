@@ -1,7 +1,7 @@
 
 # Problem
 ### LintCode 405. Submatrix Sum
-https://www.lintcode.com/problem/submatrix-sum/description
+https://www.lintcode.com/problem/405
 
 # Solution
 ```c++
@@ -33,26 +33,23 @@ public:
          *   O(C^2 * R)
          */
 
-        int num_r = matrix.size();
-        int num_c = matrix[0].size();
+        int m = matrix.size();
+        int n = matrix[0].size();
 
-        for (int i = 0 ; i < num_c ; ++i) {
+        for (int i = 0 ; i < n ; ++i) {
+            vector<int> syn(m);
 
-            std::vector<int> syn(num_r, 0);
+            for (int j = i ; j < n ; ++j) {
 
-            for (int j = i ; j < num_c ; ++j) {
-
-                // Generate a new synthetic array.
-                for (int k = 0 ; k < num_r ; ++k) {
+                // Update the synthetic subarray.
+                for (int k = 0 ; k < m ; ++k) {
                     syn[k] += matrix[k][j];
                 }
 
                 auto res = subarraySum(syn);
-                if (res[0] == -1 && res[1] == -1) {
-                    continue;
+                if (res.first != -1 && res.second != -1) {
+                    return {{res.first, i}, {res.second, j}};
                 }
-
-                return {{res[0], i}, {res[1], j}};
             }
         }
 
@@ -60,28 +57,23 @@ public:
     }
 
 private:
-    std::vector<int> subarraySum(
-            const std::vector<int>& array) {
+    pair<int, int> subarraySum(const vector<int>& nums) {
 
-        int size = array.size();
+        unordered_map<int, int> map;
+        map[0] = -1;
 
-        std::unordered_map<int, int> match;
-        match[0] = -1;
+        int n = nums.size();
+        int prefix = 0;
 
-        int sum = 0;
-        for (int i = 0 ; i < size ; ++i) {
-
-            sum += array[i];
-
-            if (match.count(sum) == 0) {
-                match[sum] = i;
-            } else {
-                return {match[sum] + 1, i};
+        for (int i = 0 ; i < n ; ++i) {
+            prefix += nums[i];
+            if (map.count(prefix) == 1) {
+                return {map[prefix] + 1, i};
             }
+            map[prefix] = i;
         }
 
         return {-1, -1};
     }
-
 };
 ```

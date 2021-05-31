@@ -1,11 +1,9 @@
 # Problem
 
-### LeetCode 987. Vertical Order Traversal of a Binary Tree
-
-https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+### LeetCode 314. Binary Tree Vertical Order Traversal
+https://leetcode.com/problems/binary-tree-vertical-order-traversal
 
 # Solution
-
 ```c++
 /**
  * Definition for a binary tree node.
@@ -20,35 +18,55 @@ https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
  */
 class Solution {
 public:
-    vector<vector<int>> verticalTraversal(TreeNode* root) {
-        map<int, map<int, set<int>>> map;
-        runPreOrder(root, 0, 0, map);
+    vector<vector<int>> verticalOrder(TreeNode* root) {
 
-        vector<vector<int>> ans;
-        for (auto& outter : map) {
-            vector<int> level;
-            for (auto& inner : outter.second) {
-                for (int elem : inner.second) {
-                    level.emplace_back(elem);
-                }
-            }
-            ans.emplace_back(move(level));
-        }
-        return ans;
-    }
-
-private:
-    void runPreOrder(
-            TreeNode* root, int x, int y,
-            map<int, map<int, set<int>>>& map) {
+        /**
+         *  Use level-order traversal. Also, classify a node using its column
+         *  index.
+         *
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)
+         */
 
         if (!root) {
-            return;
+            return {};
         }
 
-        map[x][y].emplace(root->val);
-        runPreOrder(root->left, x - 1, y + 1, map);
-        runPreOrder(root->right, x + 1, y + 1, map);
+        queue<pair<TreeNode*, int>> q;
+        q.push({root, 0});
+
+        unordered_map<int, vector<int>> map;
+        int min_col = INT_MAX, max_col = INT_MIN;
+
+        while (!q.empty()) {
+            auto pair = q.front();
+            q.pop();
+
+            auto node = pair.first;
+            int col = pair.second;
+
+            map[col].emplace_back(node->val);
+
+            min_col = min(min_col, col);
+            max_col = max(max_col, col);
+
+            if (node->left) {
+                q.push({node->left, col - 1});
+            }
+            if (node->right) {
+                q.push({node->right, col + 1});
+            }
+        }
+
+        vector<vector<int>> ans;
+        for (int i = min_col ; i <= max_col ; ++i) {
+            if (map.count(i) == 1) {
+                ans.emplace_back(move(map[i]));
+            }
+        }
+        return ans;
     }
 };
 ```

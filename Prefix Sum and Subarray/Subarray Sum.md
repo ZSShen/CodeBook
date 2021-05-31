@@ -1,7 +1,7 @@
 
 # Problem
 ### LintCode 138. Subarray Sum
-https://www.lintcode.com/problem/subarray-sum/description
+https://www.lintcode.com/problem/subarray-sum
 
 # Solution
 ```c++
@@ -15,6 +15,11 @@ public:
         // write your code here
 
         /**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         *
          *  preix(i) = num[0] + num[1] + ... + nums[i]
          *  sum(i, j) = prefix(j) - prefix(i - 1)
          *             = nums[i] + num[i + 1] + ... + num[j]
@@ -24,20 +29,18 @@ public:
          *  => prefix(j) = prefix(i - 1)
          */
 
-        int size = nums.size();
-
-        int sum = 0;
-        std::unordered_map<int, int> map;
+        unordered_map<int, int> map;
         map[0] = -1;
 
-        for (int i = 0 ; i < size ; ++i) {
-            sum += nums[i];
+        int prefix = 0;
+        int n = nums.size();
 
-            if (map.count(sum) == 1) {
-                return {map[sum] + 1, i};
+        for (int i = 0 ; i < n ; ++i) {
+            prefix += nums[i];
+
+            if (map.count(prefix) == 1) {
+                return {map[prefix] + 1, i};
             }
-
-            map[sum] = i;
         }
 
         return {-1, -1};

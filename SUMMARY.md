@@ -4,7 +4,6 @@
 
 * Prefix Sum and Subarray
    * [Subarray Sum](Prefix Sum and Subarray/Subarray Sum.md)
-   * [Subarray Sum II](Prefix Sum and Subarray/Subarray Sum II.md)
    * [Submatrix Sum](Prefix Sum and Subarray/Submatrix Sum.md)
    * [Subarray Sum Closest](Prefix Sum and Subarray/Subarray Sum Closest.md)
    * [Subarray Sum Equals K](Prefix Sum and Subarray/Subarray Sum Equals K.md)
