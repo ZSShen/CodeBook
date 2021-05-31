@@ -16,6 +16,12 @@ public:
         // write your code here
 
         /**
+         *  TC: O(R * (C^2)), where
+         *      R is the number of rows
+         *      C is the number of columns
+         *
+         *  SC: O(R * C)
+         *
          *  prefix(i) = array[0] + array[1] + ... + array[i];
          *  sum(i, j) = prefix(j) - prefix(i - 1)
          *  sum(i, j) = 0 => prefix(j) = prefix(i - 1)
@@ -29,8 +35,6 @@ public:
          *   first 2 columns, we can generate a synthetic column which merges
          *   these 2 columns and then apply the 1D solution we use to solve
          *   subarray sum problem to scan this synthetic column.
-         *
-         *   O(C^2 * R)
          */
 
         int m = matrix.size();

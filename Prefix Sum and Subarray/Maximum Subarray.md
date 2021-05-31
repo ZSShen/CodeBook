@@ -1,29 +1,21 @@
 
 # Problem
-### LintCode 41. Maximum Subarray
-https://www.lintcode.com/problem/maximum-subarray/description
+### LeetCode 53. Maximum Subarray
+https://leetcode.com/problems/maximum-subarray
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: A list of integers
-     * @return: A integer indicate the sum of max subarray
-     */
-    int maxSubArray(vector<int> &nums) {
-        // write your code here
+    int maxSubArray(vector<int>& nums) {
 
-        int ans = nums[0];
-        int local = 0;
+        int ans = nums[0], sum = 0;
 
         for (int num : nums) {
-            local += num;
-
-            ans = std::max(ans, local);
-
-            if (local < 0) {
-                local = 0;
+            sum += num;
+            ans = max(ans, sum);
+            if (sum < 0) {
+                sum = 0;
             }
         }
 

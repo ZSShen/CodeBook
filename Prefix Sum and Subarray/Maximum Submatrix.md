@@ -5,6 +5,8 @@ https://www.lintcode.com/problem/maximum-submatrix/description
 
 # Solution
 ```c++
+
+
 class Solution {
 public:
     /**
@@ -15,6 +17,11 @@ public:
         // write your code here
 
         /**
+         *  TC: O(R * (C^2)), where
+         *      R is the number of rows
+         *      C is the number of columns
+         *
+         *  SC: O(R * C)
          *
          *  i        j
          *  a1  b1  c1  d1      s1 (a1 + b1 + c1)
@@ -26,59 +33,45 @@ public:
          *
          */
 
-        int num_r = matrix.size();
-        if (num_r == 0) {
+        int m = matrix.size();
+        if (m == 0) {
             return 0;
         }
-        int num_c = matrix[0].size();
-        if (num_c == 0) {
+        int n = matrix[0].size();
+        if (n == 0) {
             return 0;
         }
 
-        int ans = std::numeric_limits<int>::min();
+        int max = matrix[0][0];
 
-        for (int i = 0 ; i < num_c ; ++i) {
+        for (int i = 0 ; i < n ; ++i) {
+            std::vector<int> syn(m);
 
-            std::vector<int> syn(num_r, 0);
+            for (int j = i ; j < n ; ++j) {
 
-            for (int j = i ; j < num_c ; ++j) {
-
-                // Initialize a new synthetic column.
-                for (int k = 0 ; k < num_r ; ++k) {
+                // Update the synthetic array.
+                for (int k = 0 ; k < m ; ++k) {
                     syn[k] += matrix[k][j];
                 }
 
-                int local = maxSubarray(syn);
-                ans = std::max(ans, local);
+                int res = maxSubarray(syn);
+                max = std::max(max, res);
             }
         }
 
-        return ans;
+        return max;
     }
 
 private:
-    int maxSubarray(
-            const std::vector<int>& array) {
+    int maxSubarray(const auto& nums) {
 
-        /**
-         *   A, B
-         *
-         *   A > 0, B > 0           ,  A + B > A
-         *   A > 0, B < 0 && |B| > A,  A + B < 0
-         */
+        int ans = nums[0], sum = 0;
 
-        int size = array.size();
-
-        int ans = array[0];
-        int local = 0;
-
-        for (int num : array) {
-            local += num;
-
-            ans = std::max(ans, local);
-
-            if (local < 0) {
-                local = 0;
+        for (int num : nums) {
+            sum += num;
+            ans = max(ans, sum);
+            if (sum < 0) {
+                sum = 0;
             }
         }
 

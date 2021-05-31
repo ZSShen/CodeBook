@@ -7,44 +7,43 @@ https://www.lintcode.com/problem/maximum-size-subarray-sum-equals-k/description
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: an array
-     * @param k: a target value
-     * @return: the maximum length of a subarray that sums to k
-     */
-    int maxSubArrayLen(vector<int> &nums, int k) {
-        // Write your code here
+    int maxSubArrayLen(vector<int>& nums, int k) {
 
         /**
-         *   1  -1  5  -2  3
-         *   1   0  5   3  6
+         *  TC: O(N), where
+         *      N is the number of elements
          *
-         *  -2  -1  2   1
-         *  -2  -3  -1  0
+         *  SC: O(N)
          *
-         *  HashTable(Key = Prefix Sum) = (Value = Index)
+         *  sum(i, j) = prefix(j) - prefix(i - 1) = k
+         *  => prefix(i - 1) = prefix(j) - k
+         *
+         *  Since we concern the longest subarray, we only record a prefix
+         *  sum for its first occurrance. This makes sure that whenever
+         *  we query `map[prefix - k]`, we always get the minimal index, which
+         *  helps enlarge the current subarray ending at index i.
          */
 
-        int n = nums.size();
-        int sum = 0;
-        int ans = INT_MIN;
-        std::unordered_map<int, int> map;
+        unordered_map<int, int> map;
+
+        // Set up for the case that we have a prefix array sums up to k.
+        // sum(0, i) = k.
+        map[0] = -1;
+
+        int prefix = 0, ans = 0, n = nums.size();
 
         for (int i = 0 ; i < n ; ++i) {
+            prefix += nums[i];
 
-            sum += nums[i];
-            if (sum == k) {
-                ans = i + 1;
-            } else if (map.count(sum - k) == 1) {
-                ans = std::max(ans, i - map[sum - k]);
+            if (map.count(prefix - k) == 1) {
+                ans = max(ans, i - map[prefix - k]);
             }
-
-            if (map.count(sum) == 0) {
-                map[sum] = i;
+            if (map.count(prefix) == 0) {
+                map[prefix] = i;
             }
         }
 
-        return (ans != INT_MIN) ? ans : 0;
+        return ans;
     }
 };
 ```

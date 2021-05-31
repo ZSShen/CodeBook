@@ -1,52 +1,50 @@
 
 # Problem
-### LintCode 402. Continuous Subarray Sum
-https://www.lintcode.com/problem/continuous-subarray-sum/description
+### LeetCode 523. Continuous Subarray Sum
+https://leetcode.com/problems/continuous-subarray-sum
 
 # Solution
 ```c++
 class Solution {
 public:
-    /*
-     * @param A: An integer array
-     * @return: A list of integers includes the index of the first number and the index of the last number
-     */
-    vector<int> continuousSubarraySum(vector<int> &A) {
-        // write your code here
+    bool checkSubarraySum(vector<int>& nums, int k) {
 
-        int n = A.size();
-        if (n == 0) {
-            return {-1, -1};
-        }
+        /**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         *
+         *  Classify prefix sums based on their remainders divided by k.
+         *
+         *  Also, since we concern the longer subarray (with size at least 2),
+         *  we only record a prefix sum for its first occurrance. This makes
+         *  sure that whenever we query `map[mod]`, we always get the minimal
+         *  index, which helps enlarge the current subarray ending at index i.
+         */
 
-        int max = A[0], max_bgn = 0, max_end = 0;
-        int sum = 0, bgn = 0, end = 0;
+        unordered_map<int, int> map;
 
-        while (end < n) {
-            sum += A[end];
+        // Set for the case that we have a prefix array sums up to a multiple
+        // of k. sum(0, i) = nk.
+        map[0] = -1;
 
-            if (sum > max) {
-                max = sum;
-                max_bgn = bgn;
-                max_end = end;
-            }
+        int mod = 0, n = nums.size();
 
-            ++end;
+        for (int i = 0 ; i < n ; ++i) {
+            mod += nums[i];
+            mod = (k != 0) ? mod % k : mod;
 
-            /**
-             * A, B
-             *
-             * A > 0, B > 0,           A + B > A
-             * A > 0, B < 0, |B| > A,  A + B < 0
-             */
-
-            if (sum < 0) {
-                sum = 0;
-                bgn = end;
+            if (map.count(mod) == 1) {
+                if (i - map[mod] > 1) {
+                    return true;
+                }
+            } else {
+                map[mod] = i;
             }
         }
 
-        return {max_bgn, max_end};
+        return false;
     }
 };
 ```

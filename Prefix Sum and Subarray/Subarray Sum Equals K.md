@@ -1,37 +1,40 @@
 
 # Problem
-### LintCode 838. Subarray Sum Equals K
-https://www.lintcode.com/problem/subarray-sum-equals-k/description
+### LeetCode 560. Subarray Sum Equals K
+https://leetcode.com/problems/subarray-sum-equals-k
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: a list of integer
-     * @param k: an integer
-     * @return: return an integer, denote the number of continuous subarrays whose sum equals to k
-     */
-    int subarraySumEqualsK(vector<int> &nums, int k) {
-        // write your code here
+    int subarraySum(vector<int>& nums, int k) {
 
         /**
-         *  sum(i, j) = prefix(j) -  prefix(i - 1) = k
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         *
+         *  sum(i, j) = prefix(j) - prefix(i - 1)
+         *  => prefix(i - 1) = prefix(j) - sum(i, j)
          *  => prefix(i - 1) = prefix(j) - k
          */
 
-        std::unordered_map<int, int> map;
+        unordered_map<int, int> map;
+
+        // Set for the case that we have a prefix array sums up to k.
+        // sum(0, i) = k
         map[0] = 1;
 
-        int sum = 0;
-        int count = 0;
+        int ans = 0, prefix = 0;
+
         for (int num : nums) {
-            sum += num;
-            count += map[sum - k];
-            ++map[sum];
+            prefix += num;
+            ans += map[sum - k];
+            ++map[prefix];
         }
 
-        return count;
+        return ans;
     }
 };
 ```
