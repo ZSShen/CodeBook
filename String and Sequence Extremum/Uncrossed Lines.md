@@ -7,37 +7,38 @@ https://leetcode.com/problems/uncrossed-lines/
 ```c++
 class Solution {
 public:
-    int maxUncrossedLines(vector<int>& A, vector<int>& B) {
+    int maxUncrossedLines(vector<int>& S, vector<int>& T) {
 
         /**
-            dp[i][j]: The max number of uncrossing lines produced by using
-            the first i numbers of A and the first j numbers of B.
+         *  TC: O(S * T), where
+         *      S is the length of string s
+         *      T is the length of string t
+         *
+         *  SC: O(S * T)
+         *
+         *  dp[i][j]: The max number of uncrossing lines produced by using
+         *            the first i numbers of A and the first j numbers of B.
+         *
+         *  dp[i][j] = | if S[i] == T[j], 1 + dp[i - 1][j - 1]
+         *             | otherwise      , MAX | dp[i][j - 1]
+         *                                    | dp[i + 1][j]
+         */
 
+        int ns = S.size();
+        int nt = T.size();
+        vector<vector<int>> dp(ns + 1, vector<int>(nt + 1));
 
-            dp[i][j] = MAX | if A[i] == B[j], dp[i - 1][j - 1] + 1
-                           | Otherwise.     , dp[i][j - 1]
-                                            , dp[i - 1][j]
-                                            , dp[i - 1][j - 1]
-        */
-
-        int na = A.size();
-        int nb = B.size();
-        vector<vector<int>> dp(na + 1, vector<int>(nb + 1, 0));
-
-        for (int i = 1 ; i <= na ; ++i) {
-            for (int j = 1 ; j <= nb ; ++j) {
-                int c = dp[i - 1][j - 1];
-                if (A[i - 1] == B[j - 1]) {
-                    ++c;
+        for (int i = 1 ; i <= ns ; ++i) {
+            for (int j = 1 ; j <= nt ; ++j) {
+                if (S[i - 1] == T[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
                 }
-
-                c = max(c, dp[i - 1][j]);
-                c = max(c, dp[i][j - 1]);
-                dp[i][j] = c;
             }
         }
 
-        return dp[na][nb];
+        return dp[ns][nt];
     }
 };
 ```
