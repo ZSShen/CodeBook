@@ -10,11 +10,11 @@ public:
     int longestCommonSubsequence(string text1, string text2) {
 
         /**
-         *  TC: O(M * N), where
-         *      M is the length of the first string
-         *      N is the length of the second string
+         *  TC: O(S * T), where
+         *      S is the length of the first string
+         *      T is the length of the second string
          *
-         *  SC: O(M * N)
+         *  SC: O(S * T)
          *
          *
          *  dp[i][j]: The LCS of the prefixes A(0, i) and B(0, j).

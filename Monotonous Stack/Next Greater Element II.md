@@ -7,54 +7,34 @@ https://www.lintcode.com/problem/next-greater-element-ii/description
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: an array
-     * @return: the Next Greater Number for every element
-     */
-    vector<int> nextGreaterElements(vector<int> &nums) {
-        // Write your code here
+    vector<int> nextGreaterElements(vector<int>& nums) {
 
         /**
-         *   4 3 2 5 6 1 2
+         *  TC: O(N), where
+         *      N is the number of elements
          *
-         *   4: 5           Stack:
-         *   3: 5                       5
-         *   2: 5                   2   2               2
-         *   5: 6               3   3   3   6       1 | 1 | 2
-         *   6: no          4 | 4 | 4 | 4 | 5 | 5 | 6 | 6 | 6 | 6
-         *   1: 2
-         *   2: no
+         *  SC: (N)
          *
+         *  Flatten the circular traversal by doubling the array size and
+         *  checking each element twice.
          */
 
         int n = nums.size();
-        if (n == 0) {
-            return {};
-        }
+        int nn = n << 1;
 
-        std::vector<int> ans(n, -1);
-        std::stack<int> stk;
+        stack<int> stk;
+        vector<int> ans(n, -1);
 
-        for (int ii = 0 ; ii < n * 2; ++ii) {
-            int i = ii % n;
+        for (int i = 0 ; i < nn ; ++i) {
+            int j = i % n;
+            int num = nums[j];
 
-            if (stk.empty()) {
-                stk.push(i);
-                continue;
-            }
-
-            int curr = nums[i];
-            if (curr < nums[stk.top()]) {
-                stk.push(i);
-                continue;
-            }
-
-            while (!stk.empty() && curr > nums[stk.top()]) {
-                int index = stk.top();
+            while (!stk.empty() && num > nums[stk.top()]) {
+                ans[stk.top()] = num;
                 stk.pop();
-                ans[index] = curr;
             }
-            stk.push(i);
+
+            stk.emplace(j);
         }
 
         return ans;

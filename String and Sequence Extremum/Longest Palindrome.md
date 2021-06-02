@@ -1,40 +1,34 @@
 
 # Problem
-### LintCode 627. Longest Palindrome
-https://www.lintcode.com/problem/longest-palindrome/description
+### LeetCode 409. Longest Palindrome
+https://leetcode.com/problems/longest-palindrome
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param s: a string which consists of lowercase or uppercase letters
-     * @return: the length of the longest palindromes that can be built
-     */
-    int longestPalindrome(string &s) {
-        // write your code here
+    int longestPalindrome(string s) {
 
-        std::vector<int> map(256, 0);
+        vector<int> freq(128, 0);
         for (char ch : s) {
-            ++map[ch];
+            ++freq[ch];
         }
 
         int len = 0;
         bool has_odd = false;
-        for (int i = 0 ; i < 256 ; ++i) {
-            if (map[i] == 0) {
-                continue;
-            }
-
-            if (map[i] % 2 == 0) {
-                len += map[i];
-            } else {
-                len += map[i] - 1;
+        for (int f : freq) {
+            if (f % 2 == 1) {
                 has_odd = true;
+                len += f - 1;
+            } else {
+                len += f;
             }
         }
 
-        return has_odd ? len + 1 : len;
+        if (has_odd) {
+            ++len;
+        }
+        return len;
     }
 };
 ```

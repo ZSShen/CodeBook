@@ -19,7 +19,7 @@ public:
         int l = 0, r = s.length() - 1;
         while (l < r) {
             if (s[l] != s[r]) {
-                count += std::abs(s[l] - s[r]);
+                count += abs(s[l] - s[r]);
             }
             ++l;
             --r;

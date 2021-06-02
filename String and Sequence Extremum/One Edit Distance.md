@@ -10,11 +10,11 @@ public:
     bool isOneEditDistance(string &s, string &t) {
 
         /**
-         *  TC: O(M * N), where
-         *      M is the length of string s
-         *      N is the length of string t
+         *  TC: O(S * T), where
+         *      S is the length of string s
+         *      T is the length of string t
          *
-         *  SC: O(M * N)
+         *  SC: O(S + T)
          */
 
         int len_s = s.length();

@@ -10,11 +10,18 @@ public:
     int minInsertions(string s) {
 
         /**
-            dp[i][j]: The minimum number of steps to make the substring s(i, j) palindromic.
-
-            dp[i][j] = | if s[i] == s[j], dp[i + 1][j - 1]
-                       | otherwise,       1 + MIN{ dp[i][j - 1], dp[i + 1][j]}
-        */
+         *  TC: O(S^2), where
+         *      S is the length of string s
+         *
+         *  SC: O(S^2)
+         *
+         *  dp[i][j]: The minimum number of steps to make the substring s(i, j)
+         *            palindromic.
+         *
+         *  dp[i][j] = | if s[i] == s[j], dp[i + 1][j - 1]
+         *             | otherwise      , 1 + MIN | dp[i][j - 1], insert a letter in front of s[i]
+         *                                        | dp[i + 1][j], insert a letter behind s[j]
+         */
 
         int n = s.length();
         vector<vector<int>> dp(n, vector<int>(n, 0));

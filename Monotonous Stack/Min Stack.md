@@ -1,57 +1,57 @@
 
 # Problem
-### LintCode 12. Min Stack
-https://www.lintcode.com/problem/min-stack/description
+### LeetCode 155. Min Stack
+https://leetcode.com/problems/min-stack
 
 # Solution
 ```c++
 class MinStack {
 public:
-    MinStack() {
-        // do intialization if necessary
+    /** initialize your data structure here. */
+    MinStack()
+        : size(0) {
+
     }
 
-    /*
-     * @param number: An integer
-     * @return: nothing
-     */
-    void push(int number) {
-        // write your code here
+    void push(int x) {
 
-        if (stk.empty()) {
-            min_stk.push(number);
+        stk.emplace_back(x);
+
+        if (size == 0) {
+            dp.emplace_back(x);
         } else {
-            min_stk.push(std::min(number, min_stk.top()));
+            dp.emplace_back(min(x, dp.back()));
         }
 
-        stk.push(number);
+        ++size;
     }
 
-    /*
-     * @return: An integer
-     */
-    int pop() {
-        // write your code here
-
-        int num = stk.top();
-
-        stk.pop();
-        min_stk.pop();
-
-        return num;
+    void pop() {
+        stk.pop_back();
+        dp.pop_back();
+        --size;
     }
 
-    /*
-     * @return: An integer
-     */
-    int min() {
-        // write your code here
+    int top() {
+        return stk.back();
+    }
 
-        return min_stk.top();
+    int getMin() {
+        return dp.back();
     }
 
 private:
-    std::stack<int> stk;
-    std::stack<int> min_stk;
+    int size;
+    vector<int> stk;
+    vector<int> dp;
 };
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(x);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
 ```
