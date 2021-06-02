@@ -1771,20 +1771,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.9" data-path="../String and Sequence Extremum/Longest Increasing Substring.html">
-            
-                <a href="../String and Sequence Extremum/Longest Increasing Substring.html">
-            
-                    
-                    Longest Increasing Substring
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.16.10" data-path="../String and Sequence Extremum/Longest Repeating Subsequence.html">
+        <li class="chapter " data-level="1.16.9" data-path="../String and Sequence Extremum/Longest Repeating Subsequence.html">
             
                 <a href="../String and Sequence Extremum/Longest Repeating Subsequence.html">
             
@@ -1797,7 +1784,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.11" data-path="../String and Sequence Extremum/Longest Repeating Substring.html">
+        <li class="chapter " data-level="1.16.10" data-path="../String and Sequence Extremum/Longest Repeating Substring.html">
             
                 <a href="../String and Sequence Extremum/Longest Repeating Substring.html">
             
@@ -1810,7 +1797,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.12" data-path="../String and Sequence Extremum/Longest Consecutive Sequence.html">
+        <li class="chapter " data-level="1.16.11" data-path="../String and Sequence Extremum/Longest Consecutive Sequence.html">
             
                 <a href="../String and Sequence Extremum/Longest Consecutive Sequence.html">
             
@@ -1823,7 +1810,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.13" data-path="../String and Sequence Extremum/Longest Palindrome.html">
+        <li class="chapter " data-level="1.16.12" data-path="../String and Sequence Extremum/Longest Palindrome.html">
             
                 <a href="../String and Sequence Extremum/Longest Palindrome.html">
             
@@ -1836,7 +1823,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.14" data-path="../String and Sequence Extremum/Decrease to be Palindrome.html">
+        <li class="chapter " data-level="1.16.13" data-path="../String and Sequence Extremum/Decrease to be Palindrome.html">
             
                 <a href="../String and Sequence Extremum/Decrease to be Palindrome.html">
             
@@ -1849,7 +1836,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.15" data-path="../String and Sequence Extremum/Minimum Insertion Steps to Make a String Palindrome.html">
+        <li class="chapter " data-level="1.16.14" data-path="../String and Sequence Extremum/Minimum Insertion Steps to Make a String Palindrome.html">
             
                 <a href="../String and Sequence Extremum/Minimum Insertion Steps to Make a String Palindrome.html">
             
@@ -1862,7 +1849,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.16" data-path="../String and Sequence Extremum/Uncrossed Lines.html">
+        <li class="chapter " data-level="1.16.15" data-path="../String and Sequence Extremum/Uncrossed Lines.html">
             
                 <a href="../String and Sequence Extremum/Uncrossed Lines.html">
             
@@ -4579,58 +4566,58 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-12-min-stack">LintCode 12. Min Stack</h3>
-<p><a href="https://www.lintcode.com/problem/min-stack/description" target="_blank">https://www.lintcode.com/problem/min-stack/description</a></p>
+<h3 id="leetcode-155-min-stack">LeetCode 155. Min Stack</h3>
+<p><a href="https://leetcode.com/problems/min-stack" target="_blank">https://leetcode.com/problems/min-stack</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> MinStack {
 <span class="hljs-keyword">public</span>:
-    MinStack() {
-        <span class="hljs-comment">// do intialization if necessary</span>
+    <span class="hljs-comment">/** initialize your data structure here. */</span>
+    MinStack()
+        : size(<span class="hljs-number">0</span>) {
+
     }
 
-    <span class="hljs-comment">/*
-     * @param number: An integer
-     * @return: nothing
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">int</span> number)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>{
 
-        <span class="hljs-keyword">if</span> (stk.empty()) {
-            min_stk.push(number);
+        stk.emplace_back(x);
+
+        <span class="hljs-keyword">if</span> (size == <span class="hljs-number">0</span>) {
+            dp.emplace_back(x);
         } <span class="hljs-keyword">else</span> {
-            min_stk.push(<span class="hljs-built_in">std</span>::min(number, min_stk.top()));
+            dp.emplace_back(min(x, dp.back()));
         }
 
-        stk.push(number);
+        ++size;
     }
 
-    <span class="hljs-comment">/*
-     * @return: An integer
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
-
-        <span class="hljs-keyword">int</span> num = stk.top();
-
-        stk.pop();
-        min_stk.pop();
-
-        <span class="hljs-keyword">return</span> num;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>{
+        stk.pop_back();
+        dp.pop_back();
+        --size;
     }
 
-    <span class="hljs-comment">/*
-     * @return: An integer
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">min</span><span class="hljs-params">()</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">top</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> stk.back();
+    }
 
-        <span class="hljs-keyword">return</span> min_stk.top();
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getMin</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> dp.back();
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; stk;
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; min_stk;
+    <span class="hljs-keyword">int</span> size;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; stk;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; dp;
 };
+
+<span class="hljs-comment">/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj-&gt;push(x);
+ * obj-&gt;pop();
+ * int param_3 = obj-&gt;top();
+ * int param_4 = obj-&gt;getMin();
+ */</span>
 </code></pre>
 
                                 
@@ -4671,7 +4658,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Min Stack","level":"1.6.1","depth":2,"next":{"title":"Next Greater Element I","level":"1.6.2","depth":2,"path":"Monotonous Stack/Next Greater Element I.md","ref":"Monotonous Stack/Next Greater Element I.md","articles":[]},"previous":{"title":"Monotonous Stack","level":"1.6","depth":1,"ref":"","articles":[{"title":"Min Stack","level":"1.6.1","depth":2,"path":"Monotonous Stack/Min Stack.md","ref":"Monotonous Stack/Min Stack.md","articles":[]},{"title":"Next Greater Element I","level":"1.6.2","depth":2,"path":"Monotonous Stack/Next Greater Element I.md","ref":"Monotonous Stack/Next Greater Element I.md","articles":[]},{"title":"Next Greater Element II","level":"1.6.3","depth":2,"path":"Monotonous Stack/Next Greater Element II.md","ref":"Monotonous Stack/Next Greater Element II.md","articles":[]},{"title":"Largest Rectangle in Histogram","level":"1.6.4","depth":2,"path":"Monotonous Stack/Largest Rectangle in Histogram.md","ref":"Monotonous Stack/Largest Rectangle in Histogram.md","articles":[]},{"title":"Maximal Rectangle","level":"1.6.5","depth":2,"path":"Monotonous Stack/Maximal Rectangle.md","ref":"Monotonous Stack/Maximal Rectangle.md","articles":[]},{"title":"Max Tree","level":"1.6.6","depth":2,"path":"Monotonous Stack/Max Tree.md","ref":"Monotonous Stack/Max Tree.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Monotonous Stack/Min Stack.md","mtime":"2021-05-31T19:24:55.539Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Min Stack","level":"1.6.1","depth":2,"next":{"title":"Next Greater Element I","level":"1.6.2","depth":2,"path":"Monotonous Stack/Next Greater Element I.md","ref":"Monotonous Stack/Next Greater Element I.md","articles":[]},"previous":{"title":"Monotonous Stack","level":"1.6","depth":1,"ref":"","articles":[{"title":"Min Stack","level":"1.6.1","depth":2,"path":"Monotonous Stack/Min Stack.md","ref":"Monotonous Stack/Min Stack.md","articles":[]},{"title":"Next Greater Element I","level":"1.6.2","depth":2,"path":"Monotonous Stack/Next Greater Element I.md","ref":"Monotonous Stack/Next Greater Element I.md","articles":[]},{"title":"Next Greater Element II","level":"1.6.3","depth":2,"path":"Monotonous Stack/Next Greater Element II.md","ref":"Monotonous Stack/Next Greater Element II.md","articles":[]},{"title":"Largest Rectangle in Histogram","level":"1.6.4","depth":2,"path":"Monotonous Stack/Largest Rectangle in Histogram.md","ref":"Monotonous Stack/Largest Rectangle in Histogram.md","articles":[]},{"title":"Maximal Rectangle","level":"1.6.5","depth":2,"path":"Monotonous Stack/Maximal Rectangle.md","ref":"Monotonous Stack/Maximal Rectangle.md","articles":[]},{"title":"Max Tree","level":"1.6.6","depth":2,"path":"Monotonous Stack/Max Tree.md","ref":"Monotonous Stack/Max Tree.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Monotonous Stack/Min Stack.md","mtime":"2021-06-01T00:20:34.846Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-02T05:58:02.042Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

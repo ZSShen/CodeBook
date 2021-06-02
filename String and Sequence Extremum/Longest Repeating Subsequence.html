@@ -60,7 +60,7 @@
     <link rel="next" href="Longest Repeating Substring.html" />
     
     
-    <link rel="prev" href="Longest Increasing Substring.html" />
+    <link rel="prev" href="Longest Increasing Subsequence.html" />
     
 
     </head>
@@ -1773,20 +1773,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.9" data-path="Longest Increasing Substring.html">
-            
-                <a href="Longest Increasing Substring.html">
-            
-                    
-                    Longest Increasing Substring
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter active" data-level="1.16.10" data-path="Longest Repeating Subsequence.html">
+        <li class="chapter active" data-level="1.16.9" data-path="Longest Repeating Subsequence.html">
             
                 <a href="Longest Repeating Subsequence.html">
             
@@ -1799,7 +1786,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.11" data-path="Longest Repeating Substring.html">
+        <li class="chapter " data-level="1.16.10" data-path="Longest Repeating Substring.html">
             
                 <a href="Longest Repeating Substring.html">
             
@@ -1812,7 +1799,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.12" data-path="Longest Consecutive Sequence.html">
+        <li class="chapter " data-level="1.16.11" data-path="Longest Consecutive Sequence.html">
             
                 <a href="Longest Consecutive Sequence.html">
             
@@ -1825,7 +1812,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.13" data-path="Longest Palindrome.html">
+        <li class="chapter " data-level="1.16.12" data-path="Longest Palindrome.html">
             
                 <a href="Longest Palindrome.html">
             
@@ -1838,7 +1825,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.14" data-path="Decrease to be Palindrome.html">
+        <li class="chapter " data-level="1.16.13" data-path="Decrease to be Palindrome.html">
             
                 <a href="Decrease to be Palindrome.html">
             
@@ -1851,7 +1838,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.15" data-path="Minimum Insertion Steps to Make a String Palindrome.html">
+        <li class="chapter " data-level="1.16.14" data-path="Minimum Insertion Steps to Make a String Palindrome.html">
             
                 <a href="Minimum Insertion Steps to Make a String Palindrome.html">
             
@@ -1864,7 +1851,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.16.16" data-path="Uncrossed Lines.html">
+        <li class="chapter " data-level="1.16.15" data-path="Uncrossed Lines.html">
             
                 <a href="Uncrossed Lines.html">
             
@@ -4586,42 +4573,46 @@
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param str: a string
-     * @return: the length of the longest repeating subsequence
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestRepeatingSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;str)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestPalindromeSubseq</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
 
         <span class="hljs-comment">/**
-         * dp[i][j]: The length of the longest common subsequence that can
-         *           be found in the prefix of str ending at the index i and
-         *           the prefix of str ending at the index j.
+         *  TC: O(S^2), where
+         *      S is the length of string s
          *
-         * dp[i][j] = | if s[i] == s[j], | if i != j, dp[i - 1][j - 1] + 1
-         *            |                  | otherwise, 0
-         *            |
-         *            | otherwise      , MAX{ dp[i][j - 1], dp[i - 1][j] }
+         *  SC: O(S^2)
+         *
+         *  dp[i][j]: The length of the longest common subsequence that can
+         *            be found in the prefix of str ending at the index i and
+         *            the prefix of str ending at the index j.
+         *
+         *  dp[i][j] = | if s[i] == s[j], | if i != j, dp[i - 1][j - 1] + 1
+         *             |                  | otherwise, 0
+         *             |
+         *             | otherwise      , MAX{ dp[i][j - 1], dp[i - 1][j] }
          */</span>
 
-        <span class="hljs-keyword">int</span> n = str.length();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> n = s.length();
+
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(n, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(n));
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
+            dp[i][i] = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">if</span> (i &lt; n - <span class="hljs-number">1</span>) {
+                dp[i][i + <span class="hljs-number">1</span>] = <span class="hljs-number">1</span> + (s[i] == s[i + <span class="hljs-number">1</span>]);
+            }
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(n + <span class="hljs-number">1</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(n + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));
-
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= n ; ++i) {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span> ; j &lt;= n ; ++j) {
-                <span class="hljs-keyword">if</span> (str[i - <span class="hljs-number">1</span>] == str[j - <span class="hljs-number">1</span>] &amp;&amp; i != j) {
-                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> l = <span class="hljs-number">3</span> ; l &lt;= n ; ++l) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = i + l - <span class="hljs-number">1</span> ; i &lt;= n - l ; ++i, ++j) {
+                <span class="hljs-keyword">if</span> (s[i] == s[j]) {
+                    dp[i][j] = <span class="hljs-number">2</span> + dp[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
                 } <span class="hljs-keyword">else</span> {
-                    dp[i][j] = <span class="hljs-built_in">std</span>::max(dp[i][j - <span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][j]);
+                    dp[i][j] = max(dp[i][j - <span class="hljs-number">1</span>], dp[i + <span class="hljs-number">1</span>][j]);
                 }
             }
         }
 
-        <span class="hljs-keyword">return</span> dp[n][n];
+        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][n - <span class="hljs-number">1</span>];
     }
 };
 </code></pre>
@@ -4652,7 +4643,7 @@
 
             
                 
-                <a href="Longest Increasing Substring.html" class="navigation navigation-prev " aria-label="Previous page: Longest Increasing Substring">
+                <a href="Longest Increasing Subsequence.html" class="navigation navigation-prev " aria-label="Previous page: Longest Increasing Subsequence">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -4668,7 +4659,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Longest Repeating Subsequence","level":"1.16.10","depth":2,"next":{"title":"Longest Repeating Substring","level":"1.16.11","depth":2,"path":"String and Sequence Extremum/Longest Repeating Substring.md","ref":"String and Sequence Extremum/Longest Repeating Substring.md","articles":[]},"previous":{"title":"Longest Increasing Substring","level":"1.16.9","depth":2,"path":"String and Sequence Extremum/Longest Increasing Substring.md","ref":"String and Sequence Extremum/Longest Increasing Substring.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Repeating Subsequence.md","mtime":"2021-05-31T19:24:55.550Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-31T23:00:57.140Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Longest Repeating Subsequence","level":"1.16.9","depth":2,"next":{"title":"Longest Repeating Substring","level":"1.16.10","depth":2,"path":"String and Sequence Extremum/Longest Repeating Substring.md","ref":"String and Sequence Extremum/Longest Repeating Substring.md","articles":[]},"previous":{"title":"Longest Increasing Subsequence","level":"1.16.8","depth":2,"path":"String and Sequence Extremum/Longest Increasing Subsequence.md","ref":"String and Sequence Extremum/Longest Increasing Subsequence.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Extremum/Longest Repeating Subsequence.md","mtime":"2021-06-02T05:09:56.652Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-02T05:58:02.042Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

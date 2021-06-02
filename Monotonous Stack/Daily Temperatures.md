@@ -1,48 +1,24 @@
 
 # Problem
-### 1060. Daily Temperatures
-https://www.lintcode.com/problem/daily-temperatures/description
+### LeetCode 739. Daily Temperatures
+https://leetcode.com/problems/daily-temperatures
 
 # Solution
 ```c++
-
-struct Record {
-    int temp;
-    int index;
-
-    Record(int temp, int index)
-      : temp(temp), index(index)
-    { }
-};
-
-
 class Solution {
 public:
-    /**
-     * @param temperatures: a list of daily temperatures
-     * @return: a list of how many days you would have to wait until a warmer temperature
-     */
-    vector<int> dailyTemperatures(vector<int> &temps) {
-        // Write your code here
+    vector<int> dailyTemperatures(vector<int>& T) {
 
-        int n = temps.size();
+        int n = T.size();
+        vector<int> ans(n);
 
-        std::vector<int> ans(n, 0);
-
-        std::stack<Record> stack;
-        stack.push(Record(temps[0], 0));
-
-        for (int i = 1 ; i < n ; ++i) {
-            if (temps[i] <= stack.top().temp) {
-                stack.push(Record(temps[i], i));
-            } else {
-                while (!stack.empty() && temps[i] > stack.top().temp) {
-                    int j = stack.top().index;
-                    ans[j] = i - j;
-                    stack.pop();
-                }
-                stack.push(Record(temps[i], i));
+        stack<int> stk;
+        for (int i = 0 ; i < n ; ++i) {
+            while (!stk.empty() && T[i] > T[stk.top()]) {
+                ans[stk.top()] = i - stk.top();
+                stk.pop();
             }
+            stk.push(i);
         }
 
         return ans;
