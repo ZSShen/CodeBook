@@ -138,7 +138,6 @@
    * [Longest Palindromic Subsequence](String and Sequence Extremum/Longest Palindromic Subsequence.md)
    * [Longest Palindromic Substring](String and Sequence Extremum/Longest Palindromic Substring.md)
    * [Longest Increasing Subsequence](String and Sequence Extremum/Longest Increasing Subsequence.md)
-   * [Longest Repeating Subsequence](String and Sequence Extremum/Longest Repeating Subsequence.md)
    * [Longest Repeating Substring](String and Sequence Extremum/Longest Repeating Substring.md)
    * [Longest Consecutive Sequence](String and Sequence Extremum/Longest Consecutive Sequence.md)
    * [Longest Palindrome](String and Sequence Extremum/Longest Palindrome.md)
