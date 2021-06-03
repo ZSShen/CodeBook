@@ -10,11 +10,11 @@ public:
     bool isMatch(string s, string p) {
 
         /**
-         *  TC: O(M * N), where
-         *      M is the length of string S
-         *      N is the length of pattern P
+         *  TC: O(S * P), where
+         *      S is the length of string S
+         *      P is the length of pattern P
          *
-         *  SC: O(M * N)
+         *  SC: O(S * P)
          *
          *  dp[i][j]: Whether the prefix of S ending at the offset i can
          *            be matched by the prefix of P ending at offset j.

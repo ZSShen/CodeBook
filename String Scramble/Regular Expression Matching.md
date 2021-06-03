@@ -10,11 +10,11 @@ public:
     bool isMatch(string s, string p) {
 
         /**
-         *  TC: O(M * N), where
-         *      M is the length of string S
-         *      N is the length of pattern P
+         *  TC: O(S * P), where
+         *      S is the length of string S
+         *      P is the length of pattern P
          *
-         *  SC: O(M * N)
+         *  SC: O(S * P)
          *
          *  dp[i][j]: Whether the prefix of S ending at offset i can
          *            be matched by the prefix of P ending at offset j.
@@ -37,6 +37,7 @@ public:
         // dp[0][0...lp]
         // S:
         // P: a*b*, .*c*
+        // The reson why we do not assign dp[0][i] = true: *C**
         for (int i = 2 ; i <= lp ; ++i) {
             if (p[i - 1] == '*') {
                 dp[0][i] = dp[0][i - 2];

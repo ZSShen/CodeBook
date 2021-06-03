@@ -1,21 +1,20 @@
 
 # Problem
-### LintCode 430. Scramble String
-https://www.lintcode.com/problem/scramble-string/description
+### LeetCode 87. Scramble String
+https://leetcode.com/problems/scramble-string
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param s1: A string
-     * @param s2: Another string
-     * @return: whether s2 is a scrambled string of s1
-     */
-    bool isScramble(string &s1, string &s2) {
-        // write your code here
+    bool isScramble(string s1, string s2) {
 
         /**
+         *  TC: O(N^5), where
+         *      N is the string length
+         *
+         *  SC: O(N^4)
+         *
          *   great
          *   => atgre, eatgr
          *             => tgrea
@@ -35,71 +34,45 @@ public:
          *      => Sp == Ts && Ss == Tp, scrambled one!
          */
 
-        std::unordered_map<std::string,
-            std::unordered_map<std::string, bool>> memo;
-        return canScramble(s1, s2, memo);
+        unordered_map<string, unordered_map<string, bool>> memo;
+        return helper(s1, s2, memo);
     }
 
-
 private:
-    bool canScramble(const auto& s, const auto& t, auto& memo) {
+    bool helper(const string& s1, const string& s2,
+                unordered_map<string, unordered_map<string, bool>>& memo) {
 
-        // Check the cached result first.
-        auto it_s = memo.find(s);
-        if (it_s != memo.end()) {
-            auto& inner = it_s->second;
-            auto it_t = inner.find(t);
-            if (it_t != inner.end()) {
-                return it_t->second;
+        if (memo.count(s1) == 1 && memo[s1].count(s2) == 1) {
+            return memo[s1][s2];
+        }
+
+        int n = s1.length();
+
+        if (s1 == s2) {
+            return memo[s1][s2] = true;
+        }
+        if (freq(s1) != freq(s2)) {
+            return memo[s1][s2] = false;
+        }
+
+        for (int i = 1 ; i < n ; ++i) {
+            if (helper(s1.substr(0, i), s2.substr(0, i), memo) &&
+                helper(s1.substr(i, n - i), s2.substr(i, n - i), memo) ||
+                helper(s1.substr(0, i), s2.substr(n - i, i), memo) &&
+                helper(s1.substr(i, n - i), s2.substr(0, n - i), memo)) {
+                return memo[s1][s2] = true;
             }
         }
 
-        // Check the string lengths.
-        int n = s.length();
-        int m = t.length();
-        if (n != m) {
-            return false;
-        }
+        return memo[s1][s2] = false;
+    }
 
-        if (n == 1) {
-            bool res = s[0] == t[0];
-            memo[s][t] = res;
-            return res;
-        }
-
-        // Check the character composition.
-        std::vector<int> freq_s(26, 0);
-        std::vector<int> freq_t(26, 0);
+    vector<int> freq(const string& s) {
+        vector<int> f(26);
         for (char ch : s) {
-            ++freq_s[ch - 'a'];
+            ++f[ch - 'a'];
         }
-        for (char ch : t) {
-            ++freq_t[ch - 'a'];
-        }
-        for (int i = 0 ; i < 26 ; ++i) {
-            if (freq_s[i] != freq_t[i]) {
-                memo[s][t] = false;
-                return false;
-            }
-        }
-
-        for (int i = 0 ; i < n - 1 ; ++i) {
-
-            int l = i + 1;
-            bool res =
-                (canScramble(s.substr(0, l), t.substr(0, l), memo) &&
-                 canScramble(s.substr(l, n - l), t.substr(  l, n - l), memo)) ||
-                (canScramble(s.substr(0, l), t.substr(n - l, l), memo) &&
-                 canScramble(s.substr(l, n - l), t.substr(0, n - l), memo));
-
-            if (res) {
-                memo[s][t] = true;
-                return true;
-            }
-        }
-
-        memo[s][t] = false;
-        return false;
+        return f;
     }
 };
 ```
