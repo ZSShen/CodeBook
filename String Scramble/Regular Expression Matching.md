@@ -16,8 +16,8 @@ public:
          *
          *  SC: O(S * P)
          *
-         *  dp[i][j]: Whether the prefix of S ending at offset i can
-         *            be matched by the prefix of P ending at offset j.
+         *  dp[i][j]: Whether the prefix of S ending at index i can
+         *            be matched by the prefix of P ending at index j.
          *
          *             | if s[i] == p[j] || p[j] == '.'        , dp[i - 1][j - 1]
          *             |

@@ -1,79 +1,75 @@
 
 # Problem
-### LintCode 796. Open the Lock
-https://www.lintcode.com/problem/open-the-lock/description
+### LeetCode 752. Open the Lock
+https://leetcode.com/problems/open-the-lock
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param deadends: the list of deadends
-     * @param target: the value of the wheels that will unlock the lock
-     * @return: the minimum total number of turns
-     */
-    int openLock(vector<string> &deadends, string &target) {
-        // Write your code here
+    int openLock(vector<string>& deadends, string target) {
 
         /**
-         *  0000
+         *  TC: O(N * D^N + S), where
+         *      N is the length of the lock
+         *      D is the number of digits
+         *      S is the cost to convert deadend vector to set
          *
-         *  1000 0100 0010 0001
-         *  9000 0900 0090 0009
+         *  So, we need to enumerate D^N combinations. Per each iteration, when
+         *  generating new neighbors, the cost is O(N).
+         *
+         *  SC: O(D^N + S)
          */
 
-        std::unordered_set<std::string> deadlocks;
-        for (auto&& word : deadends) {
-            deadlocks.emplace(std::move(word));
+        if (target == "0000") {
+            return 0;
         }
 
-        if (deadlocks.count(target) == 1|| deadlocks.count("0000") == 1) {
+        unordered_set<string> visit(deadends.begin(), deadends.end());
+        if (visit.count("0000") == 1 || visit.count(target) == 1) {
             return -1;
         }
-
-        std::unordered_set<std::string> visit;
         visit.emplace("0000");
 
-        std::queue<std::string> queue;
-        queue.emplace("0000");
+        queue<string> q;
+        q.emplace("0000");
 
-        int step = 0;
-        while (!queue.empty()) {
+        int level = 0;
 
-            ++step;
-            int n = queue.size();
+        while (!q.empty()) {
+            int n = q.size();
+            ++level;
+
             for (int i = 0 ; i < n ; ++i) {
-                auto src = queue.front();
-                queue.pop();
+                auto lock = q.front();
+                q.pop();
 
-                auto dst(src);
                 for (int j = 0 ; j < 4 ; ++j) {
+                    char ch = lock[j];
 
-                    char back = dst[j];
-
-                    // Move the wheel clock-wise.
-                    dst[j] = ((back - '0' + 1) % 10) + '0';
-                    if (dst == target) {
-                        return step;
+                    // Rotate the wheel clockwise
+                    lock[j] = ((ch - '0' + 1) % 10) + '0';
+                    if (lock == target) {
+                        return level;
                     }
 
-                    if (deadlocks.count(dst) == 0 && visit.count(dst) == 0) {
-                        queue.emplace(dst);
-                        visit.emplace(dst);
+                    if (visit.count(lock) == 0) {
+                        q.emplace(lock);
+                        visit.emplace(lock);
+                    }
+                    lock[j] = ch;
+
+                    // Rotate the wheel counter clock-wise
+                    lock[j] = ((ch - '0' + 9) % 10) + '0';
+                    if (lock == target) {
+                        return level;
                     }
 
-                    // Move the whell counter clock-wise.
-                    dst[j] = ((back - '0' + 9) % 10) + '0';
-                    if (dst == target) {
-                        return step;
+                    if (visit.count(lock) == 0) {
+                        q.emplace(lock);
+                        visit.emplace(lock);
                     }
-
-                    if (deadlocks.count(dst) == 0 && visit.count(dst) == 0) {
-                        queue.emplace(dst);
-                        visit.emplace(dst);
-                    }
-
-                    dst[j] = back;
+                    lock[j] = ch;
                 }
             }
         }

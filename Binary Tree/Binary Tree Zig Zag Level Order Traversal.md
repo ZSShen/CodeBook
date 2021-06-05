@@ -1,35 +1,31 @@
 # Problem
 
-### 71. Binary Tree Zigzag Level Order Traversal
-
-https://www.lintcode.com/problem/binary-tree-zigzag-level-order-traversal/description
+### LeetCode 103. Binary Tree Zigzag Level Order Traversal
+https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal
 
 # Solution
 ```c++
-
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: A Tree
-     * @return: A list of lists of integer include the zigzag level order traversal of its nodes' values.
-     */
-    vector<vector<int>> zigzagLevelOrder(TreeNode * root) {
-        // write your code here
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
 
         /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)
+         *
          * We can use 2 stacks to control the traversal.
          *
          * In a specific level, we consume all the nodes collected in the first
@@ -60,48 +56,47 @@ public:
             return {};
         }
 
-        std::vector<std::vector<int>> ans;
+        vector<vector<int>> ans;
 
-        std::stack<TreeNode*> first;
-        first.push(root);
+        stack<TreeNode*> stk;
+        stk.emplace(root);
 
-        int level = 0;
+        int round = 0;
 
-        while (!first.empty()) {
-            int n = first.size();
-            std::stack<TreeNode*> second;
-            std::vector<int> collect;
+        while (!stk.empty()) {
+            stack<TreeNode*> next;
+            vector<int> level;
 
+            int n = stk.size();
             for (int i = 0 ; i < n ; ++i) {
-                auto node = first.top();
-                first.pop();
+                auto node = stk.top();
+                stk.pop();
 
-                collect.push_back(node->val);
+                level.emplace_back(node->val);
 
-                if (level % 2 == 0) {
+                if (round % 2 == 0) {
                     if (node->left) {
-                        second.push(node->left);
+                        next.emplace(node->left);
                     }
                     if (node->right) {
-                        second.push(node->right);
+                        next.emplace(node->right);
                     }
                 } else {
                     if (node->right) {
-                        second.push(node->right);
+                        next.emplace(node->right);
                     }
                     if (node->left) {
-                        second.push(node->left);
+                        next.emplace(node->left);
                     }
                 }
             }
 
-            ans.emplace_back(std::move(collect));
-            first = std::move(second);
-            ++level;
+            ++round;
+            stk = move(next);
+            ans.emplace_back(move(level));
         }
 
         return ans;
     }
 };
-
 ```
