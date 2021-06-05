@@ -4561,14 +4561,14 @@
     <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>{
 
         <span class="hljs-comment">/**
-         *  TC: O(M * N), where
-         *      M is the length of string S
-         *      N is the length of pattern P
+         *  TC: O(S * P), where
+         *      S is the length of string S
+         *      P is the length of pattern P
          *
-         *  SC: O(M * N)
+         *  SC: O(S * P)
          *
-         *  dp[i][j]: Whether the prefix of S ending at offset i can
-         *            be matched by the prefix of P ending at offset j.
+         *  dp[i][j]: Whether the prefix of S ending at index i can
+         *            be matched by the prefix of P ending at index j.
          *
          *             | if s[i] == p[j] || p[j] == &apos;.&apos;        , dp[i - 1][j - 1]
          *             |
@@ -4588,6 +4588,7 @@
         <span class="hljs-comment">// dp[0][0...lp]</span>
         <span class="hljs-comment">// S:</span>
         <span class="hljs-comment">// P: a*b*, .*c*</span>
+        <span class="hljs-comment">// The reson why we do not assign dp[0][i] = true: *C**</span>
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span> ; i &lt;= lp ; ++i) {
             <span class="hljs-keyword">if</span> (p[i - <span class="hljs-number">1</span>] == <span class="hljs-string">&apos;*&apos;</span>) {
                 dp[<span class="hljs-number">0</span>][i] = dp[<span class="hljs-number">0</span>][i - <span class="hljs-number">2</span>];
@@ -4653,7 +4654,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Regular Expression Matching","level":"1.18.5","depth":2,"next":{"title":"Game Theory","level":"1.19","depth":1,"ref":"","articles":[{"title":"Coins in a Line","level":"1.19.1","depth":2,"path":"Game Theory/Coins in a Line.md","ref":"Game Theory/Coins in a Line.md","articles":[]},{"title":"Coins in a Line II","level":"1.19.2","depth":2,"path":"Game Theory/Coins in a Line II.md","ref":"Game Theory/Coins in a Line II.md","articles":[]},{"title":"Coins in a Line III","level":"1.19.3","depth":2,"path":"Game Theory/Coins in a Line III.md","ref":"Game Theory/Coins in a Line III.md","articles":[]},{"title":"Stones in a Line","level":"1.19.4","depth":2,"path":"Game Theory/Stones in a Line.md","ref":"Game Theory/Stones in a Line.md","articles":[]}]},"previous":{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String Scramble/Regular Expression Matching.md","mtime":"2021-06-02T06:55:35.827Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-02T06:55:54.660Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Regular Expression Matching","level":"1.18.5","depth":2,"next":{"title":"Game Theory","level":"1.19","depth":1,"ref":"","articles":[{"title":"Coins in a Line","level":"1.19.1","depth":2,"path":"Game Theory/Coins in a Line.md","ref":"Game Theory/Coins in a Line.md","articles":[]},{"title":"Coins in a Line II","level":"1.19.2","depth":2,"path":"Game Theory/Coins in a Line II.md","ref":"Game Theory/Coins in a Line II.md","articles":[]},{"title":"Coins in a Line III","level":"1.19.3","depth":2,"path":"Game Theory/Coins in a Line III.md","ref":"Game Theory/Coins in a Line III.md","articles":[]},{"title":"Stones in a Line","level":"1.19.4","depth":2,"path":"Game Theory/Stones in a Line.md","ref":"Game Theory/Stones in a Line.md","articles":[]}]},"previous":{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String Scramble/Regular Expression Matching.md","mtime":"2021-06-04T07:08:30.774Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-05T05:01:41.423Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

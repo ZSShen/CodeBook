@@ -4553,20 +4553,27 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-118-distinct-subsequences">LintCode 118. Distinct Subsequences</h3>
-<p><a href="https://www.lintcode.com/problem/distinct-subsequences/description" target="_blank">https://www.lintcode.com/problem/distinct-subsequences/description</a></p>
+<h3 id="leetcode-115-distinct-subsequences">LeetCode 115. Distinct Subsequences</h3>
+<p><a href="https://leetcode.com/problems/distinct-subsequences" target="_blank">https://leetcode.com/problems/distinct-subsequences</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param S: A string
-     * @param T: A string
-     * @return: Count the number of distinct subsequences
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;S, <span class="hljs-built_in">string</span> &amp;T)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">numDistinct</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> t)</span> </span>{
 
         <span class="hljs-comment">/**
+         *  TC: O(S * T), where
+         *      S is the length of string s
+         *      T is the length of string t
+         *
+         *  SC: O(S * T)
+         *
+         *  dp[i][j]: The number of distinct ways to produce the prefix of T
+         *            ending at the jth position by removing any character
+         *            of the prefix of S ending at the ith position.
+         *
+         *  dp[i][j] = | if S[i] == T[j], dp[i - 1][j - 1] + dp[i - 1][j]
+         *             | otherwise      , dp[i - 1][j]
+         *
          *    0 r a b b b i t
          *  0 1 1 1 1 1 1 1 1
          *  r 0 1 1 1 1 1 1 1
@@ -4575,19 +4582,14 @@
          *  b 0 0 0 0 1 3 3 3
          *  i 0 0 0 0 0 0 3 3
          *  t 0 0 0 0 0 0 0 3
-         *
-         *  dp[i][j]: The number of distinct ways to form the prefix of T
-         *            ending at the jth position by removing any character
-         *            of the prefix of S ending at the ith position.
-         *
-         *  dp[i][j] = | if S[i] == T[j], dp[i - 1][j - 1] + dp[i - 1][j]
-         *             | otherwise      , dp[i - 1][j]
          */</span>
 
-        <span class="hljs-keyword">int</span> ns = S.length();
-        <span class="hljs-keyword">int</span> nt = T.length();
+        <span class="hljs-keyword">int</span> ns = s.length();
+        <span class="hljs-keyword">int</span> nt = t.length();
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(ns + <span class="hljs-number">1</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(nt + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));
+        <span class="hljs-keyword">long</span> mod = <span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">long</span>&gt;&gt; dp(ns + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">long</span>&gt;(nt + <span class="hljs-number">1</span>));
+
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt;= ns ; ++i) {
             dp[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
         }
@@ -4595,9 +4597,10 @@
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= ns ; ++i) {
             <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span> ; j &lt;= nt ; ++j) {
                 dp[i][j] = dp[i - <span class="hljs-number">1</span>][j];
-                <span class="hljs-keyword">if</span> (S[i - <span class="hljs-number">1</span>] == T[j - <span class="hljs-number">1</span>]) {
+                <span class="hljs-keyword">if</span> (s[i - <span class="hljs-number">1</span>] == t[j - <span class="hljs-number">1</span>]) {
                     dp[i][j] += dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
                 }
+                dp[i][j] %= mod;
             }
         }
 
@@ -4644,7 +4647,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Distinct Subsequences","level":"1.18.1","depth":2,"next":{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},"previous":{"title":"String Scramble","level":"1.18","depth":1,"ref":"","articles":[{"title":"Distinct Subsequences","level":"1.18.1","depth":2,"path":"String Scramble/Distinct Subsequences.md","ref":"String Scramble/Distinct Subsequences.md","articles":[]},{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},{"title":"Scramble String","level":"1.18.3","depth":2,"path":"String Scramble/Scramble String.md","ref":"String Scramble/Scramble String.md","articles":[]},{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},{"title":"Regular Expression Matching","level":"1.18.5","depth":2,"path":"String Scramble/Regular Expression Matching.md","ref":"String Scramble/Regular Expression Matching.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String Scramble/Distinct Subsequences.md","mtime":"2021-06-02T06:55:35.826Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-02T06:55:54.660Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Distinct Subsequences","level":"1.18.1","depth":2,"next":{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},"previous":{"title":"String Scramble","level":"1.18","depth":1,"ref":"","articles":[{"title":"Distinct Subsequences","level":"1.18.1","depth":2,"path":"String Scramble/Distinct Subsequences.md","ref":"String Scramble/Distinct Subsequences.md","articles":[]},{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},{"title":"Scramble String","level":"1.18.3","depth":2,"path":"String Scramble/Scramble String.md","ref":"String Scramble/Scramble String.md","articles":[]},{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},{"title":"Regular Expression Matching","level":"1.18.5","depth":2,"path":"String Scramble/Regular Expression Matching.md","ref":"String Scramble/Regular Expression Matching.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String Scramble/Distinct Subsequences.md","mtime":"2021-06-03T04:54:39.559Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-05T05:01:41.423Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

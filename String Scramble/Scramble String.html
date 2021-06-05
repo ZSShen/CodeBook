@@ -4555,20 +4555,19 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-430-scramble-string">LintCode 430. Scramble String</h3>
-<p><a href="https://www.lintcode.com/problem/scramble-string/description" target="_blank">https://www.lintcode.com/problem/scramble-string/description</a></p>
+<h3 id="leetcode-87-scramble-string">LeetCode 87. Scramble String</h3>
+<p><a href="https://leetcode.com/problems/scramble-string" target="_blank">https://leetcode.com/problems/scramble-string</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param s1: A string
-     * @param s2: Another string
-     * @return: whether s2 is a scrambled string of s1
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isScramble</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;s1, <span class="hljs-built_in">string</span> &amp;s2)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isScramble</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s1, <span class="hljs-built_in">string</span> s2)</span> </span>{
 
         <span class="hljs-comment">/**
+         *  TC: O(N^5), where
+         *      N is the string length
+         *
+         *  SC: O(N^4)
+         *
          *   great
          *   =&gt; atgre, eatgr
          *             =&gt; tgrea
@@ -4588,71 +4587,45 @@
          *      =&gt; Sp == Ts &amp;&amp; Ss == Tp, scrambled one!
          */</span>
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>, <span class="hljs-keyword">bool</span>&gt;&gt; memo;
-        <span class="hljs-keyword">return</span> canScramble(s1, s2, memo);
+        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">bool</span>&gt;&gt; memo;
+        <span class="hljs-keyword">return</span> helper(s1, s2, memo);
     }
 
-
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">canScramble</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; s, <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; t, <span class="hljs-keyword">auto</span>&amp; memo)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">helper</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; s1, <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; s2,
+                <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">bool</span>&gt;&gt;&amp; memo)</span> </span>{
 
-        <span class="hljs-comment">// Check the cached result first.</span>
-        <span class="hljs-keyword">auto</span> it_s = memo.find(s);
-        <span class="hljs-keyword">if</span> (it_s != memo.end()) {
-            <span class="hljs-keyword">auto</span>&amp; inner = it_s-&gt;second;
-            <span class="hljs-keyword">auto</span> <span class="hljs-keyword">it_t</span> = inner.find(t);
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">it_t</span> != inner.end()) {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">it_t</span>-&gt;second;
+        <span class="hljs-keyword">if</span> (memo.count(s1) == <span class="hljs-number">1</span> &amp;&amp; memo[s1].count(s2) == <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> memo[s1][s2];
+        }
+
+        <span class="hljs-keyword">int</span> n = s1.length();
+
+        <span class="hljs-keyword">if</span> (s1 == s2) {
+            <span class="hljs-keyword">return</span> memo[s1][s2] = <span class="hljs-literal">true</span>;
+        }
+        <span class="hljs-keyword">if</span> (freq(s1) != freq(s2)) {
+            <span class="hljs-keyword">return</span> memo[s1][s2] = <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt; n ; ++i) {
+            <span class="hljs-keyword">if</span> (helper(s1.substr(<span class="hljs-number">0</span>, i), s2.substr(<span class="hljs-number">0</span>, i), memo) &amp;&amp;
+                helper(s1.substr(i, n - i), s2.substr(i, n - i), memo) ||
+                helper(s1.substr(<span class="hljs-number">0</span>, i), s2.substr(n - i, i), memo) &amp;&amp;
+                helper(s1.substr(i, n - i), s2.substr(<span class="hljs-number">0</span>, n - i), memo)) {
+                <span class="hljs-keyword">return</span> memo[s1][s2] = <span class="hljs-literal">true</span>;
             }
         }
 
-        <span class="hljs-comment">// Check the string lengths.</span>
-        <span class="hljs-keyword">int</span> n = s.length();
-        <span class="hljs-keyword">int</span> m = t.length();
-        <span class="hljs-keyword">if</span> (n != m) {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-        }
+        <span class="hljs-keyword">return</span> memo[s1][s2] = <span class="hljs-literal">false</span>;
+    }
 
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">bool</span> res = s[<span class="hljs-number">0</span>] == t[<span class="hljs-number">0</span>];
-            memo[s][t] = res;
-            <span class="hljs-keyword">return</span> res;
-        }
-
-        <span class="hljs-comment">// Check the character composition.</span>
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; freq_s(<span class="hljs-number">26</span>, <span class="hljs-number">0</span>);
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-keyword">freq_t</span>(<span class="hljs-number">26</span>, <span class="hljs-number">0</span>);
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; freq(<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; s) {
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; f(<span class="hljs-number">26</span>);
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : s) {
-            ++freq_s[ch - <span class="hljs-string">&apos;a&apos;</span>];
+            ++f[ch - <span class="hljs-string">&apos;a&apos;</span>];
         }
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : t) {
-            ++<span class="hljs-keyword">freq_t</span>[ch - <span class="hljs-string">&apos;a&apos;</span>];
-        }
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">26</span> ; ++i) {
-            <span class="hljs-keyword">if</span> (freq_s[i] != <span class="hljs-keyword">freq_t</span>[i]) {
-                memo[s][t] = <span class="hljs-literal">false</span>;
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-            }
-        }
-
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n - <span class="hljs-number">1</span> ; ++i) {
-
-            <span class="hljs-keyword">int</span> l = i + <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">bool</span> res =
-                (canScramble(s.substr(<span class="hljs-number">0</span>, l), t.substr(<span class="hljs-number">0</span>, l), memo) &amp;&amp;
-                 canScramble(s.substr(l, n - l), t.substr(  l, n - l), memo)) ||
-                (canScramble(s.substr(<span class="hljs-number">0</span>, l), t.substr(n - l, l), memo) &amp;&amp;
-                 canScramble(s.substr(l, n - l), t.substr(<span class="hljs-number">0</span>, n - l), memo));
-
-            <span class="hljs-keyword">if</span> (res) {
-                memo[s][t] = <span class="hljs-literal">true</span>;
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-            }
-        }
-
-        memo[s][t] = <span class="hljs-literal">false</span>;
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">return</span> f;
     }
 };
 </code></pre>
@@ -4699,7 +4672,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Scramble String","level":"1.18.3","depth":2,"next":{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},"previous":{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String Scramble/Scramble String.md","mtime":"2021-06-02T06:55:35.827Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-02T06:55:54.660Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Scramble String","level":"1.18.3","depth":2,"next":{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},"previous":{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String Scramble/Scramble String.md","mtime":"2021-06-03T06:05:57.979Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-05T05:01:41.423Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

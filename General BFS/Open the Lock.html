@@ -4555,78 +4555,74 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-796-open-the-lock">LintCode 796. Open the Lock</h3>
-<p><a href="https://www.lintcode.com/problem/open-the-lock/description" target="_blank">https://www.lintcode.com/problem/open-the-lock/description</a></p>
+<h3 id="leetcode-752-open-the-lock">LeetCode 752. Open the Lock</h3>
+<p><a href="https://leetcode.com/problems/open-the-lock" target="_blank">https://leetcode.com/problems/open-the-lock</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param deadends: the list of deadends
-     * @param target: the value of the wheels that will unlock the lock
-     * @return: the minimum total number of turns
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">openLock</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &amp;deadends, <span class="hljs-built_in">string</span> &amp;target)</span> </span>{
-        <span class="hljs-comment">// Write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">openLock</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; deadends, <span class="hljs-built_in">string</span> target)</span> </span>{
 
         <span class="hljs-comment">/**
-         *  0000
+         *  TC: O(N * D^N + S), where
+         *      N is the length of the lock
+         *      D is the number of digits
+         *      S is the cost to convert deadend vector to set
          *
-         *  1000 0100 0010 0001
-         *  9000 0900 0090 0009
+         *  So, we need to enumerate D^N combinations. Per each iteration, when
+         *  generating new neighbors, the cost is O(N).
+         *
+         *  SC: O(D^N + S)
          */</span>
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; deadlocks;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp;&amp; word : deadends) {
-            deadlocks.emplace(<span class="hljs-built_in">std</span>::move(word));
+        <span class="hljs-keyword">if</span> (target == <span class="hljs-string">&quot;0000&quot;</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
         }
 
-        <span class="hljs-keyword">if</span> (deadlocks.count(target) == <span class="hljs-number">1</span>|| deadlocks.count(<span class="hljs-string">&quot;0000&quot;</span>) == <span class="hljs-number">1</span>) {
+        <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-built_in">string</span>&gt; visit(deadends.begin(), deadends.end());
+        <span class="hljs-keyword">if</span> (visit.count(<span class="hljs-string">&quot;0000&quot;</span>) == <span class="hljs-number">1</span> || visit.count(target) == <span class="hljs-number">1</span>) {
             <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
         }
-
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; visit;
         visit.emplace(<span class="hljs-string">&quot;0000&quot;</span>);
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">queue</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; <span class="hljs-built_in">queue</span>;
-        <span class="hljs-built_in">queue</span>.emplace(<span class="hljs-string">&quot;0000&quot;</span>);
+        <span class="hljs-built_in">queue</span>&lt;<span class="hljs-built_in">string</span>&gt; q;
+        q.emplace(<span class="hljs-string">&quot;0000&quot;</span>);
 
-        <span class="hljs-keyword">int</span> step = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">while</span> (!<span class="hljs-built_in">queue</span>.empty()) {
+        <span class="hljs-keyword">int</span> level = <span class="hljs-number">0</span>;
 
-            ++step;
-            <span class="hljs-keyword">int</span> n = <span class="hljs-built_in">queue</span>.size();
+        <span class="hljs-keyword">while</span> (!q.empty()) {
+            <span class="hljs-keyword">int</span> n = q.size();
+            ++level;
+
             <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
-                <span class="hljs-keyword">auto</span> src = <span class="hljs-built_in">queue</span>.front();
-                <span class="hljs-built_in">queue</span>.pop();
+                <span class="hljs-keyword">auto</span> lock = q.front();
+                q.pop();
 
-                <span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">dst</span><span class="hljs-params">(src)</span></span>;
                 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span> ; j &lt; <span class="hljs-number">4</span> ; ++j) {
+                    <span class="hljs-keyword">char</span> ch = lock[j];
 
-                    <span class="hljs-keyword">char</span> back = dst[j];
-
-                    <span class="hljs-comment">// Move the wheel clock-wise.</span>
-                    dst[j] = ((back - <span class="hljs-string">&apos;0&apos;</span> + <span class="hljs-number">1</span>) % <span class="hljs-number">10</span>) + <span class="hljs-string">&apos;0&apos;</span>;
-                    <span class="hljs-keyword">if</span> (dst == target) {
-                        <span class="hljs-keyword">return</span> step;
+                    <span class="hljs-comment">// Rotate the wheel clockwise</span>
+                    lock[j] = ((ch - <span class="hljs-string">&apos;0&apos;</span> + <span class="hljs-number">1</span>) % <span class="hljs-number">10</span>) + <span class="hljs-string">&apos;0&apos;</span>;
+                    <span class="hljs-keyword">if</span> (lock == target) {
+                        <span class="hljs-keyword">return</span> level;
                     }
 
-                    <span class="hljs-keyword">if</span> (deadlocks.count(dst) == <span class="hljs-number">0</span> &amp;&amp; visit.count(dst) == <span class="hljs-number">0</span>) {
-                        <span class="hljs-built_in">queue</span>.emplace(dst);
-                        visit.emplace(dst);
+                    <span class="hljs-keyword">if</span> (visit.count(lock) == <span class="hljs-number">0</span>) {
+                        q.emplace(lock);
+                        visit.emplace(lock);
+                    }
+                    lock[j] = ch;
+
+                    <span class="hljs-comment">// Rotate the wheel counter clock-wise</span>
+                    lock[j] = ((ch - <span class="hljs-string">&apos;0&apos;</span> + <span class="hljs-number">9</span>) % <span class="hljs-number">10</span>) + <span class="hljs-string">&apos;0&apos;</span>;
+                    <span class="hljs-keyword">if</span> (lock == target) {
+                        <span class="hljs-keyword">return</span> level;
                     }
 
-                    <span class="hljs-comment">// Move the whell counter clock-wise.</span>
-                    dst[j] = ((back - <span class="hljs-string">&apos;0&apos;</span> + <span class="hljs-number">9</span>) % <span class="hljs-number">10</span>) + <span class="hljs-string">&apos;0&apos;</span>;
-                    <span class="hljs-keyword">if</span> (dst == target) {
-                        <span class="hljs-keyword">return</span> step;
+                    <span class="hljs-keyword">if</span> (visit.count(lock) == <span class="hljs-number">0</span>) {
+                        q.emplace(lock);
+                        visit.emplace(lock);
                     }
-
-                    <span class="hljs-keyword">if</span> (deadlocks.count(dst) == <span class="hljs-number">0</span> &amp;&amp; visit.count(dst) == <span class="hljs-number">0</span>) {
-                        <span class="hljs-built_in">queue</span>.emplace(dst);
-                        visit.emplace(dst);
-                    }
-
-                    dst[j] = back;
+                    lock[j] = ch;
                 }
             }
         }
@@ -4678,7 +4674,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Open the Lock","level":"1.29.4","depth":2,"next":{"title":"Sliding Puzzle II","level":"1.29.5","depth":2,"path":"General BFS/Sliding Puzzle II.md","ref":"General BFS/Sliding Puzzle II.md","articles":[]},"previous":{"title":"The Maze II","level":"1.29.3","depth":2,"path":"General BFS/The Maze II.md","ref":"General BFS/The Maze II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General BFS/Open the Lock.md","mtime":"2021-06-02T06:55:35.789Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-02T06:55:54.660Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Open the Lock","level":"1.29.4","depth":2,"next":{"title":"Sliding Puzzle II","level":"1.29.5","depth":2,"path":"General BFS/Sliding Puzzle II.md","ref":"General BFS/Sliding Puzzle II.md","articles":[]},"previous":{"title":"The Maze II","level":"1.29.3","depth":2,"path":"General BFS/The Maze II.md","ref":"General BFS/The Maze II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General BFS/Open the Lock.md","mtime":"2021-06-05T05:01:15.020Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-05T05:01:41.423Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
