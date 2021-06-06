@@ -13,24 +13,31 @@ public:
 
     int minFlips(vector<vector<int>>& mat) {
 
+        /**
+         *  TC: O(2 ^ (M * N)), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
+         *  SC: O(2 ^ (M * N))
+         */
+
         int m = mat.size();
         int n = mat[0].size();
+        vector<bool> visit(1 << m * n);
 
-        int root = encode(mat, m, n);
-        if (root == 0) {
+        int code = encode(mat, m, n);
+        if (code == 0) {
             return 0;
         }
 
         queue<int> q;
-        q.emplace(root);
+        q.emplace(code);
 
-        int step = 0;
-        vector<bool> visit(1 << (m * n), false);
-        visit[root] = true;
+        int level = 0;
 
         while (!q.empty()) {
             int size = q.size();
-            ++step;
+            ++level;
 
             for (int i = 0 ; i < size ; ++i) {
                 int src = q.front();
@@ -38,14 +45,14 @@ public:
 
                 for (int x = 0 ; x < m ; ++x) {
                     for (int y = 0 ; y < n ; ++y) {
-                        int dst = flip(x, y, m, n, src);
+                        int dst = flip(src, m, n, x, y);
 
                         if (visit[dst]) {
                             continue;
                         }
 
                         if (dst == 0) {
-                            return step;
+                            return level;
                         }
 
                         visit[dst] = true;
@@ -61,40 +68,32 @@ public:
 private:
     vector<vector<int>> directs;
 
-    int getIndex(int x, int y, int n) {
-        return x * n + y;
-    }
+    int flip(int code, int m, int n, int x, int y) {
 
-    int flip(int x, int y, int m, int n, int src) {
-        int dst = src;
-
-        for (const auto& direct : directs) {
-            int nx = x + direct[0];
-            int ny = y + direct[1];
+        for (const auto& d : directs) {
+            int nx = x + d[0];
+            int ny = y + d[1];
 
             if (!(nx >= 0 && ny >= 0 && nx < m && ny < n)) {
                 continue;
             }
 
-            dst ^= (1 << getIndex(nx, ny, n));
+            code ^= 1 << (nx * n + ny);
         }
 
-        dst ^= (1 << getIndex(x, y, n));
-        return dst;
+        code ^= 1 << (x * n + y);
+        return code;
     }
 
-    int encode(vector<vector<int>>& mat, int m, int n) {
-        int enc = 0;
+    int encode(const vector<vector<int>>& mat, int m, int n) {
+        int code = 0;
 
         for (int i = 0 ; i < m ; ++i) {
             for (int j = 0 ; j < n ; ++j) {
-                if (mat[i][j] == 1) {
-                    enc ^= (1 << getIndex(i, j, n));
-                }
+                code |= mat[i][j] << (i * n + j);
             }
         }
-
-        return enc;
+        return code;
     }
 };
 ```

@@ -289,11 +289,13 @@
    * [Clone Graph](General BFS/Clone Graph.md)
    * [The Maze](General BFS/The Maze.md)
    * [The Maze II](General BFS/The Maze II.md)
-   * [Open the Lock](General BFS/Open the Lock.md)
-   * [Sliding Puzzle II](General BFS/Sliding Puzzle II.md)
-   * [Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](General BFS/Minimum Number of Flips to Convert Binary Matrix to Zero Matrix.md)
    * [Shortest Path in a Grid with Obstacles Elimination](General BFS/Shortest Path in a Grid with Obstacles Elimination.md)
    * [Minimum Knight Moves](General BFS/Minimum Knight Moves.md)
+
+* BFS with State Encoding
+   * [Open the Lock](BFS with State Encoding/Open the Lock.md)
+   * [Sliding Puzzle](BFS with State Encoding/Sliding Puzzle.md)
+   * [Minimum Number of Flips to Convert Binary Matrix to Zero Matrix](BFS with State Encoding/Minimum Number of Flips to Convert Binary Matrix to Zero Matrix.md)
 
 * General DFS
    * [N Queens](General DFS/N Queens.md)

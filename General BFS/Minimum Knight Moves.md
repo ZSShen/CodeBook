@@ -21,7 +21,6 @@ public:
 
     int minKnightMoves(int tx, int ty) {
 
-        // For the boundary case.
         if (tx == 0 && ty == 0) {
             return 0;
         }
@@ -36,41 +35,43 @@ public:
         q.push({0, 0});
 
         int level = 0;
+
         while (!q.empty()) {
-            int n = q.size();
+            int size = q.size();
             ++level;
 
-            for (int i = 0 ; i < n ; ++i) {
-                auto coord = q.front();
+            for (int i = 0 ; i < size ; ++i) {
+                auto p = q.front();
                 q.pop();
-
-                int x = coord.first;
-                int y = coord.second;
+                int x = p.first;
+                int y = p.second;
 
                 for (const auto& d : directs) {
                     int nx = x + d[0];
                     int ny = y + d[1];
+                    int np = nx * dim + ny;
 
-                    int abs_nx = abs(nx);
-                    int abs_ny = abs(ny);
-
-                    int key = abs_nx * dim + abs_ny;
-                    if (visit.count(key) == 1) {
+                    // We set this boundary to cover the target point like (1, 1).
+                    // In such case, we can visit (2, -1) and then go to (1, 1),
+                    // resulting in 2 steps.
+                    // However, if we set boundary to x = 0 and y = 0, the possible
+                    // shortest path will become (0, 0), (2, 1), (0, 2), (2, 3), and (1, 1),
+                    // resulting in 4 steps, which is suboptimal.
+                    if (!(nx >= -1 && ny >= -1) || visit.count(np) == 1) {
                         continue;
                     }
 
-                    // Check for the target.
-                    if (abs_nx == tx && abs_ny == ty) {
+                    if (nx == tx && ny == ty) {
                         return level;
                     }
 
-                    visit.emplace(key);
                     q.push({nx, ny});
+                    visit.emplace(np);
                 }
             }
         }
 
-        // Should not reach here.
+        // Should never reach here.
         return -1;
     }
 

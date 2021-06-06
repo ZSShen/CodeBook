@@ -1,51 +1,59 @@
 
 # Problem
-### LintCode 137. Clone Graph
-https://www.lintcode.com/problem/clone-graph/description
+### LeetCode 133. Clone Graph
+https://leetcode.com/problems/clone-graph
 
 # Solution
 ```c++
-/**
- * Definition for undirected graph.
- * struct UndirectedGraphNode {
- *     int label;
- *     vector<UndirectedGraphNode *> neighbors;
- *     UndirectedGraphNode(int x) : label(x) {};
- * };
- */
-
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+*/
 
 class Solution {
 public:
-    /*
-     * @param node: A undirected graph node
-     * @return: A undirected graph node
-     */
-    UndirectedGraphNode* cloneGraph(UndirectedGraphNode* node) {
-        // write your code here
+    Node* cloneGraph(Node* node) {
 
         if (!node) {
             return nullptr;
         }
 
-        std::queue<UndirectedGraphNode*> queue;
-        queue.push(node);
+        unordered_map<Node*, Node*> map;
+        map[node] = new Node(node->val);
 
-        std::unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> map;
-        map[node] = new UndirectedGraphNode(node->label);
+        queue<Node*> q;
+        q.emplace(node);
 
-        while (!queue.empty()) {
-            auto origin = queue.front();
-            queue.pop();
+        unordered_set<Node*> set;
+        set.emplace(node);
 
-            auto clone = map[origin];
-            for (auto neighbor : origin->neighbors) {
-                if (map.count(neighbor) == 0) {
-                    map[neighbor] = new UndirectedGraphNode(neighbor->label);
-                    queue.push(neighbor);
+        while (!q.empty()) {
+            auto src = q.front();
+            q.pop();
+
+            for (auto dst : src->neighbors) {
+                if (set.count(dst) == 0) {
+                    map[dst] = new Node(dst->val);
+                    q.emplace(dst);
+                    set.emplace(dst);
                 }
-
-                clone->neighbors.push_back(map[neighbor]);
+                map[src]->neighbors.emplace_back(map[dst]);
             }
         }
 
