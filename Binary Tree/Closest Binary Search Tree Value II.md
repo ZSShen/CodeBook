@@ -1,23 +1,31 @@
 # Problem
 
-### 901. Closest Binary Search Tree Value II
-
-https://www.lintcode.com/problem/closest-binary-search-tree-value-ii/description
+### LeetCode 272. Closest Binary Search Tree Value II
+https://leetcode.com/problems/closest-binary-search-tree-value-ii
 
 # Solution
 ```c++
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    /**
-     * @param root: the given BST
-     * @param target: the given target
-     * @param k: the given k
-     * @return: k values in the BST that are closest to the target
-     */
-    vector<int> closestKValues(TreeNode * root, double target, int k) {
-        // write your code here
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
 
         /**
+         *  TC: O(H + K), where
+         *      H is the height of the tree
+         *
+         *  SC: O(H + K)
+         *
          *  target = 19.
          *  k = 3
          *
@@ -36,43 +44,46 @@ public:
          *  20 -> 15 -> 17 -> 18
          */
 
-        std::stack<TreeNode*> pred;
-        std::stack<TreeNode*> succ;
+        stack<TreeNode*> preds;
+        stack<TreeNode*> succs;
 
-        auto curr = root;
-        while (curr) {
-            if (target >= curr->val) {
-                pred.push(curr);
-                curr = curr->right;
+        while (root) {
+            if (root->val >= target) {
+                succs.emplace(root);
+                root = root->left;
             } else {
-                succ.push(curr);
-                curr = curr->left;
+                preds.emplace(root);
+                root = root->right;
             }
         }
 
-        std::vector<int> ans;
+        vector<int> ans;
+
         for (int i = 0 ; i < k ; ++i) {
-
-            if (pred.empty()) {
-                ans.push_back(succ.top()->val);
-                getSuccessors(succ);
+            if (preds.empty()) {
+                ans.emplace_back(succs.top()->val);
+                getSuccessors(succs);
                 continue;
             }
 
-            if (succ.empty()) {
-                ans.push_back(pred.top()->val);
-                getPredecessors(pred);
+            if (succs.empty()) {
+                ans.emplace_back(preds.top()->val);
+                getPredecessors(preds);
                 continue;
             }
 
-            auto p = pred.top();
-            auto s = succ.top();
-            if (std::abs(p->val - target) < std::abs(s->val - target)) {
-                ans.push_back(p->val);
-                getPredecessors(pred);
+            auto pred = preds.top();
+            auto succ = succs.top();
+
+            double diff_p = abs(target - static_cast<double>(pred->val));
+            double diff_s = abs(target - static_cast<double>(succ->val));
+
+            if (diff_p <= diff_s) {
+                ans.emplace_back(pred->val);
+                getPredecessors(preds);
             } else {
-                ans.push_back(s->val);
-                getSuccessors(succ);
+                ans.emplace_back(succ->val);
+                getSuccessors(succs);
             }
         }
 
@@ -80,35 +91,29 @@ public:
     }
 
 private:
-    void getPredecessors(std::stack<TreeNode*>& pred) {
+    void getPredecessors(stack<TreeNode*>& preds) {
 
-        auto curr = pred.top();
-        pred.pop();
+        auto curr = preds.top();
+        preds.pop();
 
-        if (curr->left) {
+        if (curr) {
             curr = curr->left;
-            pred.push(curr);
-
-            curr = curr->right;
             while (curr) {
-                pred.push(curr);
+                preds.emplace(curr);
                 curr = curr->right;
             }
         }
     }
 
-    void getSuccessors(std::stack<TreeNode*>& succ) {
+    void getSuccessors(stack<TreeNode*>& succs) {
 
-        auto curr = succ.top();
-        succ.pop();
+        auto curr = succs.top();
+        succs.pop();
 
-        if (curr->right) {
+        if (curr) {
             curr = curr->right;
-            succ.push(curr);
-
-            curr = curr->left;
             while (curr) {
-                succ.push(curr);
+                succs.emplace(curr);
                 curr = curr->left;
             }
         }

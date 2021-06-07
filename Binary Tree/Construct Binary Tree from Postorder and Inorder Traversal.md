@@ -1,35 +1,31 @@
 # Problem
 
-### LintCode 72. Construct Binary Tree from Postorder and Inorder Traversal
-
-https://www.lintcode.com/problem/construct-binary-tree-from-postorder-and-inorder-traversal/description
+### LeetCode 106. Construct Binary Tree from Inorder and Postorder Traversal
+https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param inorder: A list of integers that inorder traversal of a tree
-     * @param postorder: A list of integers that postorder traversal of a tree
-     * @return: Root of a tree
-     */
-    TreeNode * buildTree(vector<int> &inorder, vector<int> &postorder) {
-        // write your code here
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
 
         /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)
+         *
          * PostOrder: (Left Branch) (Right Branch) Root
          * InOrder  : (Left Branch) Root (Right Branch)
          *
@@ -41,47 +37,46 @@ public:
          *                             -------     -------
          */
 
-        int num_in = inorder.size();
-        int num_post = postorder.size();
-
-        if (num_in == 0 || num_post == 0 || num_in != num_post) {
-            return nullptr;
+        unordered_map<int, int> map;
+        int n = inorder.size();
+        for (int i = 0 ; i < n ; ++i) {
+            map[inorder[i]] = i;
         }
 
-        return buildTree(inorder, 0, num_in - 1, postorder, 0, num_post - 1);
+        return helper(inorder, postorder, {0, n - 1}, {0, n - 1}, map);
     }
 
 private:
-    TreeNode* buildTree(
-            const auto& inorder, int in_bgn, int in_end,
-            const auto& postorder, int post_bgn, int post_end) {
+    TreeNode* helper(
+            const vector<int>& inorder, const vector<int>& postorder,
+            pair<int, int> in_index, pair<int, int> post_index,
+            unordered_map<int, int>& map) {
 
-        if (in_end < in_bgn) {
+        int in_bgn = in_index.first, in_end = in_index.second;
+        if (in_bgn > in_end) {
             return nullptr;
         }
-
         if (in_bgn == in_end) {
             return new TreeNode(inorder[in_bgn]);
         }
 
-        int root_val = postorder[post_end];
+        int post_bgn = post_index.first, post_end = post_index.second;
+        int val = postorder[post_end];
 
-        int mid;
-        for (mid = in_bgn ; mid <= in_end ; ++mid) {
-            if (inorder[mid] == root_val) {
-                break;
-            }
-        }
+        // Find the root node index of the in-order vector.
+        int in_mid = map[val];
 
-        int left_range = mid - in_bgn;
+        auto root = new TreeNode(val);
 
-        auto root = new TreeNode(root_val);
-        root->left = buildTree(
-            inorder, in_bgn, mid - 1,
-            postorder, post_bgn, post_bgn + left_range - 1);
-        root->right = buildTree(
-            inorder, mid + 1, in_end,
-            postorder, post_bgn + left_range, post_end - 1);
+        root->left = helper(inorder, postorder,
+                            {in_bgn, in_mid - 1},
+                            {post_bgn, post_bgn + in_mid - in_bgn - 1},
+                            map);
+
+        root->right = helper(inorder, postorder,
+                             {in_mid + 1, in_end},
+                             {post_bgn + in_mid - in_bgn, post_end - 1},
+                             map);
 
         return root;
     }

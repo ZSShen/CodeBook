@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 650. Find Leaves of Binary Tree
-https://www.lintcode.com/problem/find-leaves-of-binary-tree/description
+### LeetCode 366. Find Leaves of Binary Tree
+https://leetcode.com/problems/find-leaves-of-binary-tree
 
 # Solution
 ```c++

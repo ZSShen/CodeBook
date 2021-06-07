@@ -1,94 +1,49 @@
 
 # Problem
-### LintCode 900. Closest Binary Search Tree Value
-
-https://www.lintcode.com/problem/closest-binary-search-tree-value/description
+### LeetCode 270. Closest Binary Search Tree Value
+https://leetcode.com/problems/closest-binary-search-tree-value
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: the given BST
-     * @param target: the given target
-     * @return: the value in the BST that is closest to the target
-     */
-    int closestValue(TreeNode * root, double target) {
-        // write your code here
+    int closestValue(TreeNode* root, double target) {
 
-        /**
-         * lower_bound: the max value which is less than target.
-         * upper_bound: the min value which is greater than or equal to target.
-         */
-
-        auto lower = findLowerBound(root, target);
-        auto upper = findUpperBound(root, target);
-
-        if (!lower) {
-            return upper->val;
-        }
-        if (!upper) {
-            return lower->val;
-        }
-
-        if ((target - static_cast<double>(lower->val)) <
-            (static_cast<double>(upper->val) - target)) {
-            return lower->val;
-        }
-
-        return upper->val;
+        double g_diff = INT_MAX;
+        int ans = root->val;
+        helper(root, target, g_diff, ans);
+        return ans;
     }
 
 private:
-    TreeNode* findLowerBound(TreeNode* root, double target) {
+    void helper(TreeNode* root, double target, double& g_diff, int& ans) {
 
         if (!root) {
-            return nullptr;
+            return;
         }
 
-        if (target <= root->val) {
-            return findLowerBound(root->left, target);
+        double diff = abs(static_cast<double>(root->val) - target);
+        if (diff < g_diff) {
+            g_diff = diff;
+            ans = root->val;
         }
 
-        // target > root->val
-        auto lower = findLowerBound(root->right, target);
-        if (lower) {
-            return lower;
+        if (target >= root->val) {
+            helper(root->right, target, g_diff, ans);
+        } else {
+            helper(root->left, target, g_diff, ans);
         }
-
-        return root;
-    }
-
-    TreeNode* findUpperBound(TreeNode* root, double target) {
-
-        if (!root) {
-            return nullptr;
-        }
-
-        if (root->val < target) {
-            return findUpperBound(root->right, target);
-        }
-
-        // target <= root->val
-        auto upper = findUpperBound(root->left, target);
-        if (upper) {
-            return upper;
-        }
-
-        return root;
     }
 };
 ```

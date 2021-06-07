@@ -30,6 +30,13 @@ class Solution {
 public:
     Node* cloneGraph(Node* node) {
 
+        /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)
+         */
+
         if (!node) {
             return nullptr;
         }

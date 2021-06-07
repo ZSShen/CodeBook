@@ -7,30 +7,27 @@ https://www.lintcode.com/problem/serialize-and-deserialize-binary-tree/descripti
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
  */
-
-
-class Solution {
+class Codec {
 public:
-    /**
-     * This method will be invoked first, you should design your own algorithm
-     * to serialize a binary tree which denote by a root node to a string which
-     * can be easily deserialized by your own "deserialize" method later.
-     */
-    string serialize(TreeNode * root) {
-        // write your code here
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
 
         /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
+         *
          *      3
          *     / \
          *    9   20
@@ -44,41 +41,36 @@ public:
             return "#";
         }
 
-        return std::to_string(root->val) + \
-               "," + \
-               serialize(root->left) + \
-               "," + \
-               serialize(root->right);
+        return to_string(root->val) + "," +
+                serialize(root->left) + "," +
+                serialize(root->right);
     }
 
-    /**
-     * This method will be invoked second, the argument data is what exactly
-     * you serialized at method "serialize", that means the data is not given by
-     * system, it's given by your own serialize method. So the format of data is
-     * designed by yourself, and deserialize it here as you serialize it in
-     * "serialize" method.
-     */
-    TreeNode * deserialize(string &data) {
-        // write your code here
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
 
-        std::stringstream stream(data);
-        return deserializeHelper(stream);
+        stringstream stream(data);
+        return helper(stream);
     }
 
 private:
-    TreeNode* deserializeHelper(std::stringstream& stream) {
+    TreeNode* helper(stringstream& stream) {
 
-        std::string token;
+        string token;
         getline(stream, token, ',');
+
         if (token == "#") {
             return nullptr;
         }
 
-        auto curr = new TreeNode(stoi(token));
-        curr->left = deserializeHelper(stream);
-        curr->right = deserializeHelper(stream);
-
-        return curr;
+        auto node = new TreeNode(stoi(token));
+        node->left = helper(stream);
+        node->right = helper(stream);
+        return node;
     }
 };
+
+// Your Codec object will be instantiated and called as such:
+// Codec ser, deser;
+// TreeNode* ans = deser.deserialize(ser.serialize(root));
 ```

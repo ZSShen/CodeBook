@@ -1,39 +1,39 @@
 # Problem
 
-### LintCode 1360. Symmetric Tree
+### LeetCode 101. Symmetric Tree
+https://leetcode.com/problems/symmetric-tree/solution
 
-https://www.lintcode.com/problem/symmetric-tree/description
 
 # Solution
 ```c++
-
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: root of the given tree
-     * @return: whether it is a mirror of itself
-     */
-    bool isSymmetric(TreeNode * root) {
-        // Write your code here
+    bool isSymmetric(TreeNode* root) {
 
-        return !root || isSymmetricHelper(root, root);
+        /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(H), where
+         *      H is the height of the tree
+         */
+
+        return helper(root, root);
     }
 
 private:
-    bool isSymmetricHelper(TreeNode* left, TreeNode* right) {
+    bool helper(TreeNode* left, TreeNode* right) {
 
         if (!left || !right) {
             return left == right;
@@ -43,10 +43,8 @@ private:
             return false;
         }
 
-        return
-            isSymmetricHelper(left->left, right->right) &&
-            isSymmetricHelper(left->right, right->left);
+        return helper(left->left, right->right) &&
+               helper(left->right, right->left);
     }
 };
-
 ```

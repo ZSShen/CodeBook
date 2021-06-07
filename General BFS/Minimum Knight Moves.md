@@ -21,6 +21,14 @@ public:
 
     int minKnightMoves(int tx, int ty) {
 
+        /**
+         *  TC: O(|X| * |Y|), where
+         *      |X| is the x index in the first quadrant
+         *      |Y| is the y index in the first quadrant
+         *
+         *  SC: O(|X| * |Y|)
+         */
+
         if (tx == 0 && ty == 0) {
             return 0;
         }
