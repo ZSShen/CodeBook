@@ -1,24 +1,25 @@
 
 # Problem
-### LintCode 401. Kth Smallest Number in Sorted Matrix
-https://www.lintcode.com/problem/kth-smallest-number-in-sorted-matrix/description
+### LeetCode 378. Kth Smallest Element in a Sorted Matrix
+https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix
 
 # Solution
 ```c++
-
 struct Record {
     int num;
-    int r, c;
+    int r;
+    int c;
 
     Record(int num, int r, int c)
-      : num(num), r(r), c(c)
+      : num(num),
+        r(r),
+        c(c)
     { }
 };
 
 
 struct RecordCompare {
-
-    bool operator() (const auto& lhs, const auto& rhs) {
+    bool operator() (const Record& lhs, const Record& rhs) {
         return lhs.num > rhs.num;
     }
 };
@@ -26,57 +27,48 @@ struct RecordCompare {
 
 class Solution {
 public:
-    /**
-     * @param matrix: a matrix of integers
-     * @param k: An integer
-     * @return: the kth smallest number in the matrix
-     */
-    int kthSmallest(vector<vector<int>> &matrix, int k) {
-        // write your code here
+    int kthSmallest(vector<vector<int>>& mat, int k) {
 
-        int num_r = matrix.size();
-        if (num_r == 0) {
-            return 0;
-        }
+        /**
+         *  TC: O(KlogK)
+         *
+         *  SC: O(K)
+         *      We have up to K elements stored in the minimum heap
+         */
 
-        int num_c = matrix[0].size();
-        if (num_c == 0) {
-            return 0;
-        }
+        int m = mat.size();
+        int n = mat[0].size();
 
-        if (k == 0) {
-            return 0;
-        }
+        priority_queue<Record, vector<Record>, RecordCompare> q;
+        q.emplace(mat[0][0], 0, 0);
 
-        std::priority_queue<Record, std::vector<Record>, RecordCompare> queue;
-        queue.push(Record(matrix[0][0], 0, 0));
+        unordered_set<int> visit;
+        visit.emplace(0);
 
-        std::vector<std::vector<bool>>
-            visit(num_r, std::vector<bool>(num_c, false));
-        visit[0][0] = true;
+        int num;
+        for (int i = 0 ; i < k ; ++i) {
+            auto record = q.top();
+            q.pop();
 
-        for (int i = 0 ; i < k - 1; ++i) {
-            auto rec = queue.top();
-            queue.pop();
+            num = record.num;
+            int r = record.r;
+            int c = record.c;
 
-            int r = rec.r;
-            int c = rec.c;
-            int nr = r + 1;
-            int nc = c + 1;
-
-            if (nr < num_r && !visit[nr][c]) {
-                queue.push(Record(matrix[nr][c], nr, c));
-                visit[nr][c] = true;
+            int code = r * n + (c + 1);
+            if (c + 1 < n && visit.count(code) == 0) {
+                q.emplace(mat[r][c + 1], r, c + 1);
+                visit.emplace(code);
             }
-            if (nc < num_c && !visit[r][nc]) {
-                queue.push(Record(matrix[r][nc], r, nc));
-                visit[r][nc] = true;
+
+            // Check the below neighbor.
+            code = (r + 1) * n + c;
+            if (r + 1 < m && visit.count(code) == 0) {
+                q.emplace(mat[r + 1][c], r + 1, c);
+                visit.emplace(code);
             }
         }
 
-        auto rec = queue.top();
-        return rec.num;
+        return num;
     }
 };
-
 ```

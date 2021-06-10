@@ -1,45 +1,34 @@
 
 # Problem
-### LintCode 4. Ugly Number II
-https://www.lintcode.com/problem/ugly-number-ii/description
+### LeetCode 264. Ugly Number II
+https://leetcode.com/problems/ugly-number-ii
 
 # Solution
 ```c++
-
 class Solution {
 public:
-    /**
-     * @param n: An integer
-     * @return: return a  integer as description.
-     */
     int nthUglyNumber(int n) {
-        // write your code here
 
         /**
-         *          Priority Queue
-         *
-         * 1st: 1   2, 3, 5
-         * 2nd: 2   3, 4, 5, 6, 10
-         * 3rd: 3   4, 6, 9, 10, 15
-         *
-         *      ...
+         * TC: O(NlogN)
+         * SC: O(N)
          */
 
-        std::set<long, std::less<long>> queue;
-        queue.insert(1);
+        set<long> set;
+        set.emplace(1);
+        long ans = 1;
 
-        long nth = 0;
         for (int i = 0 ; i < n ; ++i) {
-            nth = *queue.begin();
-            queue.erase(nth);
+            auto it = set.begin();
+            ans = *it;
+            set.erase(it);
 
-            queue.insert(nth * 2);
-            queue.insert(nth * 3);
-            queue.insert(nth * 5);
+            set.emplace(ans * 2);
+            set.emplace(ans * 3);
+            set.emplace(ans * 5);
         }
 
-        return nth;
+        return ans;
     }
 };
-
 ```

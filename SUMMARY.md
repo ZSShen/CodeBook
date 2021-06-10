@@ -120,6 +120,7 @@
    * [Longest Increasing Path in a Matrix](Memoization and Top Down Dynamic Programming/Longest Increasing Path in a Matrix.md)
 
 * Fibonacci Sequence
+   * [Min Cost Climbing Stairs](Fibonacci Sequence/Min Cost Climbing Stairs.md)
    * [Decode Ways](Fibonacci Sequence/Decode Ways.md)
    * [Decode Ways II](Fibonacci Sequence/Decode Ways II.md)
    * [House Robber](Fibonacci Sequence/House Robber.md)
@@ -209,7 +210,6 @@
    * [Insert Node in Binary Search Tree](Binary Tree/Insert Node in Binary Search Tree.md)
    * [Remove Node in Binary Search Tree](Binary Tree/Remove Node in Binary Search Tree.md)
    * [All Nodes Distance K in Binary Tree](Binary Tree/All Nodes Distance K in Binary Tree.md)
-   * [Lowest Common Ancestor of Deepest Leaves](Binary Tree/Lowest Common Ancestor of Deepest Leaves.md)
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)

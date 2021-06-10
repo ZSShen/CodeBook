@@ -1,35 +1,39 @@
 
 # Problem
-### LintCode 518. Super Ugly Number
-https://www.lintcode.com/problem/super-ugly-number/description
+### LeetCode 313. Super Ugly Number
+https://leetcode.com/problems/super-ugly-number
 
 # Solution
 ```c++
-
 class Solution {
 public:
-    /**
-     * @param n: a positive integer
-     * @param primes: the given prime list
-     * @return: the nth super ugly number
-     */
-    int nthSuperUglyNumber(int n, vector<int> &primes) {
-        // write your code here
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
 
-        std::set<long, std::less<long>> queue;
-        queue.insert(1);
+        /**
+         *  TC: O(N * logN * K), where
+         *      K is the number of primes
+         *
+         *  SC: O(N * K)
+         */
 
-        long nth = 0;
+        set<int> set;
+        set.emplace(1);
+
+        int ans;
         for (int i = 0 ; i < n ; ++i) {
-            nth = *queue.begin();
-            queue.erase(nth);
+            auto it = set.begin();
+            ans = *it;
+            set.erase(it);
 
-            for (int prime : primes) {
-                queue.insert(nth * prime);
+            for (int p : primes) {
+                if (INT_MAX / p < ans) {
+                    continue;
+                }
+                set.emplace(p * ans);
             }
         }
 
-        return nth;
+        return ans;
     }
 };
 ```

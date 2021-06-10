@@ -1,58 +1,51 @@
 
 # Problem
-### LintCode 613. High Five
-https://www.lintcode.com/problem/high-five/description
+### LeetCode 1086. High Five
+https://leetcode.com/problems/high-five
 
 # Solution
 ```c++
-/**
- * Definition for a Record
- * class Record {
- * public:
- *   int id, score;
- *   Record(int id, int score) {
- *     this->id = id;
- *     this->score = score;
- *   }
- * };
- */
 class Solution {
 public:
-    /**
-     * @param results a list of <student_id, score>
-     * @return find the average of 5 highest scores for each person
-     * map<int, double> (student_id, average_score)
-     */
-    map<int, double> highFive(vector<Record>& results) {
-        // Write your code here
+    vector<vector<int>> highFive(vector<vector<int>>& items) {
 
-        std::unordered_map<
-            int,
-            std::priority_queue<int, std::vector<int>, std::greater<int>>> map;
+        /**
+         *  TC: O(N * log5), where
+         *      N is the number of items
+         *
+         *  SC: O(N)
+         */
 
-        for (const auto& result : results) {
-            int id = result.id;
-            int score = result.score;
+        unordered_map<int, priority_queue<int, vector<int>, greater<int>>> map;
 
-            map[id].push(score);
+        for (const auto& item : items) {
+            int id = item[0];
+            int score = item[1];
+
+            map[id].emplace(score);
             if (map[id].size() > 5) {
                 map[id].pop();
             }
         }
 
-        std::map<int, double> ans;
-        for (auto& pair : map) {
-            int id = pair.first;
+        vector<vector<int>> ans;
 
-            int sum = 0;
-            auto& queue = pair.second;
+        for (auto& entry : map) {
+            int id = entry.first;
+            int score = 0;
+
+            auto& queue = entry.second;
+            int size = queue.size();
+
             while (!queue.empty()) {
-                sum += queue.top();
+                score += queue.top();
                 queue.pop();
             }
 
-            ans[id] = static_cast<double>(sum) / 5;
+            ans.push_back({id, score / size});
         }
+
+        sort(ans.begin(), ans.end());
 
         return ans;
     }
