@@ -304,46 +304,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="Window Sum.html">
-            
-                <a href="Window Sum.html">
-            
-                    
-                    Window Sum
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.3.2" data-path="Sliding Window Median.html">
-            
-                <a href="Sliding Window Median.html">
-            
-                    
-                    Sliding Window Median
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.3.3" data-path="Sliding Window Maximum.html">
-            
-                <a href="Sliding Window Maximum.html">
-            
-                    
-                    Sliding Window Maximum
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.3.4" data-path="Subarray Product Less than K.html">
+        <li class="chapter " data-level="1.3.1" data-path="Subarray Product Less than K.html">
             
                 <a href="Subarray Product Less than K.html">
             
@@ -356,7 +317,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.5" data-path="Longest Substring without Repeating Characters.html">
+        <li class="chapter " data-level="1.3.2" data-path="Longest Substring without Repeating Characters.html">
             
                 <a href="Longest Substring without Repeating Characters.html">
             
@@ -369,7 +330,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.6" data-path="Longest Substring with at Most K Distinct Characters.html">
+        <li class="chapter " data-level="1.3.3" data-path="Longest Substring with at Most K Distinct Characters.html">
             
                 <a href="Longest Substring with at Most K Distinct Characters.html">
             
@@ -382,7 +343,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.7" data-path="Find All Anagrams in a String.html">
+        <li class="chapter " data-level="1.3.4" data-path="Find All Anagrams in a String.html">
             
                 <a href="Find All Anagrams in a String.html">
             
@@ -395,7 +356,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.8" data-path="Minimum Window Substring.html">
+        <li class="chapter active" data-level="1.3.5" data-path="Minimum Window Substring.html">
             
                 <a href="Minimum Window Substring.html">
             
@@ -408,7 +369,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.9" data-path="Moving Average from Data Stream.html">
+        <li class="chapter " data-level="1.3.6" data-path="Moving Average from Data Stream.html">
             
                 <a href="Moving Average from Data Stream.html">
             
@@ -421,12 +382,38 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.10" data-path="Find Median from Data Stream.html">
+        <li class="chapter " data-level="1.3.7" data-path="Find Median from Data Stream.html">
             
                 <a href="Find Median from Data Stream.html">
             
                     
                     Find Median from Data Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="Sliding Window Median.html">
+            
+                <a href="Sliding Window Median.html">
+            
+                    
+                    Sliding Window Median
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="Sliding Window Maximum.html">
+            
+                <a href="Sliding Window Maximum.html">
+            
+                    
+                    Sliding Window Maximum
             
                 </a>
             
@@ -4561,99 +4548,49 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-32-minimum-window-substring">LintCode 32. Minimum Window Substring</h3>
-<p><a href="https://www.lintcode.com/problem/minimum-window-substring/description" target="_blank">https://www.lintcode.com/problem/minimum-window-substring/description</a></p>
+<h3 id="leetcode-76-minimum-window-substring">LeetCode 76. Minimum Window Substring</h3>
+<p><a href="https://leetcode.com/problems/minimum-window-substring" target="_blank">https://leetcode.com/problems/minimum-window-substring</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param source : A string
-     * @param target: A string
-     * @return: A string denote the minimum window, return &quot;&quot; if there is no such a string
-     */</span>
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">minWindow</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;source , <span class="hljs-built_in">string</span> &amp;target)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">minWindow</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> t)</span> </span>{
 
-        <span class="hljs-comment">/**
-         *                    l
-         *                          r
-         *  A D O B E C O D E B A N C
-         *
-         *  A B C
-         *
-         *  bag_T:  bag_S:
-         *  A: 1    A: 1
-         *  B: 1    B: 0
-         *  C: 1    C: 1
-         *
-         *  T: 3
-         *  S: 2    window: 4
-         *
-         */</span>
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; freq_s(<span class="hljs-number">128</span>), <span class="hljs-keyword">freq_t</span>(<span class="hljs-number">128</span>);
+        <span class="hljs-keyword">int</span> count_s = <span class="hljs-number">0</span>, <span class="hljs-keyword">count_t</span> = <span class="hljs-number">0</span>;
 
-        <span class="hljs-keyword">int</span> ns = source.length();
-        <span class="hljs-keyword">if</span> (ns == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
-        }
-
-        <span class="hljs-keyword">int</span> nt = target.length();
-        <span class="hljs-keyword">if</span> (nt == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
-        }
-
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">char</span>&gt; bag_s(<span class="hljs-number">256</span>, <span class="hljs-number">0</span>);
-        <span class="hljs-keyword">int</span> count_s = <span class="hljs-number">0</span>;
-
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">char</span>&gt; <span class="hljs-keyword">bag_t</span>(<span class="hljs-number">256</span>, <span class="hljs-number">0</span>);
-        <span class="hljs-keyword">int</span> <span class="hljs-keyword">count_t</span> = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; nt ; ++i) {
-            <span class="hljs-keyword">char</span> ch = target[i];
-            ++<span class="hljs-keyword">bag_t</span>[ch];
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">bag_t</span>[ch] == <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : t) {
+            ++<span class="hljs-keyword">freq_t</span>[ch];
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">freq_t</span>[ch] == <span class="hljs-number">1</span>) {
                 ++<span class="hljs-keyword">count_t</span>;
             }
         }
 
-        <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> min = INT_MAX, pivot;
+        <span class="hljs-keyword">int</span> ls = s.length(), bgn = <span class="hljs-number">-1</span>, opt = INT_MAX, l = <span class="hljs-number">0</span>;
 
-        <span class="hljs-keyword">while</span> (r &lt; ns) {
-            <span class="hljs-keyword">char</span> ch = source[r];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span> ; r &lt; ls ; ++r) {
+            <span class="hljs-keyword">char</span> ch = s[r];
 
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">bag_t</span>[ch] == <span class="hljs-number">0</span>) {
-                ++r;
-                <span class="hljs-keyword">continue</span>;
-            }
-
-            ++bag_s[ch];
-            <span class="hljs-keyword">if</span> (bag_s[ch] == <span class="hljs-keyword">bag_t</span>[ch]) {
+            ++freq_s[ch];
+            <span class="hljs-keyword">if</span> (freq_s[ch] == <span class="hljs-keyword">freq_t</span>[ch]) {
                 ++count_s;
             }
 
-            <span class="hljs-comment">// We find a window that contains all the required characters</span>
-            <span class="hljs-comment">// and then try to generate smaller windows by adjusting l pointer.</span>
-            <span class="hljs-keyword">while</span> (count_s == <span class="hljs-keyword">count_t</span>) {
-                <span class="hljs-keyword">int</span> size = r - l + <span class="hljs-number">1</span>;
-                <span class="hljs-keyword">if</span> (size &lt; min) {
-                    min = size;
-                    pivot = l;
+            <span class="hljs-keyword">while</span> (l &lt;= r &amp;&amp; count_s == <span class="hljs-keyword">count_t</span>) {
+                <span class="hljs-keyword">int</span> len = r - l + <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">if</span> (len &lt; opt) {
+                    opt = len;
+                    bgn = l;
                 }
 
-                ch = source[l];
-                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">bag_t</span>[ch] &gt; <span class="hljs-number">0</span>) {
-                    --bag_s[ch];
-                    <span class="hljs-keyword">if</span> (bag_s[ch] == <span class="hljs-keyword">bag_t</span>[ch] - <span class="hljs-number">1</span>) {
-                        --count_s;
-                    }
+                ch = s[l++];
+                --freq_s[ch];
+                <span class="hljs-keyword">if</span> (freq_s[ch] == <span class="hljs-keyword">freq_t</span>[ch] - <span class="hljs-number">1</span>) {
+                    --count_s;
                 }
-
-                ++l;
             }
-
-            ++r;
         }
 
-        <span class="hljs-keyword">return</span> (min &lt; INT_MAX) ? source.substr(pivot, min) : <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-keyword">return</span> bgn != <span class="hljs-number">-1</span> ? s.substr(bgn, opt) : <span class="hljs-string">&quot;&quot;</span>;
     }
 };
 </code></pre>
@@ -4700,7 +4637,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Minimum Window Substring","level":"1.3.8","depth":2,"next":{"title":"Moving Average from Data Stream","level":"1.3.9","depth":2,"path":"Sliding Window/Moving Average from Data Stream.md","ref":"Sliding Window/Moving Average from Data Stream.md","articles":[]},"previous":{"title":"Find All Anagrams in a String","level":"1.3.7","depth":2,"path":"Sliding Window/Find All Anagrams in a String.md","ref":"Sliding Window/Find All Anagrams in a String.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Minimum Window Substring.md","mtime":"2021-06-05T05:39:42.889Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-10T05:47:46.618Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Minimum Window Substring","level":"1.3.5","depth":2,"next":{"title":"Moving Average from Data Stream","level":"1.3.6","depth":2,"path":"Sliding Window/Moving Average from Data Stream.md","ref":"Sliding Window/Moving Average from Data Stream.md","articles":[]},"previous":{"title":"Find All Anagrams in a String","level":"1.3.4","depth":2,"path":"Sliding Window/Find All Anagrams in a String.md","ref":"Sliding Window/Find All Anagrams in a String.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Minimum Window Substring.md","mtime":"2021-06-11T05:29:04.272Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-11T05:40:12.599Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
