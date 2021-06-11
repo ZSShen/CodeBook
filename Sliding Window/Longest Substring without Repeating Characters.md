@@ -1,45 +1,33 @@
 
 # Problem
-### LintCode 384. Longest Substring Without Repeating Characters
-https://www.lintcode.com/problem/longest-substring-without-repeating-characters/description
+### LeetCode 3. Longest Substring Without Repeating Characters
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param s: a string
-     * @return: an integer
-     */
-    int lengthOfLongestSubstring(string &s) {
-        // write your code here
+    int lengthOfLongestSubstring(string s) {
 
-        int n = s.length();
-        if (n == 0) {
-            return 0;
-        }
+        /**
+         *  TC: O(N), where
+         *      N is the length of string s
+         *
+         *  SC: O(1)
+         */
 
-        std::vector<bool> bag(256, false);
-        int l = 0, r = 0;
-        int ans = 0;
+        vector<int> freq(128);
+        int n = s.length(), ans = 0, l = 0;
 
-        while (r < n) {
+        for (int r = 0 ; r < n ; ++r) {
             char ch = s[r];
+            ++freq[ch];
 
-            if (!bag[ch]) {
-                bag[ch] = true;
-
-                // Update the maximum window size here.
-                ans = std::max(ans, r - l + 1);
-            } else {
-                while (s[l] != ch) {
-                    bag[s[l]] = false;
-                    ++l;
-                }
-                ++l;
+            while (l <= r && freq[ch] > 1) {
+                --freq[s[l++]];
             }
 
-            ++r;
+            ans = max(ans, r - l + 1);
         }
 
         return ans;

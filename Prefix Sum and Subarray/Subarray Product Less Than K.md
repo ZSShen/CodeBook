@@ -1,42 +1,35 @@
 
 # Problem
-### LintCode 1075. Subarray Product Less Than K
-
-https://www.lintcode.com/problem/subarray-product-less-than-k/description
+### LeetCode 713. Subarray Product Less Than K
+https://leetcode.com/problems/subarray-product-less-than-k
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: an array
-     * @param k: an integer
-     * @return: the number of subarrays where the product of all the elements in the subarray is less than k
-     */
-    int numSubarrayProductLessThanK(vector<int> &nums, int k) {
-        // Write your code here
+    int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+
+        /**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         */
 
         int n = nums.size();
-        if (n == 0) {
-            return 0;
-        }
-
-        int count = 0;
-        int res = 1;
-        int l = 0;
+        int ans = 0, l = 0, prod = 1;
 
         for (int r = 0 ; r < n ; ++r) {
-            res *= nums[r];
+            prod *= nums[r];
 
-            while (res >= k && l <= r) {
-                res /= nums[l];
-                ++l;
+            while (prod >= k && l <= r) {
+                prod /= nums[l++];
             }
 
-            count += r - l + 1;
+            ans += r - l + 1;
         }
 
-        return count;
+        return ans;
     }
 };
 ```

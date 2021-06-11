@@ -1,52 +1,39 @@
 
 # Problem
-### LintCode 642. Moving Average from Data Stream
-https://www.lintcode.com/problem/moving-average-from-data-stream/description
+### LeetCode 346. Moving Average from Data Stream
+https://leetcode.com/problems/moving-average-from-data-stream
 
 # Solution
 ```c++
 class MovingAverage {
 public:
-    /*
-    * @param size: An integer
-    */MovingAverage(int size)
-      : capacity(size), size(0), sum(0.0) {
-        // do intialization if necessary
-    }
+    /** Initialize your data structure here. */
+    MovingAverage(int size)
+        : capacity(size), size(0), sum(0)
+    { }
 
-    /*
-     * @param val: An integer
-     * @return:
-     */
     double next(int val) {
-        // write your code here
+        sum += val;
+        q.emplace_back(val);
+        ++size;
 
-        if (size < capacity) {
-            sum += val;
-            deque.push_back(val);
-            ++size;
-
-            return sum / static_cast<double>(size);
+        if (size > capacity) {
+            sum -= q.front();
+            q.pop_front();
+            --size;
         }
 
-        sum -= deque.front();
-        deque.pop_front();
-        sum += val;
-        deque.push_back(val);
-
-        return sum / static_cast<double>(size);
+        return static_cast<double>(sum) / size;
     }
 
 private:
-    int capacity;
-    int size;
-    double sum;
-    std::deque<double> deque;
+    int capacity, size, sum;
+    deque<int> q;
 };
 
 /**
  * Your MovingAverage object will be instantiated and called as such:
- * MovingAverage obj = new MovingAverage(size);
- * double param = obj.next(val);
+ * MovingAverage* obj = new MovingAverage(size);
+ * double param_1 = obj->next(val);
  */
 ```

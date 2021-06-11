@@ -18,9 +18,6 @@
    * [Max Consecutive Ones III](Prefix Sum and Subarray/Max Consecutive Ones III.md)
 
 * Sliding Window
-   * [Window Sum](Sliding Window/Window Sum.md)
-   * [Sliding Window Median](Sliding Window/Sliding Window Median.md)
-   * [Sliding Window Maximum](Sliding Window/Sliding Window Maximum.md)
    * [Subarray Product Less than K](Sliding Window/Subarray Product Less than K.md)
    * [Longest Substring without Repeating Characters](Sliding Window/Longest Substring without Repeating Characters.md)
    * [Longest Substring with at Most K Distinct Characters](Sliding Window/Longest Substring with at Most K Distinct Characters.md)
@@ -28,6 +25,8 @@
    * [Minimum Window Substring](Sliding Window/Minimum Window Substring.md)
    * [Moving Average from Data Stream](Sliding Window/Moving Average from Data Stream.md)
    * [Find Median from Data Stream](Sliding Window/Find Median from Data Stream.md)
+   * [Sliding Window Median](Sliding Window/Sliding Window Median.md)
+   * [Sliding Window Maximum](Sliding Window/Sliding Window Maximum.md)
 
 * Two Sum
    * [3Sum](Two Sum/3Sum.md)

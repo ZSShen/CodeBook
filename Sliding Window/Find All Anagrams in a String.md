@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 647. Find All Anagrams in a String
-https://www.lintcode.com/problem/find-all-anagrams-in-a-string/description
+### LeetCode 438. Find All Anagrams in a String
+https://leetcode.com/problems/find-all-anagrams-in-a-string
 
 # Solution
 ```c++
@@ -9,57 +9,43 @@ class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
 
-        int ls = s.length();
-        int lp = p.length();
+        /**
+         *  TC: O(N), where
+         *      N is the length of string s
+         *
+         *  SC: O(1)
+         */
 
-        if (ls < lp) {
-            return {};
-        }
-
-        vector<int> freq_s(256, 0);
-        int cnt_s = 0;
-
-        vector<int> freq_t(256, 0);
-        int cnt_t = 0;
+        vector<int> freq_s(128), freq_p(128);
+        int unique = 0;
         for (char ch : p) {
-            ++freq_t[ch];
-            if (freq_t[ch] == 1) {
-                ++cnt_t;
+            ++freq_p[ch];
+            if (freq_p[ch] == 1) {
+                ++unique;
             }
         }
 
         vector<int> ans;
+        int ls = s.length(), lp = p.length();
+        int l = 0, count = 0;
 
-        for (int i = 0 ; i < lp ; ++i) {
-            char ch = s[i];
-            ++freq_s[ch];
-            if (freq_s[ch] == freq_t[ch]) {
-                ++cnt_s;
-            }
-        }
-
-        if (cnt_s == cnt_t) {
-            ans.emplace_back(0);
-        }
-
-        int l = 0;
-        for (int r = lp ; r < ls ; ++r) {
+        for (int r = 0 ; r < ls ; ++r) {
             char ch = s[r];
-
-            // Add the new character pointed by r into the window.
             ++freq_s[ch];
-            if (freq_s[ch] == freq_t[ch]) {
-                ++cnt_s;
+
+            if (freq_s[ch] == freq_p[ch]) {
+                ++count;
             }
 
-            // Kick out the character pointed by l from the window.
-            ch = s[l++];
-            --freq_s[ch];
-            if (freq_s[ch] == freq_t[ch] - 1) {
-                --cnt_s;
+            if (r - l == lp) {
+                ch = s[l++];
+                --freq_s[ch];
+                if (freq_s[ch] == freq_p[ch] - 1) {
+                    --count;
+                }
             }
 
-            if (cnt_s == cnt_t) {
+            if (count == unique) {
                 ans.emplace_back(l);
             }
         }

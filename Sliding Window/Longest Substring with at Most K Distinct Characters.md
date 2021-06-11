@@ -1,52 +1,44 @@
 
 # Problem
-### LintCode 386. Longest Substring with At Most K Distinct Characters
-https://www.lintcode.com/problem/longest-substring-with-at-most-k-distinct-characters/description
+### LeetCode 340. Longest Substring with At Most K Distinct Characters
+https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param s: A string
-     * @param k: An integer
-     * @return: An integer
-     */
-    int lengthOfLongestSubstringKDistinct(string &s, int k) {
-        // write your code here
+    int lengthOfLongestSubstringKDistinct(string s, int k) {
 
-        int n = s.length();
-        if (n == 0) {
-            return 0;
-        }
+        /**
+         *  TC: O(N), where
+         *      N is the length of string s
+         *
+         *  SC: O(1)
+         */
 
-        std::vector<int> freq(256, 0);
-        int count = 0;
+        vector<int> freq(128);
+        int n = s.length(), ans = 0, count = 0, l = 0;
 
-        int max = 0;
-
-        int l = 0;
         for (int r = 0 ; r < n ; ++r) {
             char ch = s[r];
-
             ++freq[ch];
+
             if (freq[ch] == 1) {
                 ++count;
             }
 
             while (l <= r && count > k) {
                 ch = s[l++];
-
                 --freq[ch];
                 if (freq[ch] == 0) {
                     --count;
                 }
             }
 
-            max = std::max(max, r - l + 1);
+            ans = max(ans, r - l + 1);
         }
 
-        return max;
+        return ans;
     }
 };
 ```
