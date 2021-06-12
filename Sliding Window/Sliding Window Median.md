@@ -1,115 +1,114 @@
 
 # Problem
-### LintCode 360. Sliding Window Median
-https://www.lintcode.com/problem/sliding-window-median/description
+### LeetCode 480. Sliding Window Median
+https://leetcode.com/problems/sliding-window-median
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: A list of integers
-     * @param k: An integer
-     * @return: The median of the element inside the window at each moving
-     */
-    vector<int> medianSlidingWindow(vector<int> &nums, int k) {
-        // write your code here
+    vector<double> medianSlidingWindow(vector<int>& nums, int k) {
 
-        int n = nums.size();
-        if (n == 0 || k == 0) {
-            return {};
-        }
+        /**
+         *  TC: O(NlogK), where
+         *      N is the number of elements
+         *      K is the window size
+         *
+         *  SC: O(K)
+         */
 
-        std::multiset<int, std::less<int>> min;
-        std::multiset<int, std::greater<int>> max;
+        multiset<int, greater<int>> max_q;
+        multiset<int, less<int>> min_q;
+        vector<double> ans;
 
-        for (int i = 0 ; i < k ; ++i) {
-            int num = nums[i];
-            enQueue(min, max, num);
-            reBalance(min, max);
-        }
+        int n = nums.size(), c = 0;
+        for (int i = 0 ; i < n ; ++i) {
+            insert(nums[i], max_q, min_q);
+            ++c;
 
-        std::vector<int> ans;
-        ans.push_back(getMedian(min, max));
+            if (c > k) {
+                remove(nums[i - k], max_q, min_q);
+                --c;
+            }
 
-        for (int i = k ; i < n ; ++i) {
-            enQueue(min, max, nums[i]);
-            reBalance(min, max);
+            rebalance(max_q, min_q);
 
-            deQueue(min, max, nums[i - k]);
-            reBalance(min, max);
-
-            ans.push_back(getMedian(min, max));
+            if (c == k) {
+                ans.emplace_back(query(max_q, min_q));
+            }
         }
 
         return ans;
     }
 
-
 private:
-    void enQueue(auto& min, auto& max, int num) {
+    void insert(
+            int num,
+            multiset<int, greater<int>>& max_q,
+            multiset<int, less<int>>& min_q) {
 
-        if (max.empty()) {
-            max.insert(num);
+        if (max_q.empty()) {
+            max_q.emplace(num);
             return;
         }
 
-        if (num <= *max.begin()) {
-            max.insert(num);
+        if (num <= *max_q.begin()) {
+            max_q.emplace(num);
         } else {
-            min.insert(num);
+            min_q.emplace(num);
         }
     }
 
-    void deQueue(auto& min, auto& max, int num) {
+    void rebalance(
+            multiset<int, greater<int>>& max_q,
+            multiset<int, less<int>>& min_q) {
 
-        auto it = max.find(num);
-        if (it != max.end()) {
-            max.erase(it);
+        int M_size = max_q.size();
+        int m_size = min_q.size();
+
+        if (M_size - m_size > 1) {
+            auto it = max_q.begin();
+            min_q.emplace(*it);
+            max_q.erase(it);
             return;
         }
 
-        it = min.find(num);
-        if (it != min.end()) {
-            min.erase(it);
+        if (m_size - M_size > 1) {
+            auto it = min_q.begin();
+            max_q.emplace(*it);
+            min_q.erase(it);
         }
     }
 
-    void reBalance(auto& min, auto& max) {
+    void remove(
+            int num,
+            multiset<int, greater<int>>& max_q,
+            multiset<int, less<int>>& min_q) {
 
-        int max_size = max.size();
-        int min_size = min.size();
-
-        if (max_size > min_size + 1) {
-            auto it = max.begin();
-            int num = *it;
-            max.erase(it);
-            min.insert(num);
+        auto it = max_q.find(num);
+        if (it != max_q.end()) {
+            max_q.erase(it);
             return;
         }
 
-        if (min_size > max_size + 1) {
-            auto it = min.begin();
-            int num = *it;
-            min.erase(it);
-            max.insert(num);
-        }
+        it = min_q.find(num);
+        min_q.erase(it);
     }
 
-    int getMedian(auto& min, auto& max) {
+    double query(
+            multiset<int, greater<int>>& max_q,
+            multiset<int, less<int>>& min_q) {
 
-        int max_size = max.size();
-        int min_size = min.size();
+        int M_size = max_q.size();
+        int m_size = min_q.size();
 
-        if (max_size > min_size) {
-            return *max.begin();
+        if (M_size == m_size) {
+            double a = *max_q.begin();
+            double b = *min_q.begin();
+            return (a + b) / 2;
         }
 
-        if (max_size < min_size) {
-            return *min.begin();
-        }
-
-        return *max.begin();
+        return M_size > m_size ? *max_q.begin() : *min_q.begin();
     }
 };
 ```

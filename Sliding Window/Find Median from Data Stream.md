@@ -1,79 +1,74 @@
 
 # Problem
-### LintCode 81. Find Median from Data Stream
-https://www.lintcode.com/problem/find-median-from-data-stream/description
+### LeetCode 295. Find Median from Data Stream
+https://leetcode.com/problems/find-median-from-data-stream
 
 # Solution
 ```c++
-class Solution {
+class MedianFinder {
 public:
-    /**
-     * @param nums: A list of integers
-     * @return: the median of numbers
-     */
-    vector<int> medianII(vector<int> &nums) {
-        // write your code here
+    /** initialize your data structure here. */
+    MedianFinder()
+    { }
 
-        std::priority_queue<int, std::vector<int>, std::greater<int>> min;
-        std::priority_queue<int, std::vector<int>, std::less<int>> max;
+    void addNum(int num) {
 
-        std::vector<int> ans;
-        for (int num : nums) {
-            enQueue(min, max, num);
-            reBalance(min, max);
-            ans.push_back(getMedian(min, max));
-        }
+        /**
+         *  TC: O(NlogN), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         */
 
-        return ans;
-    }
-
-private:
-    void enQueue(auto& min, auto& max, int num) {
-
-        if (max.empty()) {
-            max.push(num);
+        if (max_q.empty()) {
+            max_q.emplace(num);
             return;
         }
 
-        if (num <= max.top()) {
-            max.push(num);
+        insert(num);
+        rebalance();
+    }
+
+    double findMedian() {
+
+        if (max_q.size() == min_q.size()) {
+            return static_cast<double>(max_q.top() + min_q.top()) / 2;
         } else {
-            min.push(num);
+            return max_q.size() > min_q.size() ? max_q.top() : min_q.top();
         }
     }
 
-    void reBalance(auto& min, auto& max) {
+private:
+    void insert(int num) {
 
-        int max_size = max.size();
-        int min_size = min.size();
-
-        if (max_size > min_size + 1) {
-            int num = max.top();
-            max.pop();
-            min.push(num);
-        }
-
-        if (min_size > max_size + 1) {
-            int num = min.top();
-            min.pop();
-            max.push(num);
+        if (num <= max_q.top()) {
+            max_q.emplace(num);
+        } else {
+            min_q.emplace(num);
         }
     }
 
-    int getMedian(auto& min, auto& max) {
+    void rebalance() {
 
-        int max_size = max.size();
-        int min_size = min.size();
-
-        if (max_size > min_size) {
-            return max.top();
+        if (max_q.size() > min_q.size() + 1) {
+            min_q.emplace(max_q.top());
+            max_q.pop();
         }
 
-        if (min_size > max_size) {
-            return min.top();
+        if (min_q.size() > max_q.size() + 1) {
+            max_q.emplace(min_q.top());
+            min_q.pop();
         }
-
-        return max.top();
     }
+
+    priority_queue<int, vector<int>, less<int>> max_q;
+    priority_queue<int, vector<int>, greater<int>> min_q;
 };
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
 ```

@@ -32,7 +32,7 @@
    * [3Sum](Two Sum/3Sum.md)
    * [4Sum](Two Sum/4Sum.md)
    * [3Sum Closest](Two Sum/3Sum Closest.md)
-   * [2Sum III Data Structure Design](Two Sum/2Sum III Data Structure Design.md)
+   * [3Sum Smaller](Two Sum/3Sum Smaller.md)
 
 * Element Partition
    * [Move Zeros](Element Partition/Move Zeros.md)

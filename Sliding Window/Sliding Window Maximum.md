@@ -1,72 +1,54 @@
 
 # Problem
-### LintCode 362. Sliding Window Maximum
-https://www.lintcode.com/problem/sliding-window-maximum/description
+### LeetCode 239. Sliding Window Maximum
+https://leetcode.com/problems/sliding-window-maximum
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: A list of integers.
-     * @param k: An integer
-     * @return: The maximum number inside the window at each moving.
-     */
-    vector<int> maxSlidingWindow(vector<int> &nums, int k) {
-        // write your code here
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
 
         /**
-         *          1, 2, 7, 7, 8
+         *  TC: O(N), where
+         *      N is the number of elements
          *
-         *  Deque: 1
-         *         1, 2
-         *         2
-         *         2, 7
-         *         7    <= 1st step
-         *
-         *              <= Runtime Start
-         *
-         *         7, 7 <= 2nd step
-         *         7
-         *         7, 8 <= 3rd step
-         *         8
+         *  SC: O(K), where
+         *      K is the window size
          */
 
         int n = nums.size();
-        if (n == 0 || k == 0) {
-            return {};
-        }
 
-        std::deque<int> deque;
-        std::vector<int> ans;
-
+        deque<int> q;
         for (int i = 0 ; i < k ; ++i) {
-            enQueue(deque, i, nums);
+            insert(q, nums, i);
         }
-        ans.push_back(nums[deque.front()]);
+
+        vector<int> ans;
+        ans.emplace_back(nums[q.front()]);
 
         for (int i = k ; i < n ; ++i) {
-            deQueue(deque, i - k);
-            enQueue(deque, i, nums);
-            ans.push_back(nums[deque.front()]);
+            insert(q, nums, i);
+            remove(q, i - k);
+            ans.emplace_back(nums[q.front()]);
         }
 
         return ans;
     }
 
 private:
-    void enQueue(auto& deque, int index, const auto& nums) {
+    void insert(deque<int>& q, vector<int>& nums, int index) {
 
-        while (!deque.empty() && nums[index] >= nums[deque.back()]) {
-            deque.pop_back();
+        int num = nums[index];
+        while (!q.empty() && num > nums[q.back()]) {
+            q.pop_back();
         }
-        deque.push_back(index);
+        q.emplace_back(index);
     }
 
-    void deQueue(auto& deque, int index) {
-
-        if (deque.front() == index) {
-            deque.pop_front();
+    void remove(deque<int>& q, int index) {
+        if (q.front() == index) {
+            q.pop_front();
         }
     }
 };

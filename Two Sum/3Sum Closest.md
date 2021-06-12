@@ -1,54 +1,47 @@
 
 # Problem
-### LintCode 59. 3Sum Closest
-https://www.lintcode.com/problem/3sum-closest/description
+### LeetCode 16. 3Sum Closest
+https://leetcode.com/problems/3sum-closest
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param numbers: Give an array numbers of n integer
-     * @param target: An integer
-     * @return: return the sum of the three integers, the sum closest target.
-     */
-    int threeSumClosest(vector<int> &nums, int target) {
-        // write your code here
+    int threeSumClosest(vector<int>& nums, int target) {
+
+        /**
+         *  TC: O(N^2), where
+         *      N is the number of elements
+         *
+         *  SC: O(logN) to O(N), depending on the underlying sorting algorithm
+         */
 
         int n = nums.size();
-        if (n == 0) {
-            return 0;
-        }
+        sort(nums.begin(), nums.end());
 
-        std::sort(nums.begin(), nums.end());
+        int ans = 0, opt_diff = INT_MAX;
 
-        int min_diff = INT_MAX;
-        int ans;
+        for (int i = 0 ; i < n - 2 ; ++i) {
+            target -= nums[i];
+            int l = i + 1, r = n - 1;
 
-        for (int f = 0 ; f < n - 2 ; ++f) {
-
-            if (f > 0 && nums[f] == nums[f - 1]) {
-                continue;
-            }
-
-            int l = f + 1;
-            int r = n - 1;
             while (l < r) {
-                int sum = nums[f] + nums[l] + nums[r];
-                int diff = sum - target;
+                int diff = nums[l] + nums[r] - target;
+                int abs_diff = abs(diff);
 
-                int abs_diff = std::abs(diff);
-                if (abs_diff < min_diff) {
-                    min_diff = abs_diff;
-                    ans = sum;
+                if (abs_diff < opt_diff) {
+                    opt_diff = abs_diff;
+                    ans = nums[l] + nums[r] + nums[i];
                 }
 
-                if (diff > 0) {
-                    while (l < --r && nums[r] == nums[r + 1]);
+                if (diff < 0) {
+                    ++l;
                 } else {
-                    while (++l < r && nums[l] == nums[l - 1]);
+                    --r;
                 }
             }
+
+            target += nums[i];
         }
 
         return ans;
