@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="../Two Sum/2Sum III Data Structure Design.html">
+        <li class="chapter " data-level="1.4.4" data-path="../Two Sum/3Sum Smaller.html">
             
-                <a href="../Two Sum/2Sum III Data Structure Design.html">
+                <a href="../Two Sum/3Sum Smaller.html">
             
                     
-                    2Sum III Data Structure Design
+                    3Sum Smaller
             
                 </a>
             
@@ -4546,71 +4546,53 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-362-sliding-window-maximum">LintCode 362. Sliding Window Maximum</h3>
-<p><a href="https://www.lintcode.com/problem/sliding-window-maximum/description" target="_blank">https://www.lintcode.com/problem/sliding-window-maximum/description</a></p>
+<h3 id="leetcode-239-sliding-window-maximum">LeetCode 239. Sliding Window Maximum</h3>
+<p><a href="https://leetcode.com/problems/sliding-window-maximum" target="_blank">https://leetcode.com/problems/sliding-window-maximum</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: A list of integers.
-     * @param k: An integer
-     * @return: The maximum number inside the window at each moving.
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; maxSlidingWindow(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> k) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; maxSlidingWindow(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k) {
 
         <span class="hljs-comment">/**
-         *          1, 2, 7, 7, 8
+         *  TC: O(N), where
+         *      N is the number of elements
          *
-         *  Deque: 1
-         *         1, 2
-         *         2
-         *         2, 7
-         *         7    &lt;= 1st step
-         *
-         *              &lt;= Runtime Start
-         *
-         *         7, 7 &lt;= 2nd step
-         *         7
-         *         7, 8 &lt;= 3rd step
-         *         8
+         *  SC: O(K), where
+         *      K is the window size
          */</span>
 
         <span class="hljs-keyword">int</span> n = nums.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span> || k == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> {};
-        }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">deque</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">deque</span>;
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
-
+        <span class="hljs-built_in">deque</span>&lt;<span class="hljs-keyword">int</span>&gt; q;
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; k ; ++i) {
-            enQueue(<span class="hljs-built_in">deque</span>, i, nums);
+            insert(q, nums, i);
         }
-        ans.push_back(nums[<span class="hljs-built_in">deque</span>.front()]);
+
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
+        ans.emplace_back(nums[q.front()]);
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = k ; i &lt; n ; ++i) {
-            deQueue(<span class="hljs-built_in">deque</span>, i - k);
-            enQueue(<span class="hljs-built_in">deque</span>, i, nums);
-            ans.push_back(nums[<span class="hljs-built_in">deque</span>.front()]);
+            insert(q, nums, i);
+            remove(q, i - k);
+            ans.emplace_back(nums[q.front()]);
         }
 
         <span class="hljs-keyword">return</span> ans;
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">enQueue</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; <span class="hljs-built_in">deque</span>, <span class="hljs-keyword">int</span> index, <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; nums)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-built_in">deque</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; q, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> index)</span> </span>{
 
-        <span class="hljs-keyword">while</span> (!<span class="hljs-built_in">deque</span>.empty() &amp;&amp; nums[index] &gt;= nums[<span class="hljs-built_in">deque</span>.back()]) {
-            <span class="hljs-built_in">deque</span>.pop_back();
+        <span class="hljs-keyword">int</span> num = nums[index];
+        <span class="hljs-keyword">while</span> (!q.empty() &amp;&amp; num &gt; nums[q.back()]) {
+            q.pop_back();
         }
-        <span class="hljs-built_in">deque</span>.push_back(index);
+        q.emplace_back(index);
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deQueue</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; <span class="hljs-built_in">deque</span>, <span class="hljs-keyword">int</span> index)</span> </span>{
-
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">deque</span>.front() == index) {
-            <span class="hljs-built_in">deque</span>.pop_front();
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-built_in">deque</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; q, <span class="hljs-keyword">int</span> index)</span> </span>{
+        <span class="hljs-keyword">if</span> (q.front() == index) {
+            q.pop_front();
         }
     }
 };
@@ -4654,7 +4636,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Sliding Window Maximum","level":"1.3.9","depth":2,"next":{"title":"Two Sum","level":"1.4","depth":1,"ref":"","articles":[{"title":"3Sum","level":"1.4.1","depth":2,"path":"Two Sum/3Sum.md","ref":"Two Sum/3Sum.md","articles":[]},{"title":"4Sum","level":"1.4.2","depth":2,"path":"Two Sum/4Sum.md","ref":"Two Sum/4Sum.md","articles":[]},{"title":"3Sum Closest","level":"1.4.3","depth":2,"path":"Two Sum/3Sum Closest.md","ref":"Two Sum/3Sum Closest.md","articles":[]},{"title":"2Sum III Data Structure Design","level":"1.4.4","depth":2,"path":"Two Sum/2Sum III Data Structure Design.md","ref":"Two Sum/2Sum III Data Structure Design.md","articles":[]}]},"previous":{"title":"Sliding Window Median","level":"1.3.8","depth":2,"path":"Sliding Window/Sliding Window Median.md","ref":"Sliding Window/Sliding Window Median.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Sliding Window Maximum.md","mtime":"2021-06-10T06:26:38.311Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-11T05:40:12.599Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Sliding Window Maximum","level":"1.3.9","depth":2,"next":{"title":"Two Sum","level":"1.4","depth":1,"ref":"","articles":[{"title":"3Sum","level":"1.4.1","depth":2,"path":"Two Sum/3Sum.md","ref":"Two Sum/3Sum.md","articles":[]},{"title":"4Sum","level":"1.4.2","depth":2,"path":"Two Sum/4Sum.md","ref":"Two Sum/4Sum.md","articles":[]},{"title":"3Sum Closest","level":"1.4.3","depth":2,"path":"Two Sum/3Sum Closest.md","ref":"Two Sum/3Sum Closest.md","articles":[]},{"title":"3Sum Smaller","level":"1.4.4","depth":2,"path":"Two Sum/3Sum Smaller.md","ref":"Two Sum/3Sum Smaller.md","articles":[]}]},"previous":{"title":"Sliding Window Median","level":"1.3.8","depth":2,"path":"Sliding Window/Sliding Window Median.md","ref":"Sliding Window/Sliding Window Median.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Sliding Window Maximum.md","mtime":"2021-06-12T19:15:16.013Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-12T20:22:51.041Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

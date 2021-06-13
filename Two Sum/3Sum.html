@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="2Sum III Data Structure Design.html">
+        <li class="chapter " data-level="1.4.4" data-path="3Sum Smaller.html">
             
-                <a href="2Sum III Data Structure Design.html">
+                <a href="3Sum Smaller.html">
             
                     
-                    2Sum III Data Structure Design
+                    3Sum Smaller
             
                 </a>
             
@@ -4546,35 +4546,32 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-57-3sum">LintCode 57. 3Sum</h3>
-<p><a href="https://www.lintcode.com/problem/3sum/description" target="_blank">https://www.lintcode.com/problem/3sum/description</a></p>
+<h3 id="leetcode-15-3sum">LeetCode 15. 3Sum</h3>
+<p><a href="https://leetcode.com/problems/3sum" target="_blank">https://leetcode.com/problems/3sum</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: Give an array nums of n integer
-     * @return: Find all unique triplets in the array which gives the sum of zero.
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; threeSum(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; threeSum(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums) {
 
+        <span class="hljs-comment">/**
+         *  TC: O(N^2), where
+         *      N is the number of elements
+         *
+         *  SC: O(logN) to O(N), depending on the underlying sorting algorithm
+         */</span>
+
+        sort(nums.begin(), nums.end());
+
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; ans;
         <span class="hljs-keyword">int</span> n = nums.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> {};
-        }
 
-        <span class="hljs-built_in">std</span>::sort(nums.begin(), nums.end());
-
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; ans;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n - <span class="hljs-number">2</span> ; ++i) {
-            <span class="hljs-comment">// Dedup.</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n - <span class="hljs-number">2</span>; ++i) {
             <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span> &amp;&amp; nums[i] == nums[i - <span class="hljs-number">1</span>]) {
                 <span class="hljs-keyword">continue</span>;
             }
 
             <span class="hljs-comment">// Since the remaining numbers are all positive, it is impossible</span>
-            <span class="hljs-comment">// to generate the legal triplets. Thus, we break the loop here</span>
-            <span class="hljs-comment">// to avoid redundant computions.</span>
+            <span class="hljs-comment">// to generate the legal triplets. We thus exit the loop here.</span>
             <span class="hljs-keyword">if</span> (nums[i] &gt; <span class="hljs-number">0</span>) {
                 <span class="hljs-keyword">break</span>;
             }
@@ -4586,27 +4583,26 @@
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">twoSum</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; nums, <span class="hljs-keyword">int</span> bgn, <span class="hljs-keyword">int</span> end, <span class="hljs-keyword">int</span> target, <span class="hljs-keyword">auto</span>&amp; ans)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">twoSum</span><span class="hljs-params">(
+            <span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums,
+            <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> t,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; ans)</span> </span>{
 
-        <span class="hljs-keyword">int</span> l = bgn, r = end;
         <span class="hljs-keyword">while</span> (l &lt; r) {
             <span class="hljs-keyword">int</span> sum = nums[l] + nums[r];
+            <span class="hljs-keyword">if</span> (sum == t) {
+                ans.push_back({-t, nums[l], nums[r]});
 
-            <span class="hljs-keyword">if</span> (sum == target) {
-                ans.push_back({-target, nums[l], nums[r]});
-
-                <span class="hljs-comment">// Dedup.</span>
+                <span class="hljs-comment">// Dedup</span>
                 <span class="hljs-keyword">while</span> (++l &lt; r &amp;&amp; nums[l] == nums[l - <span class="hljs-number">1</span>]);
-                <span class="hljs-keyword">while</span> (l &lt; --r &amp;&amp; nums[r] == nums[r + <span class="hljs-number">1</span>]);
-
+                <span class="hljs-keyword">while</span> (--r &gt; l &amp;&amp; nums[r] == nums[r + <span class="hljs-number">1</span>]);
                 <span class="hljs-keyword">continue</span>;
             }
 
-            <span class="hljs-comment">// Narrow the window and dedup.</span>
-            <span class="hljs-keyword">if</span> (sum &lt; target) {
-                <span class="hljs-keyword">while</span> (++l &lt; r &amp;&amp; nums[l] == nums[l - <span class="hljs-number">1</span>]);
+            <span class="hljs-keyword">if</span> (sum &gt; t) {
+                <span class="hljs-keyword">while</span> (--r &gt; l &amp;&amp; nums[r] == nums[r + <span class="hljs-number">1</span>]);
             } <span class="hljs-keyword">else</span> {
-                <span class="hljs-keyword">while</span> (l &lt; --r &amp;&amp; nums[r] == nums[r + <span class="hljs-number">1</span>]);
+                <span class="hljs-keyword">while</span> (++l &lt; r &amp;&amp; nums[l] == nums[l - <span class="hljs-number">1</span>]);
             }
         }
     }
@@ -4651,7 +4647,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"3Sum","level":"1.4.1","depth":2,"next":{"title":"4Sum","level":"1.4.2","depth":2,"path":"Two Sum/4Sum.md","ref":"Two Sum/4Sum.md","articles":[]},"previous":{"title":"Two Sum","level":"1.4","depth":1,"ref":"","articles":[{"title":"3Sum","level":"1.4.1","depth":2,"path":"Two Sum/3Sum.md","ref":"Two Sum/3Sum.md","articles":[]},{"title":"4Sum","level":"1.4.2","depth":2,"path":"Two Sum/4Sum.md","ref":"Two Sum/4Sum.md","articles":[]},{"title":"3Sum Closest","level":"1.4.3","depth":2,"path":"Two Sum/3Sum Closest.md","ref":"Two Sum/3Sum Closest.md","articles":[]},{"title":"2Sum III Data Structure Design","level":"1.4.4","depth":2,"path":"Two Sum/2Sum III Data Structure Design.md","ref":"Two Sum/2Sum III Data Structure Design.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Two Sum/3Sum.md","mtime":"2021-06-10T06:26:38.321Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-11T05:40:12.599Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"3Sum","level":"1.4.1","depth":2,"next":{"title":"4Sum","level":"1.4.2","depth":2,"path":"Two Sum/4Sum.md","ref":"Two Sum/4Sum.md","articles":[]},"previous":{"title":"Two Sum","level":"1.4","depth":1,"ref":"","articles":[{"title":"3Sum","level":"1.4.1","depth":2,"path":"Two Sum/3Sum.md","ref":"Two Sum/3Sum.md","articles":[]},{"title":"4Sum","level":"1.4.2","depth":2,"path":"Two Sum/4Sum.md","ref":"Two Sum/4Sum.md","articles":[]},{"title":"3Sum Closest","level":"1.4.3","depth":2,"path":"Two Sum/3Sum Closest.md","ref":"Two Sum/3Sum Closest.md","articles":[]},{"title":"3Sum Smaller","level":"1.4.4","depth":2,"path":"Two Sum/3Sum Smaller.md","ref":"Two Sum/3Sum Smaller.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Two Sum/3Sum.md","mtime":"2021-06-12T19:57:39.924Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-12T20:22:51.041Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

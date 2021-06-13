@@ -479,12 +479,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="../Two Sum/2Sum III Data Structure Design.html">
+        <li class="chapter " data-level="1.4.4" data-path="../Two Sum/3Sum Smaller.html">
             
-                <a href="../Two Sum/2Sum III Data Structure Design.html">
+                <a href="../Two Sum/3Sum Smaller.html">
             
                     
-                    2Sum III Data Structure Design
+                    3Sum Smaller
             
                 </a>
             
@@ -4548,80 +4548,75 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-81-find-median-from-data-stream">LintCode 81. Find Median from Data Stream</h3>
-<p><a href="https://www.lintcode.com/problem/find-median-from-data-stream/description" target="_blank">https://www.lintcode.com/problem/find-median-from-data-stream/description</a></p>
+<h3 id="leetcode-295-find-median-from-data-stream">LeetCode 295. Find Median from Data Stream</h3>
+<p><a href="https://leetcode.com/problems/find-median-from-data-stream" target="_blank">https://leetcode.com/problems/find-median-from-data-stream</a></p>
 <h1 id="solution">Solution</h1>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<pre><code class="lang-c++"><span class="hljs-keyword">class</span> MedianFinder {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: A list of integers
-     * @return: the median of numbers
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; medianII(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-comment">/** initialize your data structure here. */</span>
+    MedianFinder()
+    { }
 
-        <span class="hljs-built_in">std</span>::priority_queue&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;, <span class="hljs-built_in">std</span>::greater&lt;<span class="hljs-keyword">int</span>&gt;&gt; min;
-        <span class="hljs-built_in">std</span>::priority_queue&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;, <span class="hljs-built_in">std</span>::less&lt;<span class="hljs-keyword">int</span>&gt;&gt; max;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>{
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) {
-            enQueue(min, max, num);
-            reBalance(min, max);
-            ans.push_back(getMedian(min, max));
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(NlogN), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         */</span>
 
-        <span class="hljs-keyword">return</span> ans;
-    }
-
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">enQueue</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; min, <span class="hljs-keyword">auto</span>&amp; max, <span class="hljs-keyword">int</span> num)</span> </span>{
-
-        <span class="hljs-keyword">if</span> (max.empty()) {
-            max.push(num);
+        <span class="hljs-keyword">if</span> (max_q.empty()) {
+            max_q.emplace(num);
             <span class="hljs-keyword">return</span>;
         }
 
-        <span class="hljs-keyword">if</span> (num &lt;= max.top()) {
-            max.push(num);
+        insert(num);
+        rebalance();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">findMedian</span><span class="hljs-params">()</span> </span>{
+
+        <span class="hljs-keyword">if</span> (max_q.size() == min_q.size()) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>&gt;(max_q.top() + min_q.top()) / <span class="hljs-number">2</span>;
         } <span class="hljs-keyword">else</span> {
-            min.push(num);
+            <span class="hljs-keyword">return</span> max_q.size() &gt; min_q.size() ? max_q.top() : min_q.top();
         }
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reBalance</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; min, <span class="hljs-keyword">auto</span>&amp; max)</span> </span>{
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>{
 
-        <span class="hljs-keyword">int</span> max_size = max.size();
-        <span class="hljs-keyword">int</span> min_size = min.size();
-
-        <span class="hljs-keyword">if</span> (max_size &gt; min_size + <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">int</span> num = max.top();
-            max.pop();
-            min.push(num);
-        }
-
-        <span class="hljs-keyword">if</span> (min_size &gt; max_size + <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">int</span> num = min.top();
-            min.pop();
-            max.push(num);
+        <span class="hljs-keyword">if</span> (num &lt;= max_q.top()) {
+            max_q.emplace(num);
+        } <span class="hljs-keyword">else</span> {
+            min_q.emplace(num);
         }
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getMedian</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; min, <span class="hljs-keyword">auto</span>&amp; max)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rebalance</span><span class="hljs-params">()</span> </span>{
 
-        <span class="hljs-keyword">int</span> max_size = max.size();
-        <span class="hljs-keyword">int</span> min_size = min.size();
-
-        <span class="hljs-keyword">if</span> (max_size &gt; min_size) {
-            <span class="hljs-keyword">return</span> max.top();
+        <span class="hljs-keyword">if</span> (max_q.size() &gt; min_q.size() + <span class="hljs-number">1</span>) {
+            min_q.emplace(max_q.top());
+            max_q.pop();
         }
 
-        <span class="hljs-keyword">if</span> (min_size &gt; max_size) {
-            <span class="hljs-keyword">return</span> min.top();
+        <span class="hljs-keyword">if</span> (min_q.size() &gt; max_q.size() + <span class="hljs-number">1</span>) {
+            max_q.emplace(min_q.top());
+            min_q.pop();
         }
-
-        <span class="hljs-keyword">return</span> max.top();
     }
+
+    priority_queue&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;, less&lt;<span class="hljs-keyword">int</span>&gt;&gt; max_q;
+    priority_queue&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;, greater&lt;<span class="hljs-keyword">int</span>&gt;&gt; min_q;
 };
+
+<span class="hljs-comment">/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj-&gt;addNum(num);
+ * double param_2 = obj-&gt;findMedian();
+ */</span>
 </code></pre>
 
                                 
@@ -4666,7 +4661,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Find Median from Data Stream","level":"1.3.7","depth":2,"next":{"title":"Sliding Window Median","level":"1.3.8","depth":2,"path":"Sliding Window/Sliding Window Median.md","ref":"Sliding Window/Sliding Window Median.md","articles":[]},"previous":{"title":"Moving Average from Data Stream","level":"1.3.6","depth":2,"path":"Sliding Window/Moving Average from Data Stream.md","ref":"Sliding Window/Moving Average from Data Stream.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Find Median from Data Stream.md","mtime":"2021-06-10T06:26:38.310Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-11T05:40:12.599Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Find Median from Data Stream","level":"1.3.7","depth":2,"next":{"title":"Sliding Window Median","level":"1.3.8","depth":2,"path":"Sliding Window/Sliding Window Median.md","ref":"Sliding Window/Sliding Window Median.md","articles":[]},"previous":{"title":"Moving Average from Data Stream","level":"1.3.6","depth":2,"path":"Sliding Window/Moving Average from Data Stream.md","ref":"Sliding Window/Moving Average from Data Stream.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Find Median from Data Stream.md","mtime":"2021-06-12T19:18:46.319Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-12T20:22:51.041Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

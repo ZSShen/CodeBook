@@ -479,12 +479,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="../Two Sum/2Sum III Data Structure Design.html">
+        <li class="chapter " data-level="1.4.4" data-path="../Two Sum/3Sum Smaller.html">
             
-                <a href="../Two Sum/2Sum III Data Structure Design.html">
+                <a href="../Two Sum/3Sum Smaller.html">
             
                     
-                    2Sum III Data Structure Design
+                    3Sum Smaller
             
                 </a>
             
@@ -4548,114 +4548,113 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-360-sliding-window-median">LintCode 360. Sliding Window Median</h3>
-<p><a href="https://www.lintcode.com/problem/sliding-window-median/description" target="_blank">https://www.lintcode.com/problem/sliding-window-median/description</a></p>
+<h3 id="leetcode-480-sliding-window-median">LeetCode 480. Sliding Window Median</h3>
+<p><a href="https://leetcode.com/problems/sliding-window-median" target="_blank">https://leetcode.com/problems/sliding-window-median</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param nums: A list of integers
-     * @param k: An integer
-     * @return: The median of the element inside the window at each moving
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; medianSlidingWindow(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> k) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>&gt; medianSlidingWindow(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k) {
 
-        <span class="hljs-keyword">int</span> n = nums.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span> || k == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> {};
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(NlogK), where
+         *      N is the number of elements
+         *      K is the window size
+         *
+         *  SC: O(K)
+         */</span>
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::less&lt;<span class="hljs-keyword">int</span>&gt;&gt; min;
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::greater&lt;<span class="hljs-keyword">int</span>&gt;&gt; max;
+        <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, greater&lt;<span class="hljs-keyword">int</span>&gt;&gt; max_q;
+        <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, less&lt;<span class="hljs-keyword">int</span>&gt;&gt; min_q;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>&gt; ans;
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; k ; ++i) {
-            <span class="hljs-keyword">int</span> num = nums[i];
-            enQueue(min, max, num);
-            reBalance(min, max);
-        }
+        <span class="hljs-keyword">int</span> n = nums.size(), c = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
+            insert(nums[i], max_q, min_q);
+            ++c;
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
-        ans.push_back(getMedian(min, max));
+            <span class="hljs-keyword">if</span> (c &gt; k) {
+                remove(nums[i - k], max_q, min_q);
+                --c;
+            }
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = k ; i &lt; n ; ++i) {
-            enQueue(min, max, nums[i]);
-            reBalance(min, max);
+            rebalance(max_q, min_q);
 
-            deQueue(min, max, nums[i - k]);
-            reBalance(min, max);
-
-            ans.push_back(getMedian(min, max));
+            <span class="hljs-keyword">if</span> (c == k) {
+                ans.emplace_back(query(max_q, min_q));
+            }
         }
 
         <span class="hljs-keyword">return</span> ans;
     }
 
-
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">enQueue</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; min, <span class="hljs-keyword">auto</span>&amp; max, <span class="hljs-keyword">int</span> num)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(
+            <span class="hljs-keyword">int</span> num,
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, greater&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; max_q,
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, less&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; min_q)</span> </span>{
 
-        <span class="hljs-keyword">if</span> (max.empty()) {
-            max.insert(num);
+        <span class="hljs-keyword">if</span> (max_q.empty()) {
+            max_q.emplace(num);
             <span class="hljs-keyword">return</span>;
         }
 
-        <span class="hljs-keyword">if</span> (num &lt;= *max.begin()) {
-            max.insert(num);
+        <span class="hljs-keyword">if</span> (num &lt;= *max_q.begin()) {
+            max_q.emplace(num);
         } <span class="hljs-keyword">else</span> {
-            min.insert(num);
+            min_q.emplace(num);
         }
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deQueue</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; min, <span class="hljs-keyword">auto</span>&amp; max, <span class="hljs-keyword">int</span> num)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rebalance</span><span class="hljs-params">(
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, greater&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; max_q,
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, less&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; min_q)</span> </span>{
 
-        <span class="hljs-keyword">auto</span> it = max.find(num);
-        <span class="hljs-keyword">if</span> (it != max.end()) {
-            max.erase(it);
+        <span class="hljs-keyword">int</span> M_size = max_q.size();
+        <span class="hljs-keyword">int</span> m_size = min_q.size();
+
+        <span class="hljs-keyword">if</span> (M_size - m_size &gt; <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">auto</span> it = max_q.begin();
+            min_q.emplace(*it);
+            max_q.erase(it);
             <span class="hljs-keyword">return</span>;
         }
 
-        it = min.find(num);
-        <span class="hljs-keyword">if</span> (it != min.end()) {
-            min.erase(it);
+        <span class="hljs-keyword">if</span> (m_size - M_size &gt; <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">auto</span> it = min_q.begin();
+            max_q.emplace(*it);
+            min_q.erase(it);
         }
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reBalance</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; min, <span class="hljs-keyword">auto</span>&amp; max)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(
+            <span class="hljs-keyword">int</span> num,
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, greater&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; max_q,
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, less&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; min_q)</span> </span>{
 
-        <span class="hljs-keyword">int</span> max_size = max.size();
-        <span class="hljs-keyword">int</span> min_size = min.size();
-
-        <span class="hljs-keyword">if</span> (max_size &gt; min_size + <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">auto</span> it = max.begin();
-            <span class="hljs-keyword">int</span> num = *it;
-            max.erase(it);
-            min.insert(num);
+        <span class="hljs-keyword">auto</span> it = max_q.find(num);
+        <span class="hljs-keyword">if</span> (it != max_q.end()) {
+            max_q.erase(it);
             <span class="hljs-keyword">return</span>;
         }
 
-        <span class="hljs-keyword">if</span> (min_size &gt; max_size + <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">auto</span> it = min.begin();
-            <span class="hljs-keyword">int</span> num = *it;
-            min.erase(it);
-            max.insert(num);
-        }
+        it = min_q.find(num);
+        min_q.erase(it);
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getMedian</span><span class="hljs-params">(<span class="hljs-keyword">auto</span>&amp; min, <span class="hljs-keyword">auto</span>&amp; max)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">query</span><span class="hljs-params">(
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, greater&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; max_q,
+            <span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>, less&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; min_q)</span> </span>{
 
-        <span class="hljs-keyword">int</span> max_size = max.size();
-        <span class="hljs-keyword">int</span> min_size = min.size();
+        <span class="hljs-keyword">int</span> M_size = max_q.size();
+        <span class="hljs-keyword">int</span> m_size = min_q.size();
 
-        <span class="hljs-keyword">if</span> (max_size &gt; min_size) {
-            <span class="hljs-keyword">return</span> *max.begin();
+        <span class="hljs-keyword">if</span> (M_size == m_size) {
+            <span class="hljs-keyword">double</span> a = *max_q.begin();
+            <span class="hljs-keyword">double</span> b = *min_q.begin();
+            <span class="hljs-keyword">return</span> (a + b) / <span class="hljs-number">2</span>;
         }
 
-        <span class="hljs-keyword">if</span> (max_size &lt; min_size) {
-            <span class="hljs-keyword">return</span> *min.begin();
-        }
-
-        <span class="hljs-keyword">return</span> *max.begin();
+        <span class="hljs-keyword">return</span> M_size &gt; m_size ? *max_q.begin() : *min_q.begin();
     }
 };
 </code></pre>
@@ -4702,7 +4701,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Sliding Window Median","level":"1.3.8","depth":2,"next":{"title":"Sliding Window Maximum","level":"1.3.9","depth":2,"path":"Sliding Window/Sliding Window Maximum.md","ref":"Sliding Window/Sliding Window Maximum.md","articles":[]},"previous":{"title":"Find Median from Data Stream","level":"1.3.7","depth":2,"path":"Sliding Window/Find Median from Data Stream.md","ref":"Sliding Window/Find Median from Data Stream.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Sliding Window Median.md","mtime":"2021-06-10T06:26:38.311Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-11T05:40:12.599Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Sliding Window Median","level":"1.3.8","depth":2,"next":{"title":"Sliding Window Maximum","level":"1.3.9","depth":2,"path":"Sliding Window/Sliding Window Maximum.md","ref":"Sliding Window/Sliding Window Maximum.md","articles":[]},"previous":{"title":"Find Median from Data Stream","level":"1.3.7","depth":2,"path":"Sliding Window/Find Median from Data Stream.md","ref":"Sliding Window/Find Median from Data Stream.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Sliding Window/Sliding Window Median.md","mtime":"2021-06-12T19:18:34.412Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-12T20:22:51.041Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
