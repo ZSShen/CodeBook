@@ -16,12 +16,21 @@ public:
         // write your code here
 
         /**
-         * dp[i]: The number of ways to sum up to i using any combination of numbers.
+         *  TC: O(N * T), where
+         *      N is the number of elements
+         *      T is the given target
          *
-         * dp[i] =  SUM { dp[i - nums[j] | i >= nums[j]}
-         *         0<=j<n
+         *  SC: O(T)
          *
-         *         n is the amount of numbers.
+         *
+         *  dp[i]: The number of ways to sum up to i using any combination of numbers.
+         *
+         *  dp[i] =  SUM { dp[i - nums[j] | i >= nums[j]}
+         *          0<=j<n
+         *
+         *  *Initial case:
+         *  We have one way to compose 0 — using nothing.
+         *  dp[0] = 1
          */
 
         int n = nums.size();
@@ -29,7 +38,7 @@ public:
             return 0;
         }
 
-        std::vector<int> dp(target + 1, 0);
+        vector<int> dp(target + 1);
         dp[0] = 1;
 
         for (int i = 1 ; i <= target ; ++i) {

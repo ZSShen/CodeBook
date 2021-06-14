@@ -1,31 +1,32 @@
 
 # Problem
-### LintCode 1263. Is Subsequence
-https://www.lintcode.com/problem/is-subsequence/description
+### LeetCode 392. Is Subsequence
+https://leetcode.com/problems/is-subsequence
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param s: the given string s
-     * @param t: the given string t
-     * @return: check if s is subsequence of t
-     */
-    bool isSubsequence(string &s, string &t) {
-        // Write your code here
+    bool isSubsequence(string s, string t) {
 
-        int len_s = s.length();
-        int len_t = t.length();
+        /**
+         *  TC: O(T), where
+         *      T is the length of string t
+         *
+         *  SC: O(1)
+         */
 
-        int j = 0;
-        for (int i = 0 ; i < len_t && j < len_s ; ++i) {
-            if (s[j] == t[i]) {
-                ++j;
+        int ls = s.length();
+        int lt = t.length();
+
+        int i = 0;
+        for (int j = 0 ; i < ls && j < lt ; ++j) {
+            if (s[i] == t[j]) {
+                ++i;
             }
         }
 
-        return j == len_s;
+        return i == ls;
     }
 };
 ```

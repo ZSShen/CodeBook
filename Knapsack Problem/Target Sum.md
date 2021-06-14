@@ -1,49 +1,44 @@
 
 # Problem
-### LintCode 1208. Target Sum
-https://www.lintcode.com/problem/target-sum/description
+### LeetCode 494. Target Sum
+https://leetcode.com/problems/target-sum
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: the given array
-     * @param s: the given target
-     * @return: the number of ways to assign symbols to make sum of integers equal to target S
-     */
-    int findTargetSumWays(vector<int> &nums, int s) {
-        // Write your code here
+    int findTargetSumWays(vector<int>& nums, int target) {
 
         /**
-         * dp[i][j]: The number of ways to sum up to j using the first i numbers.
+         *  TC: O(N * T), where
+         *      N is the number of elements
+         *      T is the target sum
          *
-         * dp[i][j] = dp[i - 1][j - nums[i]] + dp[i - 1][j + nums[i]]
-         *
-         * (For the second dimension, we can use hash table because its value
-         *  range is discrete.)
+         *  SC: O(N * T)
          */
 
         int n = nums.size();
-        if (n == 0) {
-            return 0;
+        vector<unordered_map<int, int>> memo(n);
+        return topDown(nums, 0, n, target, memo);
+    }
+
+private:
+    int topDown(
+            const vector<int>& nums,
+            int i, int n, long sum,
+            vector<unordered_map<int, int>>& memo) {
+
+        if (i == n) {
+            return sum == 0;
         }
 
-        vector<unordered_map<int, int>> dp(n);
-
-        dp[0][nums[0]] += 1;
-        dp[0][-nums[0]] += 1;
-
-        for (int i = 1 ; i < n ; ++i) {
-            for (auto& pair : dp[i - 1]) {
-                int sum = pair.first;
-                int way = pair.second;
-                dp[i][sum + nums[i]] += way;
-                dp[i][sum - nums[i]] += way;
-            }
+        if (memo[i].count(sum) == 1) {
+            return memo[i][sum];
         }
 
-        return dp[n - 1][s];
+        long res = topDown(nums, i + 1, n, sum - nums[i], memo) +
+                   topDown(nums, i + 1, n, sum + nums[i], memo);
+        return memo[i][sum] = res;
     }
 };
 ```

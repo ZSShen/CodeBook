@@ -17,11 +17,18 @@ public:
         // write your code here
 
         /**
-         * dp[i][j]: The maximal size the knapsack which can hold j units of
-         *           weight can aggregate by using the first i items.
+         *  TC: O(M * N), where
+         *      M is the capacity of the backpack
+         *      N is the number of items
          *
-         * dp[i][j] = | A[i] <= j, MAX{ dp[i - 1][j], dp[i - 1][j - A[i]] + A[i] }
-         *            | otherwise, dp[i - 1][j]
+         *  SC: O(M * N)
+         *
+         *  dp[i][j]: The maximal size the knapsack which holds up to j units of
+         *            weight can aggregate by choosing the first i items.
+         *
+         *  dp[i][j] = | A[i] <= j, MAX | dp[i - 1][j]
+         *                              | dp[i - 1][j - A[i]] + A[i]
+         *             | otherwise, dp[i - 1][j]
          */
 
         int n = A.size();
@@ -29,7 +36,7 @@ public:
             return 0;
         }
 
-        std::vector<std::vector<int>> dp(n + 1, std::vector<int>(m + 1, 0));
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1));
 
         for (int i = 1 ; i <= n ; ++i) {
             for (int j = 1 ; j <= m ; ++j) {
@@ -39,8 +46,7 @@ public:
                     continue;
                 }
 
-                dp[i][j] =
-                    std::max(dp[i - 1][j], dp[i - 1][j - A[i - 1]] + A[i - 1]);
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - A[i - 1]] + A[i - 1]);
             }
         }
 

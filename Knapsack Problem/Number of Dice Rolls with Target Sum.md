@@ -9,27 +9,29 @@ class Solution {
 public:
     int numRollsToTarget(int d, int f, int target) {
 
-        /*
-        dp[i][j]: The number of ways to sum up to j using the first i dices.
+        /**
+         *  TC: O(D * F * T), where
+         *      D is the number of dices
+         *      F is the number of faces
+         *      T it the target amount
+         *
+         *  SC: O(D * T)
+         *
+         *  dp[i][j]: The number of ways to sum up to j using the first i dices.
+         *
+         *  dp[i][j] =   SUM { dp[i - 1][j - k] | j >= k }
+         *             0<=k<=f
+         */
 
-        dp[i][j] =   SUM { dp[i - 1][j - k] | j >= k }
-                   0<=k<=f
-        */
-
-        vector<vector<long>> dp(d + 1, vector<long>(target + 1, 0));
+        long mod = 1e9 + 7;
+        vector<vector<long>> dp(d + 1, vector<long>(target + 1));
         dp[0][0] = 1;
 
         for (int i = 1 ; i <= d ; ++i) {
-            for (int j = 1 ; j <= target ; ++j) {
-                long sum = 0;
-                for (int k = 1 ; k <= f ; ++k) {
-                    if (k > j) {
-                        continue;
-                    }
-                    sum += dp[i - 1][j - k];
-                    sum = sum % 1000000007;
+            for (int j = 1 ; j <= f ; ++j) {
+                for (int k = j ; k <= target ; ++k) {
+                    dp[i][k] = (dp[i][k] + dp[i - 1][k - j]) % mod;
                 }
-                dp[i][j] = sum;
             }
         }
 

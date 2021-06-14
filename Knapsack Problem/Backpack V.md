@@ -16,11 +16,23 @@ public:
         // write your code here
 
         /**
-         * dp[i][j]: The number of ways to fill the knapsack which can hold j
-         *           units of weight using the first i items.
+         *  TC: O(M * N), where
+         *      M is the capacity of the backpack
+         *      N is the number of items
          *
-         * dp[i][j] = | nums[i] <= j, dp[i - 1][j] + dp[i - 1][j - nums[i]]
-         *            | Otherwise   , dp[i - 1][j]
+         *  SC: O(M * N)
+         *
+         *  dp[i][j]: The number of ways to fill the knapsack which holds up to j
+         *            units of weight using the first i items.
+         *
+         *  *Note: An item can be used multiple times.
+         *
+         *  dp[i][j] = | nums[i] <= j, dp[i - 1][j] + dp[i][j - nums[i]]
+         *             | Otherwise   , dp[i - 1][j]
+         *
+         *  *Initial cases:
+         *  We have one way to fill the knapsack with 0 capacity — filling nothing.
+         *  dp[i][0] = 1 | for i from 0 to N
          */
 
         int n = nums.size();
@@ -28,7 +40,7 @@ public:
             return 0;
         }
 
-        std::vector<std::vector<int>> dp(n + 1, std::vector<int>(target + 1, 0));
+        vector<vector<int>> dp(n + 1, vector<int>(target + 1));
 
         for (int i = 0 ; i <= n ; ++i) {
             dp[i][0] = 1;

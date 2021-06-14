@@ -1,49 +1,39 @@
 
 # Problem
-### LintCode 669. Coin Change
-https://www.lintcode.com/problem/coin-change/description
+### LeetCode 322. Coin Change
+https://leetcode.com/problems/coin-change
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param coins: a list of integer
-     * @param amount: a total amount of money amount
-     * @return: the fewest number of coins that you need to make up
-     */
-    int coinChange(vector<int> &coins, int amount) {
-        // write your code here
+    int coinChange(vector<int>& coins, int amount) {
 
         /**
-         * dp[i]: The minimum number of coins that make i dollars.
+         *  TC: O(N * C), where
+         *      N is the number of coins
+         *      C is the given amount
          *
-         * dp[i] = MIN { dp[i - coins[j] | 0 <= j < n and i >= coins[j] } + 1
+         *  SC: O(C)
+         *
+         *  dp[i]: The minimum number of coins that make i dollars.
+         *
+         *  dp[i] = MIN { dp[i - coins[j] | 0 <= j < n and i >= coins[j] } + 1
          */
 
-        int n = coins.size();
-        if (n == 0) {
-            return -1;
-        }
-
-        std::vector<int> dp(amount + 1, INT_MAX);
+        vector<int> dp(amount + 1, INT_MAX);
         dp[0] = 0;
 
-        for (int i = 1 ; i <= amount ; ++i) {
-            int min = INT_MAX;
-            for (int coin : coins) {
-                if (coin > i) {
+        for (int c : coins) {
+            for (int i = c ; i <= amount ; ++i) {
+                if (dp[i - c] == INT_MAX) {
                     continue;
                 }
-                min = std::min(min, dp[i - coin]);
-            }
-
-            if (min < INT_MAX) {
-                dp[i] = min + 1;
+                dp[i] = min(dp[i], dp[i - c] + 1);
             }
         }
 
-        return dp[amount] != INT_MAX ? dp[amount] : -1;
+        return dp[amount] < INT_MAX ? dp[amount] : -1;
     }
 };
 ```
