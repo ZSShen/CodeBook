@@ -4544,30 +4544,31 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-1263-is-subsequence">LintCode 1263. Is Subsequence</h3>
-<p><a href="https://www.lintcode.com/problem/is-subsequence/description" target="_blank">https://www.lintcode.com/problem/is-subsequence/description</a></p>
+<h3 id="leetcode-392-is-subsequence">LeetCode 392. Is Subsequence</h3>
+<p><a href="https://leetcode.com/problems/is-subsequence" target="_blank">https://leetcode.com/problems/is-subsequence</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param s: the given string s
-     * @param t: the given string t
-     * @return: check if s is subsequence of t
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;s, <span class="hljs-built_in">string</span> &amp;t)</span> </span>{
-        <span class="hljs-comment">// Write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> t)</span> </span>{
 
-        <span class="hljs-keyword">int</span> len_s = s.length();
-        <span class="hljs-keyword">int</span> <span class="hljs-keyword">len_t</span> = t.length();
+        <span class="hljs-comment">/**
+         *  TC: O(T), where
+         *      T is the length of string t
+         *
+         *  SC: O(1)
+         */</span>
 
-        <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-keyword">len_t</span> &amp;&amp; j &lt; len_s ; ++i) {
-            <span class="hljs-keyword">if</span> (s[j] == t[i]) {
-                ++j;
+        <span class="hljs-keyword">int</span> ls = s.length();
+        <span class="hljs-keyword">int</span> lt = t.length();
+
+        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span> ; i &lt; ls &amp;&amp; j &lt; lt ; ++j) {
+            <span class="hljs-keyword">if</span> (s[i] == t[j]) {
+                ++i;
             }
         }
 
-        <span class="hljs-keyword">return</span> j == len_s;
+        <span class="hljs-keyword">return</span> i == ls;
     }
 };
 </code></pre>
@@ -4606,7 +4607,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Is Subsequences","level":"1.17.1","depth":2,"next":{"title":"String Scramble","level":"1.18","depth":1,"ref":"","articles":[{"title":"Distinct Subsequences","level":"1.18.1","depth":2,"path":"String Scramble/Distinct Subsequences.md","ref":"String Scramble/Distinct Subsequences.md","articles":[]},{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},{"title":"Scramble String","level":"1.18.3","depth":2,"path":"String Scramble/Scramble String.md","ref":"String Scramble/Scramble String.md","articles":[]},{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},{"title":"Regular Expression Matching","level":"1.18.5","depth":2,"path":"String Scramble/Regular Expression Matching.md","ref":"String Scramble/Regular Expression Matching.md","articles":[]}]},"previous":{"title":"String and Sequence Properties","level":"1.17","depth":1,"ref":"","articles":[{"title":"Is Subsequences","level":"1.17.1","depth":2,"path":"String and Sequence Properties/Is Subsequence.md","ref":"String and Sequence Properties/Is Subsequence.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Properties/Is Subsequence.md","mtime":"2020-03-25T01:54:00.904Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-12T20:22:51.041Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Is Subsequences","level":"1.17.1","depth":2,"next":{"title":"String Scramble","level":"1.18","depth":1,"ref":"","articles":[{"title":"Distinct Subsequences","level":"1.18.1","depth":2,"path":"String Scramble/Distinct Subsequences.md","ref":"String Scramble/Distinct Subsequences.md","articles":[]},{"title":"Interleaving String","level":"1.18.2","depth":2,"path":"String Scramble/Interleaving String.md","ref":"String Scramble/Interleaving String.md","articles":[]},{"title":"Scramble String","level":"1.18.3","depth":2,"path":"String Scramble/Scramble String.md","ref":"String Scramble/Scramble String.md","articles":[]},{"title":"Wildcard Matching","level":"1.18.4","depth":2,"path":"String Scramble/Wildcard Matching.md","ref":"String Scramble/Wildcard Matching.md","articles":[]},{"title":"Regular Expression Matching","level":"1.18.5","depth":2,"path":"String Scramble/Regular Expression Matching.md","ref":"String Scramble/Regular Expression Matching.md","articles":[]}]},"previous":{"title":"String and Sequence Properties","level":"1.17","depth":1,"ref":"","articles":[{"title":"Is Subsequences","level":"1.17.1","depth":2,"path":"String and Sequence Properties/Is Subsequence.md","ref":"String and Sequence Properties/Is Subsequence.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"String and Sequence Properties/Is Subsequence.md","mtime":"2021-06-14T05:41:56.157Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-14T06:07:48.267Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

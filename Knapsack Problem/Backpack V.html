@@ -4562,11 +4562,23 @@
         <span class="hljs-comment">// write your code here</span>
 
         <span class="hljs-comment">/**
-         * dp[i][j]: The number of ways to fill the knapsack which can hold j
-         *           units of weight using the first i items.
+         *  TC: O(M * N), where
+         *      M is the capacity of the backpack
+         *      N is the number of items
          *
-         * dp[i][j] = | nums[i] &lt;= j, dp[i - 1][j] + dp[i - 1][j - nums[i]]
-         *            | Otherwise   , dp[i - 1][j]
+         *  SC: O(M * N)
+         *
+         *  dp[i][j]: The number of ways to fill the knapsack which holds up to j
+         *            units of weight using the first i items.
+         *
+         *  *Note: An item can be used multiple times.
+         *
+         *  dp[i][j] = | nums[i] &lt;= j, dp[i - 1][j] + dp[i][j - nums[i]]
+         *             | Otherwise   , dp[i - 1][j]
+         *
+         *  *Initial cases:
+         *  We have one way to fill the knapsack with 0 capacity &#x2014; filling nothing.
+         *  dp[i][0] = 1 | for i from 0 to N
          */</span>
 
         <span class="hljs-keyword">int</span> n = nums.size();
@@ -4574,7 +4586,7 @@
             <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(n + <span class="hljs-number">1</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(target + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; dp(n + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(target + <span class="hljs-number">1</span>));
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt;= n ; ++i) {
             dp[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
@@ -4639,7 +4651,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Backpack V","level":"1.12.5","depth":2,"next":{"title":"Backpack VI","level":"1.12.6","depth":2,"path":"Knapsack Problem/Backpack VI.md","ref":"Knapsack Problem/Backpack VI.md","articles":[]},"previous":{"title":"Backpack IV","level":"1.12.4","depth":2,"path":"Knapsack Problem/Backpack IV.md","ref":"Knapsack Problem/Backpack IV.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Knapsack Problem/Backpack V.md","mtime":"2021-06-12T06:20:20.420Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-12T20:22:51.041Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Backpack V","level":"1.12.5","depth":2,"next":{"title":"Backpack VI","level":"1.12.6","depth":2,"path":"Knapsack Problem/Backpack VI.md","ref":"Knapsack Problem/Backpack VI.md","articles":[]},"previous":{"title":"Backpack IV","level":"1.12.4","depth":2,"path":"Knapsack Problem/Backpack IV.md","ref":"Knapsack Problem/Backpack IV.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Knapsack Problem/Backpack V.md","mtime":"2021-06-13T02:22:56.224Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-14T06:07:48.267Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

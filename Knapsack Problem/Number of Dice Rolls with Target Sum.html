@@ -4555,27 +4555,29 @@
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">numRollsToTarget</span><span class="hljs-params">(<span class="hljs-keyword">int</span> d, <span class="hljs-keyword">int</span> f, <span class="hljs-keyword">int</span> target)</span> </span>{
 
-        <span class="hljs-comment">/*
-        dp[i][j]: The number of ways to sum up to j using the first i dices.
+        <span class="hljs-comment">/**
+         *  TC: O(D * F * T), where
+         *      D is the number of dices
+         *      F is the number of faces
+         *      T it the target amount
+         *
+         *  SC: O(D * T)
+         *
+         *  dp[i][j]: The number of ways to sum up to j using the first i dices.
+         *
+         *  dp[i][j] =   SUM { dp[i - 1][j - k] | j &gt;= k }
+         *             0&lt;=k&lt;=f
+         */</span>
 
-        dp[i][j] =   SUM { dp[i - 1][j - k] | j &gt;= k }
-                   0&lt;=k&lt;=f
-        */</span>
-
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">long</span>&gt;&gt; dp(d + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">long</span>&gt;(target + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));
+        <span class="hljs-keyword">long</span> mod = <span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">long</span>&gt;&gt; dp(d + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">long</span>&gt;(target + <span class="hljs-number">1</span>));
         dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= d ; ++i) {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span> ; j &lt;= target ; ++j) {
-                <span class="hljs-keyword">long</span> sum = <span class="hljs-number">0</span>;
-                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span> ; k &lt;= f ; ++k) {
-                    <span class="hljs-keyword">if</span> (k &gt; j) {
-                        <span class="hljs-keyword">continue</span>;
-                    }
-                    sum += dp[i - <span class="hljs-number">1</span>][j - k];
-                    sum = sum % <span class="hljs-number">1000000007</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span> ; j &lt;= f ; ++j) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = j ; k &lt;= target ; ++k) {
+                    dp[i][k] = (dp[i][k] + dp[i - <span class="hljs-number">1</span>][k - j]) % mod;
                 }
-                dp[i][j] = sum;
             }
         }
 
@@ -4626,7 +4628,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Number of Dice Rolls with Target Sum","level":"1.12.10","depth":2,"next":{"title":"Target Sum","level":"1.12.11","depth":2,"path":"Knapsack Problem/Target Sum.md","ref":"Knapsack Problem/Target Sum.md","articles":[]},"previous":{"title":"Coin Change II","level":"1.12.9","depth":2,"path":"Knapsack Problem/Coin Change II.md","ref":"Knapsack Problem/Coin Change II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Knapsack Problem/Number of Dice Rolls with Target Sum.md","mtime":"2021-06-12T06:20:20.422Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-12T20:22:51.041Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Number of Dice Rolls with Target Sum","level":"1.12.10","depth":2,"next":{"title":"Target Sum","level":"1.12.11","depth":2,"path":"Knapsack Problem/Target Sum.md","ref":"Knapsack Problem/Target Sum.md","articles":[]},"previous":{"title":"Coin Change II","level":"1.12.9","depth":2,"path":"Knapsack Problem/Coin Change II.md","ref":"Knapsack Problem/Coin Change II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Knapsack Problem/Number of Dice Rolls with Target Sum.md","mtime":"2021-06-14T05:37:40.672Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-14T06:07:48.267Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
