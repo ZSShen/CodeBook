@@ -4562,48 +4562,52 @@
           {<span class="hljs-string">&apos;6&apos;</span>, {<span class="hljs-string">&apos;m&apos;</span>, <span class="hljs-string">&apos;n&apos;</span>, <span class="hljs-string">&apos;o&apos;</span>}},
           {<span class="hljs-string">&apos;7&apos;</span>, {<span class="hljs-string">&apos;p&apos;</span>, <span class="hljs-string">&apos;q&apos;</span>, <span class="hljs-string">&apos;r&apos;</span>, <span class="hljs-string">&apos;s&apos;</span>}},
           {<span class="hljs-string">&apos;8&apos;</span>, {<span class="hljs-string">&apos;t&apos;</span>, <span class="hljs-string">&apos;u&apos;</span>, <span class="hljs-string">&apos;v&apos;</span>}},
-          {<span class="hljs-string">&apos;9&apos;</span>, {<span class="hljs-string">&apos;w&apos;</span>, <span class="hljs-string">&apos;x&apos;</span>, <span class="hljs-string">&apos;y&apos;</span>, <span class="hljs-string">&apos;z&apos;</span>}},
+          {<span class="hljs-string">&apos;9&apos;</span>, {<span class="hljs-string">&apos;w&apos;</span>, <span class="hljs-string">&apos;x&apos;</span>, <span class="hljs-string">&apos;y&apos;</span>, <span class="hljs-string">&apos;z&apos;</span>}}
       })
     { }
 
-    <span class="hljs-comment">/**
-     * @param digits: A digital string
-     * @return: all posible letter combinations
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; letterCombinations(<span class="hljs-built_in">string</span> &amp;digits) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; letterCombinations(<span class="hljs-built_in">string</span> digits) {
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; ans;
-        <span class="hljs-keyword">if</span> (digits.empty()) {
-            <span class="hljs-keyword">return</span> ans;
+        <span class="hljs-comment">/**
+         *  TC: O(4^N), where
+         *      N is the string length
+         *
+         *  SC: O(N)
+         */</span>
+
+        <span class="hljs-keyword">int</span> n = digits.length();
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> {};
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> config;
-        runBackTracking(<span class="hljs-number">0</span>, digits.length(), digits, config, ans);
+        <span class="hljs-built_in">string</span> config;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; ans;
+
+        runBacktracking(<span class="hljs-number">0</span>, n, digits, config, ans);
         <span class="hljs-keyword">return</span> ans;
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">runBackTracking</span><span class="hljs-params">(
-            <span class="hljs-keyword">int</span> index, <span class="hljs-keyword">int</span> bound,
-            <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; digits,
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; config,
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt;&amp; ans)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">runBacktracking</span><span class="hljs-params">(
+            <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> n,
+            <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; digits,
+            <span class="hljs-built_in">string</span>&amp; config,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; ans)</span> </span>{
 
-        <span class="hljs-keyword">if</span> (index == bound) {
+        <span class="hljs-keyword">if</span> (i == n) {
             ans.push_back(config);
             <span class="hljs-keyword">return</span>;
         }
 
-        <span class="hljs-keyword">char</span> digit = digits[index];
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> ch : <span class="hljs-built_in">map</span>[digit]) {
-            config.push_back(ch);
-            runBackTracking(index + <span class="hljs-number">1</span>, bound, digits, config, ans);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> alphabet : <span class="hljs-built_in">map</span>[digits[i]]) {
+            config.push_back(alphabet);
+            runBacktracking(i + <span class="hljs-number">1</span>, n, digits, config, ans);
             config.pop_back();
         }
     }
 
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">char</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">char</span>&gt;&gt; <span class="hljs-built_in">map</span>;
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">char</span>, <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">char</span>&gt;&gt; <span class="hljs-built_in">map</span>;
 };
 </code></pre>
 
@@ -4649,7 +4653,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Letter Combination of a Phone Number","level":"1.31.2","depth":2,"next":{"title":"Sudoku Solver","level":"1.31.3","depth":2,"path":"General DFS/Sudoku Solver.md","ref":"General DFS/Sudoku Solver.md","articles":[]},"previous":{"title":"N Queens","level":"1.31.1","depth":2,"path":"General DFS/N Queens.md","ref":"General DFS/N Queens.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Letter Combinations of a Phone Number.md","mtime":"2021-06-13T01:46:57.175Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-14T06:07:48.267Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Letter Combination of a Phone Number","level":"1.31.2","depth":2,"next":{"title":"Sudoku Solver","level":"1.31.3","depth":2,"path":"General DFS/Sudoku Solver.md","ref":"General DFS/Sudoku Solver.md","articles":[]},"previous":{"title":"N Queens","level":"1.31.1","depth":2,"path":"General DFS/N Queens.md","ref":"General DFS/N Queens.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Letter Combinations of a Phone Number.md","mtime":"2021-06-15T06:38:26.303Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-16T06:25:04.875Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -4548,87 +4548,64 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-136-palindrome-partitioning">LintCode 136. Palindrome Partitioning</h3>
-<p><a href="https://www.lintcode.com/problem/palindrome-partitioning/description" target="_blank">https://www.lintcode.com/problem/palindrome-partitioning/description</a></p>
+<h3 id="leetcode-131-palindrome-partitioning">LeetCode 131. Palindrome Partitioning</h3>
+<p><a href="https://leetcode.com/problems/palindrome-partitioning" target="_blank">https://leetcode.com/problems/palindrome-partitioning</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/*
-     * @param s: A string
-     * @return: A list of lists of string
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; partition(<span class="hljs-built_in">string</span> &amp;s) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; partition(<span class="hljs-built_in">string</span> s) {
+
+        <span class="hljs-comment">/**
+         *  TC: O(N * (2^N)), where
+         *      N is the string length
+         *
+         *  SC: O(N^2)
+         */</span>
 
         <span class="hljs-keyword">int</span> n = s.length();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> {};
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; palin(n, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(n));
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
+            palin[i][i] = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">if</span> (i &lt; n - <span class="hljs-number">1</span>) {
+                palin[i][i + <span class="hljs-number">1</span>] = s[i] == s[i + <span class="hljs-number">1</span>];
+            }
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; collect;
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt;&gt; ans;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> l = <span class="hljs-number">3</span> ; l &lt;= n ; ++l) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = i + l - <span class="hljs-number">1</span> ; i &lt;= n - l ; ++i, ++j) {
+                palin[i][j] = (s[i] == s[j]) &amp;&amp; palin[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
+            }
+        }
 
-        <span class="hljs-comment">// Cache the substring str(i, j). If the substring is palindromic, we</span>
-        <span class="hljs-comment">// cache its content. Otherwise, we cache a empty token.</span>
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt;&gt; memo;
-
-        runBackTracking(s, <span class="hljs-number">0</span>, n, collect, ans, memo);
-
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; config;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; ans;
+        helper(<span class="hljs-number">0</span>, s.length(), s, palin, config, ans);
         <span class="hljs-keyword">return</span> ans;
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">runBackTracking</span><span class="hljs-params">(
-        <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; str,
-        <span class="hljs-keyword">int</span> index, <span class="hljs-keyword">int</span> bound,
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt;&amp; collect,
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt;&gt;&amp; ans,
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt;&gt;&amp; memo)</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">helper</span><span class="hljs-params">(
+            <span class="hljs-keyword">int</span> bgn, <span class="hljs-keyword">int</span> end,
+            <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; s,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt;&amp; palin,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; config,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;&amp; ans)</span> </span>{
 
-        <span class="hljs-keyword">if</span> (index == bound) {
-            ans.push_back(collect);
+        <span class="hljs-keyword">if</span> (bgn == end) {
+            ans.emplace_back(config);
             <span class="hljs-keyword">return</span>;
         }
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = index ; i &lt; bound ; ++i) {
-
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> token;
-
-            <span class="hljs-comment">// Hit a cached record.</span>
-            <span class="hljs-keyword">if</span> (memo.count(index) == <span class="hljs-number">1</span> &amp;&amp; memo[index].count(i) == <span class="hljs-number">1</span>) {
-                token = memo[index][i];
-                <span class="hljs-keyword">if</span> (token.empty()) {
-                    <span class="hljs-keyword">continue</span>;
-                }
-            } <span class="hljs-keyword">else</span> {
-                token = str.substr(index, i - index + <span class="hljs-number">1</span>);
-                <span class="hljs-keyword">if</span> (!isPalindromic(token)) {
-                    memo[index][i] = <span class="hljs-string">&quot;&quot;</span>;
-                    <span class="hljs-keyword">continue</span>;
-                }
-                memo[index][i] = token;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = bgn; i &lt; end ; ++i) {
+            <span class="hljs-keyword">if</span> (!palin[bgn][i]) {
+                <span class="hljs-keyword">continue</span>;
             }
 
-            collect.push_back(token);
-            runBackTracking(str, i + <span class="hljs-number">1</span>, bound, collect, ans, memo);
-            collect.pop_back();
+            config.emplace_back(s.substr(bgn, i - bgn + <span class="hljs-number">1</span>));
+            helper(i + <span class="hljs-number">1</span>, end, s, palin, config, ans);
+            config.pop_back();
         }
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isPalindromic</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; str)</span> </span>{
-
-        <span class="hljs-keyword">int</span> len = str.length();
-        <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = len - <span class="hljs-number">1</span>;
-
-        <span class="hljs-keyword">while</span> (l &lt; r) {
-            <span class="hljs-keyword">if</span> (str[l] != str[r]) {
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-            }
-            ++l;
-            --r;
-        }
-
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
     }
 };
 </code></pre>
@@ -4675,7 +4652,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Palindrome Partitioning","level":"1.31.4","depth":2,"next":{"title":"Remove Invalid Parentheses","level":"1.31.5","depth":2,"path":"General DFS/Remove Invalid Parentheses.md","ref":"General DFS/Remove Invalid Parentheses.md","articles":[]},"previous":{"title":"Sudoku Solver","level":"1.31.3","depth":2,"path":"General DFS/Sudoku Solver.md","ref":"General DFS/Sudoku Solver.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Palindrome Partitioning.md","mtime":"2021-06-13T01:46:57.176Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-14T06:07:48.267Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Palindrome Partitioning","level":"1.31.4","depth":2,"next":{"title":"Remove Invalid Parentheses","level":"1.31.5","depth":2,"path":"General DFS/Remove Invalid Parentheses.md","ref":"General DFS/Remove Invalid Parentheses.md","articles":[]},"previous":{"title":"Sudoku Solver","level":"1.31.3","depth":2,"path":"General DFS/Sudoku Solver.md","ref":"General DFS/Sudoku Solver.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Palindrome Partitioning.md","mtime":"2021-06-16T05:37:52.459Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-16T06:25:04.875Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

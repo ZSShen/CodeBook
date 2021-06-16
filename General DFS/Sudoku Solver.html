@@ -4548,91 +4548,94 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-802-sudoku-solver">LintCode 802. Sudoku Solver</h3>
-<p><a href="https://www.lintcode.com/problem/sudoku-solver/description" target="_blank">https://www.lintcode.com/problem/sudoku-solver/description</a></p>
+<h3 id="leetcode-37-sudoku-solver">LeetCode 37. Sudoku Solver</h3>
+<p><a href="https://leetcode.com/problems/sudoku-solver" target="_blank">https://leetcode.com/problems/sudoku-solver</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param board: the sudoku puzzle
-     * @return: nothing
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">solveSudoku</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; &amp;board)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">solveSudoku</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">char</span>&gt;&gt;&amp; board)</span> </span>{
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; use_rows(<span class="hljs-number">9</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(<span class="hljs-number">9</span>, <span class="hljs-literal">false</span>));
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; use_cols(<span class="hljs-number">9</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(<span class="hljs-number">9</span>, <span class="hljs-literal">false</span>));
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; use_grids(<span class="hljs-number">9</span>, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(<span class="hljs-number">9</span>, <span class="hljs-literal">false</span>));
+        <span class="hljs-comment">/**
+         *  TC: O(9 ^ (M * N)), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
+         *  SC: O(M * N)
+         */</span>
+
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; rows(<span class="hljs-number">9</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(<span class="hljs-number">10</span>));
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; cols(<span class="hljs-number">9</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(<span class="hljs-number">10</span>));
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; mats(<span class="hljs-number">9</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(<span class="hljs-number">10</span>));
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">9</span> ; ++i) {
             <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span> ; j &lt; <span class="hljs-number">9</span> ; ++j) {
-
-                <span class="hljs-keyword">if</span> (board[i][j] == <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">if</span> (board[i][j] == <span class="hljs-string">&apos;.&apos;</span>) {
                     <span class="hljs-keyword">continue</span>;
                 }
-                <span class="hljs-keyword">int</span> index = board[i][j] - <span class="hljs-number">1</span>;
-
-                use_rows[i][index] = <span class="hljs-literal">true</span>;
-                use_cols[j][index] = <span class="hljs-literal">true</span>;
-                use_grids[getSubGridIndex(i, j)][index] = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">int</span> num = board[i][j] - <span class="hljs-string">&apos;0&apos;</span>;
+                rows[i][num] = <span class="hljs-literal">true</span>;
+                cols[j][num] = <span class="hljs-literal">true</span>;
+                mats[getMatrixId(i, j)][num] = <span class="hljs-literal">true</span>;
             }
         }
 
-        runBacktracking(<span class="hljs-number">0</span>, <span class="hljs-number">81</span>, board, use_rows, use_cols, use_grids);
+        backTracking(board, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>, rows, cols, mats);
     }
-
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getSubGridIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> c)</span> </span>{
-
-        <span class="hljs-keyword">int</span> ir = r / <span class="hljs-number">3</span>;
-        <span class="hljs-keyword">int</span> ic = c / <span class="hljs-number">3</span>;
-        <span class="hljs-keyword">return</span> ir * <span class="hljs-number">3</span> + ic;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getMatrixId</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>{
+        <span class="hljs-keyword">return</span> (x / <span class="hljs-number">3</span>) * <span class="hljs-number">3</span> + y / <span class="hljs-number">3</span>;
     }
 
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">backTracking</span><span class="hljs-params">(
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">char</span>&gt;&gt;&amp; board,
+            <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt;&amp; rows,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt;&amp; cols,
+            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt;&amp; mats)</span> </span>{
 
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">runBacktracking</span><span class="hljs-params">(
-            <span class="hljs-keyword">int</span> count,
-            <span class="hljs-keyword">int</span> bound,
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; board,
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt;&amp; use_rows,
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt;&amp; use_cols,
-            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt;&amp; use_grids)</span> </span>{
-
-        <span class="hljs-keyword">if</span> (count == bound) {
+        <span class="hljs-keyword">if</span> (x == m &amp;&amp; y == <span class="hljs-number">0</span>) {
             <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
         }
 
-        <span class="hljs-keyword">int</span> x = count / <span class="hljs-number">9</span>;
-        <span class="hljs-keyword">int</span> y = count % <span class="hljs-number">9</span>;
-
-        <span class="hljs-keyword">if</span> (board[x][y] != <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> runBacktracking(
-                count + <span class="hljs-number">1</span>, bound, board, use_rows, use_cols, use_grids);
+        <span class="hljs-keyword">int</span> nx = x;
+        <span class="hljs-keyword">int</span> ny = y + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (ny == n) {
+            ny = <span class="hljs-number">0</span>;
+            ++nx;
         }
 
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">9</span> ; ++i) {
+        <span class="hljs-keyword">if</span> (board[x][y] != <span class="hljs-string">&apos;.&apos;</span>) {
+            <span class="hljs-keyword">return</span> backTracking(board, nx, ny, m, n, rows, cols, mats);
+        }
 
-            <span class="hljs-keyword">int</span> idx = getSubGridIndex(x, y);
-            <span class="hljs-keyword">if</span> (use_rows[x][i] || use_cols[y][i] || use_grids[idx][i]) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt;= <span class="hljs-number">9</span> ; ++i) {
+            <span class="hljs-keyword">if</span> (rows[x][i]) {
+                <span class="hljs-keyword">continue</span>;
+            }
+            <span class="hljs-keyword">if</span> (cols[y][i]) {
                 <span class="hljs-keyword">continue</span>;
             }
 
-            board[x][y] = i + <span class="hljs-number">1</span>;
-            use_rows[x][i] = <span class="hljs-literal">true</span>;
-            use_cols[y][i] = <span class="hljs-literal">true</span>;
-            use_grids[idx][i] = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">int</span> mat_id = getMatrixId(x, y);
+            <span class="hljs-keyword">if</span> (mats[mat_id][i]) {
+                <span class="hljs-keyword">continue</span>;
+            }
 
-            <span class="hljs-keyword">bool</span> res = runBacktracking(
-                count + <span class="hljs-number">1</span>, bound, board, use_rows, use_cols, use_grids);
+            board[x][y] = <span class="hljs-string">&apos;0&apos;</span> + i;
+            rows[x][i] = <span class="hljs-literal">true</span>;
+            cols[y][i] = <span class="hljs-literal">true</span>;
+            mats[mat_id][i] = <span class="hljs-literal">true</span>;
+
+            <span class="hljs-keyword">bool</span> res = backTracking(board, nx, ny, m, n, rows, cols, mats);
             <span class="hljs-keyword">if</span> (res) {
                 <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
             }
 
-            board[x][y] = <span class="hljs-number">0</span>;
-            use_rows[x][i] = <span class="hljs-literal">false</span>;
-            use_cols[y][i] = <span class="hljs-literal">false</span>;
-            use_grids[idx][i] = <span class="hljs-literal">false</span>;
+            mats[mat_id][i] = <span class="hljs-literal">false</span>;
+            cols[y][i] = <span class="hljs-literal">false</span>;
+            rows[x][i] = <span class="hljs-literal">false</span>;
+            board[x][y] = <span class="hljs-string">&apos;.&apos;</span>;
         }
 
         <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
@@ -4682,7 +4685,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Sudoku Solver","level":"1.31.3","depth":2,"next":{"title":"Palindrome Partitioning","level":"1.31.4","depth":2,"path":"General DFS/Palindrome Partitioning.md","ref":"General DFS/Palindrome Partitioning.md","articles":[]},"previous":{"title":"Letter Combination of a Phone Number","level":"1.31.2","depth":2,"path":"General DFS/Letter Combinations of a Phone Number.md","ref":"General DFS/Letter Combinations of a Phone Number.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Sudoku Solver.md","mtime":"2021-06-13T01:46:57.176Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-14T06:07:48.267Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Sudoku Solver","level":"1.31.3","depth":2,"next":{"title":"Palindrome Partitioning","level":"1.31.4","depth":2,"path":"General DFS/Palindrome Partitioning.md","ref":"General DFS/Palindrome Partitioning.md","articles":[]},"previous":{"title":"Letter Combination of a Phone Number","level":"1.31.2","depth":2,"path":"General DFS/Letter Combinations of a Phone Number.md","ref":"General DFS/Letter Combinations of a Phone Number.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"General DFS/Sudoku Solver.md","mtime":"2021-06-16T03:41:51.930Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-16T06:25:04.875Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
