@@ -1,88 +1,65 @@
 
 # Problem
-### LintCode 136. Palindrome Partitioning
-https://www.lintcode.com/problem/palindrome-partitioning/description
+### LeetCode 131. Palindrome Partitioning
+https://leetcode.com/problems/palindrome-partitioning
 
 # Solution
 ```c++
 class Solution {
 public:
-    /*
-     * @param s: A string
-     * @return: A list of lists of string
-     */
-    vector<vector<string>> partition(string &s) {
-        // write your code here
+    vector<vector<string>> partition(string s) {
+
+        /**
+         *  TC: O(N * (2^N)), where
+         *      N is the string length
+         *
+         *  SC: O(N^2)
+         */
 
         int n = s.length();
-        if (n == 0) {
-            return {};
+        vector<vector<bool>> palin(n, vector<bool>(n));
+
+        for (int i = 0 ; i < n ; ++i) {
+            palin[i][i] = true;
+            if (i < n - 1) {
+                palin[i][i + 1] = s[i] == s[i + 1];
+            }
         }
 
-        std::vector<std::string> collect;
-        std::vector<std::vector<std::string>> ans;
+        for (int l = 3 ; l <= n ; ++l) {
+            for (int i = 0, j = i + l - 1 ; i <= n - l ; ++i, ++j) {
+                palin[i][j] = (s[i] == s[j]) && palin[i + 1][j - 1];
+            }
+        }
 
-        // Cache the substring str(i, j). If the substring is palindromic, we
-        // cache its content. Otherwise, we cache a empty token.
-        std::unordered_map<int, std::unordered_map<int, std::string>> memo;
-
-        runBackTracking(s, 0, n, collect, ans, memo);
-
+        vector<string> config;
+        vector<vector<string>> ans;
+        helper(0, s.length(), s, palin, config, ans);
         return ans;
     }
 
 private:
-    void runBackTracking(
-        const std::string& str,
-        int index, int bound,
-        std::vector<std::string>& collect,
-        std::vector<std::vector<std::string>>& ans,
-        std::unordered_map<int, std::unordered_map<int, std::string>>& memo) {
+    void helper(
+            int bgn, int end,
+            const string& s,
+            vector<vector<bool>>& palin,
+            vector<string>& config,
+            vector<vector<string>>& ans) {
 
-        if (index == bound) {
-            ans.push_back(collect);
+        if (bgn == end) {
+            ans.emplace_back(config);
             return;
         }
 
-        for (int i = index ; i < bound ; ++i) {
-
-            std::string token;
-
-            // Hit a cached record.
-            if (memo.count(index) == 1 && memo[index].count(i) == 1) {
-                token = memo[index][i];
-                if (token.empty()) {
-                    continue;
-                }
-            } else {
-                token = str.substr(index, i - index + 1);
-                if (!isPalindromic(token)) {
-                    memo[index][i] = "";
-                    continue;
-                }
-                memo[index][i] = token;
+        for (int i = bgn; i < end ; ++i) {
+            if (!palin[bgn][i]) {
+                continue;
             }
 
-            collect.push_back(token);
-            runBackTracking(str, i + 1, bound, collect, ans, memo);
-            collect.pop_back();
+            config.emplace_back(s.substr(bgn, i - bgn + 1));
+            helper(i + 1, end, s, palin, config, ans);
+            config.pop_back();
         }
-    }
-
-    bool isPalindromic(const std::string& str) {
-
-        int len = str.length();
-        int l = 0, r = len - 1;
-
-        while (l < r) {
-            if (str[l] != str[r]) {
-                return false;
-            }
-            ++l;
-            --r;
-        }
-
-        return true;
     }
 };
 ```

@@ -1,68 +1,69 @@
 
 # Problem
-### LintCode 1288. Reconstruct Itinerary
-https://www.lintcode.com/problem/reconstruct-itinerary/description
+### LeetCode 332. Reconstruct Itinerary
+https://leetcode.com/problems/reconstruct-itinerary
 
 # Solution
 ```c++
-
-struct Record {
-    string node;
-    bool used;
-
-    Record(const auto& node, bool used)
-        : node(node), used(used)
-    { }
-};
-
 class Solution {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
 
-        unordered_map<string, vector<Record>> map;
+        /**
+         *  TC: O(D ^ E), where
+         *      D is the averaged number of outgoing flight from a city
+         *      E is the number of flights
+         *
+         *  SC: O(V + E), where
+         *      V is the number of cities
+         */
+
+        unordered_map<string, vector<pair<string, bool>>> graph;
+        int n = tickets.size();
+
         for (const auto& ticket : tickets) {
-            map[ticket[0]].emplace_back(ticket[1], false);
+            const auto& s = ticket[0];
+            const auto& t = ticket[1];
+            graph[s].push_back({t, false});
         }
 
-        for (auto& pair : map) {
-            std::sort(pair.second.begin(), pair.second.end(),
-                [] (const auto& lhs, const auto& rhs) {
-                    return lhs.node < rhs.node;
-                }
-            );
+        for (auto& pair : graph) {
+            auto& edges = pair.second;
+            sort(edges.begin(), edges.end());
         }
 
-        vector<string> ans;
-        ans.push_back("JFK");
-        runBackTracking(1, tickets.size() + 1, "JFK", map, ans);
-
-        return ans;
+        vector<string> seq;
+        seq.push_back("JFK");
+        dfs(0, n, "JFK", graph, seq);
+        return seq;
     }
 
 private:
-    bool runBackTracking(
-        int c, int n, const auto& src, auto& map, auto& ans) {
+    bool dfs(
+        int count, int n,
+        const string& src,
+        unordered_map<string, vector<pair<string, bool>>>& graph,
+        vector<string>& seq) {
 
-        if (c == n) {
+        if (count == n) {
             return true;
         }
 
-        auto& dsts = map[src];
-        for (auto& dst : dsts) {
-            if (dst.used) {
+        for (auto& edge : graph[src]) {
+            if (edge.second) {
                 continue;
             }
 
-            dst.used = true;
-            ans.emplace_back(dst.node);
+            edge.second = true;
+            seq.push_back(edge.first);
 
-            bool res = runBackTracking(c + 1, n, dst.node, map, ans);
+            bool res = dfs(count + 1, n, edge.first, graph, seq);
             if (res) {
                 return true;
             }
 
-            ans.pop_back();
-            dst.used = false;
+            seq.pop_back();
+            edge.second = false;
         }
 
         return false;

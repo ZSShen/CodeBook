@@ -16,47 +16,51 @@ public:
           {'6', {'m', 'n', 'o'}},
           {'7', {'p', 'q', 'r', 's'}},
           {'8', {'t', 'u', 'v'}},
-          {'9', {'w', 'x', 'y', 'z'}},
+          {'9', {'w', 'x', 'y', 'z'}}
       })
     { }
 
-    /**
-     * @param digits: A digital string
-     * @return: all posible letter combinations
-     */
-    vector<string> letterCombinations(string &digits) {
-        // write your code here
+    vector<string> letterCombinations(string digits) {
 
-        std::vector<std::string> ans;
-        if (digits.empty()) {
-            return ans;
+        /**
+         *  TC: O(4^N), where
+         *      N is the string length
+         *
+         *  SC: O(N)
+         */
+
+        int n = digits.length();
+        if (n == 0) {
+            return {};
         }
 
-        std::string config;
-        runBackTracking(0, digits.length(), digits, config, ans);
+        string config;
+        vector<string> ans;
+
+        runBacktracking(0, n, digits, config, ans);
         return ans;
     }
 
 private:
-    void runBackTracking(
-            int index, int bound,
-            const std::string& digits,
-            std::string& config,
-            std::vector<std::string>& ans) {
+    void runBacktracking(
+            int i, int n,
+            const string& digits,
+            string& config,
+            vector<string>& ans) {
 
-        if (index == bound) {
+        if (i == n) {
             ans.push_back(config);
             return;
         }
 
-        char digit = digits[index];
-        for (char ch : map[digit]) {
-            config.push_back(ch);
-            runBackTracking(index + 1, bound, digits, config, ans);
+        for (char alphabet : map[digits[i]]) {
+            config.push_back(alphabet);
+            runBacktracking(i + 1, n, digits, config, ans);
             config.pop_back();
         }
     }
 
-    std::unordered_map<char, std::vector<char>> map;
+private:
+    unordered_map<char, unordered_set<char>> map;
 };
 ```

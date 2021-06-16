@@ -1,84 +1,75 @@
 
 # Problem
-### LintCode 33. N-Queens
-https://www.lintcode.com/problem/n-queens/description
+### LeetCode 51. N-Queens
+https://leetcode.com/problems/n-queens
 
 # Solution
 ```c++
 class Solution {
 public:
-    /*
-     * @param n: The number of queens
-     * @return: All distinct solutions
-     */
     vector<vector<string>> solveNQueens(int n) {
-        // write your code here
 
-        std::vector<std::vector<std::string>> ans;
-        if (n == 0) {
-            return ans;
-        }
+        /**
+         *  TC: O(N!), where
+         *      N is the board size
+         *
+         *  SC: O(N)
+         */
 
-        std::vector<int> queens;
-        runBackTracking(0, n, queens, ans);
+        vector<vector<string>> ans;
+        vector<int> queens;
+        backTracking(0, n, queens, ans);
         return ans;
     }
 
-
 private:
-    void runBackTracking(
-            int index, int dim,
-            std::vector<int> queens,
-            std::vector<std::vector<std::string>>& ans) {
+    void backTracking(
+            int c, int n,
+            vector<int>& queens,
+            vector<vector<string>>& ans) {
 
-        if (index == dim) {
-            std::string row;
-            for (int i = 0 ; i < dim ; ++i) {
-                row.push_back('.');
-            }
-
-            std::vector<std::string> config(dim, row);
-
-            for (int c = 0 ; c < dim ; ++c) {
+        if (c == n) {
+            vector<string> config(n, string(n, '.'));
+            for (int c = 0 ; c < n ; ++c) {
                 int r = queens[c];
                 config[r][c] = 'Q';
             }
-
-            ans.emplace_back(std::move(config));
+             ans.emplace_back(move(config));
             return;
         }
 
-        for (int nr = 0 ; nr < dim ; ++nr) {
-            bool check = true;
+        for (int r = 0 ; r < n ; ++r) {
+            int size = queens.size();
+            bool conflict = false;
 
-            for (int c = 0 ; c < index ; ++c) {
-                int r = queens[c];
+            for (int y = 0 ; y < size ; ++y) {
+                int x = queens[y];
 
-                // Check the row conflict.
-                if (nr == r) {
-                    check = false;
+                // Ensure no row conflict.
+                if (x == r) {
+                    conflict = true;
                     break;
                 }
 
-                // Check the diagonal conflict.
-                if (r - c == nr - index) {
-                    check = false;
+                // Ensure no diagonal conflict.
+                if (x - y == r - c) {
+                    conflict = true;
                     break;
                 }
 
-                // Check the anti-diagonal conflict.
-                if (r + c == nr + index) {
-                    check = false;
+                // Ensure no anti-diagonal conflict.
+                if (x + y == r + c) {
+                    conflict = true;
                     break;
                 }
             }
 
-            if (!check) {
+            if (conflict) {
                 continue;
             }
 
-            queens.push_back(nr);
-            runBackTracking(index + 1, dim, queens, ans);
+            queens.emplace_back(r);
+            backTracking(c + 1, n, queens, ans);
             queens.pop_back();
         }
     }
