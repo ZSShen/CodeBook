@@ -8,10 +8,18 @@ https://leetcode.com/problems/unique-paths-iii/
 class Solution {
 public:
     Solution()
-        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}}), base(20)
+        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
     { }
 
     int uniquePathsIII(vector<vector<int>>& grid) {
+
+        /**
+         *  TC: O(3 ^ (M * N)), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
+         *  SC: O(M * N)
+         */
 
         int m = grid.size();
         int n = grid[0].size();
@@ -29,7 +37,7 @@ public:
         for (int i = 0 ; i < m ; ++i) {
             for (int j = 0 ; j < n ; ++j) {
                 if (grid[i][j] == 1) {
-                    dfs(grid, i, j, m, n, 0, k, ans);
+                    backTracking(grid, i, j, m, n, 0, k, ans);
                     break;
                 }
             }
@@ -40,9 +48,8 @@ public:
 
 private:
     vector<vector<int>> directs;
-    int base;
 
-    void dfs(
+    void backTracking(
             vector<vector<int>>& grid,
             int r, int c, int m, int n,
             int pc, int k, int& ans) {
@@ -68,7 +75,7 @@ private:
                 ++pc;
             }
 
-            dfs(grid, nr, nc, m, n, pc, k, ans);
+            backTracking(grid, nr, nc, m, n, pc, k, ans);
 
             if (grid[nr][nc] == 0) {
                 --pc;

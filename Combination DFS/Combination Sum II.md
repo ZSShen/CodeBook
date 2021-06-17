@@ -1,60 +1,54 @@
 
 # Problem
-### LintCode 153. Combination Sum II
-https://www.lintcode.com/problem/combination-sum-ii/description
+### LeetCode 40. Combination Sum II
+https://leetcode.com/problems/combination-sum-ii
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param num: Given the candidate numbers
-     * @param target: Given the target number
-     * @return: All the combinations that sum to target
-     */
-    vector<vector<int>> combinationSum2(vector<int> &cands, int target) {
-        // write your code here
+    vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
 
-        int n = cands.size();
-        if (n == 0) {
-            return {};
-        }
+        /**
+         *  TC: O(N * 2^N), where
+         *      N is the number elements
+         *
+         *  SC: O(N)
+         */
 
-        std::sort(cands.begin(), cands.end());
+        sort(nums.begin(), nums.end());
 
-        std::vector<int> collect;
-        std::vector<std::vector<int>> ans;
-        runBackTracking(cands, 0, n, target, collect, ans);
+        vector<int> conf;
+        vector<vector<int>> ans;
 
+        backTracking(nums, 0, nums.size(), target, conf, ans);
         return ans;
     }
 
 private:
-    void runBackTracking(
-            const std::vector<int>& cands,
-            int index, int bound,
-            int target,
-            std::vector<int>& collect,
-            std::vector<std::vector<int>>& ans) {
+    void backTracking(
+            const vector<int>& nums,
+            int bgn, int end, int target,
+            vector<int>& conf,
+            vector<vector<int>>& ans) {
 
         if (target == 0) {
-            ans.push_back(collect);
+            ans.emplace_back(conf);
             return;
         }
 
-        for (int i = index ; i < bound ; ++i) {
-            if (i > index && cands[i] == cands[i - 1]) {
-                continue;
-            }
-
-            if (cands[i] > target) {
+        for (int i = bgn ; i < end ; ++i) {
+            if (nums[i] > target) {
                 break;
             }
 
-            collect.push_back(cands[i]);
-            runBackTracking(
-                cands, i + 1, bound, target - cands[i], collect, ans);
-            collect.pop_back();
+            if (i > bgn && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            conf.emplace_back(nums[i]);
+            backTracking(nums, i + 1, end, target - nums[i], conf, ans);
+            conf.pop_back();
         }
     }
 };

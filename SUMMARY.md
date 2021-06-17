@@ -302,7 +302,6 @@
    * [Palindrome Partitioning](General DFS/Palindrome Partitioning.md)
    * [Remove Invalid Parentheses](General DFS/Remove Invalid Parentheses.md)
    * [Reconstruct Itinerary](General DFS/Reconstruct Itinerary.md)
-   * [Android Unlock Patterns](General DFS/Android Unlock Patterns.md)
    * [Unique Path III](General DFS/Unique Path III.md)
 
 * Combination DFS
@@ -310,6 +309,7 @@
    * [Subsets II](Combination DFS/Subsets II.md)
    * [Combination Sum](Combination DFS/Combination Sum.md)
    * [Combination Sum II](Combination DFS/Combination Sum II.md)
+   * [Combination Sum III](Combination DFS/Combination Sum III.md)
    * [K Sum II](Combination DFS/K Sum II.md)
    * [Split String](Combination DFS/Split String.md)
 
