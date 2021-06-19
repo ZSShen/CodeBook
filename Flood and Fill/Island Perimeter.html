@@ -4548,61 +4548,59 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-1225-island-perimeter">LintCode 1225. Island Perimeter</h3>
-<p><a href="https://www.lintcode.com/problem/island-perimeter/description" target="_blank">https://www.lintcode.com/problem/island-perimeter/description</a></p>
+<h3 id="leetcode-463-island-perimeter">LeetCode 463. Island Perimeter</h3>
+<p><a href="https://leetcode.com/problems/island-perimeter" target="_blank">https://leetcode.com/problems/island-perimeter</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
     Solution()
-      : directs({{<span class="hljs-number">1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>}})
+        : directs({{<span class="hljs-number">1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>}, {<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>}})
     { }
 
-    <span class="hljs-comment">/**
-     * @param grid: a 2D array
-     * @return: the perimeter of the island
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">islandPerimeter</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; &amp;grid)</span> </span>{
-        <span class="hljs-comment">// Write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">islandPerimeter</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; grid)</span> </span>{
 
-        <span class="hljs-keyword">int</span> num_r = grid.size();
-        <span class="hljs-keyword">if</span> (num_r == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        }
-        <span class="hljs-keyword">int</span> num_c = grid[<span class="hljs-number">0</span>].size();
-        <span class="hljs-keyword">if</span> (num_c == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(M * N), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
+         *  SC: O(1)
+         */</span>
 
-        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span> ; x &lt; num_r ; ++x) {
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> y = <span class="hljs-number">0</span> ; y &lt; num_c ; ++y) {
+        <span class="hljs-keyword">int</span> m = grid.size();
+        <span class="hljs-keyword">int</span> n = grid[<span class="hljs-number">0</span>].size();
 
+        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span> ; x &lt; m ; ++x) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> y = <span class="hljs-number">0</span> ; y &lt; n ; ++y) {
                 <span class="hljs-keyword">if</span> (grid[x][y] == <span class="hljs-number">0</span>) {
                     <span class="hljs-keyword">continue</span>;
                 }
-
-                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; direct : directs) {
-                    <span class="hljs-keyword">int</span> nx = x + direct[<span class="hljs-number">0</span>];
-                    <span class="hljs-keyword">int</span> ny = y + direct[<span class="hljs-number">1</span>];
-                    <span class="hljs-keyword">if</span> (connectToWater(grid, num_r, num_c, nx, ny)) {
-                        ++sum;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; d : directs) {
+                    <span class="hljs-keyword">int</span> nx = x + d[<span class="hljs-number">0</span>];
+                    <span class="hljs-keyword">int</span> ny = y + d[<span class="hljs-number">1</span>];
+                    <span class="hljs-keyword">if</span> (isWateredArea(grid, nx, ny, m, n)) {
+                        ++ans;
                     }
                 }
             }
         }
 
-        <span class="hljs-keyword">return</span> sum;
+        <span class="hljs-keyword">return</span> ans;
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">connectToWater</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; grid, <span class="hljs-keyword">int</span> num_r, <span class="hljs-keyword">int</span> num_c, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>{
-        <span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">0</span> &amp;&amp; y &gt;= <span class="hljs-number">0</span> &amp;&amp; x &lt; num_r &amp;&amp; y &lt; num_c) {
-            <span class="hljs-keyword">return</span> grid[x][y] == <span class="hljs-number">0</span>;
-        }
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    }
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; directs;
 
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; directs;
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isWateredArea</span><span class="hljs-params">(
+            <span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; grid,
+            <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n)</span> </span>{
+
+        <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span> || y &lt; <span class="hljs-number">0</span> || x == m || y == n) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+        <span class="hljs-keyword">return</span> grid[x][y] == <span class="hljs-number">0</span>;
+    }
 };
 </code></pre>
 
@@ -4648,7 +4646,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Island Perimeter","level":"1.9.7","depth":2,"next":{"title":"Making a Large Island","level":"1.9.8","depth":2,"path":"Flood and Fill/Making a Large Island.md","ref":"Flood and Fill/Making a Large Island.md","articles":[]},"previous":{"title":"Set Matrix Zeros","level":"1.9.6","depth":2,"path":"Flood and Fill/Set Matrix Zeros.md","ref":"Flood and Fill/Set Matrix Zeros.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Flood and Fill/Island Perimeter.md","mtime":"2021-06-16T06:32:58.787Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-17T06:04:53.755Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Island Perimeter","level":"1.9.7","depth":2,"next":{"title":"Making a Large Island","level":"1.9.8","depth":2,"path":"Flood and Fill/Making a Large Island.md","ref":"Flood and Fill/Making a Large Island.md","articles":[]},"previous":{"title":"Set Matrix Zeros","level":"1.9.6","depth":2,"path":"Flood and Fill/Set Matrix Zeros.md","ref":"Flood and Fill/Set Matrix Zeros.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Flood and Fill/Island Perimeter.md","mtime":"2021-06-19T18:02:41.409Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-19T18:04:18.807Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
