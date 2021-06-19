@@ -1,55 +1,52 @@
 
 # Problem
-### LintCode 15. Permutations
-https://www.lintcode.com/problem/permutations/description
+### LeetCode 46. Permutations
+https://leetcode.com/problems/permutations
 
 # Solution
 ```c++
 class Solution {
 public:
-    /*
-     * @param nums: A list of integers.
-     * @return: A list of permutations.
-     */
-    vector<vector<int>> permute(vector<int> &nums) {
-        // write your code here
+    vector<vector<int>> permute(vector<int>& nums) {
+
+        /**
+         *  TC: O(N * N!), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         */
 
         int n = nums.size();
-        if (n == 0) {
-            return {{}};
-        }
+        vector<bool> visit(n);
+        vector<int> config;
+        vector<vector<int>> ans;
 
-        std::vector<bool> use(n, false);
-        std::vector<int> perm;
-        std::vector<std::vector<int>> ans;
-        runBackTracking(nums, 0, n, use, perm, ans);
-
+        backTracking(nums, 0, n, visit, config, ans);
         return ans;
     }
 
 private:
-    void runBackTracking(
-            const std::vector<int>& nums,
-            int depth, int bound,
-            std::vector<bool>& use,
-            std::vector<int>& perm,
-            std::vector<std::vector<int>>& ans) {
+    void backTracking(
+            const vector<int>& nums, int c, int n,
+            vector<bool>& visit,
+            vector<int>& config,
+            vector<vector<int>>& ans) {
 
-        if (depth == bound) {
-            ans.push_back(perm);
+        if (c == n) {
+            ans.push_back(config);
             return;
         }
 
-        for (int i = 0 ; i < bound ; ++i) {
-            if (use[i]) {
+        for (int i = 0 ; i < n ; ++i) {
+            if (visit[i]) {
                 continue;
             }
 
-            use[i] = true;
-            perm.push_back(nums[i]);
-            runBackTracking(nums, depth + 1, bound, use, perm, ans);
-            perm.pop_back();
-            use[i] = false;
+            visit[i] = true;
+            config.push_back(nums[i]);
+            backTracking(nums, c + 1, n, visit, config, ans);
+            config.pop_back();
+            visit[i] = false;
         }
     }
 };

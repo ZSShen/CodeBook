@@ -1,61 +1,59 @@
 
 # Problem
-### LintCode 1225. Island Perimeter
-https://www.lintcode.com/problem/island-perimeter/description
+### LeetCode 463. Island Perimeter
+https://leetcode.com/problems/island-perimeter
 
 # Solution
 ```c++
 class Solution {
 public:
     Solution()
-      : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
+        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
     { }
 
-    /**
-     * @param grid: a 2D array
-     * @return: the perimeter of the island
-     */
-    int islandPerimeter(vector<vector<int>> &grid) {
-        // Write your code here
+    int islandPerimeter(vector<vector<int>>& grid) {
 
-        int num_r = grid.size();
-        if (num_r == 0) {
-            return 0;
-        }
-        int num_c = grid[0].size();
-        if (num_c == 0) {
-            return 0;
-        }
+        /**
+         *  TC: O(M * N), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
+         *  SC: O(1)
+         */
 
-        int sum = 0;
-        for (int x = 0 ; x < num_r ; ++x) {
-            for (int y = 0 ; y < num_c ; ++y) {
+        int m = grid.size();
+        int n = grid[0].size();
 
+        int ans = 0;
+        for (int x = 0 ; x < m ; ++x) {
+            for (int y = 0 ; y < n ; ++y) {
                 if (grid[x][y] == 0) {
                     continue;
                 }
-
-                for (const auto& direct : directs) {
-                    int nx = x + direct[0];
-                    int ny = y + direct[1];
-                    if (connectToWater(grid, num_r, num_c, nx, ny)) {
-                        ++sum;
+                for (const auto& d : directs) {
+                    int nx = x + d[0];
+                    int ny = y + d[1];
+                    if (isWateredArea(grid, nx, ny, m, n)) {
+                        ++ans;
                     }
                 }
             }
         }
 
-        return sum;
+        return ans;
     }
 
 private:
-    bool connectToWater(const auto& grid, int num_r, int num_c, int x, int y) {
-        if (x >= 0 && y >= 0 && x < num_r && y < num_c) {
-            return grid[x][y] == 0;
-        }
-        return true;
-    }
+    vector<vector<int>> directs;
 
-    std::vector<std::vector<int>> directs;
+    bool isWateredArea(
+            const vector<vector<int>>& grid,
+            int x, int y, int m, int n) {
+
+        if (x < 0 || y < 0 || x == m || y == n) {
+            return true;
+        }
+        return grid[x][y] == 0;
+    }
 };
 ```

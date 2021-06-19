@@ -1,70 +1,66 @@
 
 # Problem
-### LintCode 52. Next Permutation
-https://www.lintcode.com/problem/next-permutation/description
+### LeetCode 31. Next Permutation
+https://leetcode.com/problems/next-permutation
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param nums: A list of integers
-     * @return: A list of integers
-     */
-    vector<int> nextPermutation(vector<int> &nums) {
-        // write your code here
+    void nextPermutation(vector<int>& nums) {
+
+        /**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         *
+         *  From right to left, the numbers are sorted in
+         *  monotonous non-decreasing order
+         *
+         *        turning point
+         *          |
+         *          v
+         *      1 2 5 4 3 1
+         *          ^^^^^^^
+         *
+         *      1 3 4 5 2 1
+         *          ^^^^^^^
+         *                   Reverse the right portion
+         *      1 3 1 2 4 5
+         *          ^^^^^^^
+         */
 
         int n = nums.size();
-        if (n <= 1) {
-            return nums;
+
+        // Find the turning point.
+        int i;
+        for (i = n - 1 ; i > 0 ; --i) {
+            if (nums[i - 1] < nums[i]) {
+                break;
+            }
+        }
+        --i;
+
+        // The input is already the maximum permutation.
+        if (i < 0) {
+            reverse(nums.begin(), nums.end());
+            return;
         }
 
-        // Example: 1 3 6 5 4 2
-
-        int i = n - 1;
-        while (i > 0 && nums[i - 1] >= nums[i]) {
-            --i;
+        // Find the greater element on the right-hand side.
+        int j;
+        for (j = n - 1 ; j > i ; --j) {
+            if (nums[j] > nums[i]) {
+                break;
+            }
         }
 
-        if (i == 0) {
-            // We already have the maximum permutation, so the next one is
-            // the minimum permutation.
-            swapSegment(nums, 0, n - 1);
-            return nums;
-        }
+        // Swap the two numbers.
+        swap(nums[i], nums[j]);
 
-        //   * <= turning point
-        // 1 3 6 5 4 2
-
-        int j = n - 1;
-        while (j > i && nums[j] <= nums[i - 1]) {
-            --j;
-        }
-
-        //         * <= the next greater element
-        // 1 3 6 5 4 2
-
-        std::swap(nums[i - 1], nums[j]);
-
-        // 1 4 6 5 3 2
-        //     * * * * <= sorted in descending order.
-
-        swapSegment(nums, i, n - 1);
-
-        // 1 4 2 3 5 6
-        //     * * * * <= now sorted in ascending order.
-
-        return nums;
-    }
-
-private:
-    void swapSegment(std::vector<int>& nums, int bgn, int end) {
-
-        while (bgn < end) {
-            std::swap(nums[bgn], nums[end]);
-            ++bgn;
-            --end;
-        }
+        // Revese the right-hand side.
+        reverse(nums.begin() + i + 1, nums.end());
     }
 };
 ```
