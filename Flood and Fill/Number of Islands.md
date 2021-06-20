@@ -1,84 +1,64 @@
 
 # Problem
-### LintCode 433. Number of Islands
-https://www.lintcode.com/problem/number-of-islands/description
+### LeetCode 200. Number of Islands
+https://leetcode.com/problems/number-of-islands
 
 # Solution
 ```c++
-
-struct Record {
-    int r;
-    int c;
-
-    Record(int r, int c)
-      : r(r), c(c)
-    { }
-};
-
-
 class Solution {
 public:
     Solution()
-      : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
+        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
     { }
 
-    /**
-     * @param grid: a boolean 2D matrix
-     * @return: an integer
-     */
-    int numIslands(vector<vector<bool>> &grid) {
-        // write your code here
+    int numIslands(vector<vector<char>>& grid) {
 
-        int num_r = grid.size();
-        if (num_r == 0) {
-            return 0;
-        }
+        /**
+         *  TC: O(M * N), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
+         *  SC: O(M * N)
+         */
 
-        int num_c = grid[0].size();
-        if (num_c == 0) {
-            return 0;
-        }
+        int m = grid.size();
+        int n = grid[0].size();
 
-        int count = 0;
+        int ans = 0;
 
-        for (int r = 0 ; r < num_r ; ++r) {
-            for (int c = 0 ; c < num_c ; ++c) {
-                if (grid[r][c]) {
-                    grid[r][c] = false;
-                    floodAndFill(grid, r, c, num_r, num_c);
-                    ++count;
+        for (int i = 0 ; i < m ; ++i) {
+            for (int j = 0 ; j < n ; ++j) {
+                if (grid[i][j] == '0') {
+                    continue;
                 }
+                ++ans;
+                dfs(grid, m, n, i, j);
             }
         }
 
-        return count;
+        return ans;
     }
 
 private:
-    void floodAndFill(auto& grid, int r, int c, int num_r, int num_c) {
+    vector<vector<int>> directs;
 
-        std::queue<Record> queue;
-        queue.push(Record(r, c));
+    void dfs(
+            vector<vector<char>>& grid,
+            int m, int n, int x, int y) {
 
-        while (!queue.empty()) {
-            auto rec = queue.front();
-            queue.pop();
+        grid[x][y] = '0';
 
-            for (const auto& direct : directs) {
-                int nr = rec.r + direct[0];
-                int nc = rec.c + direct[1];
+        for (const auto& d : directs) {
+            int nx = x + d[0];
+            int ny = y + d[1];
 
-                if (!(nr >= 0 && nc >= 0 && nr < num_r && nc < num_c) ||
-                    !grid[nr][nc]) {
-                    continue;
-                }
-
-                queue.push(Record(nr, nc));
-                grid[nr][nc] = false;
+            if (!(nx >= 0 && ny >= 0 && nx < m && ny < n) ||
+                grid[nx][ny] == '0') {
+                continue;
             }
+
+            dfs(grid, m, n, nx, ny);
         }
     }
-
-    std::vector<std::vector<int>> directs;
 };
 ```

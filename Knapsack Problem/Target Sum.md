@@ -36,8 +36,8 @@ private:
             return memo[i][sum];
         }
 
-        long res = topDown(nums, i + 1, n, sum - nums[i], memo) +
-                   topDown(nums, i + 1, n, sum + nums[i], memo);
+        int res = topDown(nums, i + 1, n, sum - nums[i], memo) +
+                  topDown(nums, i + 1, n, sum + nums[i], memo);
         return memo[i][sum] = res;
     }
 };

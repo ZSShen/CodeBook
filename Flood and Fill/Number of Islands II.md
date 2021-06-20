@@ -5,11 +5,12 @@ https://www.lintcode.com/problem/number-of-islands-ii/description
 
 # Solution
 ```c++
+
 class DisjointSet {
 public:
-    DisjointSet()
-      : count(0)
-    { }
+    DisjointSet(int n)
+        : count(0) {
+    }
 
     void add(int x) {
         parent[x] = x;
@@ -18,51 +19,53 @@ public:
 
     int find(int x) {
 
-        if (parent[x] == x) {
+        if (x == parent[x]) {
             return x;
         }
 
-        parent[x] = find(parent[x]);
-        return parent[x];
+        return parent[x] = find(parent[x]);
     }
 
-    void unite(int x, int y) {
+    void merge(int x, int y) {
 
         int px = find(x);
         int py = find(y);
 
-        if (px != py) {
-            parent[px] = py;
-            --count;
+        if (px == py) {
+            return;
         }
+
+        --count;
+        parent[px] = py;
     }
 
-    int getNumberOfSets() {
+    int query() {
         return count;
     }
 
 private:
     int count;
-    std::unordered_map<int, int> parent;
+    unordered_map<int, int> parent;
 };
 
 
 class Solution {
 public:
     Solution()
-      : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
+        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
     { }
 
-    /**
-     * @param n: An integer
-     * @param m: An integer
-     * @param operators: an array of point
-     * @return: an integer array
-     */
-    vector<int> numIslands2(int n, int m, vector<Point> &operators) {
-        // write your code here
+    vector<int> numIslands2(int m, int n, vector<vector<int>>& positions) {
 
         /**
+         *  TC: O(K * log*(K)), where
+         *      K is the number of given positions, or the potential number
+         *      of islands
+         *
+         *  SC: O(M * N), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
          *  00000       00000       01000        01000        01000
          *  00000  =>   01000   =>  01000   =>   01000   =>   01000
          *  00000       00000       00000        00000        00000
@@ -75,47 +78,46 @@ public:
          *                         (0, 1)                    (3, 4)
          */
 
-        std::vector<int> ans;
-        std::vector<std::vector<int>> grid(n, std::vector<int>(m, 0));
-        DisjointSet set;
+        DisjointSet set(m * n);
+        vector<vector<int>> grid(m, vector<int>(n));
 
-        for (const auto& op : operators) {
-            int x = op.x;
-            int y = op.y;
+        vector<int> ans;
 
-            // Should avoid the dpulicated operations.
-            if (grid[x][y] != 0) {
-                ans.push_back(set.getNumberOfSets());
+        for (const auto& q : positions) {
+            int x = q[0];
+            int y = q[1];
+
+            // If the grid cell is already part of an island,
+            // we need to skip it to avoid duplicates
+            if (grid[x][y] == 1) {
+                ans.push_back(set.query());
                 continue;
             }
 
-            int id = generateId(m, x, y);
-            set.add(id);
-            grid[x][y] = id;
+            grid[x][y] = 1;
+            int src_id = x * n + y;
+            set.add(src_id);
 
-            for (const auto& direct : directs) {
-                int nx = x + direct[0];
-                int ny = y + direct[1];
+            for (const auto& d : directs) {
+                int nx = x + d[0];
+                int ny = y + d[1];
 
-                if (!(nx >=0 && ny >= 0 && nx < n && ny < m) ||
+                if (!(nx >= 0 && ny >= 0 && nx < m && ny < n) ||
                     grid[nx][ny] == 0) {
                     continue;
                 }
 
-                set.unite(id, grid[nx][ny]);
+                int dst_id = nx * n + ny;
+                set.merge(src_id, dst_id);
             }
 
-            ans.push_back(set.getNumberOfSets());
+            ans.push_back(set.query());
         }
 
         return ans;
     }
 
 private:
-    int generateId(int m, int x, int y) {
-        return m * x + y + 1;
-    }
-
-    std::vector<std::vector<int>> directs;
+    vector<vector<int>> directs;
 };
 ```
