@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 778. Pacific Atlantic Water Flow
-https://www.lintcode.com/problem/pacific-atlantic-water-flow/description
+### LeetCode 417. Pacific Atlantic Water Flow
+https://leetcode.com/problems/pacific-atlantic-water-flow
 
 # Solution
 ```c++
@@ -9,14 +9,15 @@ class Solution {
 public:
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& matrix) {
 
+        /**
+         *  TC: O(M * N), where
+         *      M is the number of rows
+         *
+         *  SC: O(M * N)
+         */
+
         int m = matrix.size();
-        if (m == 0) {
-            return {};
-        }
         int n = matrix[0].size();
-        if (n == 0) {
-            return {};
-        }
 
         vector<vector<bool>> pacific(m, vector<bool>(n, false));
         vector<vector<bool>> atlantic(m, vector<bool>(n, false));

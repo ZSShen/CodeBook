@@ -13,50 +13,49 @@ public:
 
     void wallsAndGates(vector<vector<int>>& rooms) {
 
+        /**
+         *  TC: O(M * N), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *
+         *  SC: O(M * N)
+         */
+
         int m = rooms.size();
-        if (m == 0) {
-            return;
-        }
-
         int n = rooms[0].size();
-        if (n == 0) {
-            return;
-        }
 
-        queue<pair<int, int>> queue;
-        for (int r = 0 ; r < m ; ++r) {
-            for (int c = 0 ; c < n ; ++c) {
-                if (rooms[r][c] == 0) {
-                    queue.emplace(r, c);
+        queue<pair<int, int>> q;
+        for (int i = 0 ; i < m ; ++i) {
+            for (int j = 0 ; j < n ; ++j) {
+                if (rooms[i][j] == 0) {
+                    q.push({i, j});
                 }
             }
         }
 
         int dist = 0;
-        while (!queue.empty()) {
+        while (!q.empty()) {
+            int size = q.size();
             ++dist;
-            int size = queue.size();
 
             for (int i = 0 ; i < size ; ++i) {
-                auto rec = queue.front();
-                queue.pop();
+                auto r = q.front();
+                q.pop();
 
-                int r = rec.first;
-                int c = rec.second;
+                int x = r.first;
+                int y = r.second;
 
-                for (const auto& direct : directs) {
-                    int nr = r + direct[0];
-                    int nc = c + direct[1];
+                for (const auto& d : directs) {
+                    int nx = x + d[0];
+                    int ny = y + d[1];
 
-                    if (!(nr >= 0 && nc >= 0 && nr < m && nc < n) ||
-                       rooms[nr][nc] != INF ||
-                       rooms[nr][nc] == -1 ||
-                       rooms[nr][nc] == 0) {
+                    if (!(nx >= 0 && ny >= 0 && nx < m && ny < n) ||
+                        rooms[nx][ny] != INF) {
                         continue;
                     }
 
-                    rooms[nr][nc] = min(rooms[nr][nc], dist);
-                    queue.emplace(nr, nc);
+                    rooms[nx][ny] = dist;
+                    q.push({nx, ny});
                 }
             }
         }
@@ -65,6 +64,6 @@ public:
 private:
     vector<vector<int>> directs;
 
-    static const int INF = 2147483647;
+    static const int INF = INT_MAX;
 };
 ```

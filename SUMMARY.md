@@ -124,6 +124,10 @@
    * [Stone Game IV](Stone Game/Stone Game IV.md)
    * [Stone Game V](Stone Game/Stone Game V.md)
 
+* Jump Game
+   * [Jump Game III](Jump Game/Jump Game III.md)
+   * [Jump Game IV](Jump Game/Jump Game IV.md)
+
 * Fibonacci Sequence
    * [Min Cost Climbing Stairs](Fibonacci Sequence/Min Cost Climbing Stairs.md)
    * [Decode Ways](Fibonacci Sequence/Decode Ways.md)
