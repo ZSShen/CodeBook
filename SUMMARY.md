@@ -127,6 +127,7 @@
 * Jump Game
    * [Jump Game III](Jump Game/Jump Game III.md)
    * [Jump Game IV](Jump Game/Jump Game IV.md)
+   * [Jump Game V](Jump Game/Jump Game V.md)
 
 * Fibonacci Sequence
    * [Min Cost Climbing Stairs](Fibonacci Sequence/Min Cost Climbing Stairs.md)
