@@ -113,9 +113,6 @@
 * Memoization and Top Down Dynamic Programming
    * [Cherry Pickup](Memoization and Top Down Dynamic Programming/Cherry Pickup.md)
    * [Cherry Pickup II](Memoization and Top Down Dynamic Programming/Cherry Pickup II.md)
-   * [Frog Jump](Memoization and Top Down Dynamic Programming/Frog Jump.md)
-   * [Jump Game V](Memoization and Top Down Dynamic Programming/Jump Game v.md)
-   * [Number of Ways to Stay in the Same Place After Some Steps](Memoization and Top Down Dynamic Programming/Number of Ways to Stay in the Same Place After Some Steps.md)
    * [Longest Increasing Path in a Matrix](Memoization and Top Down Dynamic Programming/Longest Increasing Path in a Matrix.md)
 
 * Stone Game
@@ -128,6 +125,8 @@
    * [Jump Game III](Jump Game/Jump Game III.md)
    * [Jump Game IV](Jump Game/Jump Game IV.md)
    * [Jump Game V](Jump Game/Jump Game V.md)
+   * [Frog Jump](Jump Game/Frog Jump.md)
+   * [Number of Ways to Stay in the Same Place After Some Steps](Jump Game/Number of Ways to Stay in the Same Place After Some Steps.md)
 
 * Fibonacci Sequence
    * [Min Cost Climbing Stairs](Fibonacci Sequence/Min Cost Climbing Stairs.md)
@@ -331,17 +330,19 @@
    * [Previous Permutation With One Swap](Permutation DFS/Previous Permutation With One Swap.md)
    * [Next Closest Time](Permutation DFS/Next Closest Time.md)
 
-* Interval Query
-   * [Merge Intervals](Interval Query/Merge Intervals.md)
-   * [Insert Interval](Interval Query/Insert Interval.md)
-   * [My Calendar II](Interval Query/My Calendar II.md)
+* Interval Fundamental
+   * [Meeting Rooms](Interval Fundamental/Meeting Rooms.md)
+   * [Non-overlapping Intervals](Interval Fundamental/Non-overlapping Intervals.md)
+   * [Merge Intervals](Interval Fundamental/Merge Intervals.md)
+   * [Insert Interval](Interval Fundamental/Insert Interval.md)
 
-* Sweep Line
-   * [Number of Airplanes in the Sky](Sweep Line/Number of Airplanes in the Sky.md)
-   * [Time Intersection](Sweep Line/Time Intersection.md)
-   * [Meeting Rooms](Sweep Line/Meeting Rooms.md)
+* Interval Scheduling with Sweep Line
    * [Meeting Rooms II](Sweep Line/Meeting Rooms II.md)
-   * [My Calendar III](Sweep Line/My Calendar III.md)
+
+* My Calendar
+   * [My Calendar I](My Calendar/My Calendar I.md)
+   * [My Calendar II](My Calendar/My Calendar II.md)
+   * [My Calendar III](My Calendar/My Calendar III.md)
 
 * Topological Sort
    * [Course Schedule](Topological Sort/Course Schedule.md)
