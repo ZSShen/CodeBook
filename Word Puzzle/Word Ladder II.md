@@ -5,28 +5,16 @@ https://www.lintcode.com/problem/word-ladder-ii/description
 
 # Solution
 ```c++
-struct Record {
-    std::string word;
-    int level;
-
-    Record(const auto& word, int level)
-      : word(word), level(level)
-    { }
-};
-
-
 class Solution {
 public:
-    /*
-     * @param start: a string
-     * @param end: a string
-     * @param dict: a set of string
-     * @return: a list of lists of string
-     */
-    vector<vector<string>> findLadders(string &start, string &end, unordered_set<string> &dict) {
-        // write your code here
+    vector<vector<string>> findLadders(string begin, string end, vector<string>& words) {
 
         /**
+         *  TC: O(N * K * 25), where
+         *      N is the number of words
+         *      K is average word length
+         *
+         *  SC: O(N * K)
          *                  dot(3) -- dog(4)
          *                /                 \
          * hit(1) - hot(2)                   cog(5)
@@ -35,47 +23,48 @@ public:
          *
          */
 
-        std::unordered_map<std::string, std::unordered_set<std::string>> graph;
-        std::unordered_map<std::string, int> discover;
-        buildGraph(start, end, dict, graph, discover);
+        unordered_set<string> dict(words.begin(), words.end());
+        unordered_map<string, unordered_set<string>> graph;
+        unordered_map<string, int> discovery;
+        discovery[begin] = 0;
 
-        std::vector<std::vector<std::string>> ans;
-        std::vector<std::string> collect;
-        listPaths(1, start, end, graph, discover, ans, collect);
+        buildGraph(begin, end, dict, graph, discovery);
+
+        vector<string> config;
+        config.emplace_back(begin);
+        vector<vector<string>> ans;
+
+        findPath(begin, end, 0, graph, discovery, config, ans);
 
         return ans;
     }
 
 private:
     void buildGraph(
-        const std::string& bgn,
-        const std::string& end,
-        std::unordered_set<std::string>& dict,
-        std::unordered_map<std::string, std::unordered_set<std::string>>& graph,
-        std::unordered_map<std::string, int>& discover) {
+            const string& begin, const string& end,
+            unordered_set<string>& dict,
+            unordered_map<string, unordered_set<string>>& graph,
+            unordered_map<string, int>& discovery) {
 
-        dict.insert(end);
-        discover[bgn] = 1;
+        queue<string> q;
+        q.emplace(begin);
 
-        std::queue<Record> queue;
-        queue.push(Record(bgn, 1));
+        int level = 0;
 
-        while (!queue.empty()) {
+        while (!q.empty()) {
+            int n = q.size();
+            ++level;
 
-            int n = queue.size();
             for (int i = 0 ; i < n ; ++i) {
+                auto src = q.front();
+                q.pop();
 
-                auto front = queue.front();
-                queue.pop();
-
-                auto& src = front.word;
                 auto dst(src);
-                int level = front.level;
+                int l = dst.length();
 
-                int len = dst.length();
-                for (int j = 0 ; j < len ; ++j) {
-
+                for (int j = 0 ; j < l ; ++j) {
                     char backup = dst[j];
+
                     for (char ch = 'a' ; ch <= 'z' ; ++ch) {
                         dst[j] = ch;
 
@@ -83,14 +72,14 @@ private:
                             continue;
                         }
 
-                        graph[src].insert(dst);
+                        // Add an edge.
+                        graph[src].emplace(dst);
 
-                        if (discover.count(dst) == 1) {
-                            continue;
+                        // The first time we visit this word.
+                        if (discovery.count(dst) == 0) {
+                            discovery[dst] = level;
+                            q.emplace(dst);
                         }
-
-                        discover[dst] = level + 1;
-                        queue.push(Record(dst, level + 1));
                     }
 
                     dst[j] = backup;
@@ -99,30 +88,28 @@ private:
         }
     }
 
+    void findPath(
+            const string& begin, const string& end,
+            int level,
+            unordered_map<string, unordered_set<string>>& graph,
+            unordered_map<string, int>& discovery,
+            vector<string>& config,
+            vector<vector<string>>& ans) {
 
-    void listPaths(
-        int depth,
-        const std::string& bgn,
-        const std::string& end,
-        std::unordered_map<std::string, std::unordered_set<std::string>>& graph,
-        std::unordered_map<std::string, int>& discover,
-        std::vector<std::vector<std::string>>& ans,
-        std::vector<std::string>& collect) {
-
-        collect.push_back(bgn);
-
-        if (bgn == end) {
-            ans.push_back(collect);
-        } else {
-            for (const auto& nbr : graph[bgn]) {
-                if (discover[nbr] != depth + 1) {
-                    continue;
-                }
-                listPaths(depth + 1, nbr, end, graph, discover, ans, collect);
-            }
+        if (begin == end) {
+            ans.emplace_back(config);
+            return;
         }
 
-        collect.pop_back();
+        for (const auto& neighbor : graph[begin]) {
+            if (discovery[neighbor] != level + 1) {
+                continue;
+            }
+
+            config.emplace_back(neighbor);
+            findPath(neighbor, end, level + 1, graph, discovery, config, ans);
+            config.pop_back();
+        }
     }
 };
 ```

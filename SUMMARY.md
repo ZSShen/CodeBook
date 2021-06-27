@@ -267,7 +267,6 @@
 * Word Puzzle
    * [Word Break](Word Puzzle/Word Break.md)
    * [Word Break II](Word Puzzle/Word Break II.md)
-   * [Word Break III](Word Puzzle/Word Break III.md)
    * [Word Ladder](Word Puzzle/Word Ladder.md)
    * [Word Ladder II](Word Puzzle/Word Ladder II.md)
    * [Word Search](Word Puzzle/Word Search.md)
@@ -337,7 +336,7 @@
    * [Insert Interval](Interval Fundamental/Insert Interval.md)
 
 * Interval Scheduling with Sweep Line
-   * [Meeting Rooms II](Sweep Line/Meeting Rooms II.md)
+   * [Meeting Rooms II](Interval Scheduling with Sweep Line/Meeting Rooms II.md)
 
 * My Calendar
    * [My Calendar I](My Calendar/My Calendar I.md)

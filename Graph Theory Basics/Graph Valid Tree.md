@@ -1,90 +1,81 @@
 
 # Problem
-### LintCode 178. Graph Valid Tree
-https://www.lintcode.com/problem/graph-valid-tree/description
+### LeetCode 261. Graph Valid Tree
+https://leetcode.com/problems/graph-valid-tree/solution
 
 # Solution
 ```c++
 
-class DisjointSet {
-
+class DSU {
 public:
-    DisjointSet(int n)
-      : parents(std::vector<int>(n)) {
+    DSU(int n)
+        : n(n), parent(n) {
 
         for (int i = 0 ; i < n ; ++i) {
-            parents[i] = i;
+            parent[i] = i;
         }
     }
 
     int find(int x) {
-
-        if (parents[x] == x) {
+        if (x == parent[x]) {
             return x;
         }
 
-        parents[x] = find(parents[x]);
-        return parents[x];
+        return parent[x] = find(parent[x]);
     }
 
-    bool merge(int x, int y) {
-
+    void merge(int x, int y) {
         int px = find(x);
         int py = find(y);
 
         if (px != py) {
-            parents[px] = py;
-            return true;
+            --n;
+            parent[px] = py;
         }
+    }
 
-        return false;
+    int query() {
+        return n;
     }
 
 private:
-    std::vector<int> parents;
+    int n;
+    vector<int> parent;
 };
 
 
 class Solution {
 public:
-    /**
-     * @param n: An integer
-     * @param edges: a list of undirected edges
-     * @return: true if it's a valid tree, or false
-     */
-    bool validTree(int n, vector<vector<int>> &edges) {
-        // write your code here
+    bool validTree(int n, vector<vector<int>>& edges) {
 
         /**
-         * We can use the data structure, disjoint set and union find, to check
-         * if a graph is a valid tree. If the graph is a valid tree, it should
-         * fulfill the following 2 requirements.
+         *  TC: O(N * ack(N)), where
+         *      N is the number of nodes
+         *      ack(N) is the Ackerman function
          *
-         *  1. Suppose the number of nodes is n, then the number of edges
-         *     should be n - 1.
+         *  SC: O(N)
          *
-         *  2. The graph has only one connected component.
+         *  We can use the data structure, disjoint set and union find, to check
+         *  if a graph is a valid tree. If the graph is a valid tree, it should
+         *  fulfill the following 2 requirements.
+         *
+         *   1. Suppose the number of nodes is n, then the number of edges
+         *      should be n - 1.
+         *
+         *   2. The graph has only one connected component.
          */
 
-        if (n == 0) {
-            return false;
-        }
-        if (edges.size() != n - 1) {
+        int e = edges.size();
+        if (n != e + 1) {
             return false;
         }
 
-        DisjointSet sets(n);
-
+        DSU dsu(n);
         for (const auto& edge : edges) {
-            int x = edge[0];
-            int y = edge[1];
-
-            if (!sets.merge(x, y)) {
-                return false;
-            }
+            dsu.merge(edge[0], edge[1]);
         }
 
-        return true;
+        return dsu.query() == 1;
     }
 };
 ```

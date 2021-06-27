@@ -1,34 +1,21 @@
 
 # Problem
-### LintCode 120. Word Ladder
-https://www.lintcode.com/problem/word-ladder/description
+### LeetCode 127. Word Ladder
+https://leetcode.com/problems/word-ladder
 
 # Solution
 ```c++
-
-
-struct Record {
-    std::string word;
-    int level;
-
-    Record(const auto& word, int level)
-      : word(word), level(level)
-    { }
-};
-
-
 class Solution {
 public:
-    /*
-     * @param start: a string
-     * @param end: a string
-     * @param dict: a set of string
-     * @return: An integer
-     */
-    int ladderLength(string &start, string &end, unordered_set<string> &dict) {
-        // write your code here
+    int ladderLength(string begin, string end, vector<string>& words) {
 
         /**
+         *  TC: O(N * K * 25), where
+         *      N is the number of words
+         *      K is average word length
+         *
+         *  SC: O(N * K)
+         *
          *              dot -- dog
          *            /            \
          *  hit -- hot              cog
@@ -36,40 +23,43 @@ public:
          *              lot -- log
          */
 
-        dict.emplace(end);
+        unordered_set<string> dict(words.begin(), words.end());
 
-        queue<string> queue;
-        queue.emplace(start);
+        if (dict.count(end) == 0) {
+            return 0;
+        }
 
-        int step = 0;
+        queue<string> q;
+        q.emplace(begin);
 
-        while (!queue.empty()) {
-            ++step;
-            int n = queue.size();
+        int ans = 1;
+        while (!q.empty()) {
+            int n = q.size();
+            ++ans;
 
             for (int i = 0 ; i < n ; ++i) {
-                auto str = queue.front();
-                queue.pop();
+                auto str = q.front();
+                q.pop();
 
                 int l = str.length();
                 for (int j = 0 ; j < l ; ++j) {
+                    char backup = str[j];
+
                     for (char ch = 'a' ; ch <= 'z' ; ++ch) {
-                        char back = str[j];
                         str[j] = ch;
 
                         if (dict.count(str) == 0) {
-                            str[j] = back;
                             continue;
                         }
-
                         if (str == end) {
-                            return step + 1;
+                            return ans;
                         }
 
-                        queue.emplace(str);
+                        q.emplace(str);
                         dict.erase(str);
-                        str[j] = back;
                     }
+
+                    str[j] = backup;
                 }
             }
         }
