@@ -1,77 +1,64 @@
 
 # Problem
-### LintCode 1041. Reorganize String
-https://www.lintcode.com/problem/reorganize-string/description?
+### LeetCode 767. Reorganize String
+https://leetcode.com/problems/reorganize-string
 
 # Solution
 ```c++
-
-struct Record {
-    char ch;
-    int freq;
-
-    Record(char ch, int freq)
-        : ch(ch), freq(freq)
-    { }
-};
-
-struct RecordCompare {
-    bool operator() (const auto& lhs, const auto& rhs) {
-        return lhs.freq < rhs.freq;
-    }
-};
-
-
 class Solution {
 public:
-    string reorganizeString(string &S) {
+    string reorganizeString(string s) {
 
-        unordered_map<char, int> map;
-        for (char ch : S) {
-            ++map[ch];
+        /**
+         *  TC: O(N * log(26)), where
+         *      N is the string length
+         *
+         *  SC: O(26)
+         */
+
+        vector<int> freq(26);
+        for (char ch : s) {
+            ++freq[ch - 'a'];
         }
 
-        priority_queue<Record, vector<Record>, RecordCompare> queue;
-        for (const auto& pair : map) {
-            queue.emplace(pair.first, pair.second);
+        using T = pair<int, char>;
+        priority_queue<T, vector<T>, less<>> q;
+        for (int i = 0 ; i < 26 ; ++i) {
+            if (freq[i] > 0) {
+                q.push({freq[i], 'a' + i});
+            }
         }
 
-        string res;
+        string ans;
 
-        while (!queue.empty()) {
-            auto fst = queue.top();
-            queue.pop();
+        while (!q.empty()) {
+            auto a = q.top();
+            q.pop();
 
-            if (queue.empty()) {
-                if (fst.freq > 1) {
+            if (q.empty()) {
+                if (a.first > 1) {
                     return "";
+                } else {
+                    ans.push_back(a.second);
+                    break;
                 }
-                res.push_back(fst.ch);
-                return res;
             }
 
-            auto snd = queue.top();
-            queue.pop();
+            auto b = q.top();
+            q.pop();
 
-            if (fst.ch != res.back()) {
-                res.push_back(fst.ch);
-                res.push_back(snd.ch);
-            } else {
-                res.push_back(snd.ch);
-                res.push_back(fst.ch);
-            }
-            --fst.freq;
-            --snd.freq;
+            ans.push_back(a.second);
+            ans.push_back(b.second);
 
-            if (fst.freq > 0) {
-                queue.emplace(std::move(fst));
+            if (a.first > 1) {
+                q.push({a.first - 1, a.second});
             }
-            if (snd.freq > 0) {
-                queue.emplace(std::move(snd));
+            if (b.first > 1) {
+                q.push({b.first - 1, b.second});
             }
         }
 
-        return res;
+        return ans;
     }
 };
 ```

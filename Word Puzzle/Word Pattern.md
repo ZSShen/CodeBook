@@ -1,65 +1,53 @@
 
 # Problem
-### LintCode 828. Word Pattern
-https://www.lintcode.com/problem/word-pattern/description
+### LeetCode 290. Word Pattern
+https://leetcode.com/problems/word-pattern
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param pattern: a string, denote pattern string
-     * @param teststr: a string, denote matching string
-     * @return: an boolean, denote whether the pattern string and the matching string match or not
-     */
-    bool wordPattern(string &pattern, string &teststr) {
-        // write your code here
+    bool wordPattern(string p, string s) {
 
-        std::unordered_map<char, std::string> forward;
-        std::unordered_map<std::string, char> backward;
+        /**
+         *  O(N), where
+         *      N is the number of words
+         *
+         *  O(M), where
+         *      M is the number of unique words
+         */
 
-        int bgn = 0, end = teststr.length();
+        int np = p.length();
+        istringstream in(s);
 
-        for (char ch : pattern) {
-            auto token = getToken(teststr, bgn, end);
-            if (token.empty()) {
+        unordered_map<char, string> p2s;
+        unordered_map<string, char> s2p;
+
+        int i = 0;
+        for (string word ; in >> word ; ++i) {
+            if (i == np) {
                 return false;
             }
 
-            auto iter_f = forward.find(ch);
-            if (iter_f == forward.end()) {
-                forward[ch] = token;
-            } else if (token != iter_f->second) {
-                return false;
+            char ch = p[i];
+            if (p2s.count(ch) == 0) {
+                p2s[ch] = word;
+            } else {
+                if (word != p2s[ch]) {
+                    return false;
+                }
             }
 
-            auto iter_b = backward.find(token);
-            if (iter_b == backward.end()) {
-                backward[token] = ch;
-            } else if (ch != iter_b->second) {
-                return false;
+            if (s2p.count(word) == 0) {
+                s2p[word] = ch;
+            } else {
+                if (ch != s2p[word]) {
+                    return false;
+                }
             }
         }
 
-        return true;
-    }
-
-private:
-    std::string getToken(const std::string& str, int& bgn, int end) {
-
-        if (bgn == end) {
-            return "";
-        }
-
-        int curr = bgn;
-        while (curr < end && str[curr] != ' ') {
-            ++curr;
-        }
-
-        auto token = str.substr(bgn, curr - bgn);
-        bgn = (curr < end) ? curr + 1 : curr;
-
-        return token;
+        return i == np;
     }
 };
 ```

@@ -1,77 +1,63 @@
 
 # Problem
-### LintCode 132. Word Search II
-https://www.lintcode.com/problem/word-search-ii/description
+### LeetCode 212. Word Search II
+https://leetcode.com/problems/word-search-ii
 
 # Solution
 ```c++
-
-
-struct TrieNode {
-    std::unordered_map<char, std::shared_ptr<TrieNode>> branch;
-    bool is_word;
-
-    TrieNode()
-      : is_word(false)
-    { }
+struct Node {
+    bool is_word = false;
+    unordered_map<char, shared_ptr<Node>> branch;
 };
 
 
 class Solution {
 public:
     Solution()
-      : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
+        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
     { }
 
-    /**
-     * @param board: A list of lists of character
-     * @param words: A list of string
-     * @return: A list of string
-     */
-    vector<string> wordSearchII(vector<vector<char>> &board, vector<string> &words) {
-        // write your code here
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
 
-        int num_r = board.size();
-        if (num_r == 0) {
-            return {};
-        }
+        /**
+         *  TC: O(M * N * (3^L)), where
+         *      M is the number of rows
+         *      N is the number of columns
+         *      L is the word length
+         *
+         *  SC: O(L)
+         */
 
-        int num_c = board[0].size();
-        if (num_c == 0) {
-            return {};
-        }
+        auto root = buildTrie(words);
 
-        auto trie = makeTrie(words);
+        int m = board.size();
+        int n = board[0].size();
 
-        std::unordered_set<std::string> set;
-        std::string config;
+        unordered_set<string> ans;
 
-        for (int r = 0 ; r < num_r ; ++r) {
-            for (int c = 0 ; c < num_c ; ++c) {
-                runBackTracking(trie, r, c, num_r, num_c, board, config, set);
+        for (int x = 0 ; x < m ; ++x) {
+            for (int y = 0 ; y < n ; ++y) {
+                string config;
+                backTracking(x, y, m, n, root, board, config, ans);
             }
         }
 
-        std::vector<std::string> ans;
-        for (const auto& word : set) {
-            ans.push_back(word);
-        }
-
-        return ans;
+        return vector<string>(ans.begin(), ans.end());
     }
 
 private:
-    std::shared_ptr<TrieNode> makeTrie(const std::vector<std::string>& words) {
+    vector<vector<int>> directs;
 
-        auto root = std::make_shared<TrieNode>();
+    shared_ptr<Node> buildTrie(const vector<string>& words) {
+
+        auto root = make_shared<Node>();
 
         for (const auto& word : words) {
-
             auto curr = root;
-            for (char ch : word) {
 
+            for (char ch : word) {
                 if (curr->branch.count(ch) == 0) {
-                    curr->branch[ch] = std::make_shared<TrieNode>();
+                    curr->branch[ch] = make_shared<Node>();
                 }
                 curr = curr->branch[ch];
             }
@@ -82,46 +68,47 @@ private:
         return root;
     }
 
+    void backTracking(
+            int x, int y, int m, int n,
+            shared_ptr<Node> curr,
+            vector<vector<char>>& board,
+            string& config,
+            unordered_set<string>& ans) {
 
-    void runBackTracking(
-            std::shared_ptr<TrieNode> curr,
-            int r, int c,
-            int num_r, int num_c,
-            std::vector<std::vector<char>>& board,
-            std::string& config,
-            std::unordered_set<std::string>& set) {
-
-        char ch = board[r][c];
+        char ch = board[x][y];
+        config.push_back(ch);
 
         if (curr->branch.count(ch) == 0) {
+            config.pop_back();
             return;
         }
+
         curr = curr->branch[ch];
 
-        config.push_back(ch);
-        board[r][c] = 0;
-
+        // If this is the tail of a word.
         if (curr->is_word) {
-            set.insert(config);
+            ans.emplace(config);
+
+            // Mark the word as visited so we won't collect duplicates.
+            curr->is_word = false;
         }
 
-        for (const auto& direct : directs) {
-            int nr = r + direct[0];
-            int nc = c + direct[1];
+        board[x][y] = 0;
 
-            if (!(nr >= 0 && nc >= 0 && nr < num_r && nc < num_c) ||
-                board[nr][nc] == 0) {
+        for (const auto& d : directs) {
+            int nx = x + d[0];
+            int ny = y + d[1];
+
+            if (!(nx >= 0 && ny >= 0 && nx < m && ny < n) ||
+                board[nx][ny] == 0) {
                 continue;
             }
 
-            runBackTracking(curr, nr, nc, num_r, num_c, board, config, set);
+            backTracking(nx, ny, m, n, curr, board, config, ans);
         }
 
         config.pop_back();
-        board[r][c] = ch;
+        board[x][y] = ch;
     }
-
-
-    std::vector<std::vector<int>> directs;
 };
 ```

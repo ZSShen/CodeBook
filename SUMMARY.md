@@ -277,7 +277,6 @@
    * [Valid Word Square](Word Puzzle/Valid Word Square.md)
    * [Valid Anagram](Word Puzzle/Valid Anagram.md)
    * [Group Anagrams](Word Puzzle/Group Anagrams.md)
-   * [Find All Anagrams in a String](Word Puzzle/Find All Anagrams in a String.md)
    * [Valid Word Abbreviation](Word Puzzle/Valid Word Abbreviation.md)
    * [Word Abbreviation](Word Puzzle/Word Abbreviation.md)
    * [Unique Word Abbreviation](Word Puzzle/Unique Word Abbreviation.md)
@@ -334,6 +333,7 @@
    * [Non-overlapping Intervals](Interval Fundamental/Non-overlapping Intervals.md)
    * [Merge Intervals](Interval Fundamental/Merge Intervals.md)
    * [Insert Interval](Interval Fundamental/Insert Interval.md)
+   * [Minimum Number of Arrows to Burst Balloons](Interval Fundamental/Minimum Number of Arrows to Burst Balloons.md)
 
 * Interval Scheduling with Sweep Line
    * [Meeting Rooms II](Interval Scheduling with Sweep Line/Meeting Rooms II.md)

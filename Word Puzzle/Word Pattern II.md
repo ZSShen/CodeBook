@@ -1,85 +1,72 @@
 
 # Problem
-### LintCode 829. Word Pattern II
-https://www.lintcode.com/problem/word-pattern-ii/description
+### LeetCode 291. Word Pattern II
+https://leetcode.com/problems/word-pattern-ii
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param pattern: a string,denote pattern string
-     * @param str: a string, denote matching string
-     * @return: a boolean
-     */
-    bool wordPatternMatch(string &pattern, string &str) {
-        // write your code here
-
-        std::unordered_map<char, std::string> map;
-        std::unordered_set<std::string> dedup;
-
-        return runBackTracking(
-            0, pattern.length(), pattern, 0, str.length(), str, map, dedup);
+    bool wordPatternMatch(string p, string s) {
+        unordered_map<char, string> map;
+        unordered_set<string> set;
+        return backTracking(
+            0, p.length(), 0, s.length(), p, s, map, set);
     }
 
 private:
-    bool runBackTracking(
-            int idx_p,
-            int bnd_p,
-            const std::string& pat,
-            int idx_s,
-            int bnd_s,
-            const std::string& str,
-            std::unordered_map<char, std::string>& map,
-            std::unordered_set<std::string>& dedup) {
+    bool backTracking(
+            int ip, int np, int is, int ns,
+            const string& p, const string& s,
+            unordered_map<char, string>& map,
+            unordered_set<string>& set) {
 
-        if (idx_p == bnd_p && idx_s == bnd_s) {
+        if (ip == np && is == ns) {
             return true;
         }
-
-        if (idx_p == bnd_p || idx_s == bnd_s) {
+        if (ip == np || is == ns) {
             return false;
         }
 
-        char ch = pat[idx_p];
-
+        char ch = p[ip];
         if (map.count(ch) == 1) {
+            // The character has been mapped.
+
             const auto& token = map[ch];
-            int len_t = token.length();
+            int l = token.length();
 
-            if (len_t > bnd_s - idx_s) {
+            if (is + l > ns) {
+                return false;
+            }
+            if (token != s.substr(is, l)) {
                 return false;
             }
 
-            auto cand = str.substr(idx_s, len_t);
-            if (cand != token) {
-                return false;
-            }
-
-            auto ret = runBackTracking(
-                idx_p + 1, bnd_p, pat, idx_s + len_t, bnd_s, str, map, dedup);
-            if (ret) {
+            bool res = backTracking(
+                ip + 1, np, is + l, ns, p, s, map, set);
+            if (res) {
                 return true;
             }
         } else {
-            for (int i = idx_s ; i < bnd_s ; ++i) {
-                auto cand = str.substr(idx_s, i - idx_s + 1);
+            // Try to find a mapping for the character.
 
-                if (dedup.count(cand) == 1) {
+            for (int i = is ; i < ns ; ++i) {
+                auto token = s.substr(is, i - is + 1);
+                if (set.count(token) == 1) {
                     continue;
                 }
 
-                map[ch] = cand;
-                dedup.insert(cand);
+                map[ch] = token;
+                set.emplace(token);
 
-                auto ret = runBackTracking(
-                    idx_p + 1, bnd_p, pat, i + 1, bnd_s, str, map, dedup);
-                if (ret) {
+                bool res = backTracking(
+                    ip + 1, np, i + 1, ns, p, s, map, set);
+                if (res) {
                     return true;
                 }
 
+                set.erase(token);
                 map.erase(ch);
-                dedup.erase(cand);
             }
         }
 
