@@ -1,81 +1,66 @@
 
 # Problem
-### LintCode 36. Reverse Linked List II
-https://www.lintcode.com/problem/reverse-linked-list-ii/description
+### LeetCode 92. Reverse Linked List II
+https://leetcode.com/problems/reverse-linked-list-ii/submissions
 
 # Solution
 ```c++
 /**
- * Definition of singly-linked-list:
- * class ListNode {
- * public:
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int val) {
- *        this->val = val;
- *        this->next = NULL;
- *     }
- * }
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param head: ListNode head is the head of the linked list
-     * @param m: An integer
-     * @param n: An integer
-     * @return: The head of the reversed ListNode
-     */
-    ListNode * reverseBetween(ListNode * head, int m, int n) {
-        // write your code here
-
-        if (!head || m == n) {
-            return head;
-        }
-
-        // Use the dummy node to simplify the reversing procedure.
-        auto dummy = new ListNode(-1);
-        dummy->next = head;
-
-        auto pred_bgn = dummy;
-        auto curr_bgn = head;
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
 
         /**
-         *       pb   cb
-         *   d -> 1 -> 2 -> 3 -> 4 -> 5
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(1)
+         *
+         *    first
+         *      |    m         n
+         *      1 -> 2 -> 3 -> 4 -> 5
+         *           |
+         *         second
+         *                   prev  curr
+         *      1 <- 2 <- 3 <- 4 -> 5
+         *
+         *      first->next = prev
+         *      second->next = curr
          */
+
+        ListNode dummy;
+        dummy.next = head;
+
+        // Find the (m-1)th node.
+        auto first = &dummy;
         for (int i = 0 ; i < m - 1 ; ++i) {
-            pred_bgn = curr_bgn;
-            curr_bgn = curr_bgn->next;
+            first = first->next;
         }
 
-        /**
-         *      pb
-         *  d -> 1 ->
-         *                pe ce
-         *    <- 2 <- 3 <- 4  5
-         */
-        ListNode* pred_end = nullptr;
-        auto curr_end = curr_bgn;
-
+        // Reverse the internal segment.
+        auto tail = first->next;
+        ListNode* pred = nullptr;
+        auto curr = tail;
         for (int i = m ; i <= n ; ++i) {
-            auto succ = curr_end->next;
-            curr_end->next = pred_end;
-            pred_end = curr_end;
-            curr_end = succ;
+            auto succ = curr->next;
+            curr->next = pred;
+            pred = curr;
+            curr = succ;
         }
 
-        // 2 -> 5
-        pred_bgn->next->next = curr_end;
+        first->next = pred;
+        tail->next = curr;
 
-        // 1 -> 4
-        pred_bgn->next = pred_end;
-
-        // d -> 1 -> 4 -> 3 -> 2 -> 5
-        auto new_head = dummy->next;
-
-        delete dummy;
-        return new_head;
+        return dummy.next;
     }
 };
 ```

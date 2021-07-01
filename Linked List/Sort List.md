@@ -1,91 +1,76 @@
 
 # Problem
-### LintCode 98. Sort List
-https://www.lintcode.com/problem/sort-list/leaderboard
+### LeetCode 148. Sort List
+https://leetcode.com/problems/sort-list
 
 # Solution
 ```c++
 /**
- * Definition of singly-linked-list:
- * class ListNode {
- * public:
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int val) {
- *        this->val = val;
- *        this->next = NULL;
- *     }
- * }
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param head: The head of linked list.
-     * @return: You should return the head of the sorted linked list, using constant space complexity.
-     */
-    ListNode * sortList(ListNode * head) {
-        // write your code here
+    ListNode* sortList(ListNode* head) {
 
-        if (!head) {
-            return nullptr;
-        }
+        /**
+         *  TC: O(NlogN), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)  The cost to maintain call stack
+         */
 
-        return mergeSort(head, nullptr);
+        return merge(head, nullptr);
     }
 
 private:
-    ListNode* mergeSort(ListNode* bgn, ListNode* end) {
+    ListNode* merge(ListNode* bgn, ListNode* end) {
 
+        if (bgn == end) {
+            return nullptr;
+        }
         if (bgn->next == end) {
             bgn->next = nullptr;
             return bgn;
         }
 
-        // Find the middle node of the list.
-        auto curr = bgn;
-        auto pred = bgn;
-
-        while (curr != end) {
-            pred = pred->next;
-            curr = curr->next;
-            if (curr != end) {
-                curr = curr->next;
-            }
+        auto slow = bgn, fast = bgn;
+        while (fast != end && fast->next != end) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
 
-        auto left = mergeSort(bgn, pred);
-        auto right = mergeSort(pred, end);
+        auto l = merge(bgn, slow);
+        auto r = merge(slow, end);
 
-        // Merge two sorted lists.
-        auto dummy = new ListNode(-1);
-        curr = dummy;
+        ListNode dummy;
+        auto curr = &dummy;
 
-        while (left && right) {
-            if (left->val < right->val) {
-                curr->next = left;
-                left = left->next;
+        while (l && r) {
+            if (l->val < r->val) {
+                curr->next = l;
+                l = l->next;
             } else {
-                curr->next = right;
-                right = right->next;
+                curr->next = r;
+                r = r->next;
             }
             curr = curr->next;
         }
 
-        while (left) {
-            curr->next = left;
-            curr = curr->next;
-            left = left->next;
+        while (l) {
+            curr = curr->next = l;
+            l = l->next;
         }
-        while (right) {
-            curr->next = right;
-            curr = curr->next;
-            right = right->next;
+        while (r) {
+            curr = curr->next = r;
+            r = r->next;
         }
 
-        auto head = dummy->next;
-        delete dummy;
-        return head;
+        return dummy.next;
     }
 };
 ```

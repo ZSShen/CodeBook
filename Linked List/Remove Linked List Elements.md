@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 96. Partition List
-https://www.lintcode.com/problem/partition-list/description
+### LeetCode 203. Remove Linked List Elements
+https://leetcode.com/problems/remove-linked-list-elements
 
 # Solution
 ```c++
@@ -17,7 +17,7 @@ https://www.lintcode.com/problem/partition-list/description
  */
 class Solution {
 public:
-    ListNode* partition(ListNode* head, int x) {
+    ListNode* removeElements(ListNode* head, int val) {
 
         /**
          *  TC: O(N), where
@@ -26,22 +26,22 @@ public:
          *  SC: O(1)
          */
 
-        ListNode dummy_l, dummy_g;
-        auto l = &dummy_l, g = &dummy_g;
+        ListNode dummy;
+        dummy.next = head;
 
-        while (head) {
-            if (head->val < x) {
-                l = l->next = head;
+        auto curr = head, pred = &dummy;
+        while (curr) {
+            auto succ = curr->next;
+            if (curr->val == val) {
+                pred->next = succ;
+                delete curr;
             } else {
-                g = g->next = head;
+                pred = pred->next;
             }
-            head = head->next;
+            curr = succ;
         }
 
-        g->next = nullptr;
-        l->next = dummy_g.next;
-
-        return dummy_l.next;
+        return dummy.next;
     }
 };
 ```

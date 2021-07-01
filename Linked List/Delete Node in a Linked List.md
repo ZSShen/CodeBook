@@ -1,50 +1,41 @@
 
 # Problem
-### LintCode 372. Delete Node in a Linked List
-https://www.lintcode.com/problem/delete-node-in-a-linked-list/description
+### LeetCode 237. Delete Node in a Linked List
+https://leetcode.com/problems/delete-node-in-a-linked-list
 
 # Solution
 ```c++
 /**
- * Definition of ListNode
- * class ListNode {
- * public:
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int val) {
- *         this->val = val;
- *         this->next = NULL;
- *     }
- * }
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
  */
-
-
 class Solution {
 public:
-    /*
-     * @param node: the node in the list should be deleted
-     * @return: nothing
-     */
-    void deleteNode(ListNode * node) {
-        // write your code here
+    void deleteNode(ListNode* node) {
 
-        if (!node) {
-            return;
-        }
+        /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(1)
+         */
 
         auto pred = node;
-        auto curr = node;
-        auto last = node;
+        auto curr = pred->next;
 
         while (curr->next) {
-            curr = curr->next;
             pred->val = curr->val;
-            last = pred;
             pred = curr;
+            curr = curr->next;
         }
+        pred->val = curr->val;
 
         delete curr;
-        last->next = nullptr;
+        pred->next = nullptr;
     }
 };
 ```

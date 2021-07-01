@@ -283,11 +283,14 @@
 
 * Linked List
    * [Delete Node in a Linked List](Linked List/Delete Node in a Linked List.md)
+   * [Remove Linked List Elements](Linked List/Remove Linked List Elements.md)
+   * [Remove Nth Node From End of List](Linked List/Remove Nth Node From End of List.md)
+   * [Reverse Linked List II](Linked List/Reverse Linked List II.md)
+   * [Sort List](Linked List/Sort List.md)
+   * [Partition List](Linked List/Partition List.md)
+   * [Intersection of Two Linked Lists](Linked List/Intersection of Two Linked Lists.md)
    * [Copy List with Random Pointer](Linked List/Copy List with Random Pointer.md)
    * [Insert into a Cyclic Sorted List](Linked List/Insert into a Cyclic Sorted List.md)
-   * [Reverse Linked List II](Linked List/Reverse Linked List II.md)
-   * [Partition List](Linked List/Partition List.md)
-   * [Sort List](Linked List/Sort List.md)
    * [Convert Binary Tree to Linked List by Depth](Linked List/Convert Binary Tree to Linked List by Depth.md)
    * [Linked List Cycle II](Linked List/Linked List Cycle II.md)
 
