@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Sort List.html" />
+    <link rel="next" href="Intersection of Two Linked Lists.html" />
     
     
-    <link rel="prev" href="Reverse Linked List II.html" />
+    <link rel="prev" href="Sort List.html" />
     
 
     </head>
@@ -3560,12 +3560,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.2" data-path="Copy List with Random Pointer.html">
+        <li class="chapter " data-level="1.30.2" data-path="Remove Linked List Elements.html">
             
-                <a href="Copy List with Random Pointer.html">
+                <a href="Remove Linked List Elements.html">
             
                     
-                    Copy List with Random Pointer
+                    Remove Linked List Elements
             
                 </a>
             
@@ -3573,12 +3573,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.3" data-path="Insert into a Cyclic Sorted List.html">
+        <li class="chapter " data-level="1.30.3" data-path="Remove Nth Node From End of List.html">
             
-                <a href="Insert into a Cyclic Sorted List.html">
+                <a href="Remove Nth Node From End of List.html">
             
                     
-                    Insert into a Cyclic Sorted List
+                    Remove Nth Node From End of List
             
                 </a>
             
@@ -3599,20 +3599,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.30.5" data-path="Partition List.html">
-            
-                <a href="Partition List.html">
-            
-                    
-                    Partition List
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.30.6" data-path="Sort List.html">
+        <li class="chapter " data-level="1.30.5" data-path="Sort List.html">
             
                 <a href="Sort List.html">
             
@@ -3625,7 +3612,59 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.7" data-path="Convert Binary Tree to Linked List by Depth.html">
+        <li class="chapter active" data-level="1.30.6" data-path="Partition List.html">
+            
+                <a href="Partition List.html">
+            
+                    
+                    Partition List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.7" data-path="Intersection of Two Linked Lists.html">
+            
+                <a href="Intersection of Two Linked Lists.html">
+            
+                    
+                    Intersection of Two Linked Lists
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.8" data-path="Copy List with Random Pointer.html">
+            
+                <a href="Copy List with Random Pointer.html">
+            
+                    
+                    Copy List with Random Pointer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.9" data-path="Insert into a Cyclic Sorted List.html">
+            
+                <a href="Insert into a Cyclic Sorted List.html">
+            
+                    
+                    Insert into a Cyclic Sorted List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.10" data-path="Convert Binary Tree to Linked List by Depth.html">
             
                 <a href="Convert Binary Tree to Linked List by Depth.html">
             
@@ -3638,7 +3677,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.8" data-path="Linked List Cycle II.html">
+        <li class="chapter " data-level="1.30.11" data-path="Linked List Cycle II.html">
             
                 <a href="Linked List Cycle II.html">
             
@@ -4674,69 +4713,42 @@
 <p><a href="https://www.lintcode.com/problem/partition-list/description" target="_blank">https://www.lintcode.com/problem/partition-list/description</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-comment">/**
- * Definition of singly-linked-list:
- * class ListNode {
- * public:
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int val) {
- *        this-&gt;val = val;
- *        this-&gt;next = NULL;
- *     }
- * }
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
  */</span>
-
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param head: The first node of linked list
-     * @param x: An integer
-     * @return: A ListNode
-     */</span>
-    <span class="hljs-function">ListNode * <span class="hljs-title">partition</span><span class="hljs-params">(ListNode * head, <span class="hljs-keyword">int</span> x)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function">ListNode* <span class="hljs-title">partition</span><span class="hljs-params">(ListNode* head, <span class="hljs-keyword">int</span> x)</span> </span>{
 
         <span class="hljs-comment">/**
-         *       cl        pr   cr
-         *        |         |    |
-         *        v         v    v
-         *   d -&gt; 1 -&gt; 4 -&gt; 3 -&gt; 2 -&gt; 5 -&gt; 2 -&gt;
+         *  TC: O(N), where
+         *      N is the number of nodes
          *
-         *   Changes:
-         *   pr-&gt;next = cr-&gt;next  (3 -&gt; 5)
-         *   cl-&gt;next = cr        (1 -&gt; 2)
-         *   cr-&gt;next = cl-&gt;next  (2 -&gt; 4)
+         *  SC: O(1)
          */</span>
 
-        <span class="hljs-keyword">auto</span> dummy = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">-1</span>);
-        dummy-&gt;next = head;
+        ListNode dummy_l, dummy_g;
+        <span class="hljs-keyword">auto</span> l = &amp;dummy_l, g = &amp;dummy_g;
 
-        <span class="hljs-keyword">auto</span> cl = dummy;
-        <span class="hljs-keyword">while</span> (cl-&gt;next &amp;&amp; cl-&gt;next-&gt;val &lt; x) {
-            cl = cl-&gt;next;
-        }
-
-        <span class="hljs-keyword">auto</span> pr = cl;
-        <span class="hljs-keyword">auto</span> cr = cl-&gt;next;
-        <span class="hljs-keyword">while</span> (cr) {
-            <span class="hljs-keyword">if</span> (cr-&gt;val &lt; x) {
-                <span class="hljs-keyword">auto</span> succ = cr-&gt;next;
-
-                pr-&gt;next = succ;
-                cr-&gt;next = cl-&gt;next;
-                cl-&gt;next = cr;
-
-                cl = cr;
-                cr = succ;
+        <span class="hljs-keyword">while</span> (head) {
+            <span class="hljs-keyword">if</span> (head-&gt;val &lt; x) {
+                l = l-&gt;next = head;
             } <span class="hljs-keyword">else</span> {
-                pr = cr;
-                cr = cr-&gt;next;
+                g = g-&gt;next = head;
             }
+            head = head-&gt;next;
         }
 
-        <span class="hljs-keyword">auto</span> new_head = dummy-&gt;next;
-        <span class="hljs-keyword">delete</span> dummy;
-        <span class="hljs-keyword">return</span> new_head;
+        g-&gt;next = <span class="hljs-literal">nullptr</span>;
+        l-&gt;next = dummy_g.next;
+
+        <span class="hljs-keyword">return</span> dummy_l.next;
     }
 };
 </code></pre>
@@ -4767,12 +4779,12 @@
 
             
                 
-                <a href="Reverse Linked List II.html" class="navigation navigation-prev " aria-label="Previous page: Reverse Linked List II">
+                <a href="Sort List.html" class="navigation navigation-prev " aria-label="Previous page: Sort List">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Sort List.html" class="navigation navigation-next " aria-label="Next page: Sort List">
+                <a href="Intersection of Two Linked Lists.html" class="navigation navigation-next " aria-label="Next page: Intersection of Two Linked Lists">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -4783,7 +4795,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Partition List","level":"1.30.5","depth":2,"next":{"title":"Sort List","level":"1.30.6","depth":2,"path":"Linked List/Sort List.md","ref":"Linked List/Sort List.md","articles":[]},"previous":{"title":"Reverse Linked List II","level":"1.30.4","depth":2,"path":"Linked List/Reverse Linked List II.md","ref":"Linked List/Reverse Linked List II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Partition List.md","mtime":"2021-06-26T04:57:23.648Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-29T05:32:12.280Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Partition List","level":"1.30.6","depth":2,"next":{"title":"Intersection of Two Linked Lists","level":"1.30.7","depth":2,"path":"Linked List/Intersection of Two Linked Lists.md","ref":"Linked List/Intersection of Two Linked Lists.md","articles":[]},"previous":{"title":"Sort List","level":"1.30.5","depth":2,"path":"Linked List/Sort List.md","ref":"Linked List/Sort List.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Partition List.md","mtime":"2021-07-01T05:46:54.688Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-01T06:12:34.862Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

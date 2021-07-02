@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Copy List with Random Pointer.html" />
+    <link rel="next" href="Remove Linked List Elements.html" />
     
     
 
@@ -3558,12 +3558,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.2" data-path="Copy List with Random Pointer.html">
+        <li class="chapter " data-level="1.30.2" data-path="Remove Linked List Elements.html">
             
-                <a href="Copy List with Random Pointer.html">
+                <a href="Remove Linked List Elements.html">
             
                     
-                    Copy List with Random Pointer
+                    Remove Linked List Elements
             
                 </a>
             
@@ -3571,12 +3571,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.3" data-path="Insert into a Cyclic Sorted List.html">
+        <li class="chapter " data-level="1.30.3" data-path="Remove Nth Node From End of List.html">
             
-                <a href="Insert into a Cyclic Sorted List.html">
+                <a href="Remove Nth Node From End of List.html">
             
                     
-                    Insert into a Cyclic Sorted List
+                    Remove Nth Node From End of List
             
                 </a>
             
@@ -3597,20 +3597,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.5" data-path="Partition List.html">
-            
-                <a href="Partition List.html">
-            
-                    
-                    Partition List
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.30.6" data-path="Sort List.html">
+        <li class="chapter " data-level="1.30.5" data-path="Sort List.html">
             
                 <a href="Sort List.html">
             
@@ -3623,7 +3610,59 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.7" data-path="Convert Binary Tree to Linked List by Depth.html">
+        <li class="chapter " data-level="1.30.6" data-path="Partition List.html">
+            
+                <a href="Partition List.html">
+            
+                    
+                    Partition List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.7" data-path="Intersection of Two Linked Lists.html">
+            
+                <a href="Intersection of Two Linked Lists.html">
+            
+                    
+                    Intersection of Two Linked Lists
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.8" data-path="Copy List with Random Pointer.html">
+            
+                <a href="Copy List with Random Pointer.html">
+            
+                    
+                    Copy List with Random Pointer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.9" data-path="Insert into a Cyclic Sorted List.html">
+            
+                <a href="Insert into a Cyclic Sorted List.html">
+            
+                    
+                    Insert into a Cyclic Sorted List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.10" data-path="Convert Binary Tree to Linked List by Depth.html">
             
                 <a href="Convert Binary Tree to Linked List by Depth.html">
             
@@ -3636,7 +3675,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.8" data-path="Linked List Cycle II.html">
+        <li class="chapter " data-level="1.30.11" data-path="Linked List Cycle II.html">
             
                 <a href="Linked List Cycle II.html">
             
@@ -4668,49 +4707,40 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-372-delete-node-in-a-linked-list">LintCode 372. Delete Node in a Linked List</h3>
-<p><a href="https://www.lintcode.com/problem/delete-node-in-a-linked-list/description" target="_blank">https://www.lintcode.com/problem/delete-node-in-a-linked-list/description</a></p>
+<h3 id="leetcode-237-delete-node-in-a-linked-list">LeetCode 237. Delete Node in a Linked List</h3>
+<p><a href="https://leetcode.com/problems/delete-node-in-a-linked-list" target="_blank">https://leetcode.com/problems/delete-node-in-a-linked-list</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-comment">/**
- * Definition of ListNode
- * class ListNode {
- * public:
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int val) {
- *         this-&gt;val = val;
- *         this-&gt;next = NULL;
- *     }
- * }
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
  */</span>
-
-
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/*
-     * @param node: the node in the list should be deleted
-     * @return: nothing
-     */</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteNode</span><span class="hljs-params">(ListNode * node)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteNode</span><span class="hljs-params">(ListNode* node)</span> </span>{
 
-        <span class="hljs-keyword">if</span> (!node) {
-            <span class="hljs-keyword">return</span>;
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(1)
+         */</span>
 
         <span class="hljs-keyword">auto</span> pred = node;
-        <span class="hljs-keyword">auto</span> curr = node;
-        <span class="hljs-keyword">auto</span> last = node;
+        <span class="hljs-keyword">auto</span> curr = pred-&gt;next;
 
         <span class="hljs-keyword">while</span> (curr-&gt;next) {
-            curr = curr-&gt;next;
             pred-&gt;val = curr-&gt;val;
-            last = pred;
             pred = curr;
+            curr = curr-&gt;next;
         }
+        pred-&gt;val = curr-&gt;val;
 
         <span class="hljs-keyword">delete</span> curr;
-        last-&gt;next = <span class="hljs-literal">nullptr</span>;
+        pred-&gt;next = <span class="hljs-literal">nullptr</span>;
     }
 };
 </code></pre>
@@ -4742,7 +4772,7 @@
             
                 
                 
-                <a href="Copy List with Random Pointer.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Copy List with Random Pointer">
+                <a href="Remove Linked List Elements.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Remove Linked List Elements">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -4753,7 +4783,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Delete Node in a Linked List","level":"1.30.1","depth":2,"next":{"title":"Copy List with Random Pointer","level":"1.30.2","depth":2,"path":"Linked List/Copy List with Random Pointer.md","ref":"Linked List/Copy List with Random Pointer.md","articles":[]},"previous":{"title":"Linked List","level":"1.30","depth":1,"ref":"","articles":[{"title":"Delete Node in a Linked List","level":"1.30.1","depth":2,"path":"Linked List/Delete Node in a Linked List.md","ref":"Linked List/Delete Node in a Linked List.md","articles":[]},{"title":"Copy List with Random Pointer","level":"1.30.2","depth":2,"path":"Linked List/Copy List with Random Pointer.md","ref":"Linked List/Copy List with Random Pointer.md","articles":[]},{"title":"Insert into a Cyclic Sorted List","level":"1.30.3","depth":2,"path":"Linked List/Insert into a Cyclic Sorted List.md","ref":"Linked List/Insert into a Cyclic Sorted List.md","articles":[]},{"title":"Reverse Linked List II","level":"1.30.4","depth":2,"path":"Linked List/Reverse Linked List II.md","ref":"Linked List/Reverse Linked List II.md","articles":[]},{"title":"Partition List","level":"1.30.5","depth":2,"path":"Linked List/Partition List.md","ref":"Linked List/Partition List.md","articles":[]},{"title":"Sort List","level":"1.30.6","depth":2,"path":"Linked List/Sort List.md","ref":"Linked List/Sort List.md","articles":[]},{"title":"Convert Binary Tree to Linked List by Depth","level":"1.30.7","depth":2,"path":"Linked List/Convert Binary Tree to Linked List by Depth.md","ref":"Linked List/Convert Binary Tree to Linked List by Depth.md","articles":[]},{"title":"Linked List Cycle II","level":"1.30.8","depth":2,"path":"Linked List/Linked List Cycle II.md","ref":"Linked List/Linked List Cycle II.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Delete Node in a Linked List.md","mtime":"2021-06-26T04:57:23.647Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-29T05:32:12.280Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Delete Node in a Linked List","level":"1.30.1","depth":2,"next":{"title":"Remove Linked List Elements","level":"1.30.2","depth":2,"path":"Linked List/Remove Linked List Elements.md","ref":"Linked List/Remove Linked List Elements.md","articles":[]},"previous":{"title":"Linked List","level":"1.30","depth":1,"ref":"","articles":[{"title":"Delete Node in a Linked List","level":"1.30.1","depth":2,"path":"Linked List/Delete Node in a Linked List.md","ref":"Linked List/Delete Node in a Linked List.md","articles":[]},{"title":"Remove Linked List Elements","level":"1.30.2","depth":2,"path":"Linked List/Remove Linked List Elements.md","ref":"Linked List/Remove Linked List Elements.md","articles":[]},{"title":"Remove Nth Node From End of List","level":"1.30.3","depth":2,"path":"Linked List/Remove Nth Node From End of List.md","ref":"Linked List/Remove Nth Node From End of List.md","articles":[]},{"title":"Reverse Linked List II","level":"1.30.4","depth":2,"path":"Linked List/Reverse Linked List II.md","ref":"Linked List/Reverse Linked List II.md","articles":[]},{"title":"Sort List","level":"1.30.5","depth":2,"path":"Linked List/Sort List.md","ref":"Linked List/Sort List.md","articles":[]},{"title":"Partition List","level":"1.30.6","depth":2,"path":"Linked List/Partition List.md","ref":"Linked List/Partition List.md","articles":[]},{"title":"Intersection of Two Linked Lists","level":"1.30.7","depth":2,"path":"Linked List/Intersection of Two Linked Lists.md","ref":"Linked List/Intersection of Two Linked Lists.md","articles":[]},{"title":"Copy List with Random Pointer","level":"1.30.8","depth":2,"path":"Linked List/Copy List with Random Pointer.md","ref":"Linked List/Copy List with Random Pointer.md","articles":[]},{"title":"Insert into a Cyclic Sorted List","level":"1.30.9","depth":2,"path":"Linked List/Insert into a Cyclic Sorted List.md","ref":"Linked List/Insert into a Cyclic Sorted List.md","articles":[]},{"title":"Convert Binary Tree to Linked List by Depth","level":"1.30.10","depth":2,"path":"Linked List/Convert Binary Tree to Linked List by Depth.md","ref":"Linked List/Convert Binary Tree to Linked List by Depth.md","articles":[]},{"title":"Linked List Cycle II","level":"1.30.11","depth":2,"path":"Linked List/Linked List Cycle II.md","ref":"Linked List/Linked List Cycle II.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Delete Node in a Linked List.md","mtime":"2021-06-30T03:43:12.892Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-01T06:12:34.862Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

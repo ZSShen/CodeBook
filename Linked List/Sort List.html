@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Convert Binary Tree to Linked List by Depth.html" />
+    <link rel="next" href="Partition List.html" />
     
     
-    <link rel="prev" href="Partition List.html" />
+    <link rel="prev" href="Reverse Linked List II.html" />
     
 
     </head>
@@ -3560,12 +3560,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.2" data-path="Copy List with Random Pointer.html">
+        <li class="chapter " data-level="1.30.2" data-path="Remove Linked List Elements.html">
             
-                <a href="Copy List with Random Pointer.html">
+                <a href="Remove Linked List Elements.html">
             
                     
-                    Copy List with Random Pointer
+                    Remove Linked List Elements
             
                 </a>
             
@@ -3573,12 +3573,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.3" data-path="Insert into a Cyclic Sorted List.html">
+        <li class="chapter " data-level="1.30.3" data-path="Remove Nth Node From End of List.html">
             
-                <a href="Insert into a Cyclic Sorted List.html">
+                <a href="Remove Nth Node From End of List.html">
             
                     
-                    Insert into a Cyclic Sorted List
+                    Remove Nth Node From End of List
             
                 </a>
             
@@ -3599,20 +3599,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.5" data-path="Partition List.html">
-            
-                <a href="Partition List.html">
-            
-                    
-                    Partition List
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter active" data-level="1.30.6" data-path="Sort List.html">
+        <li class="chapter active" data-level="1.30.5" data-path="Sort List.html">
             
                 <a href="Sort List.html">
             
@@ -3625,7 +3612,59 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.7" data-path="Convert Binary Tree to Linked List by Depth.html">
+        <li class="chapter " data-level="1.30.6" data-path="Partition List.html">
+            
+                <a href="Partition List.html">
+            
+                    
+                    Partition List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.7" data-path="Intersection of Two Linked Lists.html">
+            
+                <a href="Intersection of Two Linked Lists.html">
+            
+                    
+                    Intersection of Two Linked Lists
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.8" data-path="Copy List with Random Pointer.html">
+            
+                <a href="Copy List with Random Pointer.html">
+            
+                    
+                    Copy List with Random Pointer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.9" data-path="Insert into a Cyclic Sorted List.html">
+            
+                <a href="Insert into a Cyclic Sorted List.html">
+            
+                    
+                    Insert into a Cyclic Sorted List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.10" data-path="Convert Binary Tree to Linked List by Depth.html">
             
                 <a href="Convert Binary Tree to Linked List by Depth.html">
             
@@ -3638,7 +3677,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.8" data-path="Linked List Cycle II.html">
+        <li class="chapter " data-level="1.30.11" data-path="Linked List Cycle II.html">
             
                 <a href="Linked List Cycle II.html">
             
@@ -4670,90 +4709,75 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-98-sort-list">LintCode 98. Sort List</h3>
-<p><a href="https://www.lintcode.com/problem/sort-list/leaderboard" target="_blank">https://www.lintcode.com/problem/sort-list/leaderboard</a></p>
+<h3 id="leetcode-148-sort-list">LeetCode 148. Sort List</h3>
+<p><a href="https://leetcode.com/problems/sort-list" target="_blank">https://leetcode.com/problems/sort-list</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-comment">/**
- * Definition of singly-linked-list:
- * class ListNode {
- * public:
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int val) {
- *        this-&gt;val = val;
- *        this-&gt;next = NULL;
- *     }
- * }
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
  */</span>
-
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param head: The head of linked list.
-     * @return: You should return the head of the sorted linked list, using constant space complexity.
-     */</span>
-    <span class="hljs-function">ListNode * <span class="hljs-title">sortList</span><span class="hljs-params">(ListNode * head)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function">ListNode* <span class="hljs-title">sortList</span><span class="hljs-params">(ListNode* head)</span> </span>{
 
-        <span class="hljs-keyword">if</span> (!head) {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(NlogN), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)  The cost to maintain call stack
+         */</span>
 
-        <span class="hljs-keyword">return</span> mergeSort(head, <span class="hljs-literal">nullptr</span>);
+        <span class="hljs-keyword">return</span> merge(head, <span class="hljs-literal">nullptr</span>);
     }
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-function">ListNode* <span class="hljs-title">mergeSort</span><span class="hljs-params">(ListNode* bgn, ListNode* end)</span> </span>{
+    <span class="hljs-function">ListNode* <span class="hljs-title">merge</span><span class="hljs-params">(ListNode* bgn, ListNode* end)</span> </span>{
 
+        <span class="hljs-keyword">if</span> (bgn == end) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
+        }
         <span class="hljs-keyword">if</span> (bgn-&gt;next == end) {
             bgn-&gt;next = <span class="hljs-literal">nullptr</span>;
             <span class="hljs-keyword">return</span> bgn;
         }
 
-        <span class="hljs-comment">// Find the middle node of the list.</span>
-        <span class="hljs-keyword">auto</span> curr = bgn;
-        <span class="hljs-keyword">auto</span> pred = bgn;
-
-        <span class="hljs-keyword">while</span> (curr != end) {
-            pred = pred-&gt;next;
-            curr = curr-&gt;next;
-            <span class="hljs-keyword">if</span> (curr != end) {
-                curr = curr-&gt;next;
-            }
+        <span class="hljs-keyword">auto</span> slow = bgn, fast = bgn;
+        <span class="hljs-keyword">while</span> (fast != end &amp;&amp; fast-&gt;next != end) {
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
         }
 
-        <span class="hljs-keyword">auto</span> left = mergeSort(bgn, pred);
-        <span class="hljs-keyword">auto</span> right = mergeSort(pred, end);
+        <span class="hljs-keyword">auto</span> l = merge(bgn, slow);
+        <span class="hljs-keyword">auto</span> r = merge(slow, end);
 
-        <span class="hljs-comment">// Merge two sorted lists.</span>
-        <span class="hljs-keyword">auto</span> dummy = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">-1</span>);
-        curr = dummy;
+        ListNode dummy;
+        <span class="hljs-keyword">auto</span> curr = &amp;dummy;
 
-        <span class="hljs-keyword">while</span> (left &amp;&amp; right) {
-            <span class="hljs-keyword">if</span> (left-&gt;val &lt; right-&gt;val) {
-                curr-&gt;next = left;
-                left = left-&gt;next;
+        <span class="hljs-keyword">while</span> (l &amp;&amp; r) {
+            <span class="hljs-keyword">if</span> (l-&gt;val &lt; r-&gt;val) {
+                curr-&gt;next = l;
+                l = l-&gt;next;
             } <span class="hljs-keyword">else</span> {
-                curr-&gt;next = right;
-                right = right-&gt;next;
+                curr-&gt;next = r;
+                r = r-&gt;next;
             }
             curr = curr-&gt;next;
         }
 
-        <span class="hljs-keyword">while</span> (left) {
-            curr-&gt;next = left;
-            curr = curr-&gt;next;
-            left = left-&gt;next;
+        <span class="hljs-keyword">while</span> (l) {
+            curr = curr-&gt;next = l;
+            l = l-&gt;next;
         }
-        <span class="hljs-keyword">while</span> (right) {
-            curr-&gt;next = right;
-            curr = curr-&gt;next;
-            right = right-&gt;next;
+        <span class="hljs-keyword">while</span> (r) {
+            curr = curr-&gt;next = r;
+            r = r-&gt;next;
         }
 
-        <span class="hljs-keyword">auto</span> head = dummy-&gt;next;
-        <span class="hljs-keyword">delete</span> dummy;
-        <span class="hljs-keyword">return</span> head;
+        <span class="hljs-keyword">return</span> dummy.next;
     }
 };
 </code></pre>
@@ -4784,12 +4808,12 @@
 
             
                 
-                <a href="Partition List.html" class="navigation navigation-prev " aria-label="Previous page: Partition List">
+                <a href="Reverse Linked List II.html" class="navigation navigation-prev " aria-label="Previous page: Reverse Linked List II">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Convert Binary Tree to Linked List by Depth.html" class="navigation navigation-next " aria-label="Next page: Convert Binary Tree to Linked List by Depth">
+                <a href="Partition List.html" class="navigation navigation-next " aria-label="Next page: Partition List">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -4800,7 +4824,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Sort List","level":"1.30.6","depth":2,"next":{"title":"Convert Binary Tree to Linked List by Depth","level":"1.30.7","depth":2,"path":"Linked List/Convert Binary Tree to Linked List by Depth.md","ref":"Linked List/Convert Binary Tree to Linked List by Depth.md","articles":[]},"previous":{"title":"Partition List","level":"1.30.5","depth":2,"path":"Linked List/Partition List.md","ref":"Linked List/Partition List.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Sort List.md","mtime":"2021-06-26T04:57:23.648Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-29T05:32:12.280Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Sort List","level":"1.30.5","depth":2,"next":{"title":"Partition List","level":"1.30.6","depth":2,"path":"Linked List/Partition List.md","ref":"Linked List/Partition List.md","articles":[]},"previous":{"title":"Reverse Linked List II","level":"1.30.4","depth":2,"path":"Linked List/Reverse Linked List II.md","ref":"Linked List/Reverse Linked List II.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Sort List.md","mtime":"2021-07-01T05:18:11.076Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-01T06:12:34.862Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
