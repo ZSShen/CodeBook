@@ -3599,7 +3599,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.5" data-path="Sort List.html">
+        <li class="chapter " data-level="1.30.5" data-path="Palindrome Linked List.html">
+            
+                <a href="Palindrome Linked List.html">
+            
+                    
+                    Palindrome Linked List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.6" data-path="Sort List.html">
             
                 <a href="Sort List.html">
             
@@ -3612,7 +3625,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.6" data-path="Partition List.html">
+        <li class="chapter " data-level="1.30.7" data-path="Merge k Sorted Lists.html">
+            
+                <a href="Merge k Sorted Lists.html">
+            
+                    
+                    Merge k Sorted Lists
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.8" data-path="Partition List.html">
             
                 <a href="Partition List.html">
             
@@ -3625,7 +3651,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.7" data-path="Intersection of Two Linked Lists.html">
+        <li class="chapter " data-level="1.30.9" data-path="Odd Even Linked List.html">
+            
+                <a href="Odd Even Linked List.html">
+            
+                    
+                    Odd Even Linked List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.30.10" data-path="Intersection of Two Linked Lists.html">
             
                 <a href="Intersection of Two Linked Lists.html">
             
@@ -3638,7 +3677,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.30.8" data-path="Copy List with Random Pointer.html">
+        <li class="chapter active" data-level="1.30.11" data-path="Copy List with Random Pointer.html">
             
                 <a href="Copy List with Random Pointer.html">
             
@@ -3651,7 +3690,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.9" data-path="Insert into a Cyclic Sorted List.html">
+        <li class="chapter " data-level="1.30.12" data-path="Insert into a Cyclic Sorted List.html">
             
                 <a href="Insert into a Cyclic Sorted List.html">
             
@@ -3664,20 +3703,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.30.10" data-path="Convert Binary Tree to Linked List by Depth.html">
-            
-                <a href="Convert Binary Tree to Linked List by Depth.html">
-            
-                    
-                    Convert Binary Tree to Linked List by Depth
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.30.11" data-path="Linked List Cycle II.html">
+        <li class="chapter " data-level="1.30.13" data-path="Linked List Cycle II.html">
             
                 <a href="Linked List Cycle II.html">
             
@@ -4709,27 +4735,34 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-105-copy-list-with-random-pointer">LintCode 105. Copy List with Random Pointer</h3>
-<p><a href="https://www.lintcode.com/problem/copy-list-with-random-pointer/description" target="_blank">https://www.lintcode.com/problem/copy-list-with-random-pointer/description</a></p>
+<h3 id="leetcode-138-copy-list-with-random-pointer">LeetCode 138. Copy List with Random Pointer</h3>
+<p><a href="https://leetcode.com/problems/copy-list-with-random-pointer" target="_blank">https://leetcode.com/problems/copy-list-with-random-pointer</a></p>
 <h1 id="solution">Solution</h1>
-<pre><code class="lang-c++"><span class="hljs-comment">/**
- * Definition for singly-linked list with a random pointer.
- * struct RandomListNode {
- *     int label;
- *     RandomListNode *next, *random;
- *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
- * };
- */</span>
+<pre><code class="lang-c++"><span class="hljs-comment">/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/</span>
+
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param head: The head of linked list with a random pointer.
-     * @return: A new head of a deep copy of the list.
-     */</span>
-    <span class="hljs-function">RandomListNode *<span class="hljs-title">copyRandomList</span><span class="hljs-params">(RandomListNode *head)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function">Node* <span class="hljs-title">copyRandomList</span><span class="hljs-params">(Node* head)</span> </span>{
 
         <span class="hljs-comment">/**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(1)
          *
          *      A -&gt; B -&gt; C -&gt; ...
          *
@@ -4762,52 +4795,36 @@
             <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
         }
 
-        <span class="hljs-comment">// Step 1.</span>
         <span class="hljs-keyword">auto</span> curr = head;
         <span class="hljs-keyword">while</span> (curr) {
-            <span class="hljs-keyword">auto</span> succ = curr-&gt;next;
-            <span class="hljs-keyword">auto</span> copy = <span class="hljs-keyword">new</span> RandomListNode(curr-&gt;label);
-            copy-&gt;next = succ;
-            curr-&gt;next = copy;
-            curr = succ;
+            <span class="hljs-keyword">auto</span> clone = <span class="hljs-keyword">new</span> Node(curr-&gt;val);
+            clone-&gt;next = curr-&gt;next;
+            curr-&gt;next = clone;
+            curr = clone-&gt;next;
         }
 
-        <span class="hljs-comment">// Step 2.</span>
         curr = head;
         <span class="hljs-keyword">while</span> (curr) {
-            <span class="hljs-comment">// Note that the random pointers can be null.</span>
+            <span class="hljs-keyword">auto</span> clone = curr-&gt;next;
             <span class="hljs-keyword">if</span> (curr-&gt;random) {
-                <span class="hljs-keyword">auto</span> rand = curr-&gt;random-&gt;next;
-                curr-&gt;next-&gt;random = rand;
+                clone-&gt;random = curr-&gt;random-&gt;next;
             }
-            curr = curr-&gt;next-&gt;next;
+            curr = clone-&gt;next;
         }
-
-        <span class="hljs-comment">// Step 3.</span>
-        <span class="hljs-keyword">auto</span> new_head = head-&gt;next;
-
-        <span class="hljs-comment">/**
-         *  curr copy  succ
-         *   |    |     |
-         *   v    v     v
-         *   A -&gt; A+ -&gt; B -&gt; B+
-         *
-         *   A -&gt; B, A+ -&gt; B+
-         */</span>
 
         curr = head;
-        <span class="hljs-keyword">auto</span> copy = head-&gt;next;
+        <span class="hljs-keyword">auto</span> res = curr-&gt;next;
+
         <span class="hljs-keyword">while</span> (curr) {
-            <span class="hljs-keyword">auto</span> succ = copy-&gt;next;
-            curr-&gt;next = succ;
-            <span class="hljs-keyword">if</span> (succ) {
-                copy-&gt;next = succ-&gt;next;
-                copy = succ-&gt;next;
+            <span class="hljs-keyword">auto</span> clone = curr-&gt;next;
+            curr-&gt;next = clone-&gt;next;
+            <span class="hljs-keyword">if</span> (clone-&gt;next) {
+                clone-&gt;next = clone-&gt;next-&gt;next;
             }
-            curr = succ;
+            curr = curr-&gt;next;
         }
 
-        <span class="hljs-keyword">return</span> new_head;
+        <span class="hljs-keyword">return</span> res;
     }
 };
 </code></pre>
@@ -4854,7 +4871,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Copy List with Random Pointer","level":"1.30.8","depth":2,"next":{"title":"Insert into a Cyclic Sorted List","level":"1.30.9","depth":2,"path":"Linked List/Insert into a Cyclic Sorted List.md","ref":"Linked List/Insert into a Cyclic Sorted List.md","articles":[]},"previous":{"title":"Intersection of Two Linked Lists","level":"1.30.7","depth":2,"path":"Linked List/Intersection of Two Linked Lists.md","ref":"Linked List/Intersection of Two Linked Lists.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Copy List with Random Pointer.md","mtime":"2021-06-29T05:48:03.055Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-01T06:12:34.862Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Copy List with Random Pointer","level":"1.30.11","depth":2,"next":{"title":"Insert into a Cyclic Sorted List","level":"1.30.12","depth":2,"path":"Linked List/Insert into a Cyclic Sorted List.md","ref":"Linked List/Insert into a Cyclic Sorted List.md","articles":[]},"previous":{"title":"Intersection of Two Linked Lists","level":"1.30.10","depth":2,"path":"Linked List/Intersection of Two Linked Lists.md","ref":"Linked List/Intersection of Two Linked Lists.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Linked List/Copy List with Random Pointer.md","mtime":"2021-07-02T05:04:55.381Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-04T05:52:48.916Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
