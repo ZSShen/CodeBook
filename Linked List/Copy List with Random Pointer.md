@@ -1,28 +1,35 @@
 
 # Problem
-### LintCode 105. Copy List with Random Pointer
-https://www.lintcode.com/problem/copy-list-with-random-pointer/description
+### LeetCode 138. Copy List with Random Pointer
+https://leetcode.com/problems/copy-list-with-random-pointer
 
 # Solution
 ```c++
-/**
- * Definition for singly-linked list with a random pointer.
- * struct RandomListNode {
- *     int label;
- *     RandomListNode *next, *random;
- *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
- * };
- */
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
 class Solution {
 public:
-    /**
-     * @param head: The head of linked list with a random pointer.
-     * @return: A new head of a deep copy of the list.
-     */
-    RandomListNode *copyRandomList(RandomListNode *head) {
-        // write your code here
+    Node* copyRandomList(Node* head) {
 
         /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(1)
          *
          *      A -> B -> C -> ...
          *
@@ -55,53 +62,36 @@ public:
             return nullptr;
         }
 
-        // Step 1.
         auto curr = head;
         while (curr) {
-            auto succ = curr->next;
-            auto copy = new RandomListNode(curr->label);
-            copy->next = succ;
-            curr->next = copy;
-            curr = succ;
+            auto clone = new Node(curr->val);
+            clone->next = curr->next;
+            curr->next = clone;
+            curr = clone->next;
         }
 
-        // Step 2.
         curr = head;
         while (curr) {
-            // Note that the random pointers can be null.
+            auto clone = curr->next;
             if (curr->random) {
-                auto rand = curr->random->next;
-                curr->next->random = rand;
+                clone->random = curr->random->next;
             }
-            curr = curr->next->next;
+            curr = clone->next;
         }
-
-        // Step 3.
-        auto new_head = head->next;
-
-        /**
-         *  curr copy  succ
-         *   |    |     |
-         *   v    v     v
-         *   A -> A+ -> B -> B+
-         *
-         *   A -> B, A+ -> B+
-         */
 
         curr = head;
-        auto copy = head->next;
+        auto res = curr->next;
+
         while (curr) {
-            auto succ = copy->next;
-            curr->next = succ;
-            if (succ) {
-                copy->next = succ->next;
-                copy = succ->next;
+            auto clone = curr->next;
+            curr->next = clone->next;
+            if (clone->next) {
+                clone->next = clone->next->next;
             }
-            curr = succ;
+            curr = curr->next;
         }
 
-        return new_head;
+        return res;
     }
 };
-
 ```

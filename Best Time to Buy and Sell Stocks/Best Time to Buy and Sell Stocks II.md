@@ -1,55 +1,42 @@
 
 # Problem
-### LintCode 150. Best Time to Buy and Sell Stocks II
-https://www.lintcode.com/problem/best-time-to-buy-and-sell-stock-ii/description
+### LeetCode 122. Best Time to Buy and Sell Stock II
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param prices: Given an integer array
-     * @return: Maximum profit
-     */
-    int maxProfit(vector<int> &prices) {
-        // write your code here
+    int maxProfit(vector<int>& prices) {
 
         /**
-         * 1 7 2 4 5 6 1
+         *  TC: O(N), where
+         *      N is the number of days
          *
-         *   *
-         *   *       *
-         *   *     * *
-         *   *   * * *
-         *   *   * * *
-         *   * * * * *
-         * * * * * * * *
-         * _____________
+         *  SC: O(1)
          *
-         * Objective: Aggregate all the ascending segments.
+         *      7 1 5 3 6 4
          *
-         *      Segments: (0, 1), (2, 6)
-         *      Value   : 6     , 4
+         *      *
+         *      *       *
+         *      *   *   *
+         *      *   *   * *
+         *      *   * * * *
+         *      *   * * * *
+         *      * * * * * *
+         *
+         *  Segments: (1, 2), (3, 4)
+         *  profits : 4     , 3
          */
 
         int n = prices.size();
-        if (n == 0) {
-            return 0;
-        }
-
         int ans = 0;
-        int bgn = 0, end = 1;
 
-        while (end < n) {
-
-            // Find the ending position of the current ascending segment.
-            if (prices[end] < prices[end - 1]) {
-                ans += prices[end - 1] - prices[bgn];
-                bgn = end;
+        for (int i = 1 ; i < n ; ++i) {
+            if (prices[i] > prices[i - 1]) {
+                ans += prices[i] - prices[i - 1];
             }
-            ++end;
         }
-        ans += prices[end - 1] - prices[bgn];
 
         return ans;
     }
