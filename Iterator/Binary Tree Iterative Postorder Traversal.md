@@ -1,52 +1,45 @@
 
 # Problem
-### LintCode 68. Binary Tree Postorder Traversal
-
-https://www.lintcode.com/problem/binary-tree-postorder-traversal/description
+### LeetCode 145. Binary Tree Postorder Traversal
+https://leetcode.com/problems/binary-tree-postorder-traversal
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: A Tree
-     * @return: Postorder in ArrayList which contains node values.
-     */
-    vector<int> postorderTraversal(TreeNode * root) {
-        // write your code here
+    vector<int> postorderTraversal(TreeNode* root) {
 
-        if (!root) {
-            return {};
-        }
+        /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)
+         */
 
-        std::vector<int> ans;
-        std::stack<TreeNode*> stk;
-        findSuccessor(root, stk);
+        vector<int> ans;
+
+        stack<TreeNode*> stk;
+        collectNodes(root, stk);
 
         while (!stk.empty()) {
-
-            auto curr = stk.top();
+            auto node = stk.top();
             stk.pop();
 
-            ans.push_back(curr->val);
+            ans.emplace_back(node->val);
 
-            if (!stk.empty()) {
-                if (stk.top()->left == curr) {
-                    findSuccessor(stk.top()->right, stk);
-                }
+            if (!stk.empty() && node == stk.top()->left) {
+                collectNodes(stk.top()->right, stk);
             }
         }
 
@@ -54,10 +47,10 @@ public:
     }
 
 private:
-    void findSuccessor(TreeNode* root, std::stack<TreeNode*>& stk) {
+    void collectNodes(TreeNode* root, stack<TreeNode*>& stk) {
 
         while (root) {
-            stk.push(root);
+            stk.emplace(root);
 
             if (root->left) {
                 root = root->left;

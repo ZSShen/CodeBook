@@ -1,5 +1,4 @@
 # Problem
-
 ### LeetCode 144. Binary Tree Preorder Traversal
 https://leetcode.com/problems/binary-tree-preorder-traversal
 
@@ -22,19 +21,17 @@ public:
 
         /**
          *  TC: O(N), where
-         *      N is the number of tree nodes.
+         *      N is the number of nodes.
          *
          *  SC: O(N)
          */
 
-        if (!root) {
-            return {};
-        }
-
         vector<int> ans;
 
         stack<TreeNode*> stk;
-        stk.emplace(root);
+        if (root) {
+            stk.emplace(root);
+        }
 
         while (!stk.empty()) {
             auto node = stk.top();

@@ -185,6 +185,10 @@
    * [Nested List Weight Sum](Iterator/Nested List Weight Sum.md)
    * [Nested List Weight Sum II](Iterator/Nested List Weight Sum II.md)
 
+* Structure Conversion
+   * [Flatten a Multilevel Doubly Linked List](Structure Conversion/Flatten a Multilevel Doubly Linked List.md)
+   * [Convert Binary Search Tree to Sorted Doubly Linked List](Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.md)
+
 * Binary Tree
    * [Validate Binary Search Tree](Binary Tree/Validate Binary Search Tree.md)
    * [Balanced Binary Tree](Binary Tree/Balanced Binary Tree.md)
@@ -294,6 +298,7 @@
    * [Intersection of Two Linked Lists](Linked List/Intersection of Two Linked Lists.md)
    * [Copy List with Random Pointer](Linked List/Copy List with Random Pointer.md)
    * [Insert into a Cyclic Sorted List](Linked List/Insert into a Cyclic Sorted List.md)
+   * [Linked List Cycle](Linked List/Linked List Cycle.md)
    * [Linked List Cycle II](Linked List/Linked List Cycle II.md)
 
 * General BFS
@@ -366,9 +371,6 @@
    * [Strobogrammatic Number](Simulation Puzzle/Strobogrammatic Number.md)
    * [Sparse Matrix Multiplication](Simulation Puzzle/Sparse Matrix Multiplication.md)
    * [Simplify Path](Simulation Puzzle/Simplify Path.md)
-
-* Structure Conversion
-   * [Convert Binary Search Tree to Sorted Doubly Linked List](Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.md)
 
 * Data Structure Design
    * [Trie](Data Structure Design/Trie.md)

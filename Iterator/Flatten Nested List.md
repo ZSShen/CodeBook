@@ -1,7 +1,7 @@
 
 # Problem
 ### LintCode 22. Flatten List
-https://www.lintcode.com/problem/flatten-list/description
+https://www.lintcode.com/problem/flatten-list
 
 # Solution
 ```c++
@@ -29,45 +29,30 @@ class Solution {
 public:
     // @param nestedList a list of NestedInteger
     // @return a list of integer
-    vector<int> flatten(vector<NestedInteger> &nestedList) {
+    vector<int> flatten(vector<NestedInteger> &list) {
         // Write your code here
 
-        std::vector<int> ans;
+        vector<int> ans;
 
-        std::stack<
-            std::pair<
-                std::vector<NestedInteger>::iterator,
-                std::vector<NestedInteger>::iterator>> stk;
+        stack<NestedInteger> stk;
+        int n = list.size();
 
-        if (!nestedList.empty()) {
-            stk.push(std::make_pair(nestedList.begin(), nestedList.end()));
+        for (int i = n - 1 ; i >= 0 ; --i) {
+            stk.emplace(move(list[i]));
         }
 
         while (!stk.empty()) {
-
-            auto top = stk.top();
+            auto item = stk.top();
             stk.pop();
 
-            auto& bgn = top.first;
-            auto& end = top.second;
+            if (item.isInteger()) {
+                ans.emplace_back(item.getInteger());
+            } else {
+                auto& items = item.getList();
+                n = items.size();
 
-            while (bgn != end) {
-                if (bgn->isInteger()) {
-                    ans.push_back(bgn->getInteger());
-                    ++bgn;
-                } else {
-                    auto& list =
-                        const_cast<std::vector<NestedInteger>&>(bgn->getList());
-
-                    ++bgn;
-                    if (bgn != end) {
-                        stk.push(std::make_pair(bgn, end));
-                    }
-
-                    if (!list.empty()) {
-                        stk.push(std::make_pair(list.begin(), list.end()));
-                    }
-                    break;
+                for (int i = n - 1 ; i >= 0 ; --i) {
+                    stk.emplace(move(items[i]));
                 }
             }
         }

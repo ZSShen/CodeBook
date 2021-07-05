@@ -1,34 +1,27 @@
 
 # Problem
-### LintCode 103. Linked List Cycle II
-https://www.lintcode.com/problem/linked-list-cycle-ii/description
+### LeetCode 142. Linked List Cycle II
+https://leetcode.com/problems/linked-list-cycle-ii
 
 # Solution
 ```c++
 /**
- * Definition of singly-linked-list:
- * class ListNode {
- * public:
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int val) {
- *        this->val = val;
- *        this->next = NULL;
- *     }
- * }
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param head: The first node of linked list.
-     * @return: The node where the cycle begins. if there is no cycle, return null
-     */
-    ListNode * detectCycle(ListNode * head) {
-        // write your code here
+    ListNode *detectCycle(ListNode *head) {
 
         /**
-         *  New explanation
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(1)
          *
          *        a    X  b  Y
          *  ------------------
@@ -44,36 +37,21 @@ public:
          *  The # of steps that the tortoise has taken is a + b
          *  The # of steps that the hare has taken is a + b + c + b
          *
+         *  The # of steps taken by the hare is twice the # of steps
+         *  taken by the tortoise
+         *
          *  2 * (a + b) = a + b + c + b
          *  => a + b = c + b
          *  => a = c
          *
          */
 
-        /**
-         *
-         *                     k - j - i <--- k
-         *                     |       |
-         *                     l       h
-         *                     |       |
-         *     a - b - c - d - e - f - g
-         *
-         *   Length of the prefix: X
-         *   Length of the cycle: Y
-         *   2 Pointers meet at the kth node.
-         *
-         *     t = X + nY + k
-         *    2t = X + mY + k
-         *
-         *  => 2X + 2nY + 2k = X + mY + k
-         *  => X + k = (m - 2n)Y
-         *
-         */
+        if (!head) {
+            return nullptr;
+        }
 
-        auto slow = head;
-        auto fast = head;
-
-        while (fast && fast->next) {
+        auto slow = head, fast = head;
+        while (fast->next && fast->next->next) {
             slow = slow->next;
             fast = fast->next->next;
             if (slow == fast) {
@@ -81,7 +59,7 @@ public:
             }
         }
 
-        if (!fast || !fast->next) {
+        if (!fast->next || !fast->next->next) {
             return nullptr;
         }
 

@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 528. Flatten Nested List Iterator
-https://www.lintcode.com/problem/flatten-nested-list-iterator/description
+### LeetCode 341. Flatten Nested List Iterator
+https://leetcode.com/problems/flatten-nested-list-iterator
 
 # Solution
 ```c++
@@ -10,70 +10,48 @@ https://www.lintcode.com/problem/flatten-nested-list-iterator/description
  * // You should not implement it, or speculate about its implementation
  * class NestedInteger {
  *   public:
- *     // Return true if this NestedInteger holds a single integer,
- *     // rather than a nested list.
+ *     // Return true if this NestedInteger holds a single integer, rather than a nested list.
  *     bool isInteger() const;
  *
- *     // Return the single integer that this NestedInteger holds,
- *     // if it holds a single integer
+ *     // Return the single integer that this NestedInteger holds, if it holds a single integer
  *     // The result is undefined if this NestedInteger holds a nested list
  *     int getInteger() const;
  *
- *     // Return the nested list that this NestedInteger holds,
- *     // if it holds a nested list
+ *     // Return the nested list that this NestedInteger holds, if it holds a nested list
  *     // The result is undefined if this NestedInteger holds a single integer
  *     const vector<NestedInteger> &getList() const;
  * };
  */
+
 class NestedIterator {
 public:
-    NestedIterator(vector<NestedInteger> &nestedList) {
-        // Initialize your data structure here.
+    NestedIterator(vector<NestedInteger> &list) {
 
-        if (!nestedList.empty()) {
-            stk.push(std::make_pair(nestedList.begin(), nestedList.end()));
+        int n = list.size();
+        for (int i = n - 1 ; i >= 0 ; --i) {
+            stk.emplace(move(list[i]));
         }
     }
 
-    // @return {int} the next element in the iteration
     int next() {
-        // Write your code here
-
-        return cache;
+        int elem = stk.top().getInteger();
+        stk.pop();
+        return elem;
     }
 
-    // @return {boolean} true if the iteration has more element or false
     bool hasNext() {
-        // Write your code here
 
         while (!stk.empty()) {
-
-            auto top = stk.top();
-            stk.pop();
-            auto& bgn = top.first;
-            auto& end = top.second;
-
-            if (bgn->isInteger()) {
-                cache = bgn->getInteger();
-
-                ++bgn;
-                if (bgn != end) {
-                    stk.push(std::make_pair(bgn, end));
-                }
-
+            if (stk.top().isInteger()) {
                 return true;
             }
 
-            auto& list =
-                const_cast<std::vector<NestedInteger>&>(bgn->getList());
+            auto list = stk.top().getList();
+            stk.pop();
 
-            ++bgn;
-            if (bgn != end) {
-                stk.push(std::make_pair(bgn, end));
-            }
-
-            if (!list.empty()) {
-                stk.push(std::make_pair(list.begin(), list.end()));
+            int n = list.size();
+            for (int i = n - 1 ; i >= 0 ; --i) {
+                stk.emplace(move(list[i]));
             }
         }
 
@@ -81,16 +59,12 @@ public:
     }
 
 private:
-    std::stack<
-        std::pair<
-            std::vector<NestedInteger>::iterator,
-            std::vector<NestedInteger>::iterator>> stk;
-    int cache;
+    stack<NestedInteger> stk;
 };
 
 /**
  * Your NestedIterator object will be instantiated and called as such:
  * NestedIterator i(nestedList);
- * while (i.hasNext()) v.push_back(i.next());
+ * while (i.hasNext()) cout << i.next();
  */
 ```

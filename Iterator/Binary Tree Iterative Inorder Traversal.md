@@ -1,56 +1,50 @@
 
 # Problem
-### LintCode 67. Binary Tree Inorder Traversal
-https://www.lintcode.com/problem/binary-tree-inorder-traversal/description
+### LeetCode 94. Binary Tree Inorder Traversal
+https://leetcode.com/problems/binary-tree-inorder-traversal
 
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: A Tree
-     * @return: Inorder in ArrayList which contains node values.
-     */
-    vector<int> inorderTraversal(TreeNode * root) {
-        // write your code here
+    vector<int> inorderTraversal(TreeNode* root) {
 
-        if (!root) {
-            return {};
-        }
+        /**
+         *  TC: O(N), where
+         *      N is the number of nodes
+         *
+         *  SC: O(N)
+         */
 
-        std::vector<int> ans;
-        std::stack<TreeNode*> stk;
+        vector<int> ans;
 
-        auto curr = root;
-        while (curr) {
-            stk.push(curr);
-            curr = curr->left;
+        stack<TreeNode*> stk;
+        while (root) {
+            stk.emplace(root);
+            root = root->left;
         }
 
         while (!stk.empty()) {
-
-            auto curr = stk.top();
+            auto node = stk.top();
             stk.pop();
 
-            ans.push_back(curr->val);
+            ans.emplace_back(node->val);
 
-            curr = curr->right;
-            while (curr) {
-                stk.push(curr);
-                curr = curr->left;
+            node = node->right;
+            while (node) {
+                stk.emplace(node);
+                node = node->left;
             }
         }
 
