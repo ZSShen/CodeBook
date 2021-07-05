@@ -177,7 +177,6 @@
    * [Binary Tree Iterative Postorder Traversal](Iterator/Binary Tree Iterative Postorder Traversal.md)
    * [Inorder Sucessor in BST](Iterator/Inorder Successor in BST.md)
    * [Flatten Binary Tree to Linked List](Iterator/Flatten Binary Tree to Linked List.md)
-   * [Flatten Nested List](Iterator/Flatten Nested List.md)
    * [Flatten Nested List Iterator](Iterator/Flatten Nested List Iterator.md)
    * [Flatten 2D Vector](Iterator/Flatten 2D Vector.md)
    * [ZigZag Iterator](Iterator/ZigZag Iterator.md)
@@ -187,6 +186,7 @@
 
 * Structure Conversion
    * [Flatten a Multilevel Doubly Linked List](Structure Conversion/Flatten a Multilevel Doubly Linked List.md)
+   * [Flatten Nested List](Structure Conversion/Flatten Nested List.md)
    * [Convert Binary Search Tree to Sorted Doubly Linked List](Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.md)
 
 * Binary Tree
