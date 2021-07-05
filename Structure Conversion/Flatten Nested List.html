@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Non-overlapping Intervals · GitBook</title>
+        <title>Flatten Nested List · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Merge Intervals.html" />
+    <link rel="next" href="Convert Binary Search Tree to Sorted Doubly Linked List.html" />
     
     
-    <link rel="prev" href="Meeting Rooms.html" />
+    <link rel="prev" href="Flatten a Multilevel Doubly Linked List.html" />
     
 
     </head>
@@ -2335,9 +2335,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.23.1" data-path="../Structure Conversion/Flatten a Multilevel Doubly Linked List.html">
+        <li class="chapter " data-level="1.23.1" data-path="Flatten a Multilevel Doubly Linked List.html">
             
-                <a href="../Structure Conversion/Flatten a Multilevel Doubly Linked List.html">
+                <a href="Flatten a Multilevel Doubly Linked List.html">
             
                     
                     Flatten a Multilevel Doubly Linked List
@@ -2348,9 +2348,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.23.2" data-path="../Structure Conversion/Flatten Nested List.html">
+        <li class="chapter active" data-level="1.23.2" data-path="Flatten Nested List.html">
             
-                <a href="../Structure Conversion/Flatten Nested List.html">
+                <a href="Flatten Nested List.html">
             
                     
                     Flatten Nested List
@@ -2361,9 +2361,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.23.3" data-path="../Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.html">
+        <li class="chapter " data-level="1.23.3" data-path="Convert Binary Search Tree to Sorted Doubly Linked List.html">
             
-                <a href="../Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.html">
+                <a href="Convert Binary Search Tree to Sorted Doubly Linked List.html">
             
                     
                     Convert Binary Search Tree to Sorted Doubly Linked List
@@ -4239,9 +4239,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.37.1" data-path="Meeting Rooms.html">
+        <li class="chapter " data-level="1.37.1" data-path="../Interval Fundamental/Meeting Rooms.html">
             
-                <a href="Meeting Rooms.html">
+                <a href="../Interval Fundamental/Meeting Rooms.html">
             
                     
                     Meeting Rooms
@@ -4252,9 +4252,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.37.2" data-path="Non-overlapping Intervals.html">
+        <li class="chapter " data-level="1.37.2" data-path="../Interval Fundamental/Non-overlapping Intervals.html">
             
-                <a href="Non-overlapping Intervals.html">
+                <a href="../Interval Fundamental/Non-overlapping Intervals.html">
             
                     
                     Non-overlapping Intervals
@@ -4265,9 +4265,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.37.3" data-path="Merge Intervals.html">
+        <li class="chapter " data-level="1.37.3" data-path="../Interval Fundamental/Merge Intervals.html">
             
-                <a href="Merge Intervals.html">
+                <a href="../Interval Fundamental/Merge Intervals.html">
             
                     
                     Merge Intervals
@@ -4278,9 +4278,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.37.4" data-path="Insert Interval.html">
+        <li class="chapter " data-level="1.37.4" data-path="../Interval Fundamental/Insert Interval.html">
             
-                <a href="Insert Interval.html">
+                <a href="../Interval Fundamental/Insert Interval.html">
             
                     
                     Insert Interval
@@ -4291,9 +4291,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.37.5" data-path="Minimum Number of Arrows to Burst Balloons.html">
+        <li class="chapter " data-level="1.37.5" data-path="../Interval Fundamental/Minimum Number of Arrows to Burst Balloons.html">
             
-                <a href="Minimum Number of Arrows to Burst Balloons.html">
+                <a href="../Interval Fundamental/Minimum Number of Arrows to Burst Balloons.html">
             
                     
                     Minimum Number of Arrows to Burst Balloons
@@ -4745,7 +4745,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Non-overlapping Intervals</a>
+        <a href=".." >Flatten Nested List</a>
     </h1>
 </div>
 
@@ -4761,49 +4761,58 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="leetcode-435-non-overlapping-intervals">LeetCode 435. Non-overlapping Intervals</h3>
-<p><a href="https://leetcode.com/problems/non-overlapping-intervals" target="_blank">https://leetcode.com/problems/non-overlapping-intervals</a></p>
+<h3 id="lintcode-22-flatten-list">LintCode 22. Flatten List</h3>
+<p><a href="https://www.lintcode.com/problem/flatten-list" target="_blank">https://www.lintcode.com/problem/flatten-list</a></p>
 <h1 id="solution">Solution</h1>
-<pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
+<pre><code class="lang-c++"><span class="hljs-comment">/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * class NestedInteger {
+ *   public:
+ *     // Return true if this NestedInteger holds a single integer,
+ *     // rather than a nested list.
+ *     bool isInteger() const;
+ *
+ *     // Return the single integer that this NestedInteger holds,
+ *     // if it holds a single integer
+ *     // The result is undefined if this NestedInteger holds a nested list
+ *     int getInteger() const;
+ *
+ *     // Return the nested list that this NestedInteger holds,
+ *     // if it holds a nested list
+ *     // The result is undefined if this NestedInteger holds a single integer
+ *     const vector&lt;NestedInteger&gt; &amp;getList() const;
+ * };
+ */</span>
+<span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">eraseOverlapIntervals</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; intervals)</span> </span>{
+    <span class="hljs-comment">// @param nestedList a list of NestedInteger</span>
+    <span class="hljs-comment">// @return a list of integer</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; flatten(<span class="hljs-built_in">vector</span>&lt;NestedInteger&gt; &amp;<span class="hljs-built_in">list</span>) {
+        <span class="hljs-comment">// Write your code here</span>
 
-        <span class="hljs-comment">/**
-         *  TC: O(NlogN), where
-         *      N is the number of intervals
-         *
-         *  SC: O(logN) to O(N), depending on the underlying sorting algorithm
-         */</span>
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
 
-        <span class="hljs-keyword">int</span> n = intervals.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">stack</span>&lt;NestedInteger&gt; stk;
+        <span class="hljs-keyword">int</span> n = <span class="hljs-built_in">list</span>.size();
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n - <span class="hljs-number">1</span> ; i &gt;= <span class="hljs-number">0</span> ; --i) {
+            stk.emplace(move(<span class="hljs-built_in">list</span>[i]));
         }
 
-        <span class="hljs-comment">/**
-         *  Why not sorting using the starting point of each interval?
-         *
-         *  Counter Example:
-         *
-         *      |--- B ---|  |-- C --|
-         *
-         *    |---------- A ----------|
-         *
-         */</span>
+        <span class="hljs-keyword">while</span> (!stk.empty()) {
+            <span class="hljs-keyword">auto</span> item = stk.top();
+            stk.pop();
 
-        sort(intervals.begin(), intervals.end(),
-             [] (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; l, <span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; r) {
-                 <span class="hljs-keyword">return</span> l[<span class="hljs-number">1</span>] &lt; r[<span class="hljs-number">1</span>];
-             });
-
-        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> pivot = intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>];
-
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span> ; i &lt; n ; ++i) {
-            <span class="hljs-keyword">if</span> (intervals[i][<span class="hljs-number">0</span>] &gt;= pivot) {
-                pivot = intervals[i][<span class="hljs-number">1</span>];
+            <span class="hljs-keyword">if</span> (item.isInteger()) {
+                ans.emplace_back(item.getInteger());
             } <span class="hljs-keyword">else</span> {
-                ++ans;
+                <span class="hljs-keyword">auto</span>&amp; items = item.getList();
+                n = items.size();
+
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n - <span class="hljs-number">1</span> ; i &gt;= <span class="hljs-number">0</span> ; --i) {
+                    stk.emplace(move(items[i]));
+                }
             }
         }
 
@@ -4838,12 +4847,12 @@
 
             
                 
-                <a href="Meeting Rooms.html" class="navigation navigation-prev " aria-label="Previous page: Meeting Rooms">
+                <a href="Flatten a Multilevel Doubly Linked List.html" class="navigation navigation-prev " aria-label="Previous page: Flatten a Multilevel Doubly Linked List">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Merge Intervals.html" class="navigation navigation-next " aria-label="Next page: Merge Intervals">
+                <a href="Convert Binary Search Tree to Sorted Doubly Linked List.html" class="navigation navigation-next " aria-label="Next page: Convert Binary Search Tree to Sorted Doubly Linked List">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -4854,7 +4863,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Non-overlapping Intervals","level":"1.37.2","depth":2,"next":{"title":"Merge Intervals","level":"1.37.3","depth":2,"path":"Interval Fundamental/Merge Intervals.md","ref":"Interval Fundamental/Merge Intervals.md","articles":[]},"previous":{"title":"Meeting Rooms","level":"1.37.1","depth":2,"path":"Interval Fundamental/Meeting Rooms.md","ref":"Interval Fundamental/Meeting Rooms.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Interval Fundamental/Non-overlapping Intervals.md","mtime":"2021-07-04T06:06:27.318Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-05T00:47:54.632Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Flatten Nested List","level":"1.23.2","depth":2,"next":{"title":"Convert Binary Search Tree to Sorted Doubly Linked List","level":"1.23.3","depth":2,"path":"Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.md","ref":"Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.md","articles":[]},"previous":{"title":"Flatten a Multilevel Doubly Linked List","level":"1.23.1","depth":2,"path":"Structure Conversion/Flatten a Multilevel Doubly Linked List.md","ref":"Structure Conversion/Flatten a Multilevel Doubly Linked List.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Structure Conversion/Flatten Nested List.md","mtime":"2021-07-05T00:47:01.729Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-05T00:47:54.632Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
