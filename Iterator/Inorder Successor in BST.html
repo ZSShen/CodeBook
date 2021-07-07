@@ -2251,20 +2251,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.22.7" data-path="Flatten 2D Vector.html">
-            
-                <a href="Flatten 2D Vector.html">
-            
-                    
-                    Flatten 2D Vector
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.22.8" data-path="ZigZag Iterator.html">
+        <li class="chapter " data-level="1.22.7" data-path="ZigZag Iterator.html">
             
                 <a href="ZigZag Iterator.html">
             
@@ -2277,7 +2264,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.22.9" data-path="ZigZag Iterator II.html">
+        <li class="chapter " data-level="1.22.8" data-path="ZigZag Iterator II.html">
             
                 <a href="ZigZag Iterator II.html">
             
@@ -2290,7 +2277,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.22.10" data-path="Nested List Weight Sum.html">
+        <li class="chapter " data-level="1.22.9" data-path="Nested List Weight Sum.html">
             
                 <a href="Nested List Weight Sum.html">
             
@@ -2303,7 +2290,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.22.11" data-path="Nested List Weight Sum II.html">
+        <li class="chapter " data-level="1.22.10" data-path="Nested List Weight Sum II.html">
             
                 <a href="Nested List Weight Sum II.html">
             
@@ -2361,7 +2348,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.23.3" data-path="../Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.html">
+        <li class="chapter " data-level="1.23.3" data-path="../Structure Conversion/Flatten 2D Vector.html">
+            
+                <a href="../Structure Conversion/Flatten 2D Vector.html">
+            
+                    
+                    Flatten 2D Vector
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.23.4" data-path="../Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.html">
             
                 <a href="../Structure Conversion/Convert Binary Search Tree to Sorted Doubly Linked List.html">
             
@@ -4715,6 +4715,38 @@
             
         </li>
     
+        <li class="chapter " data-level="1.45" >
+            
+                <span>
+            
+                    
+                    Reservoir Sampling
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.45.1" data-path="../Reservoir Sampling/Random Pick Index.html">
+            
+                <a href="../Reservoir Sampling/Random Pick Index.html">
+            
+                    
+                    Random Pick Index
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
@@ -4761,8 +4793,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-448-inorder-successor-in-bst">LintCode 448. Inorder Successor in BST</h3>
-<p><a href="https://www.lintcode.com/problem/inorder-successor-in-bst/description" target="_blank">https://www.lintcode.com/problem/inorder-successor-in-bst/description</a></p>
+<h3 id="leetcode-285-inorder-successor-in-bst">LeetCode 285. Inorder Successor in BST</h3>
+<p><a href="https://leetcode.com/problems/inorder-successor-in-bst" target="_blank">https://leetcode.com/problems/inorder-successor-in-bst</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-comment">/**
  * Definition for a binary tree node.
@@ -4773,44 +4805,29 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */</span>
-
-
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/*
-     * @param root: The root of the BST.
-     * @param p: You need find the successor node of p.
-     * @return: Successor of p.
-     */</span>
-    <span class="hljs-function">TreeNode * <span class="hljs-title">inorderSuccessor</span><span class="hljs-params">(TreeNode * root, TreeNode * p)</span> </span>{
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-function">TreeNode* <span class="hljs-title">inorderSuccessor</span><span class="hljs-params">(TreeNode* root, TreeNode* p)</span> </span>{
 
-        <span class="hljs-keyword">if</span> (!root || !p) {
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(H), where
+         *      H is the tree height
+         *
+         *  SC: O(1)
+         */</span>
 
-        <span class="hljs-keyword">if</span> (p-&gt;right) {
-            <span class="hljs-keyword">auto</span> curr = p-&gt;right;
-            TreeNode* pred;
-            <span class="hljs-keyword">while</span> (curr) {
-                pred = curr;
-                curr = curr-&gt;left;
-            }
-            <span class="hljs-keyword">return</span> pred;
-        }
+        TreeNode* succ = <span class="hljs-literal">nullptr</span>;
 
-        <span class="hljs-keyword">auto</span> curr = root;
-        TreeNode* pred = <span class="hljs-literal">nullptr</span>;
-        <span class="hljs-keyword">while</span> (curr != p) {
-            <span class="hljs-keyword">if</span> (p-&gt;val &lt; curr-&gt;val) {
-                pred = curr;
-                curr = curr-&gt;left;
+        <span class="hljs-keyword">while</span> (root) {
+            <span class="hljs-keyword">if</span> (root-&gt;val &gt; p-&gt;val) {
+                succ = root;
+                root = root-&gt;left;
             } <span class="hljs-keyword">else</span> {
-                curr = curr-&gt;right;
+                root = root-&gt;right;
             }
         }
 
-        <span class="hljs-keyword">return</span> pred;
+        <span class="hljs-keyword">return</span> succ;
     }
 };
 </code></pre>
@@ -4857,7 +4874,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Inorder Sucessor in BST","level":"1.22.4","depth":2,"next":{"title":"Flatten Binary Tree to Linked List","level":"1.22.5","depth":2,"path":"Iterator/Flatten Binary Tree to Linked List.md","ref":"Iterator/Flatten Binary Tree to Linked List.md","articles":[]},"previous":{"title":"Binary Tree Iterative Postorder Traversal","level":"1.22.3","depth":2,"path":"Iterator/Binary Tree Iterative Postorder Traversal.md","ref":"Iterator/Binary Tree Iterative Postorder Traversal.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Iterator/Inorder Successor in BST.md","mtime":"2021-07-04T06:06:27.320Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-05T00:47:54.632Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Inorder Sucessor in BST","level":"1.22.4","depth":2,"next":{"title":"Flatten Binary Tree to Linked List","level":"1.22.5","depth":2,"path":"Iterator/Flatten Binary Tree to Linked List.md","ref":"Iterator/Flatten Binary Tree to Linked List.md","articles":[]},"previous":{"title":"Binary Tree Iterative Postorder Traversal","level":"1.22.3","depth":2,"path":"Iterator/Binary Tree Iterative Postorder Traversal.md","ref":"Iterator/Binary Tree Iterative Postorder Traversal.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Iterator/Inorder Successor in BST.md","mtime":"2021-07-05T06:30:40.249Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-07T04:41:46.146Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

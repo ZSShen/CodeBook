@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Ugly Number II · GitBook</title>
+        <title>Random Pick Index · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,6 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Super Ugly Number.html" />
-    
-    
-    <link rel="prev" href="Kth Largest in N Arrays.html" />
     
 
     </head>
@@ -731,9 +727,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="Kth Smallest Number in Sorted Matrix.html">
+        <li class="chapter " data-level="1.7.1" data-path="../Priority Queue/Kth Smallest Number in Sorted Matrix.html">
             
-                <a href="Kth Smallest Number in Sorted Matrix.html">
+                <a href="../Priority Queue/Kth Smallest Number in Sorted Matrix.html">
             
                     
                     Kth Smallest Number in Sorted Matrix
@@ -744,9 +740,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.2" data-path="Kth Smallest Sum in Two Sorted Arrays.html">
+        <li class="chapter " data-level="1.7.2" data-path="../Priority Queue/Kth Smallest Sum in Two Sorted Arrays.html">
             
-                <a href="Kth Smallest Sum in Two Sorted Arrays.html">
+                <a href="../Priority Queue/Kth Smallest Sum in Two Sorted Arrays.html">
             
                     
                     Kth Smallest Sum in Two Sorted Arrays
@@ -757,9 +753,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.3" data-path="Kth Largest in N Arrays.html">
+        <li class="chapter " data-level="1.7.3" data-path="../Priority Queue/Kth Largest in N Arrays.html">
             
-                <a href="Kth Largest in N Arrays.html">
+                <a href="../Priority Queue/Kth Largest in N Arrays.html">
             
                     
                     Kth Largest in N Arrays
@@ -770,9 +766,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.7.4" data-path="Ugly Number II.html">
+        <li class="chapter " data-level="1.7.4" data-path="../Priority Queue/Ugly Number II.html">
             
-                <a href="Ugly Number II.html">
+                <a href="../Priority Queue/Ugly Number II.html">
             
                     
                     Ugly Number II
@@ -783,9 +779,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.5" data-path="Super Ugly Number.html">
+        <li class="chapter " data-level="1.7.5" data-path="../Priority Queue/Super Ugly Number.html">
             
-                <a href="Super Ugly Number.html">
+                <a href="../Priority Queue/Super Ugly Number.html">
             
                     
                     Super Ugly Number
@@ -796,9 +792,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.6" data-path="K Closest Points.html">
+        <li class="chapter " data-level="1.7.6" data-path="../Priority Queue/K Closest Points.html">
             
-                <a href="K Closest Points.html">
+                <a href="../Priority Queue/K Closest Points.html">
             
                     
                     K Closest Points
@@ -809,9 +805,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.7" data-path="High Five.html">
+        <li class="chapter " data-level="1.7.7" data-path="../Priority Queue/High Five.html">
             
-                <a href="High Five.html">
+                <a href="../Priority Queue/High Five.html">
             
                     
                     High Five
@@ -822,9 +818,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.8" data-path="Merge K Sorted Interval Lists.html">
+        <li class="chapter " data-level="1.7.8" data-path="../Priority Queue/Merge K Sorted Interval Lists.html">
             
-                <a href="Merge K Sorted Interval Lists.html">
+                <a href="../Priority Queue/Merge K Sorted Interval Lists.html">
             
                     
                     Merge K Sorted Interval Lists
@@ -4729,9 +4725,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.45.1" data-path="../Reservoir Sampling/Random Pick Index.html">
+        <li class="chapter active" data-level="1.45.1" data-path="Random Pick Index.html">
             
-                <a href="../Reservoir Sampling/Random Pick Index.html">
+                <a href="Random Pick Index.html">
             
                     
                     Random Pick Index
@@ -4777,7 +4773,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Ugly Number II</a>
+        <a href=".." >Random Pick Index</a>
     </h1>
 </div>
 
@@ -4793,35 +4789,48 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="leetcode-264-ugly-number-ii">LeetCode 264. Ugly Number II</h3>
-<p><a href="https://leetcode.com/problems/ugly-number-ii" target="_blank">https://leetcode.com/problems/ugly-number-ii</a></p>
+<h3 id="leetcode-398-random-pick-index">LeetCode 398. Random Pick Index</h3>
+<p><a href="https://leetcode.com/problems/random-pick-index" target="_blank">https://leetcode.com/problems/random-pick-index</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">nthUglyNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+    Solution(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)
+        : nums(nums) {
 
         <span class="hljs-comment">/**
-         * TC: O(NlogN)
-         * SC: O(N)
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
          */</span>
+    }
 
-        <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">long</span>&gt; <span class="hljs-built_in">set</span>;
-        <span class="hljs-built_in">set</span>.emplace(<span class="hljs-number">1</span>);
-        <span class="hljs-keyword">long</span> ans = <span class="hljs-number">1</span>;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pick</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span> </span>{
+
+        <span class="hljs-keyword">int</span> n = nums.size(), count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> ans;
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; n ; ++i) {
-            <span class="hljs-keyword">auto</span> it = <span class="hljs-built_in">set</span>.begin();
-            ans = *it;
-            <span class="hljs-built_in">set</span>.erase(it);
-
-            <span class="hljs-built_in">set</span>.emplace(ans * <span class="hljs-number">2</span>);
-            <span class="hljs-built_in">set</span>.emplace(ans * <span class="hljs-number">3</span>);
-            <span class="hljs-built_in">set</span>.emplace(ans * <span class="hljs-number">5</span>);
+            <span class="hljs-keyword">if</span> (nums[i] == target) {
+                ++count;
+                <span class="hljs-keyword">if</span> (random() % count == <span class="hljs-number">0</span>) {
+                    ans = i;
+                }
+            }
         }
 
         <span class="hljs-keyword">return</span> ans;
     }
+
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; nums;
 };
+
+<span class="hljs-comment">/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(nums);
+ * int param_1 = obj-&gt;pick(target);
+ */</span>
 </code></pre>
 
                                 
@@ -4850,14 +4859,6 @@
 
             
                 
-                <a href="Kth Largest in N Arrays.html" class="navigation navigation-prev " aria-label="Previous page: Kth Largest in N Arrays">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                
-                
-                <a href="Super Ugly Number.html" class="navigation navigation-next " aria-label="Next page: Super Ugly Number">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -4866,7 +4867,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ugly Number II","level":"1.7.4","depth":2,"next":{"title":"Super Ugly Number","level":"1.7.5","depth":2,"path":"Priority Queue/Super Ugly Number.md","ref":"Priority Queue/Super Ugly Number.md","articles":[]},"previous":{"title":"Kth Largest in N Arrays","level":"1.7.3","depth":2,"path":"Priority Queue/Kth Largest in N Arrays.md","ref":"Priority Queue/Kth Largest in N Arrays.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Priority Queue/Ugly Number II.md","mtime":"2021-07-05T03:57:18.600Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-07T04:41:46.146Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Random Pick Index","level":"1.45.1","depth":2,"previous":{"title":"Reservoir Sampling","level":"1.45","depth":1,"ref":"","articles":[{"title":"Random Pick Index","level":"1.45.1","depth":2,"path":"Reservoir Sampling/Random Pick Index.md","ref":"Reservoir Sampling/Random Pick Index.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Reservoir Sampling/Random Pick Index.md","mtime":"2021-07-07T04:39:21.586Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-07T04:41:46.146Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
