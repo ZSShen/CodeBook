@@ -9,6 +9,22 @@ class Solution {
 public:
     Solution(vector<int>& w) {
 
+        /**
+         *  TC: O(logN), where
+         *      N is the number of elements
+         *
+         *  SC: O(N)
+         *
+         *
+         *    Input     : 3, 4, 1, 2
+         *    Prefix Sum: 3, 7, 8, 10
+         *
+         *    1st element: [0, 2]
+         *    2nd        : [3, 6]
+         *    3rd        : [7, 7]
+         *    4th        : [8, 10]
+         */
+
         sum.emplace_back(w[0]);
 
         int n = w.size();

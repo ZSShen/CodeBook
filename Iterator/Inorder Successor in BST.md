@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 448. Inorder Successor in BST
-https://www.lintcode.com/problem/inorder-successor-in-bst/description
+### LeetCode 285. Inorder Successor in BST
+https://leetcode.com/problems/inorder-successor-in-bst
 
 # Solution
 ```c++
@@ -14,44 +14,29 @@ https://www.lintcode.com/problem/inorder-successor-in-bst/description
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-
-
 class Solution {
 public:
-    /*
-     * @param root: The root of the BST.
-     * @param p: You need find the successor node of p.
-     * @return: Successor of p.
-     */
-    TreeNode * inorderSuccessor(TreeNode * root, TreeNode * p) {
-        // write your code here
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
 
-        if (!root || !p) {
-            return nullptr;
-        }
+        /**
+         *  TC: O(H), where
+         *      H is the tree height
+         *
+         *  SC: O(1)
+         */
 
-        if (p->right) {
-            auto curr = p->right;
-            TreeNode* pred;
-            while (curr) {
-                pred = curr;
-                curr = curr->left;
-            }
-            return pred;
-        }
+        TreeNode* succ = nullptr;
 
-        auto curr = root;
-        TreeNode* pred = nullptr;
-        while (curr != p) {
-            if (p->val < curr->val) {
-                pred = curr;
-                curr = curr->left;
+        while (root) {
+            if (root->val > p->val) {
+                succ = root;
+                root = root->left;
             } else {
-                curr = curr->right;
+                root = root->right;
             }
         }
 
-        return pred;
+        return succ;
     }
 };
 ```

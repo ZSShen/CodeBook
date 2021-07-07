@@ -1,103 +1,83 @@
 
 # Problem
-### LintCode 905. Nested List Weight Sum II
-https://www.lintcode.com/problem/nested-list-weight-sum-ii/description
+### LeetCode 364. Nested List Weight Sum II
+https://leetcode.com/problems/nested-list-weight-sum-ii
 
 # Solution
 ```c++
-
-
-struct Record {
-
-    int depth;
-    std::vector<NestedInteger>::iterator bgn, end;
-
-    Record(int depth, auto&& bgn, auto&& end)
-      : depth(depth), bgn(bgn), end(end)
-    { }
-};
-
-
-struct Element {
-    int num, weight;
-
-    Element(int num, int weight)
-      : num(num), weight(weight)
-    { }
-};
-
-
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * class NestedInteger {
+ *   public:
+ *     // Constructor initializes an empty nested list.
+ *     NestedInteger();
+ *
+ *     // Constructor initializes a single integer.
+ *     NestedInteger(int value);
+ *
+ *     // Return true if this NestedInteger holds a single integer, rather than a nested list.
+ *     bool isInteger() const;
+ *
+ *     // Return the single integer that this NestedInteger holds, if it holds a single integer
+ *     // The result is undefined if this NestedInteger holds a nested list
+ *     int getInteger() const;
+ *
+ *     // Set this NestedInteger to hold a single integer.
+ *     void setInteger(int value);
+ *
+ *     // Set this NestedInteger to hold a nested list and adds a nested integer to it.
+ *     void add(const NestedInteger &ni);
+ *
+ *     // Return the nested list that this NestedInteger holds, if it holds a nested list
+ *     // The result is undefined if this NestedInteger holds a single integer
+ *     const vector<NestedInteger> &getList() const;
+ * };
+ */
 class Solution {
 public:
-    /**
-     * @param nestedList: a list of NestedInteger
-     * @return: the sum
-     */
-    int depthSumInverse(vector<NestedInteger> nestedList) {
-        // Write your code here.
+    int depthSumInverse(vector<NestedInteger>& list) {
 
         /**
-         *  [[1, 1], 2, [1, 1]]
+         *  TC: O(N), where
+         *      N is the number of objects
          *
-         *  [1, 2], [1, 2], [2, 1], [1, 2], [1, 2]
-         *
-         *  => adjusted weight = maximum depth - original weight + 1
-         *
-         *  [1, 1], [1, 1], [2, 2], [1, 1], [1, 1]
-         *
-         *  => generate the final sum
+         *  SC: O(N)
          */
 
-        if (nestedList.empty()) {
-            return 0;
+        stack<pair<NestedInteger, int>> stk;
+        int n = list.size();
+        for (int i = n - 1 ; i >= 0 ; --i) {
+            stk.push({list[i], 1});
         }
 
-        std::stack<Record> stk;
-        stk.push(Record(1, nestedList.begin(), nestedList.end()));
-
+        vector<pair<int, int>> res;
         int max_depth = 0;
-        std::vector<Element> cache;
 
         while (!stk.empty()) {
-
-            auto top = stk.top();
+            auto pair = stk.top();
             stk.pop();
 
-            int depth = top.depth;
-            max_depth = std::max(max_depth, depth);
+            auto& item = pair.first;
+            int depth = pair.second;
+            max_depth = max(max_depth, depth);
 
-            auto& bgn = top.bgn;
-            auto& end = top.end;
-
-            while (bgn != end) {
-
-                if (bgn->isInteger()) {
-                    cache.emplace_back(bgn->getInteger(), depth);
-                    ++bgn;
-                } else {
-                    auto& list =
-                        const_cast<std::vector<NestedInteger>&>(bgn->getList());
-
-                    ++bgn;
-                    if (bgn != end) {
-                        stk.push(Record(depth, std::move(bgn), std::move(end)));
-                    }
-
-                    if (!list.empty()) {
-                        stk.push(Record(depth + 1, list.begin(), list.end()));
-                    }
-
-                    break;
+            if (item.isInteger()) {
+                res.push_back({item.getInteger(), depth});
+            } else {
+                auto nested = item.getList();
+                n = nested.size();
+                for (int i = n - 1 ; i >= 0 ; --i) {
+                    stk.push({nested[i], depth + 1});
                 }
             }
         }
 
-        int sum = 0;
-        for (auto& elem : cache) {
-            sum += elem.num * (max_depth - elem.weight + 1);
+        int ans = 0;
+        for (auto& pair : res) {
+            ans += pair.first * (max_depth - pair.second + 1);
         }
-
-        return sum;
+        return ans;
     }
 };
 ```

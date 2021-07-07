@@ -1,82 +1,63 @@
 
 # Problem
-### LintCode 540. ZigZag Iterator
-https://www.lintcode.com/problem/zigzag-iterator/description
+### LeetCode 281. Zigzag Iterator
+https://leetcode.com/problems/zigzag-iterator
 
 # Solution
 ```c++
 class ZigzagIterator {
 public:
-    /*
-    * @param v1: A 1d vector
-    * @param v2: A 1d vector
-    */ZigzagIterator(vector<int>& v1, vector<int>& v2)
-      : bgn_first(v1.begin()),
-        bgn_second(v2.begin()),
-        end_first(v1.end()),
-        end_second(v2.end()),
-        turn(Turn::FIRST) {
-        // do intialization if necessary
+    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
+
+        k = 0;
+
+        if (!v1.empty()) {
+            slots.push_back({v1.begin(), v1.end()});
+            ++k;
+        }
+        if (!v2.empty()) {
+            slots.push_back({v2.begin(), v2.end()});
+            ++k;
+        }
+
+        rover = slots.begin();
+        end = slots.end();
     }
 
-    /*
-     * @return: An integer
-     */
     int next() {
-        // write your code here
+        int elem;
 
-        return cache;
+        auto& vec_bgn = rover->first;
+        auto& vec_end = rover->second;
+
+        elem = *vec_bgn++;
+        if (vec_bgn == vec_end) {
+            rover = slots.erase(rover);
+            --k;
+        } else {
+            ++rover;
+        }
+
+        if (rover == end) {
+            rover = slots.begin();
+        }
+
+        return elem;
     }
 
-    /*
-     * @return: True if has next
-     */
     bool hasNext() {
-        // write your code here
-
-        if (bgn_first != end_first && bgn_second != end_second) {
-            if (turn == Turn::FIRST) {
-                cache = *bgn_first;
-                ++bgn_first;
-                turn = Turn::SECOND;
-            } else {
-                cache = *bgn_second;
-                ++bgn_second;
-                turn = Turn::FIRST;
-            }
-            return true;
-        }
-
-        if (bgn_first != end_first) {
-            cache = *bgn_first;
-            ++bgn_first;
-            return true;
-        }
-
-        if (bgn_second != end_second) {
-            cache = *bgn_second;
-            ++bgn_second;
-            return true;
-        }
-
-        return false;
+        return k > 0;
     }
 
 private:
-    std::vector<int>::iterator bgn_first, bgn_second, end_first, end_second;
-    char turn;
-    int cache;
-
-    enum Turn {
-        FIRST,
-        SECOND
-    };
+    int k;
+    list<pair<vector<int>::iterator, vector<int>::iterator>> slots;
+    list<pair<vector<int>::iterator, vector<int>::iterator>>::iterator rover, end;
 };
 
 /**
  * Your ZigzagIterator object will be instantiated and called as such:
- * ZigzagIterator solution(v1, v2);
- * while (solution.hasNext()) result.push_back(solution.next());
- * Ouptut result
+ * ZigzagIterator i(v1, v2);
+ * while (i.hasNext()) cout << i.next();
  */
 ```
