@@ -334,9 +334,13 @@
 * Permutation DFS
    * [Permutations](Permutation DFS/Permutations.md)
    * [Permutations II](Permutation DFS/Permutations II.md)
-   * [Next Permutation](Permutation DFS/Next Permutation.md)
    * [Previous Permutation With One Swap](Permutation DFS/Previous Permutation With One Swap.md)
    * [Next Closest Time](Permutation DFS/Next Closest Time.md)
+
+* Permutation
+   * [Maximum Swap](Permutation/Maximum Swap.md)
+   * [Next Permutation](Permutation/Next Permutation.md)
+   * [Previous Permutation With One Swap](Permutation/Previous Permutation With One Swap.md)
 
 * Interval Fundamental
    * [Meeting Rooms](Interval Fundamental/Meeting Rooms.md)
@@ -382,3 +386,4 @@
 
 * Reservoir Sampling
    * [Random Pick Index](Reservoir Sampling/Random Pick Index.md)
+   * [Linked List Random Node](Reservoir Sampling/Linked List Random Node.md)
