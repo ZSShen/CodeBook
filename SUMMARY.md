@@ -63,12 +63,15 @@
    * [Merge K Sorted Interval Lists](Priority Queue/Merge K Sorted Interval Lists.md)
 
 * Greedy
-   * [Reorganize String](Greedy/Reorganize String.md)
-   * [Task Scheduler](Greedy/Task Scheduler.md)
    * [Candy](Greedy/Candy.md)
    * [Maximize Sum Of Array After K Negations](Greedy/Maximize Sum Of Array After K Negations.md)
    * [Partition Labels](Greedy/Partition Labels.md)
    * [Minimum Number of Arrows to Burst Balloons](Greedy/Minimum Number of Arrows to Burst Balloons.md)
+
+* CPU Scheduling and Simulation
+   * [Task Scheduler](CPU Scheduling and Simulation/Task Scheduler.md)
+   * [Reorganize String](CPU Scheduling and Simulation/Reorganize String.md)
+   * [Exclusive Time of Functions](CPU Scheduling and Simulation/Exclusive Time of Functions.md)
 
 * Flood and Fill
    * [Number of Islands](Flood and Fill/Number of Islands.md)
@@ -182,6 +185,8 @@
    * [ZigZag Iterator II](Iterator/ZigZag Iterator II.md)
    * [Nested List Weight Sum](Iterator/Nested List Weight Sum.md)
    * [Nested List Weight Sum II](Iterator/Nested List Weight Sum II.md)
+   * [Read N Characters Given Read4](Iterator/Read N Characters Given Read4.md)
+   * [Read N Characters Given Read4 II](Iterator/Read N Characters Given Read4 II.md)
 
 * Structure Conversion
    * [Flatten a Multilevel Doubly Linked List](Structure Conversion/Flatten a Multilevel Doubly Linked List.md)
@@ -380,6 +385,7 @@
    * [Trie](Data Structure Design/Trie.md)
    * [Insert Delete GetRandom O(1)](Data Structure Design/Insert Delete GetRandom.md)
    * [LRU Cache](Data Structure Design/LRU Cache.md)
+   * [Max Stack](Data Structure Design/Max Stack.md)
 
 * Math
    * [Number of Ways to Paint N × 3 Grid](Math/Number of Ways to Paint N × 3 Grid.md)
