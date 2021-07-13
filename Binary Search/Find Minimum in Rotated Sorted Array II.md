@@ -1,7 +1,7 @@
 
 # Problem
-### LeetCode 153. Find Minimum in Rotated Sorted Array
-https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
+### LeetCode 154. Find Minimum in Rotated Sorted Array II
+https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii
 
 # Solution
 ```c++
@@ -23,12 +23,14 @@ public:
             int m = l + (r - l) / 2;
             if (nums[m] < nums[r]) {
                 r = m;
-            } else {
+            } else if (nums[m] > nums[r]) {
                 l = m;
+            } else {
+                --r;
             }
         }
 
-        return nums[l] < nums[r] ? nums[l] : nums[r];
+        return min(nums[l], nums[r]);
     }
 };
 ```

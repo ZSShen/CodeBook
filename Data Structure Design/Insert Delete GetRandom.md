@@ -1,90 +1,71 @@
 
 # Problem
-### 657. Insert Delete GetRandom O(1)
-https://www.lintcode.com/problem/insert-delete-getrandom-o1/description
+### LeetCode 380. Insert Delete GetRandom O(1)
+https://leetcode.com/problems/insert-delete-getrandom-o1
 
 # Solution
 ```c++
-/**
- * Your RandomizedSet object will be instantiated and called as such:
- * RandomizedSet obj = new RandomizedSet();
- * bool param = obj.insert(val);
- * bool param = obj.remove(val);
- * int param = obj.getRandom();
- */
-
-
 class RandomizedSet {
 public:
+    /** Initialize your data structure here. */
     RandomizedSet() {
-        // do intialization if necessary
-        srand(time(nullptr));
+
     }
 
-    /*
-     * @param val: a value to the set
-     * @return: true if the set did not already contain the specified element or false
-     */
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     bool insert(int val) {
-        // write your code here
 
-        if (refs.count(val) == 1) {
+        if (map.count(val) == 1) {
             return false;
         }
 
-        nums.push_back(val);
-        refs[val] = nums.size() - 1;
+        records.emplace_back(val);
+        map[val] = records.size() - 1;
+
         return true;
     }
 
-    /*
-     * @param val: a value from the set
-     * @return: true if the set contained the specified element or false
-     */
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
     bool remove(int val) {
-        // write your code here
 
-        if (refs.count(val) == 0) {
+        if (map.count(val) == 0) {
             return false;
         }
 
-        // If the number that we want to remove is just the last element of the
-        // vector, we simply clean the relevant entries.
-        int index = refs[val];
-        if (index == nums.size() - 1) {
-            refs.erase(val);
-            nums.pop_back();
-            return true;
-        }
+        int idx = map[val];
 
-        // Otherwise, we swap the last element with the to be removed element
-        // and update the indexing structure for that last element.
-        std::swap(nums.back(), nums[index]);
-        refs[nums[index]] = index;
-        nums.pop_back();
+        // Swap the last element with the one
+        // we intend to delete
+        swap(records[idx], records.back());
+
+        records.pop_back();
+
+        // Update the index for the swapped element.
+        // Note: Update and then delete to cover the
+        // case that the swapped element and the deleted
+        // one are actually the same.
+        map[records[idx]] = idx;
+        map.erase(val);
+
         return true;
     }
 
-    /*
-     * @return: Get a random element from the set
-     */
+    /** Get a random element from the set. */
     int getRandom() {
-        // write your code here
-
-        int index = random() % nums.size();
-        return nums[index];
+        int idx = random() % records.size();
+        return records[idx];
     }
 
 private:
-    std::vector<int> nums;
-    std::unordered_map<int, int> refs;
+    vector<int> records;
+    unordered_map<int, int> map;
 };
 
 /**
  * Your RandomizedSet object will be instantiated and called as such:
- * RandomizedSet obj = new RandomizedSet();
- * bool param = obj.insert(val);
- * bool param = obj.remove(val);
- * int param = obj.getRandom();
+ * RandomizedSet* obj = new RandomizedSet();
+ * bool param_1 = obj->insert(val);
+ * bool param_2 = obj->remove(val);
+ * int param_3 = obj->getRandom();
  */
 ```

@@ -1,78 +1,61 @@
 
 # Problem
-### 134. LRU Cache
-https://www.lintcode.com/problem/lru-cache/description
+### LeetCode 146. LRU Cache
+https://leetcode.com/problems/lru-cache
 
 # Solution
 ```c++
-#include <list>
-
 class LRUCache {
 public:
-    /*
-    * @param capacity: An integer
-    */LRUCache(int capacity)
-      : size(0),
-        capacity(capacity) {
-        // do intialization if necessary
-    }
+    LRUCache(int capacity)
+        : capacity(capacity)
+    { }
 
-    /*
-     * @param key: An integer
-     * @return: An integer
-     */
     int get(int key) {
-        // write your code here
 
-        if (refs.count(key) == 0) {
+        if (map.count(key) == 0) {
             return -1;
         }
 
-        auto iter = refs[key];
-        int value = iter->second;
+        auto it = map[key];
+        int value = it->second;
 
-        list.erase(iter);
-        list.push_front(std::make_pair(key, value));
-        refs[key] = list.begin();
+        // Update the liveness of the node.
+        records.erase(it);
+        records.push_front({key, value});
+        map[key] = records.begin();
 
         return value;
     }
 
-    /*
-     * @param key: An integer
-     * @param value: An integer
-     * @return: nothing
-     */
-    void set(int key, int value) {
-        // write your code here
+    void put(int key, int value) {
 
-        if (refs.count(key) == 0) {
-            list.push_front(std::make_pair(key, value));
-            refs[key] = list.begin();
-
-            ++size;
-            if (size == capacity + 1) {
-                auto iter = --list.end();
-                int expired_key = iter->first;
-
-                list.erase(iter);
-                refs.erase(expired_key);
-
-                --size;
-            }
-            return;
+        if (map.count(key) == 1) {
+            records.erase(map[key]);
         }
 
-        auto iter = refs[key];
-        list.erase(iter);
-        list.push_front(std::make_pair(key, value));
-        refs[key] = list.begin();
+        records.push_front({key, value});
+        map[key] = records.begin();
+
+        // If the cache is full, we need to erase the
+        // list tail.
+        if (records.size() > capacity) {
+            int tail_key = records.back().first;
+            records.pop_back();
+            map.erase(tail_key);
+        }
     }
 
 private:
-    int size;
     int capacity;
-    std::list<std::pair<int, int>> list;
-    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> refs;
+    list<pair<int, int>> records;
+    unordered_map<int, list<pair<int, int>>::iterator> map;
 };
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
 ```

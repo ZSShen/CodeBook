@@ -1,40 +1,36 @@
 
 # Problem
-### LintCode 62. Search in Rotated Sorted Array
-https://www.lintcode.com/problem/search-in-rotated-sorted-array/description
+### LeetCode 33. Search in Rotated Sorted Array
+https://leetcode.com/problems/search-in-rotated-sorted-array
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param A: an integer rotated sorted array
-     * @param target: an integer to be searched
-     * @return: an integer
-     */
-    int search(vector<int> &A, int target) {
-        // write your code here
+    int search(vector<int>& nums, int target) {
 
-        int n = A.size();
-        if (n == 0) {
-            return -1;
-        }
+        /**
+         *  TC: O(logN), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         */
 
-        int l = 0, r = n - 1;
+        int l = 0, r = nums.size() - 1;
 
         while (l + 1 < r) {
             int m = l + (r - l) / 2;
 
-            if (A[m] < A[r]) {
+            if (nums[m] < nums[r]) {
                 // The right portion is sorted.
-                if (A[m] <= target && target <= A[r]) {
+                if (nums[m] <= target && target <= nums[r]) {
                     l = m;
                 } else {
                     r = m;
                 }
-            } else if (A[l] < A[m]) {
+            } else {
                 // The left portion is sorted.
-                if (A[l] <= target && target <= A[m]) {
+                if (nums[l] <= target && target <= nums[m]) {
                     r = m;
                 } else {
                     l = m;
@@ -42,9 +38,10 @@ public:
             }
         }
 
-        if (target == A[l]) {
+        if (nums[l] == target) {
             return l;
-        } else if (target == A[r]) {
+        }
+        if (nums[r] == target) {
             return r;
         }
         return -1;

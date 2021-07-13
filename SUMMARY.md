@@ -231,15 +231,16 @@
 
 * Binary Search
    * [First Bad Version](Binary Search/First Bad Version.md)
+   * [Find Minimum in Rotated Sorted Array](Binary Search/Find Minimum in Rotated Sorted Array.md)
+   * [Find Minimum in Rotated Sorted Array II](Binary Search/Find Minimum in Rotated Sorted Array II.md)
+   * [Search in Rotated Sorted Array](Binary Search/Search in Rotated Sorted Array.md)
+   * [Search in Rotated Sorted Array II](Binary Search/Search in Rotated Sorted Array II.md)
    * [Search a 2D Matrix](Binary Search/Search a 2D Matrix.md)
    * [Search a 2D Matrix II](Binary Search/Search a 2D Matrix II.md)
    * [Search for a Range](Binary Search/Search for a Range.md)
    * [Pow (x,n)](Binary Search/Pow x n.md)
    * [Find K Closest Elements](Binary Search/Find K Closest Elements.md)
-   * [Find Minimum in Rotated Sorted Array](Binary Search/Find Minimum in Rotated Sorted Array.md)
    * [Maximum Number in Mountain Sequence](Binary Search/Maximum Number in Mountain Sequence.md)
-   * [Search in Rotated Sorted Array](Binary Search/Search in Rotated Sorted Array.md)
-   * [Search in Rotated Sorted Array II](Binary Search/Search in Rotated Sorted Array II.md)
    * [Divide Two Integers](Binary Search/Divide Two Integers.md)
    * [Missing Element in Sorted Array](Binary Search/Missing Element in Sorted Array.md)
 
@@ -382,13 +383,15 @@
    * [Simplify Path](Simulation Puzzle/Simplify Path.md)
 
 * Data Structure Design
-   * [Trie](Data Structure Design/Trie.md)
-   * [Insert Delete GetRandom O(1)](Data Structure Design/Insert Delete GetRandom.md)
    * [LRU Cache](Data Structure Design/LRU Cache.md)
    * [Max Stack](Data Structure Design/Max Stack.md)
+   * [Insert Delete GetRandom O(1)](Data Structure Design/Insert Delete GetRandom.md)
 
 * Math
    * [Number of Ways to Paint N × 3 Grid](Math/Number of Ways to Paint N × 3 Grid.md)
+
+* Missing Number
+   * [Missing Number](Missing Number/Missing Number.md)
 
 * Reservoir Sampling
    * [Random Pick Index](Reservoir Sampling/Random Pick Index.md)

@@ -9,13 +9,8 @@ class Solution {
 public:
     bool search(vector<int>& nums, int target) {
 
-        int n = nums.size();
-        if (n == 0) {
-            return false;
-        }
-
         int l = 0;
-        int r = n - 1;
+        int r = nums.size() - 1;
 
         while (l + 1 < r) {
             int m = l + (r - l) / 2;
@@ -47,8 +42,6 @@ public:
             // A[m] == A[r] != target.
             --r;
         }
-
-
 
         return nums[l] == target || nums[r] == target;
     }
