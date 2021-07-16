@@ -258,11 +258,9 @@
    * [Random Pick with Weight](Binary Search with STL or Map/Random Pick with Weight.md)
 
 * Expression Parsing
-   * [Convert Infix Expression to Postfix Expression](Expression Parsing/Convert Infix Expression to Postfix Expression.md)
-   * [Convert Infix Expression to Prefix Expression](Expression Parsing/Convert Infix Expression to Prefix Expression.md)
-   * [Evaluate Postfix Expression](Expression Parsing/Evaluate Postfix Expression.md)
-   * [Evaluate Infix Expression](Expression Parsing/Evaluate Infix Expression.md)
-   * [Expression Tree Construction](Expression Parsing/Expression Tree Construction.md)
+   * [Basic Calculator II](Expression Parsing/Basic Calculator II.md)
+   * [Basic Calculator III](Expression Parsing/Basic Calculator III.md)
+   * [Expression Add Operators](Expression Parsing/Expression Add Operators.md)
 
 * Number Parsing
    * [Reverse Integer](Number Parsing/Reverse Integer.md)
@@ -392,6 +390,7 @@
 
 * Missing Number
    * [Missing Number](Missing Number/Missing Number.md)
+   * [Kth Missing Positive Number](Missing Number/Kth Missing Positive Number.md)
 
 * Reservoir Sampling
    * [Random Pick Index](Reservoir Sampling/Random Pick Index.md)

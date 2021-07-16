@@ -7,9 +7,12 @@ https://leetcode.com/problems/minimum-moves-to-move-a-box-to-their-target-locati
 ```c++
 class Solution {
 public:
-    Solution()
-        : directs({{1, 0}, {-1, 0}, {0, 1}, {0, -1}})
-    { }
+    Solution() {
+        directs.push_back({1, 0});
+        directs.push_back({-1, 0});
+        directs.push_back({0, 1});
+        directs.push_back({0, -1});
+    }
 
     int minPushBox(vector<vector<char>>& grid) {
 

@@ -1,18 +1,20 @@
 
 # Problem
-### LintCode 100. Remove Duplicates from Sorted Array
-hhttps://www.lintcode.com/problem/remove-duplicates-from-sorted-array/description
+### LeetCode 26. Remove Duplicates from Sorted Array
+https://leetcode.com/problems/remove-duplicates-from-sorted-array
 
 # Solution
 ```c++
 class Solution {
 public:
-    /*
-     * @param nums: An ineger array
-     * @return: An integer
-     */
-    int removeDuplicates(vector<int> &nums) {
-        // write your code here
+    int removeDuplicates(vector<int>& nums) {
+
+        /**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         */
 
         int n = nums.size();
         if (n == 0) {
@@ -20,11 +22,11 @@ public:
         }
 
         int l = 0;
+
         for (int r = 1 ; r < n ; ++r) {
-            if (nums[r] == nums[l]) {
-                continue;
+            if (nums[l] != nums[r]) {
+                nums[++l] = nums[r];
             }
-            nums[++l] = nums[r];
         }
 
         return l + 1;
