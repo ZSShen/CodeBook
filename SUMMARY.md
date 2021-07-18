@@ -384,6 +384,8 @@
    * [LRU Cache](Data Structure Design/LRU Cache.md)
    * [Max Stack](Data Structure Design/Max Stack.md)
    * [Insert Delete GetRandom O(1)](Data Structure Design/Insert Delete GetRandom.md)
+   * [Design Circular Queue](Data Structure Design/Design Circular Queue.md)
+   * [Design Circular Deque](Data Structure Design/Design Circular Deque.md)
 
 * Math
    * [Number of Ways to Paint N × 3 Grid](Math/Number of Ways to Paint N × 3 Grid.md)
@@ -391,6 +393,11 @@
 * Missing Number
    * [Missing Number](Missing Number/Missing Number.md)
    * [Kth Missing Positive Number](Missing Number/Kth Missing Positive Number.md)
+   * [First Missing Positive](Missing Number/First Missing Positive.md)
+
+* Duplicated Number
+   * [Find the Duplicate Number](Duplicated Number/Find the Duplicate Number.md)
+   * [Find All Duplicates in an Array](Duplicated Number/Find All Duplicates in an Array.md)
 
 * Reservoir Sampling
    * [Random Pick Index](Reservoir Sampling/Random Pick Index.md)

@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 945. Task Scheduler
-https://www.lintcode.com/problem/task-scheduler/description
+### LeetCode 621. Task Scheduler
+https://leetcode.com/problems/task-scheduler
 
 # Solution
 ```c++
