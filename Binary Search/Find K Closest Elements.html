@@ -4768,6 +4768,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.45.4" data-path="../Data Structure Design/Design Circular Queue.html">
+            
+                <a href="../Data Structure Design/Design Circular Queue.html">
+            
+                    
+                    Design Circular Queue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.45.5" data-path="../Data Structure Design/Design Circular Deque.html">
+            
+                <a href="../Data Structure Design/Design Circular Deque.html">
+            
+                    
+                    Design Circular Deque
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -4832,12 +4858,25 @@
             
         </li>
     
-        <li class="chapter " data-level="1.47.2" data-path="../Missing Number/Kth Missing Positive Number.md">
+        <li class="chapter " data-level="1.47.2" data-path="../Missing Number/Kth Missing Positive Number.html">
             
-                <span>
+                <a href="../Missing Number/Kth Missing Positive Number.html">
             
                     
                     Kth Missing Positive Number
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.47.3" data-path="../Missing Number/First Missing Positive.html">
+            
+                <a href="../Missing Number/First Missing Positive.html">
+            
+                    
+                    First Missing Positive
             
                 </a>
             
@@ -4855,6 +4894,51 @@
                 <span>
             
                     
+                    Duplicated Number
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.48.1" data-path="../Duplicated Number/Find the Duplicate Number.html">
+            
+                <a href="../Duplicated Number/Find the Duplicate Number.html">
+            
+                    
+                    Find the Duplicate Number
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.48.2" data-path="../Duplicated Number/Find All Duplicates in an Array.html">
+            
+                <a href="../Duplicated Number/Find All Duplicates in an Array.html">
+            
+                    
+                    Find All Duplicates in an Array
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.49" >
+            
+                <span>
+            
+                    
                     Reservoir Sampling
             
                 </span>
@@ -4864,7 +4948,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.48.1" data-path="../Reservoir Sampling/Random Pick Index.html">
+        <li class="chapter " data-level="1.49.1" data-path="../Reservoir Sampling/Random Pick Index.html">
             
                 <a href="../Reservoir Sampling/Random Pick Index.html">
             
@@ -4877,7 +4961,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.48.2" data-path="../Reservoir Sampling/Linked List Random Node.html">
+        <li class="chapter " data-level="1.49.2" data-path="../Reservoir Sampling/Linked List Random Node.html">
             
                 <a href="../Reservoir Sampling/Linked List Random Node.html">
             
@@ -4941,63 +5025,57 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="lintcode-460-find-k-closest-elements">LintCode 460. Find K Closest Elements</h3>
-<p><a href="https://www.lintcode.com/problem/find-k-closest-elements/description" target="_blank">https://www.lintcode.com/problem/find-k-closest-elements/description</a></p>
+<h3 id="leetcode-658-find-k-closest-elements">LeetCode 658. Find K Closest Elements</h3>
+<p><a href="https://leetcode.com/problems/find-k-closest-elements" target="_blank">https://leetcode.com/problems/find-k-closest-elements</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">/**
-     * @param A: an integer array
-     * @param target: An integer
-     * @param k: An integer
-     * @return: an integer array
-     */</span>
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; kClosestNumbers(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;A, <span class="hljs-keyword">int</span> target, <span class="hljs-keyword">int</span> k) {
-        <span class="hljs-comment">// write your code here</span>
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; findClosestElements(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; arr, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> x) {
 
-        <span class="hljs-keyword">int</span> n = A.size();
-        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span> || k == <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">return</span> {};
-        }
+        <span class="hljs-comment">/**
+         *  TC: O(logN + K), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         */</span>
 
+        <span class="hljs-keyword">int</span> n = arr.size();
         <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = n - <span class="hljs-number">1</span>;
+
         <span class="hljs-keyword">while</span> (l + <span class="hljs-number">1</span> &lt; r) {
             <span class="hljs-keyword">int</span> m = l + (r - l) / <span class="hljs-number">2</span>;
-            <span class="hljs-keyword">if</span> (A[m] &lt; target) {
+            <span class="hljs-keyword">if</span> (arr[m] &lt;= x) {
                 l = m;
             } <span class="hljs-keyword">else</span> {
                 r = m;
             }
         }
 
-        <span class="hljs-keyword">int</span> closest = A[l];
-        <span class="hljs-keyword">int</span> pivot = l;
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(A[r] - target) &lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(A[l] - target)) {
-            closest = A[r];
-            pivot = r;
+        <span class="hljs-comment">// Check arr[l] and arr[r] to decide</span>
+        <span class="hljs-comment">// the closest element.</span>
+        <span class="hljs-keyword">if</span> (arr[r] - x &lt; x - arr[l]) {
+            ++l;
+            ++r;
         }
 
-        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
-        ans.push_back(closest);
+        <span class="hljs-keyword">if</span> (k == <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> {arr[l]};
+        }
 
-        l = pivot - <span class="hljs-number">1</span>;
-        r = pivot + <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; k - <span class="hljs-number">1</span> ; ++i) {
-            <span class="hljs-keyword">if</span> (l &gt;= <span class="hljs-number">0</span> &amp;&amp; r &lt; n) {
-                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(target - A[l]) &lt;= <span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(A[r] - target)) {
-                    ans.push_back(A[l--]);
-                } <span class="hljs-keyword">else</span> {
-                    ans.push_back(A[r++]);
-                }
+        --k;
+        <span class="hljs-keyword">while</span> (k &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">if</span> (r == n || (l &gt; <span class="hljs-number">0</span> &amp;&amp; x - arr[l - <span class="hljs-number">1</span>] &lt;= arr[r] - x)) {
+                --l;
             } <span class="hljs-keyword">else</span> {
-                <span class="hljs-keyword">if</span> (l &lt; <span class="hljs-number">0</span>) {
-                    ans.push_back(A[r++]);
-                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (r &gt;= n) {
-                    ans.push_back(A[l--]);
-                }
+                ++r;
             }
+            --k;
         }
 
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = l ; i &lt; r ; ++i) {
+            ans.emplace_back(arr[i]);
+        }
         <span class="hljs-keyword">return</span> ans;
     }
 };
@@ -5045,7 +5123,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Find K Closest Elements","level":"1.26.10","depth":2,"next":{"title":"Maximum Number in Mountain Sequence","level":"1.26.11","depth":2,"path":"Binary Search/Maximum Number in Mountain Sequence.md","ref":"Binary Search/Maximum Number in Mountain Sequence.md","articles":[]},"previous":{"title":"Pow (x,n)","level":"1.26.9","depth":2,"path":"Binary Search/Pow x n.md","ref":"Binary Search/Pow x n.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Search/Find K Closest Elements.md","mtime":"2021-07-13T06:25:35.155Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-16T05:08:41.166Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Find K Closest Elements","level":"1.26.10","depth":2,"next":{"title":"Maximum Number in Mountain Sequence","level":"1.26.11","depth":2,"path":"Binary Search/Maximum Number in Mountain Sequence.md","ref":"Binary Search/Maximum Number in Mountain Sequence.md","articles":[]},"previous":{"title":"Pow (x,n)","level":"1.26.9","depth":2,"path":"Binary Search/Pow x n.md","ref":"Binary Search/Pow x n.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Search/Find K Closest Elements.md","mtime":"2021-07-17T06:31:25.579Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-18T00:28:04.265Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
