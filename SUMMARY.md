@@ -262,6 +262,11 @@
    * [Basic Calculator III](Expression Parsing/Basic Calculator III.md)
    * [Expression Add Operators](Expression Parsing/Expression Add Operators.md)
 
+* Parenthesis
+   * [Minimum Add to Make Parentheses Valid](Parenthesis/Minimum Add to Make Parentheses Valid.md)
+   * [Minimum Remove to Make Valid Parentheses](Parenthesis/Minimum Remove to Make Valid Parentheses.md)
+   * [Valid Parenthesis String](Parenthesis/Valid Parenthesis String.md)
+
 * Number Parsing
    * [Reverse Integer](Number Parsing/Reverse Integer.md)
    * [Valid Number](Number Parsing/Valid Number.md)
@@ -389,6 +394,9 @@
 
 * Math
    * [Number of Ways to Paint N × 3 Grid](Math/Number of Ways to Paint N × 3 Grid.md)
+
+* Geometry
+   * [Minimum Area Rectangle](Geometry/Minimum Area Rectangle.md)
 
 * Missing Number
    * [Missing Number](Missing Number/Missing Number.md)

@@ -10,6 +10,13 @@ public:
     int missingElement(vector<int>& nums, int k) {
 
         /**
+         *  TC: O(N), where
+         *      N is the number of elements
+         *
+         *  SC: O(1)
+         */
+
+        /**
             L = 0, R = n - 1
             M = L + (R - L) / 2;
 
@@ -29,28 +36,24 @@ public:
             k in (HI, INF) => nums[R] + (k - HI)
         */
 
-        int n = nums.size();
-        int l = 0, r = n - 1;
+        int l = 0, r = nums.size() - 1;
 
         while (l + 1 < r) {
             int m = l + (r - l) / 2;
-
-            int total = nums[m] - nums[0] + 1;
-            int miss = total - (m + 1);
-
-            if (k <= miss) {
+            if (k <= nums[m] - nums[0] - m) {
                 r = m;
             } else {
                 l = m;
             }
         }
 
-        int lo = (nums[l] - nums[0] + 1) - (l + 1);
-        int hi = (nums[r] - nums[0] + 1) - (r + 1);
-        if (lo <= k && k <= hi) {
-            return nums[l] + (k - lo);
+        int nl = nums[l] - nums[0] - l;
+        int nr = nums[r] - nums[0] - r;
+
+        if (k <= nr) {
+            return nums[l] + (k - nl);
         }
-        return nums[r] + (k - hi);
+        return nums[r] + (k - nr);
     }
 };
 ```
