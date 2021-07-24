@@ -21,21 +21,20 @@ public:
         int n = days.back();
 
         vector<int> dp(n + 1, -1);
+        dp[0] = 0;
         for (int day : days) {
             dp[day] = 0;
         }
 
-        dp[0] = 0;
         for (int i = 1 ; i <= n ; ++i) {
             if (dp[i] == -1) {
                 dp[i] = dp[i - 1];
                 continue;
             }
 
-            int cost = dp[i - 1] + costs[0];
-            cost = std::min(cost, costs[1] + dp[std::max(0, i - 7)]);
-            cost = std::min(cost, costs[2] + dp[std::max(0, i - 30)]);
-            dp[i] = cost;
+            dp[i] = dp[i - 1] + costs[0];
+            dp[i] = min(dp[i], dp[max(0, i - 7)] + costs[1]);
+            dp[i] = min(dp[i], dp[max(0, i - 30)] + costs[2]);
         }
 
         return dp[n];

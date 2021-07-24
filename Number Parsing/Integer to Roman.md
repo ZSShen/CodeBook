@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 418. Integer to Roman
-https://www.lintcode.com/problem/integer-to-roman/description
+### LeetCode 12. Integer to Roman
+https://leetcode.com/problems/integer-to-roman
 
 # Solution
 ```c++
@@ -25,6 +25,6 @@ public:
     }
 
 private:
-    std::vector<std::vector<std::string>> map;
+    vector<vector<string>> map;
 };
 ```

@@ -1,35 +1,29 @@
 
 # Problem
-### LintCode 419. Roman to Integer
-https://www.lintcode.com/problem/roman-to-integer/description
+### LeetCode 13. Roman to Integer
+https://leetcode.com/problems/roman-to-integer
 
 # Solution
 ```c++
 class Solution {
 public:
     Solution()
-      : map({
-        {'I', 1},
-        {'V', 5},
-        {'X', 10},
-        {'L', 50},
-        {'C', 100},
-        {'D', 500},
-        {'M', 1000}
-      })
+        : map({
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}})
     { }
 
-    /**
-     * @param s: Roman representation
-     * @return: an integer
-     */
-    int romanToInt(string &s) {
-        // write your code here
+    int romanToInt(string s) {
 
         /**
          * Let's scan the string from the tail to the head.
          *
-         * 1. If the value of a Roman character is greater than or etual to  the
+         * 1. If the value of a Roman character is greater than or equal to the
          *    value of its predecessor, the accumulative sum is the value of the
          *    predecessor added by the value of the current character.
          *
@@ -44,7 +38,6 @@ public:
          */
 
         int n = s.length();
-
         int sum = map[s[n - 1]];
 
         for (int i = n - 2 ; i >= 0 ; --i) {
@@ -59,6 +52,6 @@ public:
     }
 
 private:
-    std::unordered_map<char, int> map;
+    unordered_map<char, int> map;
 };
 ```

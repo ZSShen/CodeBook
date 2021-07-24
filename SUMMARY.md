@@ -275,6 +275,9 @@
    * [Palindrome Number](Number Parsing/Palindrome Number.md)
    * [Add Digits](Number Parsing/Add Digits.md)
    * [Happy Number](Number Parsing/Happy Number.md)
+   * [Roman to Integer](Number Parsing/Roman to Integer.md)
+   * [Integer to Roman](Number Parsing/Integer to Roman.md)
+   * [Integer to English Words](Number Parsing/Integer to English Words.md)
    * [Validate IP Address](Number Parsing/Validate IP Address.md)
 
 * Word Puzzle
@@ -371,14 +374,13 @@
    * [Sequence Reconstruction](Topological Sort/Sequence Reconstruction.md)
    * [Alien Dictionary](Topological Sort/Alien Dictionary.md)
 
-* Graph Theory Basics
-   * [Graph Valid Tree](Graph Theory Basics/Graph Valid Tree.md)
-   * [Minimum Spanning Tree](Graph Theory Basics/Minimum Spanning Tree.md)
+* Graph Theory
+   * [Graph Valid Tree](Graph Theory/Graph Valid Tree.md)
+   * [Minimum Spanning Tree](Graph Theory/Minimum Spanning Tree.md)
+   * [Cheapest Flights Within K Stops](Graph Theory/Cheapest Flights Within K Stops.md)
 
 * Simulation Puzzle
    * [Missing Ranges](Simulation Puzzle/Missing Ranges.md)
-   * [Integer to Roman](Simulation Puzzle/Integer to Roman.md)
-   * [Roman to Integer](Simulation Puzzle/Roman to Integer.md)
    * [Find the Celebrity](Simulation Puzzle/Find the Celebrity.md)
    * [Largest Number](Simulation Puzzle/Largest Number.md)
    * [Strobogrammatic Number](Simulation Puzzle/Strobogrammatic Number.md)
