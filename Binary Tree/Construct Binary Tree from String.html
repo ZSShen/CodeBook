@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Binary Tree Vertical Order Traversal · GitBook</title>
+        <title>Construct Binary Tree from String · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Binary Tree Zig Zag Level Order Traversal.html" />
+    <link rel="next" href="Maximum Subtree.html" />
     
     
-    <link rel="prev" href="Find Leaves of Binary Tree.html" />
+    <link rel="prev" href="Construct Binary Tree from Preorder and Postorder Traversal.html" />
     
 
     </head>
@@ -2698,7 +2698,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.25.20" data-path="Binary Tree Vertical Order Traversal.html">
+        <li class="chapter " data-level="1.25.20" data-path="Binary Tree Vertical Order Traversal.html">
             
                 <a href="Binary Tree Vertical Order Traversal.html">
             
@@ -2776,7 +2776,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.25.26" data-path="Construct Binary Tree from String.html">
+        <li class="chapter active" data-level="1.25.26" data-path="Construct Binary Tree from String.html">
             
                 <a href="Construct Binary Tree from String.html">
             
@@ -5151,7 +5151,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Binary Tree Vertical Order Traversal</a>
+        <a href=".." >Construct Binary Tree from String</a>
     </h1>
 </div>
 
@@ -5167,8 +5167,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="problem">Problem</h1>
-<h3 id="leetcode-314-binary-tree-vertical-order-traversal">LeetCode 314. Binary Tree Vertical Order Traversal</h3>
-<p><a href="https://leetcode.com/problems/binary-tree-vertical-order-traversal" target="_blank">https://leetcode.com/problems/binary-tree-vertical-order-traversal</a></p>
+<h3 id="leetcode-536-construct-binary-tree-from-string">LeetCode 536. Construct Binary Tree from String</h3>
+<p><a href="https://leetcode.com/problems/construct-binary-tree-from-string" target="_blank">https://leetcode.com/problems/construct-binary-tree-from-string</a></p>
 <h1 id="solution">Solution</h1>
 <pre><code class="lang-c++"><span class="hljs-comment">/**
  * Definition for a binary tree node.
@@ -5183,55 +5183,55 @@
  */</span>
 <span class="hljs-keyword">class</span> Solution {
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; verticalOrder(TreeNode* root) {
+    <span class="hljs-function">TreeNode* <span class="hljs-title">str2tree</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
 
         <span class="hljs-comment">/**
-         *  Use level-order traversal. Also, classify a node using its column
-         *  index.
-         *
          *  TC: O(N), where
-         *      N is the number of nodes
+         *      N is the string length
          *
          *  SC: O(N)
          */</span>
 
-        <span class="hljs-keyword">if</span> (!root) {
-            <span class="hljs-keyword">return</span> {};
+        <span class="hljs-keyword">int</span> bgn = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> runPreOrder(s, bgn, s.length());
+    }
+
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-function">TreeNode* <span class="hljs-title">runPreOrder</span><span class="hljs-params">(
+            <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span>&amp; s,
+            <span class="hljs-keyword">int</span>&amp; bgn, <span class="hljs-keyword">int</span> end)</span> </span>{
+
+        <span class="hljs-keyword">if</span> (bgn == end) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
         }
 
-        <span class="hljs-built_in">queue</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; q;
-        q.push({root, <span class="hljs-number">0</span>});
-
-        <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; <span class="hljs-built_in">map</span>;
-        <span class="hljs-keyword">int</span> min_col = INT_MAX, max_col = INT_MIN;
-
-        <span class="hljs-keyword">while</span> (!q.empty()) {
-            <span class="hljs-keyword">auto</span> pair = q.front();
-            q.pop();
-
-            <span class="hljs-keyword">auto</span> node = pair.first;
-            <span class="hljs-keyword">int</span> col = pair.second;
-
-            <span class="hljs-built_in">map</span>[col].emplace_back(node-&gt;val);
-
-            min_col = min(min_col, col);
-            max_col = max(max_col, col);
-
-            <span class="hljs-keyword">if</span> (node-&gt;left) {
-                q.push({node-&gt;left, col - <span class="hljs-number">1</span>});
-            }
-            <span class="hljs-keyword">if</span> (node-&gt;right) {
-                q.push({node-&gt;right, col + <span class="hljs-number">1</span>});
-            }
+        <span class="hljs-keyword">bool</span> is_neg = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (s[bgn] == <span class="hljs-string">&apos;-&apos;</span>) {
+            is_neg = <span class="hljs-literal">true</span>;
+            ++bgn;
         }
 
-        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; ans;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = min_col ; i &lt;= max_col ; ++i) {
-            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>.count(i) == <span class="hljs-number">1</span>) {
-                ans.emplace_back(move(<span class="hljs-built_in">map</span>[i]));
-            }
+        <span class="hljs-keyword">int</span> val = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (<span class="hljs-built_in">isdigit</span>(s[bgn])) {
+            val = val * <span class="hljs-number">10</span> + s[bgn] - <span class="hljs-string">&apos;0&apos;</span>;
+            ++bgn;
         }
-        <span class="hljs-keyword">return</span> ans;
+        <span class="hljs-keyword">if</span> (is_neg) {
+            val = -val;
+        }
+
+        <span class="hljs-keyword">auto</span> root = <span class="hljs-keyword">new</span> TreeNode(val);
+
+        <span class="hljs-keyword">if</span> (bgn &lt; end &amp;&amp; s[bgn] == <span class="hljs-string">&apos;(&apos;</span>) {
+            root-&gt;left = runPreOrder(s, ++bgn, end);
+        }
+        <span class="hljs-keyword">if</span> (bgn &lt; end &amp;&amp; s[bgn] == <span class="hljs-string">&apos;(&apos;</span>) {
+            root-&gt;right = runPreOrder(s, ++bgn, end);
+        }
+
+        <span class="hljs-comment">// skip &apos;)&apos;</span>
+        ++bgn;
+        <span class="hljs-keyword">return</span> root;
     }
 };
 </code></pre>
@@ -5262,12 +5262,12 @@
 
             
                 
-                <a href="Find Leaves of Binary Tree.html" class="navigation navigation-prev " aria-label="Previous page: Find Leaves of Binary Tree">
+                <a href="Construct Binary Tree from Preorder and Postorder Traversal.html" class="navigation navigation-prev " aria-label="Previous page: Construct Binary Tree from Preorder and Postorder Traversal">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Binary Tree Zig Zag Level Order Traversal.html" class="navigation navigation-next " aria-label="Next page: Binary Tree Zig Zag Level Order Traversal">
+                <a href="Maximum Subtree.html" class="navigation navigation-next " aria-label="Next page: Maximum Subtree">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -5278,7 +5278,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Binary Tree Vertical Order Traversal","level":"1.25.20","depth":2,"next":{"title":"Binary Tree Zig Zag Level Order Traversal","level":"1.25.21","depth":2,"path":"Binary Tree/Binary Tree Zig Zag Level Order Traversal.md","ref":"Binary Tree/Binary Tree Zig Zag Level Order Traversal.md","articles":[]},"previous":{"title":"Find Leaves of Binary Tree","level":"1.25.19","depth":2,"path":"Binary Tree/Find Leaves of Binary Tree.md","ref":"Binary Tree/Find Leaves of Binary Tree.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Tree/Binary Tree Vertical Order Traversal.md","mtime":"2021-07-25T19:27:05.170Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-31T20:11:08.070Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Construct Binary Tree from String","level":"1.25.26","depth":2,"next":{"title":"Maximum Subtree","level":"1.25.27","depth":2,"path":"Binary Tree/Maximum Subtree.md","ref":"Binary Tree/Maximum Subtree.md","articles":[]},"previous":{"title":"Construct Binary Tree from Preorder and Postorder Traversal","level":"1.25.25","depth":2,"path":"Binary Tree/Construct Binary Tree from Preorder and Postorder Traversal.md","ref":"Binary Tree/Construct Binary Tree from Preorder and Postorder Traversal.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Binary Tree/Construct Binary Tree from String.md","mtime":"2021-07-27T06:10:19.132Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-31T20:11:08.070Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
