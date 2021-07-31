@@ -15,8 +15,10 @@ public:
          *
          *  SC: O(1)
          *
-         *  l: # of to be checked '('
-         *  r: # of to be checked ')'
+         *  l: # of to be matching '('.
+         *  r: # of the remaining ')'.
+         *
+         *  Try to maintain parenthesis balance on the fly.
          */
 
         int r = count(s.begin(), s.end(), ')'), l = 0;

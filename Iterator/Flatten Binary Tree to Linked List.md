@@ -6,98 +6,63 @@ https://www.lintcode.com/problem/flatten-binary-tree-to-linked-list/
 # Solution
 ```c++
 /**
- * Definition of TreeNode:
- * class TreeNode {
- * public:
+ * Definition for a binary tree node.
+ * struct TreeNode {
  *     int val;
- *     TreeNode *left, *right;
- *     TreeNode(int val) {
- *         this->val = val;
- *         this->left = this->right = NULL;
- *     }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-
 class Solution {
 public:
-    /**
-     * @param root: a TreeNode, the root of the binary tree
-     * @return: nothing
-     */
-    void flatten(TreeNode * root) {
-        // write your code here
+    void flatten(TreeNode* root) {
 
         /**
-         *  case 1: no child
+         *         1
+         *        / \
+         *       2   5
+         *      / \   \
+         *     3   4   6
          *
-         *      a
+         *         1
+         *          \
+         *           2
+         *          / \
+         *         3   4
+         *              \
+         *               5
+         *                \
+         *                 6
          *
-         *  case 2: Has a left child
-         *
-         *      a    a
-         *     /  =>  \
-         *    b        b  Return b as the last node.
-         *
-         *
-         *  case 3: Has a right child
-         *
-         *    a      a
-         *     \  =>  \
-         *      b      b  Return b as the last node.
-         *
-         *
-         *  case 4: Has two children
-         *
-         *     a         a      a
-         *    / \   =>  /   =>   \
-         *   b   c     b          b
-         *              \          \
-         *               c          c  Return c as the last node.
-         *
-         *
-         *  Demo:
-         *
-         *      1             1          1              1       1
-         *     / \           / \        / \            /         \
-         *    2   5    =>   2   5  =>  2   5      =>  2     =>    2
-         *   / \   \       /     \      \   \          \           \
-         *  3*  4*  6     3       6*     3   6*         3           3
-         *                 \              \              \           \
-         *                  4*             4*             4           4
-         *                                                 \           \
-         *                                                  5           5
-         *                                                   \           \
-         *                                                    6           6*
+         *          1
+         *           \
+         *            2
+         *             \
+         *              3
+         *               \
+         *                4
+         *                 \
+         *                  5
+         *                   \
+         *                    6
          */
 
-         runPostOrder(root);
-    }
+        while (curr) {
+            if (curr->left) {
+                auto pivot = curr->left;
+                while (pivot->right) {
+                    pivot = pivot->right;
+                }
 
-private:
-    TreeNode* runPostOrder(TreeNode* root) {
-
-        if (!root) {
-            return nullptr;
+                pivot->right = curr->right;
+                curr->right = curr->left;
+                curr->left = nullptr;
+            }
+            curr = curr->right;
         }
-
-        auto last_l = runPostOrder(root->left);
-        auto last_r = runPostOrder(root->right);
-
-        if (last_l) {
-            last_l->right = root->right;
-            root->right = root->left;
-            root->left = nullptr;
-        }
-
-        if (last_r) {
-            return last_r;
-        }
-
-        if (last_l) {
-            return last_l;
-        }
-
-        return root;
     }
 };
 ```
