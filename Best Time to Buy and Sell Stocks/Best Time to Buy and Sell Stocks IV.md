@@ -1,100 +1,71 @@
 
 # Problem
-### LintCode 393. Best Time to Buy and Sell Stocks IV
-https://www.lintcode.com/problem/best-time-to-buy-and-sell-stock-iv/description
+### LeetCode 188. Best Time to Buy and Sell Stock IV
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param K: An integer
-     * @param prices: An integer array
-     * @return: Maximum profit
-     */
-    int maxProfit(int k, vector<int> &prices) {
-        // write your code here
+    int maxProfit(int k, vector<int>& prices) {
 
         /**
-         * dp[i][j]: The maximum profits that we can get after we conduct at
-         *           most i transactions in the first j days.
+         *  TC: O(N * K), wherew
+         *      N is the number of days
          *
-         * dp[i][j] = MAX | no transaction on the jth day, dp[i][j - 1]
-         *                | otherwise,
-         *                |     MAX { (price[j] - price[h]) + dp[i - 1][h] }
-         *                     0<=h<j
-         *      O(k * n^2)
+         *  SC: O(K)
          *
-         * NOTE: Too many redundant computations here!
-         *
-         *   MAX { (price[j] - price[h]) + dp[i - 1][h] }
-         *  0<=h<j
-         *
-         *  In each day, we compare all the transaction values among the first
-         *  j - 1 days to determine the maximum profit for today. However, we
-         *  can use a cache to keep the maximum profit that can be aggregated
-         *  from the first j - 1 days. Hence, to decide the maximum profit for
-         *  today, we can compare that cache with the transaction made today,
-         *  thus reducing the complexity.
-         *
-         *   (price[j] - price[h]) + dp[i - 1][h]
-         *   price[j] + (dp[i - 1][h] -  price[h])
-         *              ^^^^^^^^^^^^^^^^^^^^^^^^^^ can be cached!
-         *
-         *  => price[j] + MaxDiff, determine the optimal value
-         *  => MaxDiff = MAX{ MaxDiff, dp[i - 1][j] - price[j]}, update the cache
-         *
-         *      O(kn)
-         */
+            dp[i][k][SOLD]: The maximum profits we can acquire
+                    if we hold nothing after k purchases (transactions)
+                    at the end of the ith day.
 
-        int n = prices.size();
-        if (n == 0 || k == 0) {
-            return 0;
-        }
+            dp[i][k][HOLD]: The maximum profits we can acquire
+                    if we still hold the stock after k purchases (transactions)
+                    at the end of the ith day.
 
-        if (k >= n / 2) {
-            int sum = 0;
-            for (int i = 1 ; i < n ; ++i) {
-                if (prices[i] > prices[i - 1]) {
-                    sum += prices[i] - prices[i - 1];
-                }
-            }
-            return sum;
-        }
 
-        std::vector<std::vector<int>> dp(k + 1, std::vector<int>(n, 0));
+            dp[i][k][SOLD] = MAX | dp[i - 1][k][SOLD]x`
+                                    , rest for today.
 
-        /*
-            O(k * n^2)
+                                 | dp[i - 1][k][HOLD] + prices[i]
+                                    , sell the stock today.
 
-        for (int i = 1 ; i <= k ; ++i) {
-            for (int j = 1 ; j < n ; ++j) {
-                int max = dp[i][j - 1];
+            dp[i][k][HOLD] = MAX | dp[i - 1][k][HOLD]
+                                    , rest for today.
 
-                for (int h = 0 ; h < j ; ++h) {
-                    max = std::max(max, dp[i - 1][h] +  prices[j] - prices[h]);
-                }
+                                 | dp[i - 1][k - 1][SOLD] - prices[i]
+                                    , make the kth purchase today.
 
-                dp[i][j] = max;
-            }
-        }
+            SOLD: holding nothing in hand
+
+            dp[-1][k][SOLD] = dp[i][0][SOLD] = 0
+            dp[-1][k][HOLD] = dp[i][0][HOLD] = INT_MIN (impossible to do so)
         */
 
-        // O(kn) with cache
+        int n = prices.size();
 
-        for (int i = 1 ; i <= k ; ++i) {
-            int max_diff = -prices[0];
+        if (k >= n / 2) {
+            // Solve using greedy approach.
+            int ans = 0;
+            for (int i = 1 ; i < n ; ++i) {
+                if (prices[i] > prices[i - 1]) {
+                    ans += prices[i] - prices[i - 1];
+                }
+            }
+            return ans;
+        }
 
-            for (int j = 1 ; j < n ; ++j) {
-                // Determine the optimal value.
-                dp[i][j] = std::max(dp[i][j - 1], prices[j] + max_diff);
+        vector<int> dp_sold(k + 1);
+        vector<int> dp_hold(k + 1, INT_MIN);
 
-                // Update the cache.
-                max_diff = std::max(max_diff, dp[i - 1][j] - prices[j]);
+        for (int price : prices) {
+            for (int j = 1 ; j <= k ; ++j) {
+                dp_hold[j] = max(dp_hold[j], dp_sold[j - 1] - price);
+                dp_sold[j] = max(dp_sold[j], dp_hold[j] + price);
             }
         }
 
-        return dp[k][n - 1];
+        return dp_sold[k];
     }
 };
 ```

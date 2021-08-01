@@ -1,34 +1,35 @@
 
 # Problem
-### LintCode 149. Best Time to Buy and Sell Stocks
-https://www.lintcode.com/problem/best-time-to-buy-and-sell-stock/description
+### LeetCode 121. Best Time to Buy and Sell Stock
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param prices: Given an integer array
-     * @return: Maximum profit
-     */
-    int maxProfit(vector<int> &prices) {
-        // write your code here
+    int maxProfit(vector<int>& prices) {
 
-        int size = prices.size();
-        if (size == 0) {
+        /**
+         *  TC: O(N), where
+         *      N is the number of days
+         *
+         *  SC: O(1)
+         */
+
+        int n = prices.size();
+        if (n < 2) {
             return 0;
         }
 
-        int opt = 0;
-        int min = prices[0];
+        int ans = 0;
+        int buy = prices[0];
 
-        for (int i = 1 ; i < size ; ++i) {
-            int diff = prices[i] - min;
-            opt = std::max(diff, opt);
-            min = std::min(prices[i], min);
+        for (int i = 1 ; i < n ; ++i) {
+            ans = max(ans, prices[i] - buy);
+            buy = min(buy, prices[i]);
         }
 
-        return opt;
+        return ans;
     }
 };
 ```

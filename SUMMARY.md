@@ -34,6 +34,9 @@
    * [3Sum Closest](Two Sum/3Sum Closest.md)
    * [3Sum Smaller](Two Sum/3Sum Smaller.md)
 
+* Non Overlapping Subarray using Rod
+   * [Split Array with Equal Sum](Non Overlapping Subarray using Rod/Split Array with Equal Sum.md)
+
 * Element Partition
    * [Move Zeros](Element Partition/Move Zeros.md)
    * [Partition Array](Element Partition/Partition Array.md)
@@ -92,6 +95,8 @@
    * [Best Time to Buy and Sell Stocks II](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks II.md)
    * [Best Time to Buy and Sell Stocks III](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks III.md)
    * [Best Time to Buy and Sell Stocks IV](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stocks IV.md)
+   * [Best Time to Buy and Sell Stock with Transaction Fee](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stock with Transaction Fee.md)
+   * [Best Time to Buy and Sell Stock with Cooldown](Best Time to Buy and Sell Stocks/Best Time to Buy and Sell Stock with Cooldown.md)
 
 * Knapsack Problem
    * [Backpack I](Knapsack Problem/Backpack I.md)
@@ -315,10 +320,13 @@
    * [Linked List Cycle](Linked List/Linked List Cycle.md)
    * [Linked List Cycle II](Linked List/Linked List Cycle II.md)
 
+* Maze
+   * [The Maze](Maze/The Maze.md)
+   * [The Maze II](Maze/The Maze II.md)
+   * [Minimum Moves to Move a Box to Their Target Location](Maze/Minimum Moves to Move a Box to Their Target Location.md)
+
 * General BFS
    * [Clone Graph](General BFS/Clone Graph.md)
-   * [The Maze](General BFS/The Maze.md)
-   * [The Maze II](General BFS/The Maze II.md)
    * [Shortest Path in a Grid with Obstacles Elimination](General BFS/Shortest Path in a Grid with Obstacles Elimination.md)
    * [Minimum Knight Moves](General BFS/Minimum Knight Moves.md)
 

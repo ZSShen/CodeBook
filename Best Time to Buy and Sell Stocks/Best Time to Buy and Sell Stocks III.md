@@ -1,57 +1,52 @@
 
 # Problem
-### LintCode 151. Best Time to Buy and Sell Stocks III
-https://www.lintcode.com/problem/best-time-to-buy-and-sell-stock-iii/description
+### LeetCode 123. Best Time to Buy and Sell Stock III
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param prices: Given an integer array
-     * @return: Maximum profit
-     */
-    int maxProfit(vector<int> &prices) {
-        // write your code here
+    int maxProfit(vector<int>& prices) {
 
         /**
-         *  buy_1st : The maximum profits that we can get after conducting
-         *            the first purchase.
+         *  TC: O(N), where
+         *      N is the number of days
          *
-         *  sell_1st: The maximum profits that we can get after conducting
-         *            the first selling.
+         *  SC: O(1)
          *
-         *  buy_2nd : The maximum profits that we can get after conducting
-         *            the second purchase.
-         *
-         *  sell_2nd: The maximum profits that we can get after conducting
-         *            the second selling.
-         *
-         *
-         *  price: The stock price of the ith day.
-         *
-         *  buy_1st  = MAX{ buy_1st, -price }
-         *  sell_1st = MAX{ sell_1st, buy_1st + price}
-         *  buy_2nd  = MAX{ buy_2nd, sell_1st - price }
-         *  sell_2nd = MAX{ sell_2nd, buy_2nd + price }
-         *  ^^^^^^^^
-         */
+            dp[i][2][SOLD] = MAX | dp[i - 1][2][SOLD]
+                                 | dp[i - 1][2][HOLD] + prices[i]
 
-        int buy_first = std::numeric_limits<int>::min();
-        int buy_second = std::numeric_limits<int>::min();
+            dp[i][2][HOLD] = MAX | dp[i - 1][2][HOLD]
+                                 | dp[i - 1][1][SOLD] - prices[i]
 
-        int sell_first = 0;
-        int sell_second = 0;
+            dp[i][1][SOLD] = MAX | dp[i - 1][1][SOLD]
+                                 | dp[i - 1][1][HOLD] + prices[i]
+
+            dp[i][1][HOLD] = MAX | dp[i - 1][1][HOLD]
+                                 | dp[i - 1][0][SOLD] - prices[i]
+
+            dp_2_sold, dp_2_hold
+            dp_1_sold, dp_1_hold
+
+            sold means not holding anything in hand.
+
+            dp_2_sold = dp_1_sold = 0
+            dp_2_hold = dp_1_hold = INT_MIN (impossible to do so)
+        */
+
+        int dp_2_sold = 0, dp_1_sold = 0;
+        int dp_2_hold = INT_MIN, dp_1_hold = INT_MIN;
 
         for (int price : prices) {
-            buy_first = std::max(buy_first, -price);
-            sell_first = std::max(sell_first, buy_first + price);
-
-            buy_second = std::max(buy_second, sell_first - price);
-            sell_second = std::max(sell_second, buy_second + price);
+            dp_1_hold = max(dp_1_hold, - price);
+            dp_1_sold = max(dp_1_sold, dp_1_hold + price);
+            dp_2_hold = max(dp_2_hold, dp_1_sold - price);
+            dp_2_sold = max(dp_2_sold, dp_2_hold + price);
         }
 
-        return sell_second;
+        return dp_2_sold;
     }
 };
 ```
