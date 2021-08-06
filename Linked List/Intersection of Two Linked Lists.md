@@ -23,38 +23,21 @@ public:
          *      N is the number of nodes of list B
          *
          *  SC: O(1)
+         *
+         *  A ________
+         *            \
+         *             \__________ C
+         *             /
+         *      B ____/
+         *
+         *  a + c + b = b + c + a
          */
 
-        auto a = headA;
-        auto b = headB;
-
-        int la = 0;
-        while (a) {
-            ++la;
-            a = a->next;
-        }
-
-        int lb = 0;
-        while (b) {
-            ++lb;
-            b = b->next;
-        }
-
-        a = headA;
-        b = headB;
-
-        while (la > lb) {
-            a = a->next;
-            --la;
-        }
-        while (lb > la) {
-            b = b->next;
-            --lb;
-        }
+        auto a = headA, b = headB;
 
         while (a != b) {
-            a = a->next;
-            b = b->next;
+            a = a ? a->next : headB;
+            b = b ? b->next : headA;
         }
 
         return a;

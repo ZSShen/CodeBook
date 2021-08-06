@@ -25,22 +25,24 @@ public:
          *      H is the height of the tree
          *
          *  SC: O(H)
+         *
+         *  A ________
+         *            \
+         *             \__________ C
+         *             /
+         *      B ____/
+         *
+         *  a + c + b = b + c + a
          */
 
-        unordered_set<Node*> set;
-        while (p) {
-            set.emplace(p);
-            p = p->parent;
+        auto cp = p, cq = q;
+
+        while (cp != cq) {
+            cp = cp ? cp->parent : q;
+            cq = cq ? cq->parent : p;
         }
 
-        while (q) {
-            if (set.count(q) == 1) {
-                return q;
-            }
-            q = q->parent;
-        }
-
-        return nullptr;
+        return cp;
     }
 };
 ```

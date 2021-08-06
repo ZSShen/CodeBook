@@ -1,130 +1,110 @@
 
 # Problem
-### LintCode 1222. Validate IP Address
-https://www.lintcode.com/problem/validate-ip-address/description
+### LeetCode 468. Validate IP Address
+https://leetcode.com/problems/validate-ip-address
 
 # Solution
 ```c++
 class Solution {
 public:
-    string validIPAddress(string IP) {
+    string validIPAddress(string s) {
 
-        auto pos = IP.find('.');
-        if (pos != std::string::npos) {
-            return isV4(IP) ? "IPv4" : "Neither";
+        auto index = s.find('.');
+        if (index != string::npos) {
+            return isV4(s) ? "IPv4" : "Neither";
         }
 
-        pos = IP.find(':');
-        if (pos != std::string::npos) {
-            return isV6(IP) ? "IPv6" : "Neither";
+        index = s.find(":");
+        if (index != string::npos) {
+            return isV6(s) ? "IPv6" : "Neither";
         }
 
         return "Neither";
     }
 
 private:
-    std::string getToken(const auto& str, int& bgn, int end, char delm) {
+    bool validV4Token(const string& s) {
 
-        if (bgn >= end) {
-            return "";
-        }
-
-        int base = bgn;
-        while (bgn < end && str[bgn] != delm) {
-            ++bgn;
-        }
-
-        auto token = str.substr(base, bgn - base);
-        ++bgn;
-        return token;
-    }
-
-    bool validV4Token(const auto& str) {
-
-        if (str.length() > 3) {
+        int n = s.length();
+        if (n == 0 || n >= 4) {
             return false;
         }
 
-        if (str.length() > 1 && str[0] == '0') {
+        if (n >= 2 && s[0] == '0') {
             return false;
         }
 
-        for (char ch : str) {
-            if (!('0' <= ch && ch <= '9')) {
+        for (char ch : s) {
+            if (!isdigit(ch)) {
                 return false;
             }
         }
+
         return true;
     }
 
-    bool validV6Token(const auto& str) {
+    bool validV6Token(const string& s) {
 
-        if (str.length() > 4) {
+        int n = s.length();
+        if (n == 0 || n >= 5) {
             return false;
         }
 
-        for (char ch : str) {
-            if (!(('0' <= ch && ch <= '9') ||
-                  ('a' <= ch && ch <= 'f') ||
-                  ('A' <= ch && ch <= 'F') )) {
+        for (char ch : s) {
+            if (!(isdigit(ch) ||
+                  'a' <= ch && ch <= 'f' ||
+                  'A' <= ch && ch <= 'F')) {
                 return false;
             }
         }
+
         return true;
     }
 
-    bool isV4(const auto& ip) {
+    bool isV4(const string& s) {
+
+        stringstream input(s);
+        string token;
 
         int count = 0;
-        int bgn = 0, end = ip.length();
 
-        if (ip[end - 1] == '.') {
-            return false;
-        }
-
-        while (true) {
-            auto token = getToken(ip, bgn, end, '.');
-
-            if (!validV4Token(token) || token.empty() || count > 4) {
-                break;
+        while (getline(input, token, '.')) {
+            if (!validV4Token(token)) {
+                return false;
             }
 
-            int value = std::stoi(token);
-            if (!(value >= 0 && value <= 255)) {
-                break;
+            int val = stoi(token);
+            if (val > 255) {
+                return false;
             }
 
             ++count;
         }
 
-        return count == 4;
+        return count == 4 && s.back() != '.';
     }
 
-    bool isV6(const auto& ip) {
+    bool isV6(const string& s) {
+
+        stringstream input(s);
+        string token;
 
         int count = 0;
-        int bgn = 0, end = ip.length();
 
-        if (ip[end - 1] == ':') {
-            return false;
-        }
-
-        while (true) {
-            auto token = getToken(ip, bgn, end, ':');
-
-            if (!validV6Token(token) || token.empty() || count > 8) {
-                break;
+        while (getline(input, token, ':')) {
+            if (!validV6Token(token)) {
+                return false;
             }
 
-            int value = std::stoi(token, 0, 16);
-            if (!(value >= 0 && value <= 65535)) {
-                break;
+            int val = stoi(token, 0, 16);
+            if (val > 65535) {
+                return false;
             }
 
             ++count;
         }
 
-        return count == 8;
+        return count == 8 && s.back() != ':';
     }
 };
 ```

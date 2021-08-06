@@ -1,55 +1,37 @@
 
 # Problem
-### LintCode 428. Pow(x, n)
-https://www.lintcode.com/problem/powx-n/description
+### LeetCode 50. Pow(x, n)
+https://leetcode.com/problems/powx-n
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param x: the base number
-     * @param n: the power number
-     * @return: the result
-     */
     double myPow(double x, int n) {
-        // write your code here
 
         /**
-         *   n^8 = n^4 x n^4
-         *       = (n^2 x n^2) x (n^2 x n^2)
+         *  TC: O(logN), where
+         *      N is the exponent
          *
-         *   n^9 = n^8 x n
-         *         ---
-         *
-         *  Corner Case: n maybe -2147483648
-         *               That's way we use long type to store the exponential.
+         *  SC: O(logN)
          */
 
-        if (n == 0) {
-            return 1;
-        }
-
-        long nn = n;
-        return (n > 0) ? genPow(x, nn) : 1 / genPow(x, -nn);
+        long e = n;
+        return (e >= 0) ? fastPow(x, e) : 1 / fastPow(x, -e);
     }
 
 private:
-    double genPow(double x, long n) {
+    double fastPow(double x, long e) {
 
-        if (n == 1) {
+        if (e == 0) {
+            return 1;
+        }
+        if (e == 1) {
             return x;
         }
 
-        long d = n >> 1;
-        double half = genPow(x, d);
-
-        double res = half * half;
-        if (d << 1 != n) {
-            res *= x;
-        }
-
-        return res;
+        double res = fastPow(x, e >> 1);
+        return (e % 2 == 0) ? res * res : res * res * x;
     }
 };
 ```

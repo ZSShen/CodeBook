@@ -1,67 +1,65 @@
 
 # Problem
-### LintCode 54. String to Integer (atoi)
-https://www.lintcode.com/problem/string-to-integer-atoi/description
+### LeetCode 8. String to Integer (atoi)
+https://leetcode.com/problems/string-to-integer-atoi
 
 # Solution
 ```c++
 class Solution {
 public:
-    /**
-     * @param str: A string
-     * @return: An integer
-     */
-    int atoi(string &str) {
-        // write your code here
+    int myAtoi(string str) {
 
-        int len = str.length();
+        /**
+         *  TC: O(N), where
+         *      N is the string length
+         *
+         *  SC: O(1)
+         */
+
+        int n = str.length();
         int i = 0;
 
-        if (i == len) {
+        // Skip the beginning white spaces.
+        while (i < n && str[i] == ' ') {
+            ++i;
+        }
+
+        if (i == n) {
             return 0;
         }
 
-        // Ignore the whitespaces before the first non-whitespace character.
-        while (i < len && str[i] == ' ') {
+        // Check if the number if positive or negative.
+        bool is_pos = true;
+        if (str[i] == '-') {
+            ++i;
+            is_pos = false;
+        } else if (str[i] == '+') {
             ++i;
         }
 
-        if (i == len) {
-            return 0;
-        }
+        // Extract the number.
+        long num = 0;
+        while (i < n && isdigit(str[i])) {
+            num = num * 10 + str[i] - '0';
 
-        // Be careful about the case: +-2, which is illegal.
-        bool positive = true;
-        if (str[i] == '+') {
-            ++i;
-        } else if (str[i] == '-') {
-            positive = false;
-            ++i;
-        }
-
-        // Process the integral part.
-        long sum = 0;
-        while (i < len && ('0' <= str[i] && str[i] <= '9')) {
-            sum *= 10;
-            sum += (str[i] - '0');
-            if (sum > INT_MAX) {
+            if (num > INT_MAX) {
                 break;
             }
+
             ++i;
         }
 
-        if (!positive) {
-            sum = -sum;
+        if (!is_pos) {
+            num = -num;
         }
 
-        if (sum > INT_MAX) {
-            return INT_MAX;
-        }
-        if (sum < INT_MIN) {
+        if (num < INT_MIN) {
             return INT_MIN;
+        } else if (num > INT_MAX) {
+            return INT_MAX;
+        } else {
+            return num;
         }
-
-        return sum;
     }
 };
 ```

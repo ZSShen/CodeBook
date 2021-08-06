@@ -1,7 +1,7 @@
 
 # Problem
-### LintCode 417. Valid Number
-https://www.lintcode.com/problem/valid-number/description
+### LeetCode 65. Valid Number
+https://leetcode.com/problems/valid-number
 
 # Solution
 ```c++
@@ -10,99 +10,83 @@ public:
     bool isNumber(string s) {
 
         /**
-         * Decompose the number format:
+         *  TC: O(N), where
+         *      N is the string length
          *
-         * (): Include the necessary part.
-         * []: Include the optional part.
+         *  SC: O(N)
          *
-         * [+/-] (Real Number) [Exponent [+/-] (Integer)]
-         *                                     *********
-         * Once we encounter a exponent symbol, then the remaining integer
-         * becomes necessary now.
+         *  Decompose the number format:
          *
-         * Real Number: abcd
-         *              abcd.ef
-         *              abce.
+         *  (): Include the necessary part.
+         *  []: Include the optional part.
+         *
+         *  [+/-] (Real Number) [Exponent [+/-] (Integer)]
+         *                                      *********
+         *  Once we encounter a exponent symbol, then the remaining integer
+         *  becomes necessary now.
+         *
+         *  Real Number: abcd
+         *               abcd.ef
+         *               abce.
          */
 
-        auto str = trim(s);
+        s = trim(s);
 
-        int len = str.length();
-        int i = 0;
-        if (i == len) {
-            return false;
-        }
+        int n = s.length(), i = 0;
+        s.push_back(' ');
 
-        // Patch a dummy white space at the back of the string.
-        str.push_back(' ');
-
-        // Check the optional +/- signs.
-        if (str[i] == '+' || str[i] == '-') {
+        // Check for the optional -/+
+        if (s[i] == '-' || s[i] == '+') {
             ++i;
         }
 
-        // Check the necessary real number.
-        int count_num = 0;
-        int count_dot = 0;
-        while (('0' <= str[i] && str[i] <= '9') || str[i] == '.') {
-            if ('0' <= str[i] && str[i] <= '9') {
-                ++count_num;
-            }
-            if (str[i] == '.') {
+        int count_digit = 0, count_dot = 0;
+        while (isdigit(s[i]) || s[i] == '.') {
+            if (s[i] == '.') {
                 ++count_dot;
+            } else {
+                ++count_digit;
             }
             ++i;
         }
 
-        if (count_num == 0 || count_dot > 1) {
+        if (count_digit == 0 || count_dot > 1) {
             return false;
         }
 
-        // Step into the checking for the optional exponent.
-        if (str[i] == 'e') {
+        // Check for the optional e/E
+        if (s[i] == 'e' || s[i] == 'E') {
             ++i;
 
-            // If we already visit the exponent symbol, the remaining integer
-            // now becomes necessary.
-
-            if (str[i] == '+' || str[i] == '-') {
+            // Check for the optional -/+
+            if (s[i] == '-' || s[i] == '+') {
                 ++i;
             }
 
-            if (i == len) {
-                // 123e
-                // 123e+
-                // 123e-
+            int count_digit = 0;
+            while (isdigit(s[i])) {
+                ++count_digit;
+                ++i;
+            }
 
+            if (count_digit == 0) {
                 return false;
             }
-
-            // Check the final necessary integer.
-            while ('0' <= str[i] && str[i] <= '9') {
-                ++i;
-            }
         }
 
-        return i == len;
+        return i == n;
     }
 
 private:
-    std::string trim(const std::string& str) {
+    string trim(const string& s) {
 
-        // Trim the white spaces before the real number and
-        // the white spaces after the integer.
-
-        auto bgn = str.find_first_not_of(' ');
-        if (bgn == std::string::npos) {
-            return str;
+        auto bgn = s.find_first_not_of(' ');
+        if (bgn == string::npos) {
+            return s;
         }
 
-        auto end = str.find_last_not_of(' ');
-        if (end == std::string::npos) {
-            return str;
-        }
-
-        return str.substr(bgn, end - bgn + 1);
+        auto end = s.find_last_not_of(' ');
+        return s.substr(bgn, end - bgn + 1);
     }
 };
 ```
